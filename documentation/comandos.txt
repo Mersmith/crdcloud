@@ -1,0 +1,27 @@
+php artisan make:model Sede -msf
+
+php artisan make:model Especialidad -msf
+
+php artisan make:model Administrador -msf
+
+php artisan make:model Odontologo -msf
+
+php artisan make:model Paciente -msf
+
+php artisan make:model Clinica -msf
+
+php artisan make:model Departamento -msf
+
+php artisan make:model Provincia -msf
+
+php artisan make:model Distrito -msf
+
+php artisan make:model Direccion -msf
+
+php artisan migrate
+
+php artisan migrate:fresh --seed
+
+php artisan make:seeder UserSeeder
+
+->En Actions/Fortify/CreateNewUser.php comentar los campos name
