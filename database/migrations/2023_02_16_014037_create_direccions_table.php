@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('departamento_nombre');
             $table->string('provincia_nombre');
             $table->string('distrito_nombre');
-            $table->string('codigo_postal');
+            $table->string('codigo_postal')->nullable();
             $table->integer('posicion')->default(1);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

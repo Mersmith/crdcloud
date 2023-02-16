@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('celular')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->enum('genero', ['hombre', 'mujer']);
-            $table->integer('puntos')->nullable()->default(0);
             $table->string('rol')->nullable()->default("paciente");
 
             $table->foreign('odontologo_id')->references('id')->on('odontologos')->onDelete('set null');

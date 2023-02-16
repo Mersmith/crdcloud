@@ -1,0 +1,238 @@
+***************************USER************************
+//Muestra todos los usuarios
+$usuarios = User::all();
+
+//Mostrar la cantidad de usuarios
+$cantidadUsuarios = User::count();
+
+//Mostrar la cantidad de usuarios por filtro rol
+$cantidadUsuariosAdministradores = User::where('rol', 'administrador')->count();
+
+//Muestra todos los usuarios que son administradores
+User::whereHas('administrador')->get();
+
+***************************ADMINISTRADOR************************
+//Muestra todos los administradores
+$administradores = Administrador::all();
+
+//Mostrar la cantidad de administradores
+$cantidadAdministradores = Administrador::count();
+
+//Muestra los administradores por el id de la Sede
+$id = 5;
+$sede = Sede::find($id); // $id es el ID de la sede que quieres consultar
+$administradores = $sede->administradores;
+
+//Muestra los administradores por el id de la Sede
+$id = 5;
+$elementos = Administrador::whereHas('sede', function($query) use ($id) {
+    $query->where('id', $id);
+})->get();
+
+***************************SEDES************************
+//Muestra las sedes con su cantidad de administradores
+$sedesConCantidadDeAdministradores = Sede::withCount('administradores')->get(); //Relacion administradores
+
+foreach ($sedesConCantidadDeAdministradores as $sede) {
+    $cantidadDeAdministradores = $sede->administradores_count; //Atributo dinámico
+    echo "La sede $sede->nombre tiene $cantidadDeAdministradores administrador(es)." . PHP_EOL;
+}
+
+//Muestra las sedes con su cantidad de odontologos
+$sedesConCantidadDeOdontologos = Sede::withCount('odontologos')->get(); //Relacion odontologos
+
+foreach ($sedesConCantidadDeOdontologos as $sede) {
+    $cantidadDeOdontologos = $sede->odontologos_count; //Atributo dinámico
+    echo "La sede $sede->nombre tiene $cantidadDeOdontologos odontologo(s)." . PHP_EOL;
+}
+
+//Muestra las sedes con su cantidad de odontologos
+$sedes = Sede::withCount('odontologos')->get();
+
+foreach ($sedes as $sede) {
+    echo "La sede {$sede->nombre} tiene {$sede->odontologos_count} odontologo(s).\n";
+}
+
+//Muestra las sedes con su cantidad de odontologos ordenando la cantidad de menor a mayor
+$sedesConCantidadDeOdontologos = Sede::withCount('odontologos')
+            ->orderBy('odontologos_count', 'asc')
+            ->get();
+
+foreach ($sedesConCantidadDeOdontologos as $sede) {
+    echo "La sede {$sede->nombre} tiene {$sede->odontologos_count} odontólogos.\n";
+}
+
+***************************ODONTOLOGO************************
+//Muestra todos los odontologos
+$odontologos = Odontologo::all();
+
+//Mostrar la cantidad de odontologos
+$cantidadOdontologos = Odontologo::count();
+
+//Muestra los odontologos por el id de la Sede
+$id = 5;
+$sede = Sede::find($id); // $id es el ID de la sede que quieres consultar
+$odontologos = $sede->odontologos;
+
+//Muestra la cantidad de odontologos por el id de la Sede
+$id = 5;
+$sede = Sede::withCount('odontologos')->find($id);
+$cantidadOdontologos = $sede->odontologos_count;
+
+//Muestra los odontologos por cada sede ordenando por la cantidad de odontologos
+ $sedes = Sede::withCount('odontologos')->with('odontologos')->orderBy('odontologos_count', 'asc')->get();
+
+foreach ($sedes as $sede) {
+    echo "Sede: " . $sede->nombre . " (cantidad de odontólogos: " . $sede->odontologos_count . ")\n";
+    foreach ($sede->odontologos as $odontologo) {
+        echo "- " . $odontologo->nombre . " " . $odontologo->apellido . "\n";
+    }
+    echo "\n";
+}
+
+//Muestra los odontologos por el id de la Especialidad
+$id = 5;
+$especialidad = Especialidad::find($id); // $id es el ID de la sede que quieres consultar
+$odontologos = $especialidad->odontologos;
+
+//Muestra la cantidad de odontologos por el id de la Especialidad
+$id = 5;
+$especialidad = Especialidad::withCount('odontologos')->find($id);
+$cantidadOdontologos = $especialidad->odontologos_count;
+
+//Muestra las odontologos por cada especialidad ordenando por la cantidad de odontologos
+$especialidades = Especialidad::withCount('odontologos')->with('odontologos')->orderBy('odontologos_count', 'asc')->get();
+
+foreach ($especialidades as $especialidad) {
+    echo "Especialidad: " . $especialidad->nombre . " (cantidad de odontólogos: " . $especialidad->odontologos_count . ")\n";
+    foreach ($especialidad->odontologos as $odontologo) {
+        echo "- " . $odontologo->nombre . " " . $odontologo->apellido . "\n";
+    }
+    echo "\n";
+}
+
+***************************ESPECIALIDAD************************
+//Muestra todas las especialidades
+$especialidades = Especialidad::all();
+
+//Mostrar la cantidad de especialidades
+$cantidadEspecialidades = Especialidad::count();
+
+//Muestra las especialidades con su cantidad de odontologos
+$especialidadesConCantidadDeOdontologos = Especialidad::withCount('odontologos')->get(); //Relacion odontologos
+
+foreach ($especialidadesConCantidadDeOdontologos as $especialidad) {
+    $cantidadDeOdontologos = $especialidad->odontologos_count; //Atributo dinámico
+    echo "La especialidad $especialidad->nombre tiene $cantidadDeOdontologos odontologo(s)." . PHP_EOL;
+}
+
+//Muestra las especialidades con su cantidad de odontologos ordenando la cantidad de menor a mayor
+$especialidadesConCantidadDeOdontologos = Especialidad::withCount('odontologos')
+            ->orderBy('odontologos_count', 'asc')
+            ->get();
+
+foreach ($especialidadesConCantidadDeOdontologos as $especialidad) {
+    echo "La especialidad {$especialidad->nombre} tiene {$especialidad->odontologos_count} odontólogos.\n";
+}
+
+***************************PACIENTE************************
+//Muestra todas las pacientes
+$pacientes = Paciente::all();
+
+//Mostrar la cantidad de pacientes
+$cantidadPacientes = Paciente::count();
+
+//Todos los pacientes de un odontologo
+$odontologo = Odontologo::find(1);
+$pacientes = $odontologo->pacientes;
+
+//Obtener el odontologo del paciente
+$paciente = Paciente::find(1);
+$odontologo = $paciente->odontologo;
+
+//Mostrar los pacientes con sus odontologos
+$pacientesConOdontologo = Paciente::where('odontologo_id', '!=', null)->with('odontologo')->get();
+
+foreach ($pacientesConOdontologo as $paciente) {
+    echo $paciente->nombre . ' - ' . $paciente->odontologo->nombre . ', ';
+}
+
+//Mostrar los pacientes con sus odontologos
+$pacientesConOdontologo = Paciente::has('odontologo')->with('odontologo')->get();
+
+foreach ($pacientesConOdontologo as $paciente) {
+    echo $paciente->nombre . ' - ' . $paciente->odontologo->nombre;
+}
+
+//Mostrar todos los pacientes con el nombre su odontologo o de su clinica
+$pacientes = DB::table('pacientes')
+            ->leftJoin('clinicas', 'pacientes.clinica_id', '=', 'clinicas.id')
+            ->leftJoin('odontologos', 'pacientes.odontologo_id', '=', 'odontologos.id')
+            ->select('pacientes.id', 'pacientes.nombre', 'pacientes.apellido', 'clinicas.nombre AS nombre_clinica', 'odontologos.nombre AS nombre_odontologo')
+            ->get();
+
+foreach ($pacientes as $paciente) {
+    if ($paciente->nombre_clinica != null) {
+        echo $paciente->nombre . ' ' . $paciente->apellido . ' - ' . 'Clinica: ' . $paciente->nombre_clinica . '<br>';
+    } elseif ($paciente->nombre_odontologo != null) {
+        echo $paciente->nombre . ' ' . $paciente->apellido . ' - ' . 'Odontologo: '. $paciente->nombre_odontologo . '<br>';
+    } else {
+        echo $paciente->nombre . ' ' . $paciente->apellido . ' - Sin asignar<br>';
+    }
+}
+
+//Mostrar todos los pacientes con el nombre su odontologo
+$pacientes = DB::table('pacientes')
+            ->join('odontologos', 'pacientes.odontologo_id', '=', 'odontologos.id')
+            ->select('pacientes.id', 'pacientes.nombre', 'pacientes.apellido', 'odontologos.nombre AS nombre_odontologo')
+            ->get();
+
+foreach ($pacientes as $paciente) {
+    echo $paciente->nombre . ' ' . $paciente->apellido . ' - ' . $paciente->nombre_odontologo . '<br>';
+}
+
+
+***************************DIRECCION************************
+//Direcciones de un usuario
+$usuario = User::find(1);
+$direcciones = $usuario->direcciones;
+
+//Direcciones de un odontologo
+$odontologo = Odontologo::find(1);
+$usuario = $odontologo->usuario->direcciones;
+
+//Todos los usuarios por un distrito
+$distritoId = 5;
+
+$distrito = Distrito::find($distritoId);
+$usuarios = $distrito->usuarios;
+
+//Muetra todos los usuarios que tienen distrito
+$usuarios = User::whereHas('direcciones', function($query) {
+            $query->whereHas('distrito');
+        })->with('direcciones.distrito')->get();
+
+//Muestra todos la cantidad de usuarios por distrito
+$usuariosPorDistrito = Distrito::select('distritos.nombre', DB::raw('count(users.id) as cantidad'))
+    ->leftJoin('direccions', 'distritos.id', '=', 'direccions.distrito_id')
+    ->leftJoin('users', 'direccions.user_id', '=', 'users.id')
+    ->groupBy('distritos.nombre')
+    ->get();
+
+//Muestra todos la cantidad de usuarios por distrito que pertenecen a una provincia
+$provinciaId = 1; // ID de la provincia que deseas obtener
+
+$usuariosPorDistrito = Distrito::whereHas('direcciones', function ($query) use ($provinciaId) {
+    $query->where('provincia_id', $provinciaId);
+})
+->with('direcciones.usuarios')
+->get();
+
+//Muestra todos la cantidad de usuarios por distrito que pertenecen a una provincia
+$provincia_id = 1; // ID de la provincia de interés
+
+$usuarios = User::whereHas('direcciones', function($query) use ($provincia_id) {
+    $query->whereHas('distrito', function($query) use ($provincia_id) {
+        $query->where('provincia_id', $provincia_id);
+    });
+})->with('direcciones.distrito', 'direcciones.usuarios')->get();

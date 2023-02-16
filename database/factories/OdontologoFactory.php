@@ -28,7 +28,7 @@ class OdontologoFactory extends Factory
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
             'dni' => $this->faker->unique()->randomNumber(),
-            'cop' => $this->faker->unique()->randomNumber(),
+            'cop' => $this->faker->unique()->numberBetween(100000, 999999),
             'celular' => $this->faker->phoneNumber(),
             'fecha_nacimiento' => $this->faker->dateTimeInInterval('-3 months', '+1 months'),
             'genero' => $this->faker->randomElement(['hombre', 'mujer']),
