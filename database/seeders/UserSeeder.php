@@ -6,6 +6,7 @@ use App\Models\Administrador;
 use App\Models\Clinica;
 use App\Models\Especialidad;
 use App\Models\Odontologo;
+use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,7 +20,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(5)->create([
+        User::factory(2)->create([
             'rol' => 'administrador',
         ])->each(function (User $usuario) {
             Administrador::factory(1)->create([
@@ -28,7 +29,7 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        User::factory(5)->create([
+        User::factory(2)->create([
             'rol' => 'odontologo',
         ])->each(function (User $usuario) {
             Odontologo::factory(1)->create([
@@ -37,10 +38,19 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        User::factory(5)->create([
+        User::factory(2)->create([
             'rol' => 'clinica',
         ])->each(function (User $usuario) {
             Clinica::factory(1)->create([
+                'user_id' => $usuario->id,
+                'email' => $usuario->email,
+            ]);
+        });
+
+        User::factory(2)->create([
+            'rol' => 'paciente',
+        ])->each(function (User $usuario) {
+            Paciente::factory(1)->create([
                 'user_id' => $usuario->id,
                 'email' => $usuario->email,
             ]);

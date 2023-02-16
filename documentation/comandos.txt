@@ -18,6 +18,8 @@ php artisan make:model Distrito -msf
 
 php artisan make:model Direccion -msf
 
+php artisan make:model Servicio -msf
+
 php artisan migrate
 
 php artisan migrate:fresh --seed
@@ -25,3 +27,44 @@ php artisan migrate:fresh --seed
 php artisan make:seeder UserSeeder
 
 ->En Actions/Fortify/CreateNewUser.php comentar los campos name
+
+->Instalar paquetes
+composer install
+npm install
+
+php artisan key:generate
+
+/*Controlador de Inicio*/
+php artisan make:controller Web/InicioController
+
+php artisan make:model Venta -msf
+
+php artisan make:model VentaDetalle -msf
+
+php artisan make:model Imagen -msf
+
+php artisan make:model Informe -msf
+
+php artisan make:model Canjeo -msf
+
+php artisan make:model CanjeoDetalle -msf
+
+->CRUD Odontologo
+php artisan make:livewire Administrador/Odontologo/OdontologoTodoPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoCrearPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoEditarPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoVerPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoPacientePagina
+php artisan make:livewire Administrador/Odontologo/OdontologoDireccionPagina
+
+php artisan vendor:publish --tag=jetstream-views
+
+
+git checkout -b 3_Modificacion
+git branch
+git status
+
+git add .
+git commit -m "3_Modificacion"
+git push origin 3_Modificacion
+->Click en boton Merge pull request

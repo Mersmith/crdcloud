@@ -58,4 +58,30 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function administrador()
+    {
+        return $this->hasOne(Administrador::class, 'user_id', 'id');
+    }
+
+    public function odontologo()
+    {
+        return $this->hasOne(Odontologo::class, 'user_id', 'id');
+    }
+
+    public function clinica()
+    {
+        return $this->hasOne(Clinica::class, 'user_id', 'id');
+    }
+
+    public function paciente()
+    {
+        return $this->hasOne(Paciente::class, 'user_id', 'id');
+    }
+
+    public function direcciones()
+    {
+        return $this->hasMany(Direccion::class);
+    }
+
 }

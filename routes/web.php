@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\InicioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', InicioController::class)->name('inicio');
 
 Route::middleware([
     'auth:sanctum',
