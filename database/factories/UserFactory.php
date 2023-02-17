@@ -30,6 +30,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('123456789'),
             //'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'dni' => $this->faker->unique()->numberBetween(1000000, 9999999),
+            'cop' => $this->faker->unique()->numberBetween(100000, 999999),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),

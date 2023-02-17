@@ -21,6 +21,7 @@ class OdontologoTodoPagina extends Component
     {
         $odontologos = Odontologo::where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
             ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%')
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view('livewire.administrador.odontologo.odontologo-todo-pagina', compact('odontologos'))->layout('layouts.administrador.index');

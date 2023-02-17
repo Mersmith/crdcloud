@@ -39,7 +39,6 @@ class PacienteFactory extends Factory
             'clinica_id' => $clinicas_id,
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
-            'dni' => $this->faker->unique()->randomNumber(),
             'celular' => $this->faker->phoneNumber(),
             'fecha_nacimiento' => $this->faker->dateTimeInInterval('-3 months', '+1 months'),
             'genero' => $this->faker->randomElement(['hombre', 'mujer']),

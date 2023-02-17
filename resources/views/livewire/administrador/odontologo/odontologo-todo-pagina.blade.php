@@ -101,10 +101,10 @@
                                             {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->dni }}
+                                            {{ $odontologo->user->dni }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->cop }}
+                                            {{ $odontologo->user->cop }}
                                         </td>
                                         <td>
                                             {{ $odontologo->celular }}

@@ -26,8 +26,6 @@ class ClinicaFactory extends Factory
             'sede_id' => $sede->id,
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
-            'dni' => $this->faker->unique()->randomNumber(),
-            'cop' => $this->faker->unique()->randomNumber(),
             'celular' => $this->faker->phoneNumber(),
             'fecha_nacimiento' => $this->faker->dateTimeInInterval('-3 months', '+1 months'),
             'genero' => $this->faker->randomElement(['hombre', 'mujer']),
