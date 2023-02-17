@@ -119,7 +119,7 @@
                                             {{ $odontologo->puntos }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.odontologo.ver', $odontologo) }}">
+                                            <a href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
                                                 <i class="fa-solid fa-eye" style="color: #009eff;"></i>
                                             </a>
                                             |

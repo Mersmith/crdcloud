@@ -33,7 +33,7 @@
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>PACIENTES</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -66,8 +66,6 @@
                                     <th>
                                         DNI</th>
                                     <th>
-                                        COP</th>
-                                    <th>
                                         Celular</th>
                                     <th>
                                         Fecha Nacimiento</th>
@@ -96,9 +94,6 @@
                                             {{ $paciente->user->dni }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->cop }}
-                                        </td>
-                                        <td>
                                             {{ $paciente->celular }}
                                         </td>
                                         <td>
@@ -108,7 +103,7 @@
                                             {{ $paciente->genero }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.paciente.odontologo', $paciente) }}">
+                                            <a href="{{ route('administrador.paciente.informacion', $paciente) }}">
                                                 <i class="fa-solid fa-eye" style="color: #009eff;"></i>
                                             </a>
                                             |

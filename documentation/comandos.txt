@@ -10,6 +10,10 @@ php artisan make:model Paciente -msf
 
 php artisan make:model Clinica -msf
 
+php artisan make:model OdontologoPaciente -msf
+
+php artisan make:model ClinicaPaciente -msf
+
 php artisan make:model Departamento -msf
 
 php artisan make:model Provincia -msf
@@ -53,10 +57,13 @@ php artisan make:model CanjeoDetalle -msf
 php artisan make:livewire Administrador/Odontologo/OdontologoTodoPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoCrearPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoEditarPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoVerPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoPacientePagina
-php artisan make:livewire Administrador/Odontologo/OdontologoVentaPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoDireccionPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoInformacionPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoPacienteTodoPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoPacienteCrearPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoPacienteEditarPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoDireccionCrearPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoDireccionEditarPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoVentaTodoPagina
 
 php artisan vendor:publish --tag=jetstream-views
 
@@ -75,10 +82,9 @@ git push origin 3_Modificacion
 php artisan make:livewire Administrador/Paciente/PacienteTodoPagina
 php artisan make:livewire Administrador/Paciente/PacienteCrearPagina
 php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
-php artisan make:livewire Administrador/Paciente/PacienteVerPagina
-php artisan make:livewire Administrador/Paciente/PacienteOdontologoPagina
-php artisan make:livewire Administrador/Paciente/PacienteVentaPagina
-php artisan make:livewire Administrador/Paciente/PacienteDireccionPagina
+php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
+php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
 
 git checkout -b 4_Modificacion
 git branch
@@ -87,4 +93,13 @@ git status
 git add .
 git commit -m "4_Modificacion"
 git push origin 4_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 5_Modificacion
+git branch
+git status
+
+git add .
+git commit -m "5_Modificacion"
+git push origin 5_Modificacion
 ->Click en boton Merge pull request

@@ -11,7 +11,7 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.odontologo.crear') }}">
+            <a href="{{ route('administrador.paciente.crear') }}">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
@@ -24,8 +24,8 @@
             <!--BUSCADOR-->
             <div class="contenedor_panel_producto_admin formulario">
                 <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Buscar producto: <span class="campo_opcional">(Opcional)</span> </p>
-                    <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
+                    <p class="estilo_nombre_input">Buscar paciente: <span class="campo_opcional">(Opcional)</span> </p>
+                    <input type="text" wire:model="buscarPaciente" placeholder="Buscar...">
                 </div>
             </div>
 
@@ -33,7 +33,7 @@
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>PACIENTES</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -66,8 +66,6 @@
                                     <th>
                                         DNI</th>
                                     <th>
-                                        COP</th>
-                                    <th>
                                         Celular</th>
                                     <th>
                                         Fecha Nacimiento</th>
@@ -96,9 +94,6 @@
                                             {{ $paciente->user->dni }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->cop }}
-                                        </td>
-                                        <td>
                                             {{ $paciente->celular }}
                                         </td>
                                         <td>
@@ -108,7 +103,7 @@
                                             {{ $paciente->genero }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.paciente.ver', $paciente) }}">
+                                            <a href="{{ route('administrador.paciente.informacion', $paciente) }}">
                                                 <i class="fa-solid fa-eye" style="color: #009eff;"></i>
                                             </a>
                                             |

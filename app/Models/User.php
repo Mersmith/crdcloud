@@ -27,6 +27,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'dni',
+        'cop',
     ];
 
     /**
@@ -79,9 +81,9 @@ class User extends Authenticatable
         return $this->hasOne(Paciente::class, 'user_id', 'id');
     }
 
-    public function direcciones()
+    public function direccion()
     {
-        return $this->hasMany(Direccion::class);
+        return $this->hasOne(Direccion::class);
     }
 
 }

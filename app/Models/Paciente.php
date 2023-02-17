@@ -21,14 +21,13 @@ class Paciente extends Model
         return $this->belongsTo(Sede::class);
     }
 
-    public function odontologo()
+    public function odontologos()
     {
-        return $this->belongsTo(Odontologo::class);
+        return $this->belongsToMany(Odontologo::class);
     }
 
-    public function clinica()
+    public function clinicas()
     {
-        return $this->belongsTo(Clinica::class);
+        return $this->belongsToMany(Clinica::class);
     }
-
 }

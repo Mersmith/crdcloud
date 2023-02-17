@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\Administrador\Paciente;
+namespace App\Http\Livewire\Administrador\Odontologo;
 
-use App\Models\Clinica;
 use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
-class PacienteEditarPagina extends Component
+class OdontologoPacienteEditarPagina extends Component
 {
-    protected $listeners = ['eliminarPaciente'];
-
-    public $usuario_paciente;
+    public $odontologo;
     public $paciente;
+    public $usuario_paciente;
 
     public
         $nombre,
@@ -62,10 +60,11 @@ class PacienteEditarPagina extends Component
         'genero.required' => 'El :attribute es requerido.',
     ];
 
-    public function mount(Paciente $paciente)
+    public function mount(Odontologo $odontologo, Paciente $paciente)
     {
-        $this->usuario_paciente = $paciente->user;
+        $this->odontologo = $odontologo;
         $this->paciente = $paciente;
+        $this->usuario_paciente = $paciente->user;
 
         $this->nombre = $paciente->nombre;
         $this->apellido = $paciente->apellido;
@@ -117,11 +116,11 @@ class PacienteEditarPagina extends Component
         }
 
         $this->emit('mensajeActualizado', "Editado.");
-        //return redirect()->route('administrador.odontologo.index');
+        //return redirect()->route('administrador.odontologo.paciente.todo');
     }
 
     public function render()
     {
-        return view('livewire.administrador.paciente.paciente-editar-pagina')->layout('layouts.administrador.index');
+        return view('livewire.administrador.odontologo.odontologo-paciente-editar-pagina')->layout('layouts.administrador.index');
     }
 }

@@ -22,7 +22,7 @@ class PacienteFactory extends Factory
     {
         $sede = Sede::all()->random();
 
-        $odontologos_ids = DB::table('odontologos')->pluck('id')->toArray();
+        /*$odontologos_ids = DB::table('odontologos')->pluck('id')->toArray();
         $clinicas_ids = DB::table('clinicas')->pluck('id')->toArray();
 
         if ($this->faker->boolean()) {
@@ -31,12 +31,12 @@ class PacienteFactory extends Factory
         }else{
             $odontologos_id = null;
             $clinicas_id = $this->faker->randomElement($clinicas_ids);
-        }
+        }*/
 
         return [
             'sede_id' => $sede->id,
-            'odontologo_id' => $odontologos_id,
-            'clinica_id' => $clinicas_id,
+            //'odontologo_id' => $odontologos_id,
+            //'clinica_id' => $clinicas_id,
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
             'celular' => $this->faker->phoneNumber(),
