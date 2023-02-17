@@ -119,7 +119,7 @@
                                             {{ $odontologo->puntos }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.odontologo.ver', $odontologo) }}">
+                                            <a href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
                                                 <i class="fa-solid fa-eye" style="color: #009eff;"></i>
                                             </a>
                                             |
@@ -139,11 +139,11 @@
                 </div>
             </div>
 
-            {{--@if ($odontologos->hasPages())
+            @if ($odontologos->hasPages())
                 <div>
                     {{ $odontologos->links('pagination::tailwind') }}
                 </div>
-            @endif--}}
+            @endif
         @else
             <div class="contenedor_no_existe_elementos">
                 <p>No hay elementos</p>

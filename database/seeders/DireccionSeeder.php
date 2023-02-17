@@ -20,7 +20,7 @@ class DireccionSeeder extends Seeder
         $departamentos = DB::table('departamentos')->get();
 
         // Crear direcciones para cada usuario
-        $usuarios = DB::table('users')->pluck('id');
+        $usuarios = DB::table('users')->where('rol', '<>', 'administrador')->pluck('id');
 
         foreach ($usuarios as $usuario_id) {
 

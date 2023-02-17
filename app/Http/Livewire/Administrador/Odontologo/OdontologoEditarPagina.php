@@ -12,7 +12,7 @@ class OdontologoEditarPagina extends Component
 {
     protected $listeners = ['eliminarOdontologo'];
 
-    public $usuario;
+    public $usuario_odontologo;
     public $odontologo;
     public $especialidades;
 
@@ -73,15 +73,15 @@ class OdontologoEditarPagina extends Component
     {
         $this->especialidades = Especialidad::all();
 
-        $this->usuario = Auth()->user();
+        $this->usuario_odontologo = $odontologo->user;
         $this->odontologo = $odontologo;
 
         $this->especialidad_id = $odontologo->especialidad_id;
         $this->email = $odontologo->email;
         $this->nombre = $odontologo->nombre;
         $this->apellido = $odontologo->apellido;
-        $this->dni = $this->usuario->dni;
-        $this->cop = $this->usuario->cop;
+        $this->dni = $this->usuario_odontologo->dni;
+        $this->cop = $this->usuario_odontologo->cop;
         $this->celular = $odontologo->celular;
         $this->fecha_nacimiento = $odontologo->fecha_nacimiento;
         $this->genero = $odontologo->genero;
@@ -92,8 +92,8 @@ class OdontologoEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|unique:users,dni,' . $this->usuario->id;
-        $rules['cop'] = 'required|unique:users,cop,' . $this->usuario->id;
+        $rules['dni'] = 'required|unique:users,dni,' . $this->usuario_odontologo->id;
+        $rules['cop'] = 'required|unique:users,cop,' . $this->usuario_odontologo->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -103,7 +103,7 @@ class OdontologoEditarPagina extends Component
 
         $this->validate($rules);
 
-        $this->usuario->update(
+        $this->usuario_odontologo->update(
             [
                 'dni' => $this->dni,
                 'cop' => $this->cop,
@@ -114,7 +114,7 @@ class OdontologoEditarPagina extends Component
             [
                 'especialidad_id' => $this->especialidad_id,
                 'nombre' => $this->nombre,
-                'apellido' => $this->apellido,                
+                'apellido' => $this->apellido,
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
@@ -141,7 +141,7 @@ class OdontologoEditarPagina extends Component
     {
         $this->odontologo->delete();
 
-        $usuario = User::find($this->odontologo->user_id);
+        $usuario = User::find($this->usuario_odontologo->id);
         $usuario->delete();
 
         return redirect()->route('administrador.odontologo.index');

@@ -28,7 +28,7 @@
         <!--EMAIL-->
         <div>
             <p>Email: </p>
-            <input type="email" wire:model="email">
+            <input type="email" wire:model="email" >
             @error('email')
                 <span>{{ $message }}</span>
             @enderror
@@ -37,7 +37,7 @@
         <!--PASSWORD-->
         <div>
             <p>Contraseña: </p>
-            <input type="password" wire:model="password">
+            <input type="password" wire:model="password" autocomplete="off">
             @error('password')
                 <span>{{ $message }}</span>
             @enderror

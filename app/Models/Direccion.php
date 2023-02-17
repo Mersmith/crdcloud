@@ -27,5 +27,4 @@ class Direccion extends Model
     {
         return $this->belongsTo(Distrito::class);
     }
-
 }

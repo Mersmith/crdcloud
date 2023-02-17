@@ -1,48 +1,21 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Odontologo | Nuevo')
+    @section('tituloPagina', 'Odontologo | Editar')
 
     <!--TITULO-->
-    <h1>Crear paciente</h1>
+    <h1>Editar paciente</h1>
 
     <!--BOTONES-->
-    <a href="{{ route('administrador.odontologo.index') }}">
+    <a href="{{ route('administrador.odontologo.paciente.todo', $odontologo) }}">
         <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
 
     <!--FORMULARIO-->
-    <form wire:submit.prevent="crearPaciente" x-data>
-        <!--ODONTOLOGOS-->
-        <div>
-            <p>Odontologos: </p>
-            <select wire:model="odontologo_id">
-                <option value="" selected disabled>Seleccione un odontolgo</option>
-                @foreach ($odontologos as $odontologo)
-                    <option value="{{ $odontologo->id }}">{{ $odontologo->nombre }}</option>
-                @endforeach
-            </select>
-            @error('odontologo_id')
-                <span>{{ $message }}</span>
-            @enderror
-        </div>
-
-        <!--CLINICAS-->
-        <div>
-            <p>Clinicas: </p>
-            <select wire:model="clinica_id">
-                <option value="" selected disabled>Seleccione una clinica</option>
-                @foreach ($clinicas as $clinica)
-                    <option value="{{ $clinica->id }}">{{ $clinica->nombre }}</option>
-                @endforeach
-            </select>
-            @error('clinica_id')
-                <span>{{ $message }}</span>
-            @enderror
-        </div>
+    <form wire:submit.prevent="editarPaciente" x-data>
 
         <!--EMAIL-->
         <div>
             <p>Email: </p>
-            <input type="email" wire:model="email">
+            <input type="email" wire:model="email" disabled>
             @error('email')
                 <span>{{ $message }}</span>
             @enderror
@@ -53,6 +26,15 @@
             <p>Contraseña: </p>
             <input type="password" wire:model="password">
             @error('password')
+                <span>{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!--NUEVO PASSWORD-->
+        <div>
+            <p>Nueva contraseña: </p>
+            <input type="password" wire:model="editar_password" autocomplete="off">
+            @error('editar_password')
                 <span>{{ $message }}</span>
             @enderror
         </div>
@@ -122,7 +104,7 @@
 
         <!--ENVIAR-->
         <div>
-            <input type="submit" value="Crear">
+            <input type="submit" value="Editar">
         </div>
     </form>
 

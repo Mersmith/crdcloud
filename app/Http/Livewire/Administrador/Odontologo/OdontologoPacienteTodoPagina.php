@@ -3,17 +3,16 @@
 namespace App\Http\Livewire\Administrador\Odontologo;
 
 use App\Models\Odontologo;
-use App\Models\Paciente;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class OdontologoPacientePagina extends Component
+class OdontologoPacienteTodoPagina extends Component
 {
     use WithPagination;
     public $buscarPaciente;
     protected $paginate = 10;
 
-    public $odontologo_id;
+    public $odontologo;
 
     public function updatingBuscarPaciente()
     {
@@ -22,15 +21,16 @@ class OdontologoPacientePagina extends Component
 
     public function mount(Odontologo $odontologo)
     {
-        $this->odontologo_id = $odontologo->id;
+        $this->odontologo = $odontologo;
     }
 
     public function render()
     {
-        $pacientes = Paciente::where('odontologo_id', $this->odontologo_id)
+        $pacientes = $this->odontologo->pacientes()
+            ->where('nombre', 'LIKE', '%' . $this->buscarPaciente . '%')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('livewire.administrador.odontologo.odontologo-paciente-pagina', compact('pacientes'))->layout('layouts.administrador.index');
+        return view('livewire.administrador.odontologo.odontologo-paciente-todo-pagina', compact('pacientes'))->layout('layouts.administrador.index');
     }
 }

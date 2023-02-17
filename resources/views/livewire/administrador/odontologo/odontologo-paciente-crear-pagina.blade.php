@@ -11,34 +11,6 @@
 
     <!--FORMULARIO-->
     <form wire:submit.prevent="crearPaciente" x-data>
-        <!--ODONTOLOGOS-->
-        <div>
-            <p>Odontologos: </p>
-            <select wire:model="odontologo_id">
-                <option value="" selected disabled>Seleccione un odontolgo</option>
-                @foreach ($odontologos as $odontologo)
-                    <option value="{{ $odontologo->id }}">{{ $odontologo->nombre }}</option>
-                @endforeach
-            </select>
-            @error('odontologo_id')
-                <span>{{ $message }}</span>
-            @enderror
-        </div>
-
-        <!--CLINICAS-->
-        <div>
-            <p>Clinicas: </p>
-            <select wire:model="clinica_id">
-                <option value="" selected disabled>Seleccione una clinica</option>
-                @foreach ($clinicas as $clinica)
-                    <option value="{{ $clinica->id }}">{{ $clinica->nombre }}</option>
-                @endforeach
-            </select>
-            @error('clinica_id')
-                <span>{{ $message }}</span>
-            @enderror
-        </div>
-
         <!--EMAIL-->
         <div>
             <p>Email: </p>

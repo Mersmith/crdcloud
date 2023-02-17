@@ -12,7 +12,6 @@
         Eliminar
     </button>
     <a href="{{ route('administrador.odontologo.crear') }}">Crear</a>
-    <a href="{{ route('administrador.odontologo.paciente', $odontologo) }}">Pacientes</a>
 
     <!--FORMULARIO-->
     <div x-data>
@@ -137,7 +136,7 @@
                 <span>{{ $message }}</span>
             @enderror
         </div>
-       
+
         <!--ENVIAR-->
         <div>
             <button wire:loading.attr="disabled" wire:target="editarOdontologo" wire:click="editarOdontologo">
