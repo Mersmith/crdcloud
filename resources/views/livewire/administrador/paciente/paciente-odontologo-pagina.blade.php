@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Pacientes')
+    @section('tituloPagina', 'Odontologos')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Pacientes</h2>
+            <h2>Odontologos</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
@@ -19,7 +19,7 @@
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
-        @if ($pacientes->count())
+        @if ($odontologos->count())
 
             <!--BUSCADOR-->
             <div class="contenedor_panel_producto_admin formulario">
@@ -60,6 +60,8 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
+                                        Especialidad</th>
+                                    <th>
                                         Sede</th>
                                     <th>
                                         Email</th>
@@ -73,46 +75,55 @@
                                         Fecha Nacimiento</th>
                                     <th>
                                         Género</th>
+
+                                    <th>
+                                        Puntos</th>
                                     <th>
                                         Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pacientes as $paciente)
+                                @foreach ($odontologos as $odontologo)
                                     <tr>
                                         <td>
-                                            {{ $paciente->nombre }}
+                                            {{ $odontologo->nombre }}
                                         </td>
                                         <td>
-                                            {{ $paciente->apellido }}
+                                            {{ $odontologo->apellido }}
                                         </td>
                                         <td>
-                                            {{ $paciente->sede->nombre }}
+                                            {{ $odontologo->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $paciente->email }}
+                                            {{ $odontologo->sede->nombre }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->dni }}
+                                            {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->cop }}
+                                            {{ $odontologo->user->dni }}
                                         </td>
                                         <td>
-                                            {{ $paciente->celular }}
+                                            {{ $odontologo->user->cop }}
                                         </td>
                                         <td>
-                                            {{ $paciente->fecha_nacimiento }}
+                                            {{ $odontologo->celular }}
                                         </td>
                                         <td>
-                                            {{ $paciente->genero }}
+                                            {{ $odontologo->fecha_nacimiento }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.paciente.ver', $paciente) }}">
+                                            {{ $odontologo->genero }}
+                                        </td>
+                                        <td>
+                                            {{ $odontologo->puntos }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('administrador.odontologo.ver', $odontologo) }}">
                                                 <i class="fa-solid fa-eye" style="color: #009eff;"></i>
                                             </a>
                                             |
-                                            <a href="{{ route('administrador.paciente.editar', $paciente) }}">
+                                            <a href="{{ route('administrador.odontologo.editar', $odontologo) }}">
                                                 <span><i class="fa-solid fa-pencil"></i></span>
                                             </a>
                                             |
@@ -128,11 +139,11 @@
                 </div>
             </div>
 
-            @if ($pacientes->hasPages())
+            {{--@if ($odontologos->hasPages())
                 <div>
-                    {{ $pacientes->links('pagination::tailwind') }}
+                    {{ $odontologos->links('pagination::tailwind') }}
                 </div>
-            @endif
+            @endif--}}
         @else
             <div class="contenedor_no_existe_elementos">
                 <p>No hay elementos</p>
