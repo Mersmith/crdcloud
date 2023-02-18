@@ -27,16 +27,7 @@ class InicioController extends Controller
             }
         }*/
 
-        $provincia_id = 1; // ID de la provincia de interés
-
-$usuarios = User::whereHas('direcciones', function($query) use ($provincia_id) {
-    $query->whereHas('distrito', function($query) use ($provincia_id) {
-        $query->where('provincia_id', $provincia_id);
-    });
-})->with('direcciones.distrito', 'direcciones.usuarios')->get();
-
-
-        return (dump($usuarios));
+        return (dump("hola"));
         //return view('web.inicio.index', compact('elementos'));
     }
 }
