@@ -13,7 +13,6 @@ class OdontologoDireccionCrearPagina extends Component
 {
     public $odontologo;
     public $usuario_odontologo;
-    //public $direccion;
 
     public $departamentos, $provincias = [], $distritos = [];
 
@@ -90,7 +89,6 @@ class OdontologoDireccionCrearPagina extends Component
         $direccion->save();
         return redirect()->route('administrador.odontologo.informacion', $this->odontologo);
     }
-
 
     public function render()
     {

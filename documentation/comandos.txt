@@ -63,7 +63,8 @@ php artisan make:livewire Administrador/Odontologo/OdontologoPacienteCrearPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoPacienteEditarPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoDireccionCrearPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoDireccionEditarPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoVentaTodoPagina
+php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDepartamentoCantidadPagina
+
 
 php artisan vendor:publish --tag=jetstream-views
 
@@ -85,6 +86,12 @@ php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
 php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
 php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
 php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteEstadisticaDepartamentoCantidadPagina
+
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoCantidadPagina
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoListaPagina
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaProvinciaPagina
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDistritoPagina
 
 git checkout -b 4_Modificacion
 git branch
@@ -102,4 +109,13 @@ git status
 git add .
 git commit -m "5_Modificacion"
 git push origin 5_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 6_Modificacion
+git branch
+git status
+
+git add .
+git commit -m "6_Modificacion"
+git push origin 6_Modificacion
 ->Click en boton Merge pull request
