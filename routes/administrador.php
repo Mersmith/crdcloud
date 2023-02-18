@@ -1,10 +1,17 @@
 <?php
 
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadCrearPagina;
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadEditarPagina;
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadInformacionPagina;
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadTodoPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoCrearPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoDireccionCrearPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoDireccionEditarPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoEditarPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoEstadisticaDepartamentoCantidadPagina;
+use App\Http\Livewire\Administrador\Odontologo\OdontologoEstadisticaDepartamentoListaPagina;
+use App\Http\Livewire\Administrador\Odontologo\OdontologoEstadisticaDistritoListaPagina;
+use App\Http\Livewire\Administrador\Odontologo\OdontologoEstadisticaProvinciaListaPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoInformacionPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoPacienteCrearPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoPacienteEditarPagina;
@@ -40,6 +47,9 @@ Route::get('odontologo/{odontologo}/paciente/{paciente}/editar', OdontologoPacie
 Route::get('odontologo/{odontologo}/direccion', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');
 Route::get('odontologo/{odontologo}/direccion/editar', OdontologoDireccionEditarPagina::class)->name('odontologo.direccion.editar');
 Route::get('odontologos/departamentos', OdontologoEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.estadistica.departamento.cantidad');
+Route::get('odontologos/departamento/{departamento}', OdontologoEstadisticaDepartamentoListaPagina::class)->name('odontologo.estadistica.departamento.lista');
+Route::get('odontologos/provincia/{provincia}', OdontologoEstadisticaProvinciaListaPagina::class)->name('odontologo.estadistica.provincia.lista');
+Route::get('odontologos/distrito/{distrito}', OdontologoEstadisticaDistritoListaPagina::class)->name('odontologo.estadistica.distrito.lista');
 
 //http://127.0.0.1:8000/administrador/pacientes
 Route::get('pacientes', PacienteTodoPagina::class)->name('paciente.index');
@@ -49,6 +59,10 @@ Route::get('paciente/{paciente}/informacion', PacienteInformacionPagina::class)-
 Route::get('paciente/{paciente}/odontologos', PacienteOdontogoTodoPagina::class)->name('paciente.odontologo.todo');
 Route::get('paciente/{paciente}/clinicas', PacienteClinicaTodoPagina::class)->name('paciente.clinica.todo');
 
-
 Route::get('usuarios/departamentos', UsuarioEstadisticaDepartamentoCantidadPagina::class)->name('usuario.estadistica.departamento.cantidad');
-Route::get('usuarios/departamentos/{departamento}', UsuarioEstadisticaDepartamentoListaPagina::class)->name('usuario.estadistica.departamento.lista');
+Route::get('usuarios/departamento/{departamento}', UsuarioEstadisticaDepartamentoListaPagina::class)->name('usuario.estadistica.departamento.lista');
+
+Route::get('especialidades', EspecialidadTodoPagina::class)->name('especialidad.index');
+Route::get('especialidad/crear', EspecialidadCrearPagina::class)->name('especialidad.crear');
+Route::get('especialidad/{especialidad}/editar', EspecialidadEditarPagina::class)->name('especialidad.editar');
+Route::get('especialidad/{especialidad}/informacion', EspecialidadInformacionPagina::class)->name('especialidad.informacion');
