@@ -7,19 +7,16 @@ use Livewire\Component;
 
 class OdontologoEstadisticaDepartamentoCantidadPagina extends Component
 {
+    public $departamentos_odontologos_cantidad;
 
     public function mount()
     {
-        $departamento_id = 12;
-        $odontologos = DB::table('odontologos')
-                 ->join('users', 'odontologos.user_id', '=', 'users.id')
-                 ->join('direccions', 'users.id', '=', 'direccions.user_id')
-                 ->join('departamentos', 'direccions.departamento_id', '=', 'departamentos.id')
-                 ->where('departamentos.id', '=', $departamento_id)
-                 ->select('odontologos.*')
-                 ->get();
-
-        dd($odontologos);
+        $this->departamentos_odontologos_cantidad = DB::table('departamentos')
+            ->leftJoin('direccions', 'departamentos.id', '=', 'direccions.departamento_id')
+            ->leftJoin('odontologos', 'direccions.user_id', '=', 'odontologos.user_id')
+            ->select('departamentos.id', 'departamentos.nombre', DB::raw('count(odontologos.user_id) as cantidad'))
+            ->groupBy('departamentos.id', 'departamentos.nombre')
+            ->get();
     }
 
     public function render()
