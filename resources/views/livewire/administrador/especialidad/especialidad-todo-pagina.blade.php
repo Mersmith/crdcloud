@@ -1,43 +1,42 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Pacientes')
+    @section('tituloPagina', 'Especialidades')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Pacientes</h2>
+            <h2>Especialidades</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.especialidad.crear') }}">
-                Crear <i class="fa-solid fa-square-plus"></i></a>
+                Nueva especialidad <i class="fa-solid fa-square-plus"></i></a>
 
             <a href="{{ route('administrador.especialidad.estadistica.odontologo.cantidad') }}">
-                Odontologos <i class="fa-solid fa-square-plus"></i></a>
+                Cantidad odontólogos <i class="fa-solid fa-user-doctor"></i></a>
         </div>
     </div>
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
-        @if ($especialidades->count())
-
-            <!--BUSCADOR-->
-            <div class="contenedor_panel_producto_admin formulario">
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Buscar especialidad: <span class="campo_opcional">(Opcional)</span>
-                    </p>
-                    <input type="text" wire:model="buscarEspecialidad" placeholder="Buscar...">
-                </div>
+        <!--BUSCADOR-->
+        <div class="contenedor_panel_producto_admin formulario">
+            <div class="contenedor_elemento_item">
+                <p class="estilo_nombre_input">Buscar especialidad: <span class="campo_opcional">(Opcional)</span>
+                </p>
+                <input type="text" wire:model="buscarEspecialidad" placeholder="Buscar...">
             </div>
+        </div>
 
+        @if ($especialidades->count())
             <!--TABLA-->
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>PACIENTES</h3>
+                    <h3>Lista</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -60,6 +59,8 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        Nº</th>
+                                    <th>
                                         Nombres</th>
                                     <th>
                                         Descripción</th>
@@ -71,23 +72,22 @@
                                 @foreach ($especialidades as $especialidad)
                                     <tr>
                                         <td>
+                                            {{ $loop->iteration }}
+                                        </td>
+                                        <td>
                                             {{ $especialidad->nombre }}
                                         </td>
                                         <td>
                                             {{ $especialidad->descripcion }}
                                         </td>
                                         <td>
-                                            <a
+                                            <a style="color: #009eff;"
                                                 href="{{ route('administrador.especialidad.informacion', $especialidad) }}">
-                                                <i class="fa-solid fa-eye" style="color: #009eff;"></i>
+                                                <i class="fa-solid fa-eye"></i>
                                             </a>
-                                            |
-                                            <a href="{{ route('administrador.especialidad.editar', $especialidad) }}">
-                                                <span><i class="fa-solid fa-pencil"></i></span>
-                                            </a>
-                                            |
-                                            <a style="color: red;">
-                                                <i class="fa-solid fa-trash"></i>
+                                            <a style="color: green;"
+                                                href="{{ route('administrador.especialidad.editar', $especialidad) }}">
+                                                <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </td>
                                     </tr>

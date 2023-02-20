@@ -53,6 +53,12 @@ php artisan make:model Canjeo -msf
 
 php artisan make:model CanjeoDetalle -msf
 
+->CRUD Administrador
+php artisan make:livewire Administrador/Administrador/AdministradorTodoPagina
+php artisan make:livewire Administrador/Administrador/AdministradorCrearPagina
+php artisan make:livewire Administrador/Administrador/AdministradorEditarPagina
+php artisan make:livewire Administrador/Administrador/AdministradorInformacionPagina
+
 ->CRUD Odontologo
 php artisan make:livewire Administrador/Odontologo/OdontologoTodoPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoCrearPagina
@@ -68,6 +74,44 @@ php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDepartam
 php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaProvinciaListaPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDistritoListaPagina
 
+->CRUD Paciente
+php artisan make:livewire Administrador/Paciente/PacienteTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteCrearPagina
+php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
+php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
+php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
+
+->CRUD Especialidad
+php artisan make:livewire Administrador/Especialidad/EspecialidadTodoPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadCrearPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadEditarPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadInformacionPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaOdontologoCantidadPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaOdontologoListaPagina
+
+->CRUD Sede
+php artisan make:livewire Administrador/Sede/SedeTodoPagina
+php artisan make:livewire Administrador/Sede/SedeCrearPagina
+php artisan make:livewire Administrador/Sede/SedeEditarPagina
+php artisan make:livewire Administrador/Sede/SedeInformacionPagina
+php artisan make:livewire Administrador/Sede/SedePacienteTodoPagina
+php artisan make:livewire Administrador/Sede/SedeClinicaTodoPagina
+php artisan make:livewire Administrador/Sede/SedeOdontologoTodoPagina
+php artisan make:livewire Administrador/Sede/SedeEstadisticaOdontologoCantidadPagina
+
+->CRUD Servicio
+php artisan make:livewire Administrador/Servicio/ServicioTodoPagina
+php artisan make:livewire Administrador/Servicio/ServicioCrearPagina
+php artisan make:livewire Administrador/Servicio/ServicioEditarPagina
+php artisan make:livewire Administrador/Servicio/ServicioInformacionPagina
+
+->CRUD Usuario
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoCantidadPagina
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoListaPagina
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaProvinciaPagina
+php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDistritoPagina
+
 
 php artisan vendor:publish --tag=jetstream-views
 
@@ -82,29 +126,6 @@ git push origin 3_Modificacion
 ->Click en boton Merge pull request
 
 
-->CRUD Paciente
-php artisan make:livewire Administrador/Paciente/PacienteTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteCrearPagina
-php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
-php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
-php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteEstadisticaDepartamentoCantidadPagina
-
-php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoCantidadPagina
-php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoListaPagina
-php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaProvinciaPagina
-php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDistritoPagina
-
-php artisan make:livewire Administrador/Especialidad/EspecialidadTodoPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadCrearPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadEditarPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadInformacionPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaOdontologoCantidadPagina
-
-php artisan make:livewire Administrador/Servicio/ServicioTodoPagina
-php artisan make:livewire Administrador/Servicio/ServicioCrearPagina
-php artisan make:livewire Administrador/Servicio/ServicioEditarPagina
 
 git checkout -b 4_Modificacion
 git branch
@@ -149,4 +170,13 @@ git status
 git add .
 git commit -m "8_Modificacion"
 git push origin 8_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 9_Modificacion
+git branch
+git status
+
+git add .
+git commit -m "9_Modificacion"
+git push origin 9_Modificacion
 ->Click en boton Merge pull request

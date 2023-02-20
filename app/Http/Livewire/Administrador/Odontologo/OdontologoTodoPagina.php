@@ -25,7 +25,6 @@ class OdontologoTodoPagina extends Component
 
     public function render()
     {
-
         $odontologos = Odontologo::where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
             ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%')
             ->orderBy('created_at', 'desc')

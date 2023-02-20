@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create([
+        User::factory(6)->create([
             'rol' => 'administrador',
         ])->each(function (User $usuario) {
             Administrador::factory(1)->create([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        User::factory(5)->create([
+        User::factory(15)->create([
             'rol' => 'odontologo',
         ])->each(function (User $usuario) {
             Odontologo::factory(1)->create([
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        User::factory(5)->create([
+        User::factory(15)->create([
             'rol' => 'clinica',
         ])->each(function (User $usuario) {
             Clinica::factory(1)->create([
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        User::factory(5)->create([
+        User::factory(15)->create([
             'rol' => 'paciente',
         ])->each(function (User $usuario) {
             Paciente::factory(1)->create([

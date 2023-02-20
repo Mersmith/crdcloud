@@ -29,7 +29,6 @@ return new class extends Migration
 
             $table->foreign('especialidad_id')->references('id')->on('especialidads');
 
-
             $table->timestamps();
         });
     }

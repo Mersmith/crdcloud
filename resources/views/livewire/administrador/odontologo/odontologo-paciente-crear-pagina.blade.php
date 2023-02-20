@@ -76,7 +76,7 @@
                 <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI: </p>
+                        <p>DNI:  <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="number" wire:model="dni">
                         @error('dni')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -93,12 +93,11 @@
                     </div>
                 </div>
 
-
                 <!--FECHA DE NACIMIENTO Y GÉNERO-->
                 <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento: </p>
+                        <p>Fecha de Nacimiento:  <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -107,7 +106,7 @@
 
                     <!--GÉNERO-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Genero: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Género: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <div>
                             <label>
                                 <input type="radio" value="hombre" name="genero" wire:model="genero">

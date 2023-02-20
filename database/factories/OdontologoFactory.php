@@ -26,12 +26,13 @@ class OdontologoFactory extends Factory
             'especialidad_id' => $especialidad->id,
             'sede_id' => $sede->id,
             'nombre' => $this->faker->name(),
-            'apellido' => $this->faker->lastName(),            
+            'apellido' => $this->faker->lastName(),
             'celular' => $this->faker->phoneNumber(),
             'fecha_nacimiento' => $this->faker->dateTimeInInterval('-3 months', '+1 months'),
             'genero' => $this->faker->randomElement(['hombre', 'mujer']),
             'puntos' => $this->faker->randomElement([0, 20, 50, 70, 80, 100, 500]),
             'rol' => "odontologo",
+            'created_at' => $this->faker->dateTimeInInterval('-2 months', '+1 months'),
         ];
     }
 }

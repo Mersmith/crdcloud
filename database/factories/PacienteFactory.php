@@ -43,6 +43,7 @@ class PacienteFactory extends Factory
             'fecha_nacimiento' => $this->faker->dateTimeInInterval('-3 months', '+1 months'),
             'genero' => $this->faker->randomElement(['hombre', 'mujer']),
             'rol' => "paciente",
+            'created_at' => $this->faker->dateTimeInInterval('-2 months', '+1 months'),
         ];
     }
 }

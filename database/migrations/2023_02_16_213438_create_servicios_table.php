@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('precio_venta');
             $table->text('descripcion');
             $table->integer('puntos_ganar')->default(0);
-            $table->integer('puntos_canjeo')->nullable();
+            $table->integer('puntos_canjeo')->default(0);
 
             $table->timestamps();
         });

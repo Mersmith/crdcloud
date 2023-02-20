@@ -13,12 +13,12 @@
             <a href="{{ route('administrador.odontologo.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <button wire:click="$emit('eliminarOdontologoModal')">
-                Eliminar <i class="fa-solid fa-trash-can"></i>
+                Eliminar odontólogo <i class="fa-solid fa-trash-can"></i>
             </button>
             <a href="{{ route('administrador.odontologo.crear') }}">
-                Nuevo <i class="fa-solid fa-square-plus"></i></a>
+                Nuevo odontólogo <i class="fa-solid fa-square-plus"></i></a>
             <a href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
-                Información <i class="fa-solid fa-eye"></i></a>
+                Información del odontólogo <i class="fa-solid fa-eye"></i></a>
         </div>
     </div>
 
@@ -191,7 +191,7 @@
             </div>
 
         </div>
-        
+
     </div>
 </div>
 
