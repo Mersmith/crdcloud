@@ -94,6 +94,7 @@ class OdontologoEditarPagina extends Component
 
         $rules['dni'] = 'required|unique:users,dni,' . $this->usuario_odontologo->id;
         $rules['cop'] = 'required|unique:users,cop,' . $this->usuario_odontologo->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_odontologo->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -107,6 +108,7 @@ class OdontologoEditarPagina extends Component
             [
                 'dni' => $this->dni,
                 'cop' => $this->cop,
+                'email' => $this->email,
             ]
         );
 
@@ -115,6 +117,7 @@ class OdontologoEditarPagina extends Component
                 'especialidad_id' => $this->especialidad_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
+                'email' => $this->email,
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,

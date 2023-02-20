@@ -11,8 +11,11 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.paciente.crear') }}">
+            <a href="{{ route('administrador.especialidad.crear') }}">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
+
+            <a href="{{ route('administrador.especialidad.estadistica.odontologo.cantidad') }}">
+                Odontologos <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -24,7 +27,8 @@
             <!--BUSCADOR-->
             <div class="contenedor_panel_producto_admin formulario">
                 <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Buscar especialidad: <span class="campo_opcional">(Opcional)</span> </p>
+                    <p class="estilo_nombre_input">Buscar especialidad: <span class="campo_opcional">(Opcional)</span>
+                    </p>
                     <input type="text" wire:model="buscarEspecialidad" placeholder="Buscar...">
                 </div>
             </div>
@@ -70,10 +74,11 @@
                                             {{ $especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $especialidad->apellido }}
+                                            {{ $especialidad->descripcion }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.especialidad.informacion', $especialidad) }}">
+                                            <a
+                                                href="{{ route('administrador.especialidad.informacion', $especialidad) }}">
                                                 <i class="fa-solid fa-eye" style="color: #009eff;"></i>
                                             </a>
                                             |

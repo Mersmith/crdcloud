@@ -1,0 +1,87 @@
+/*ESTILOS MENU PRINCIPAL*/
+.navbar .contenedor_menu_link .menu_principal {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    flex-direction: column;
+    height: auto;
+    line-height: 40px;
+    margin: 10px 0px;
+}
+
+/*ELEMENTOS MENU PRINCIPAL*/
+.navbar .menu_principal .elementos_menu_principal {
+    align-items: center;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    padding: 0 14px;
+    padding-left: 10px;
+}
+
+/*MENU ÍCONO*/
+.navbar .contenedor_menu_link .menu_principal .menu_icono {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/*ESTILOS ETIQUETA A*/
+.navbar .menu_principal .elementos_menu_principal a {
+    text-decoration: none;
+    white-space: nowrap;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.navbar .menu_principal .elementos_menu_principal a:hover {
+    color: #5ad7f7;
+}
+
+.navbar .menu_principal .elementos_menu_principal a i {
+    color: #5ad7f7;
+    margin-right: 2px;
+}
+
+.navbar .menu_principal .abajo_menu {
+    font-size: 18px;
+    color: #5ad7f7;
+    margin-bottom: 10px;
+}
+
+/*SUBMENU 1*/
+.navbar .menu_principal .elementos_menu_principal .submenu_1 {
+    display: none;
+    position: unset;
+    top: 100px;
+    left: 0;
+    background: #189bb6;
+    z-index: 2;
+    width: 100%;
+    padding-left: 15px;
+}
+
+.navbar .menu_principal .elementos_submenu_1 {
+    position: relative;
+}
+
+/*SUBMENU 2*/
+.navbar .menu_principal .elementos_menu_principal .submenu_2 {
+    display: none;
+    position: unset;
+    top: 100px;
+    left: 0;
+    background: #189bb6;
+    z-index: 2;
+    width: 100%;
+    padding-left: 15px;
+}
+
+.navbar .menu_principal .elementos_submenu_2 {
+    position: relative;
+}

@@ -10,6 +10,7 @@ class OdontologoTodoPagina extends Component
 {
     use WithPagination;
     public $buscarOdontologo;
+    public $cantidad_total_odontologos;
     protected $paginate = 10;
 
     public function updatingBuscarOdontologo()
@@ -17,8 +18,14 @@ class OdontologoTodoPagina extends Component
         $this->resetPage();
     }
 
+    public function mount()
+    {
+        $this->cantidad_total_odontologos = Odontologo::count();
+    }
+
     public function render()
     {
+
         $odontologos = Odontologo::where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
             ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%')
             ->orderBy('created_at', 'desc')

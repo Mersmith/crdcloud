@@ -100,8 +100,11 @@ php artisan make:livewire Administrador/Especialidad/EspecialidadTodoPagina
 php artisan make:livewire Administrador/Especialidad/EspecialidadCrearPagina
 php artisan make:livewire Administrador/Especialidad/EspecialidadEditarPagina
 php artisan make:livewire Administrador/Especialidad/EspecialidadInformacionPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadOdontologoPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadClinicaPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaOdontologoCantidadPagina
+
+php artisan make:livewire Administrador/Servicio/ServicioTodoPagina
+php artisan make:livewire Administrador/Servicio/ServicioCrearPagina
+php artisan make:livewire Administrador/Servicio/ServicioEditarPagina
 
 git checkout -b 4_Modificacion
 git branch
@@ -137,4 +140,13 @@ git status
 git add .
 git commit -m "7_Modificacion"
 git push origin 7_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 8_Modificacion
+git branch
+git status
+
+git add .
+git commit -m "8_Modificacion"
+git push origin 8_Modificacion
 ->Click en boton Merge pull request

@@ -1,6 +1,6 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Usuarios | Departamento')
+    @section('tituloPagina', 'Odontólogo | Departamento')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
@@ -13,13 +13,13 @@
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
+        <!--TABLA-->
         @if ($departamentos_odontologos_cantidad->count())
 
-            <!--TABLA-->
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Usuarios</h3>
+                    <h3>Lista</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -42,6 +42,8 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        Nº</th>
+                                    <th>
                                         Departamento</th>
                                     <th>
                                         Cantidad</th>
@@ -53,23 +55,18 @@
                                 @foreach ($departamentos_odontologos_cantidad as $departamento)
                                     <tr>
                                         <td>
+                                            {{ $loop->iteration }}
+                                        </td>
+                                        <td>
                                             {{ $departamento->nombre }}
                                         </td>
                                         <td>
                                             {{ $departamento->cantidad }}
                                         </td>
                                         <td>
-                                            <a
+                                            <a style="color: #009eff;"
                                                 href="{{ route('administrador.odontologo.estadistica.departamento.lista', $departamento->id) }}">
-                                                <i class="fa-solid fa-eye" style="color: #009eff;"></i>
-                                            </a>
-                                            |
-                                            <a href="">
-                                                <span><i class="fa-solid fa-pencil"></i></span>
-                                            </a>
-                                            |
-                                            <a style="color: red;">
-                                                <i class="fa-solid fa-trash"></i>
+                                                <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
                                     </tr>

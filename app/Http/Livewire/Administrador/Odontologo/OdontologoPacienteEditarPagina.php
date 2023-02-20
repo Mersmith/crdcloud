@@ -80,6 +80,7 @@ class OdontologoPacienteEditarPagina extends Component
         $rules = $this->rules;
 
         $rules['dni'] = 'required|digits:7|unique:users,dni,' . $this->usuario_paciente->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_paciente->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -92,6 +93,7 @@ class OdontologoPacienteEditarPagina extends Component
         $this->usuario_paciente->update(
             [
                 'dni' => $this->dni,
+                'email' => $this->email,
             ]
         );
 
@@ -99,6 +101,7 @@ class OdontologoPacienteEditarPagina extends Component
             [
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
+                'email' => $this->email,
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,

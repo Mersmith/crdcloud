@@ -1,0 +1,45 @@
+/*CONTENEDOR CABECERA ADMIN*/
+.contenedor_administrador_cabecera {
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+    padding: 10px;
+    background-color: white;
+}
+
+/*CONTENEDOR TITULO ADMIN*/
+.contenedor_titulo_admin {
+    display: flex;
+    font-size: 19px;
+    font-weight: 700;
+    color: #189bb6;
+    padding: 5px 0px;
+}
+
+.contenedor_subtitulo_admin {
+    display: flex;
+    font-size: 18px;
+    font-weight: 700;
+    color: #181C32;
+    padding: 5px 0px;
+}
+
+/*CONTENEDOR BOTONES ADMIN*/
+.contenedor_botones_admin {
+    display: flex;
+    color: #181C32;
+    padding: 1px 0px;
+}
+
+.contenedor_botones_admin a,
+.contenedor_botones_admin button {
+    padding: 5px 8px;
+    margin-right: 5px;
+    border-radius: 4px;
+    border: 1px solid rgb(239, 242, 245);
+    font-weight: 500;
+    background-color: #f6fafc;
+}
+
+.contenedor_botones_admin a:hover,
+.contenedor_botones_admin button:hover {
+    color: #189bb6;
+}

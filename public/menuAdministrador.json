@@ -1,0 +1,100 @@
+[
+    {
+        "id": 3,
+        "nombrePrincipal": "Odontólogos",
+        "nombrePrincipalUrl": "#",
+        "iconoPrincipal": "fa-solid fa-user-doctor",
+        "subMenu1": [
+            {
+                "id": 1,
+                "nombreSubMenu1": "Lista",
+                "nombreSubMenu1Url": "administrador.odontologo.index",
+                "iconoSubMenu1": "fa-solid fa-table-list",
+                "subMenu2": []
+            },
+            {
+                "id": 2,
+                "nombreSubMenu1": "Nuevo",
+                "nombreSubMenu1Url": "administrador.odontologo.crear",
+                "iconoSubMenu1": "fa-solid fa-square-plus",
+                "subMenu2": []
+            },
+            {
+                "id": 5,
+                "nombreSubMenu1": "Estadística",
+                "nombreSubMenu1Url": "#",
+                "iconoSubMenu1": "fa-solid fa-chart-simple",
+                "subMenu2": [
+                    {
+                        "id": 1,
+                        "nombreSubMenu2": "Departamentos",
+                        "nombreSubMenu2Url": "administrador.odontologo.estadistica.departamento.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-mountain-sun",
+                        "subMenu3": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "nombrePrincipal": "Pacientes",
+        "nombrePrincipalUrl": "#",
+        "iconoPrincipal": "fa-solid fa-user-injured",
+        "subMenu1": [
+            {
+                "id": 1,
+                "nombreSubMenu1": "Lista",
+                "nombreSubMenu1Url": "administrador.paciente.index",
+                "iconoSubMenu1": "fa-solid fa-table-list",
+                "subMenu2": []
+            },
+            {
+                "id": 2,
+                "nombreSubMenu1": "Nuevo",
+                "nombreSubMenu1Url": "administrador.paciente.crear",
+                "iconoSubMenu1": "fa-solid fa-square-plus",
+                "subMenu2": []
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "nombrePrincipal": "Especialidades",
+        "nombrePrincipalUrl": "#",
+        "iconoPrincipal": "fa-solid fa-user-pen",
+        "subMenu1": [
+            {
+                "id": 1,
+                "nombreSubMenu1": "Lista",
+                "nombreSubMenu1Url": "administrador.especialidad.index",
+                "iconoSubMenu1": "fa-solid fa-table-list",
+                "subMenu2": []
+            },
+            {
+                "id": 2,
+                "nombreSubMenu1": "Nuevo",
+                "nombreSubMenu1Url": "administrador.especialidad.crear",
+                "iconoSubMenu1": "fa-solid fa-square-plus",
+
+                "subMenu2": []
+            },
+            {
+                "id": 5,
+                "nombreSubMenu1": "Estadística",
+                "nombreSubMenu1Url": "#",
+                "iconoSubMenu1": "fa-solid fa-chart-simple",
+
+                "subMenu2": [
+                    {
+                        "id": 1,
+                        "nombreSubMenu2": "Odontologos",
+                        "nombreSubMenu2Url": "administrador.especialidad.estadistica.odontologo.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-user-doctor",
+                        "subMenu3": []
+                    }
+                ]
+            }
+        ]
+    }
+]

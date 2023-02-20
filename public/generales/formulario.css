@@ -1,0 +1,301 @@
+/*Formulario*/
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="number"],
+.formulario input[type="date"],
+.formulario input[type="tel"],
+.formulario input[type="color"],
+.formulario textarea,
+.formulario select {
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.formulario *:disabled {
+    background-color: #e9ecef !important;
+    opacity: 1;
+}
+
+.formulario input[type="radio"] {
+    cursor: pointer;
+}
+
+.formulario input[type="color"] {
+    cursor: pointer;
+}
+
+/*BOTON ESTILO 1*/
+.formulario button,
+.formulario input[type="submit"],
+.formulario input[type="button"] {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #189bb6;
+    color: white;
+    padding: 9px 0px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.formulario button:hover,
+.formulario input[type="submit"]:hover {
+    background-color: #1da4be;
+}
+
+/*BOTON ESTILO 2*/
+.formulario .button_estilo_2 {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #333;
+    background-color: white;
+    color: #333;
+    padding: 9px 0px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.formulario .button_estilo_2:hover {
+    background-color: #333;
+    color: white;
+}
+
+/*ESTILO NOMBRE INPUT*/
+.estilo_nombre_input {
+    font-size: .9rem;
+    line-height: 20px;
+    margin-bottom: 5;
+    /*font-weight: 500;*/
+}
+
+/*Contenedor 1 Elemento 100%*/
+.contenedor_1_elementos_100 {
+    display: flex;
+    width: 100%;
+}
+
+.contenedor_1_elementos_100 .contenedor_elemento_item {
+    width: 100%;
+    margin: 10px 0px;
+}
+
+/*Contenedor 1 Elemento*/
+.contenedor_1_elementos {
+    display: flex;
+    width: calc(50% - 5px);
+}
+
+.contenedor_1_elementos .contenedor_elemento_item {
+    width: 100%;
+    margin: 10px 0px;
+}
+
+/*Fin Contenedor 1 Elemento*/
+
+/*Contenedor 2 Elemento*/
+.contenedor_2_elementos {
+    display: flex;
+    gap: 10px;
+}
+
+.contenedor_2_elementos .contenedor_elemento_item {
+    width: 50%;
+    margin: 10px 0px;
+}
+
+/*Fin Contenedor 2 Elemento*/
+
+/*Contenedor 4 Elemento*/
+.contenedor_4_elementos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.contenedor_4_elementos .contenedor_elemento_item {
+    width: 24%;
+    margin: 10px 0px;
+}
+
+/*Fin Contenedor 4 Elemento*/
+
+/*Contenedor Imagen*/
+.contenedor_subir_imagen_sola {
+    margin-top: 5px;
+    position: relative;
+    height: 150px;
+    width: 150px;
+}
+
+.contenedor_subir_imagen_sola_estilo_1{
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+.contenedor_subir_imagen_sola_estilo_2{
+    border-radius: 50%;
+}
+
+.contenedor_subir_imagen_sola_estilo_2 img{
+    border-radius: 50%;
+}
+
+.contenedor_subir_imagen_sola img {
+    opacity: 1;
+    display: block;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
+    height: 150px;
+    width: 150px;
+    /*border-radius: 4px;*/
+    object-fit: cover;
+}
+
+.contenedor_subir_imagen_sola .opcion_cambiar_imagen {
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.contenedor_subir_imagen_sola:hover img {
+    opacity: 0.3;
+}
+
+.contenedor_subir_imagen_sola:hover .opcion_cambiar_imagen {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.contenedor_subir_imagen_sola .boton_imagen_eliminar {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background-color: red;
+    color: white;
+    border-radius: 50px;
+    padding: 0px 7px;
+    cursor: pointer;
+}
+
+.contenedor_subir_imagen_sola .boton_imagen_borrar {
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    background-color: red;
+    color: white;
+    border-radius: 50px;
+    padding: 0px 7px;
+    cursor: pointer;
+}
+
+.contenedor_subir_imagen_sola .boton_imagen_eliminar:hover {
+    background-color: #df1616;
+}
+
+/*Fin Contenedor Imagen*/
+
+/*Contenedor Imagenes*/
+.contenedor_imagenes_subir {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.contenedor_imagenes_subir div button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    border-radius: 50px;
+    padding: 0px 8px;
+}
+
+.contenedor_imagenes_subir div button:hover {
+    background-color: #df1616;
+}
+
+/*Fin Contenedor Formulario*/
+
+/*Errores y obligatorios*/
+/*CONTENEDOR FORMULARIO OPCIONES*/
+.formulario .campo_obligatorio {
+    font-size: 12px;
+    color: #df1616;
+}
+
+.formulario .campo_opcional {
+    font-size: 12px;
+    color: #189bb6;
+}
+
+.contenedor_elemento_item_centrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1200px) {
+
+    /*Estilos 2 elemento*/
+    .contenedor_4_elementos {
+        /*flex-direction: column;*/
+        gap: 0px;
+    }
+
+    .contenedor_4_elementos .contenedor_elemento_item {
+        width: 49%;
+    }
+}
+
+@media (max-width: 900px) {
+
+    /*Estilos 1 elemento*/
+    .contenedor_1_elementos {
+        width: 100%;
+    }
+
+    /*Estilos 2 elemento*/
+    .contenedor_2_elementos {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .contenedor_2_elementos .contenedor_elemento_item {
+        width: 100%;
+    }
+
+    /*Estilos 2 elemento*/
+    .contenedor_4_elementos {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .contenedor_4_elementos .contenedor_elemento_item {
+        width: 100%;
+    }
+
+    .formulario button,
+    .formulario input[type="submit"],
+    .formulario input[type="button"] {
+        margin-top: 0px;
+    }
+}

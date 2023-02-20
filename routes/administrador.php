@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadCrearPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadEditarPagina;
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadEstadisticaOdontologoCantidadPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadInformacionPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadTodoPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoCrearPagina;
@@ -44,7 +45,7 @@ Route::get('odontologo/{odontologo}/informacion', OdontologoInformacionPagina::c
 Route::get('odontologo/{odontologo}/pacientes', OdontologoPacienteTodoPagina::class)->name('odontologo.paciente.todo');
 Route::get('odontologo/{odontologo}/paciente/crear', OdontologoPacienteCrearPagina::class)->name('odontologo.paciente.crear');
 Route::get('odontologo/{odontologo}/paciente/{paciente}/editar', OdontologoPacienteEditarPagina::class)->name('odontologo.paciente.editar');
-Route::get('odontologo/{odontologo}/direccion', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');
+Route::get('odontologo/{odontologo}/direccion/crear', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');
 Route::get('odontologo/{odontologo}/direccion/editar', OdontologoDireccionEditarPagina::class)->name('odontologo.direccion.editar');
 Route::get('odontologos/departamentos', OdontologoEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.estadistica.departamento.cantidad');
 Route::get('odontologos/departamento/{departamento}', OdontologoEstadisticaDepartamentoListaPagina::class)->name('odontologo.estadistica.departamento.lista');
@@ -66,3 +67,4 @@ Route::get('especialidades', EspecialidadTodoPagina::class)->name('especialidad.
 Route::get('especialidad/crear', EspecialidadCrearPagina::class)->name('especialidad.crear');
 Route::get('especialidad/{especialidad}/editar', EspecialidadEditarPagina::class)->name('especialidad.editar');
 Route::get('especialidad/{especialidad}/informacion', EspecialidadInformacionPagina::class)->name('especialidad.informacion');
+Route::get('especialidad/odontologos', EspecialidadEstadisticaOdontologoCantidadPagina::class)->name('especialidad.estadistica.odontologo.cantidad');

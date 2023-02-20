@@ -11,7 +11,7 @@ class OdontologoInformacionPagina extends Component
     public $odontologo;
     public $usuario_odontologo;
     public $especialidad;
-    public $pacientes;
+    //public $pacientes;
     public $direccion;
 
     public function mount(Odontologo $odontologo)
@@ -19,7 +19,7 @@ class OdontologoInformacionPagina extends Component
         $this->odontologo = $odontologo;
         $this->usuario_odontologo = $odontologo->user;
         $this->especialidad = Especialidad::find($odontologo->especialidad_id);
-        $this->pacientes = $odontologo->pacientes()->limit(10)->get();
+        //$this->pacientes = $odontologo->pacientes()->limit(10)->get();
         $this->direccion = $odontologo->user->direccion;
     }
 
