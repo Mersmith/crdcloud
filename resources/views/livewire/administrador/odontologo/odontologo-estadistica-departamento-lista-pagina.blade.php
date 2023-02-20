@@ -1,31 +1,30 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Odontologos')
+    @section('tituloPagina', 'Odontologos - Departamento')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Odontologos</h2>
+            <h2>Departamento</h2>
         </div>
-
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.odontologo.crear') }}">
-                Crear <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ URL::previous() }}">
+                <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
         </div>
     </div>
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
-
+        {{-- <!--LISTA ODONTÓLOGOS-->
         @if ($odontologos_departamentos->count())
 
             <!--TABLA-->
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista odontólogos</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -107,20 +106,16 @@
                 <p>No hay elementos</p>
                 <i class="fa-solid fa-spinner"></i>
             </div>
-        @endif
+        @endif --}}
 
-    </div>
-
-    <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
-    <div class="contenedor_administrador_contenido">
-
+        <!--LISTA PROVINCIAS-->
         @if ($odontologos_provincias_cantidad->count())
 
             <!--TABLA-->
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Usuarios</h3>
+                    <h3>Lista provincias</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -143,7 +138,9 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        PROVINCIA</th>
+                                        N°</th>
+                                    <th>
+                                        Provincia</th>
                                     <th>
                                         Cantidad</th>
                                     <th>
@@ -154,23 +151,18 @@
                                 @foreach ($odontologos_provincias_cantidad as $provincia)
                                     <tr>
                                         <td>
+                                            {{ $loop->iteration }}
+                                        </td>
+                                        <td>
                                             {{ $provincia->nombre }}
                                         </td>
                                         <td>
                                             {{ $provincia->cantidad }}
                                         </td>
                                         <td>
-                                            <a
+                                            <a style="color: #009eff;"
                                                 href="{{ route('administrador.odontologo.estadistica.provincia.lista', $provincia->id) }}">
-                                                <i class="fa-solid fa-eye" style="color: #009eff;"></i>
-                                            </a>
-                                            |
-                                            <a href="">
-                                                <span><i class="fa-solid fa-pencil"></i></span>
-                                            </a>
-                                            |
-                                            <a style="color: red;">
-                                                <i class="fa-solid fa-trash"></i>
+                                                <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -186,6 +178,5 @@
                 <i class="fa-solid fa-spinner"></i>
             </div>
         @endif
-
     </div>
 </div>

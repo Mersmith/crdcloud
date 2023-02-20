@@ -13,6 +13,7 @@ class OdontologoPacienteTodoPagina extends Component
     protected $paginate = 10;
 
     public $odontologo;
+    public $pacientes_cantidad_total;
 
     public function updatingBuscarPaciente()
     {
@@ -22,6 +23,8 @@ class OdontologoPacienteTodoPagina extends Component
     public function mount(Odontologo $odontologo)
     {
         $this->odontologo = $odontologo;
+
+        $this->pacientes_cantidad_total = $odontologo->pacientes()->count();
     }
 
     public function render()

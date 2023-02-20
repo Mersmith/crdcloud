@@ -1,0 +1,39 @@
+:root {
+
+    --color-fondo-pagina: #f7f8fa;
+
+    --color-primario-texto: #009eff;
+    --color-fondo-primario-boton: #009eff;
+    --color-fondo-primario-boton-hover: #1193e4;
+    --color-fondo-primario: #1193e4;
+
+    --color-secundario-texto: #ffa03d;
+    --color-fondo-secundario-boton: #ffa03d;
+    --color-fondo-secundario-boton-hover: #fc9426;
+
+    --color-terciario-texto: #666666;
+    --color-fondo-terciario-boton: #666666;
+    --color-fondo-terciario-boton-hover: #4d4b4b;
+    --color-terciario-borde: #666666;
+
+    --color-cuaternario-texto: black;
+    --color-fondo-cuaternario-boton: #333333;
+    --color-fondo-cuaternario-boton-hover: #222222;
+
+    --color-quinario-texto-boton: white;
+    --color-fondo-quinario-boton: rgb(255, 255, 255);
+    --color-fondo-quinario-boton-hover: rgb(238, 238, 238);
+
+    --color-sexagenario-texto: #d8d8d8;
+    --color-fondo-sexagenario-boton: #d8d8d8;
+    --color-fondo-sexagenario-boton-hover: #d8d8d8;
+    --color-sexagenario-borde: #d8d8d8;
+
+    --color-oferta-texto: white;
+    --color-fondo-oferta-boton: rgb(235, 16, 16);
+    --color-fondo-oferta-boton-hover: rgb(212, 16, 16);
+
+   
+
+
+}

@@ -1,0 +1,22 @@
+/*MODALES*/
+.contenedor_titulo_modal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenedor_pie_modal {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.contenedor_pie_modal button {
+    font-weight: 500;
+    margin: 8px 0px;
+    color: white;
+    cursor: pointer;
+    padding: 4px 24px;
+    border-radius: 50px;
+}
+
+/*Fin MODALES*/

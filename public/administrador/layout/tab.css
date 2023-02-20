@@ -1,0 +1,46 @@
+/*CONTENEDOR TAB*/
+.contenedor_tab {
+    background-color: #f6fafc;
+}
+
+/*ESTILOS TAB MENU*/
+.contenedor_tab_menu {
+    display: flex;
+    font-weight: 500;
+    overflow-y: auto;
+    white-space: nowrap;
+}
+
+.contenedor_tab_menu::-webkit-scrollbar {
+    height: 10px;
+}
+
+.contenedor_tab_menu label {
+    cursor: pointer;
+}
+
+.contenedor_tab_menu label:hover {
+    color: #009EF7;
+}
+
+.menu_tab {
+    border-bottom: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 0.5rem 1rem;
+}
+
+.menu_tab.activo {
+    position: relative;
+    z-index: 1;
+    color: #009EF7;
+    font-weight: 700;
+    border-bottom: 1px solid #009EF7;
+}
+
+/*ESTILOS TAB CONTENIDO*/
+.tab_contenido {
+    position: relative;
+    top: -1px;
+}
+/*FIN ESTILOS TAB*/

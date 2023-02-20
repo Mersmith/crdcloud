@@ -13,13 +13,13 @@ class OdontologoEstadisticaDepartamentoListaPagina extends Component
     public function mount(Departamento $departamento)
     {
         $departamento_id = $departamento->id;
-        $this->odontologos_departamentos = DB::table('odontologos')
+        /*$this->odontologos_departamentos = DB::table('odontologos')
             ->join('users', 'odontologos.user_id', '=', 'users.id')
             ->join('direccions', 'users.id', '=', 'direccions.user_id')
             ->join('departamentos', 'direccions.departamento_id', '=', 'departamentos.id')
             ->where('departamentos.id', '=', $departamento_id)
             ->select('odontologos.*')
-            ->get();
+            ->get();*/
 
         $this->odontologos_provincias_cantidad = DB::table('provincias')
             ->leftJoin('departamentos', 'provincias.departamento_id', '=', 'departamentos.id')

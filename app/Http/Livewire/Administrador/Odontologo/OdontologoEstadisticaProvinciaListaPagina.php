@@ -14,12 +14,12 @@ class OdontologoEstadisticaProvinciaListaPagina extends Component
     {
         $provincia_id = $provincia->id;
 
-        $this->odontologos_provincias = DB::table('odontologos')
+        /*$this->odontologos_provincias = DB::table('odontologos')
             ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
             ->join('provincias', 'direccions.provincia_id', '=', 'provincias.id')
             ->select('odontologos.*')
             ->where('provincias.id', '=', $provincia_id)
-            ->get();
+            ->get();*/
 
         $this->odontologos_distritos_cantidad = DB::table('distritos')
             ->leftJoin('direccions', 'distritos.id', '=', 'direccions.distrito_id')

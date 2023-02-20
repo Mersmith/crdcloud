@@ -1,0 +1,315 @@
+/*CONTENEDOR CABECERA ORDEN DE COMPRA*/
+.contenedor_orden_venta .orden_venta_cabecera_numero {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0px;
+    align-items: center;
+}
+
+.contenedor_orden_venta .orden_venta_cabecera_numero img {
+    height: 40px;
+}
+
+.contenedor_orden_venta .orden_venta_cabecera_numero span {
+    margin-top: 9px;
+    margin-left: 10px;
+    color: var(--color-cuaternario-texto);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/*CONTENEDOR DETALLES DEL PEDIDO*/
+.contenedor_detalle_orden {
+    margin: 20px 0px;
+    padding: 20px;
+    border: 1px solid var(--color-fondo-sexagenario-boton);
+    background-color: var(--color-quinario-texto-boton);
+}
+
+/*CONTENEDOR CABECERA DETALLE*/
+.contenedor_detalle_orden_cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0px;
+}
+
+.contenedor_detalle_orden_cabecera h2 {
+    color: var(--color-terciario-texto);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.28571;
+}
+
+.contenedor_detalle_orden_cabecera button {
+    border-radius: 100px;
+    padding: 0 24px;
+    height: 28px;
+    font-size: 14px;
+    border-width: 1px;
+}
+
+.contenedor_detalle_orden_cabecera .contenedor_botones_detalle_volver {
+    border-style: solid;
+    background-color: var(--color-quinario-texto-boton);
+    border-color: var(--color-secundario-texto);
+    color: var(--color-secundario-texto);
+}
+
+.contenedor_detalle_orden_cabecera .contenedor_botones_detalle_contrato {
+    border-style: solid;
+    background-color: var(--color-quinario-texto-boton);
+    border-color: var(--color-sexagenario-borde);
+}
+
+.contenedor_detalle_orden_cabecera button:hover {
+    background-color: var(--color-secundario-texto);
+    color: var(--color-quinario-texto-boton);
+}
+
+/*CONTENEDOR PROVEEDOR Y COMPRADOR*/
+.contenedor_orden_proveedor_comprador {
+    background: #ebecf0;
+    margin-bottom: 10px;
+}
+
+.contenedor_orden_proveedor_comprador .contenedor_proveedor_orden {
+    padding: 10px;
+}
+
+.contenedor_orden_proveedor_comprador .contenedor_proveedor_orden span {
+    color: #666;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.contenedor_orden_proveedor_comprador .contenedor_proveedor_orden p {
+    font-size: 15px;
+    color: #333;
+}
+
+/*DIVIDIR*/
+.dividir_2_1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*CONTENEDOR PRODUCTOS DETALLE*/
+.contenedor_orden_tabla_producto {
+    position: relative;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.contenedor_orden_tabla_producto table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    background: var(--color-quinario-texto-boton);
+}
+
+.contenedor_orden_tabla_producto table .tabla_imagen_orden {
+    width: 50px;
+    height: 50px;
+    margin: 0px auto;
+}
+
+.contenedor_orden_tabla_producto table .tabla_imagen_orden img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+.contenedor_orden_tabla_producto table thead th {
+    background: #ebecf0;
+    border: 1px solid var(--color-sexagenario-borde);
+    font-weight: 400;
+    padding: 12px 16px;
+}
+
+.contenedor_orden_tabla_producto table tbody td {
+    padding: 0;
+    border: 1px solid var(--color-sexagenario-borde);
+    padding: 12px 16px;
+}
+
+.contenedor_orden_tabla_producto table tbody td a {
+    color: var(--color-primario-texto);
+}
+
+.contenedor_orden_tabla_producto table tbody td p {
+    font-size: 15px;
+    color: #333;
+}
+
+.contenedor_orden_tabla_producto table tbody td a:hover {
+    color: var(--color-secundario-texto);
+}
+
+.contenedor_orden_tabla_producto table tfoot td {
+    padding: 0;
+    border: 1px solid var(--color-sexagenario-borde);
+    padding: 12px 16px;
+}
+
+/*CONTENEDOR CONDICIONES DE LA GARANTIA*/
+.contenedor_condiciones {
+    border: 1px solid var(--color-sexagenario-borde);
+    padding: 12px 16px;
+    margin-bottom: 10px;
+}
+
+.contenedor_condiciones p {
+    font-size: 15px;
+    color: #333;
+}
+
+.contenedor_condiciones ul {
+    margin-top: 5px;
+    margin-left: 30px;
+    color: #666;
+    list-style: disc;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+.contenedor_condiciones li {
+    margin: 8px 0px;
+}
+
+.contenedor_condiciones span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contenedor_condiciones span a {
+    background-color: var(--color-fondo-secundario-boton);
+    width: inherit;
+    text-align: center;
+    border-radius: 20px;
+    padding: 2px 8px;
+    color: white;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.contenedor_condiciones span a:hover {
+    background-color: var(--color-fondo-secundario-boton-hover);
+}
+
+/*REGISTRO DE EVENTOS*/
+.contenedor_registro_eventos {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-sexagenario-borde);
+    padding: 12px 16px;
+    margin-bottom: 10px;
+}
+
+.item_contenedor_registro_eventos {
+    display: flex;
+}
+
+.item_contenedor_registro_eventos:last-child {
+    overflow: hidden;
+    height: 4rem;
+}
+
+.item_contenedor_registro_eventos:last-child .estado_registro_orden span:last-of-type {
+    display: none;
+}
+
+.estado_registro_orden {
+    margin-right: 1.5rem;
+    position: relative;
+
+}
+
+.circulo_registro_orden {
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background: var(--color-secundario-texto);
+}
+
+.circulo_registro_linea {
+    display: block;
+    margin: 0 auto;
+    width: 2px;
+    height: 100%;
+    background: var(--color-secundario-texto);
+}
+
+.principal_registro_orden {
+    font-size: 15px;
+    color: #333;
+}
+
+.descripcion_registro_orden {
+    font-size: 15px;
+    color: #333;
+}
+
+/*CONTENEDOR BOTON DESCARGAR ORDEN*/
+.contenedor_boton_descargar_orden {
+    text-align: end;
+    color: var(--color-secundario-texto);
+}
+
+.contenedor_boton_descargar_orden:hover {
+    color: var(--color-primario-texto);
+}
+
+@media (max-width: 900px) {
+
+    /*CONTENEDOR CABECERA ORDEN DE COMPRA*/
+    .contenedor_orden_venta .orden_venta_cabecera {
+        flex-direction: column;
+    }
+
+    .contenedor_botones_detalle_orden {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+
+    .dividir_2_1 {
+        display: flex;
+        flex-direction: column;
+
+    }
+}
+
+
+/*.grid_estado_orden {
+    display: grid;
+    grid-template-areas: "grid_estado_0 grid_estado_1  grid_estado_2 grid_estado_3 grid_estado_4 grid_estado_5";
+    grid-gap: 20px;
+}
+
+.grid_estado_orden .estilo_estado_orden {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+    color: white;
+}
+
+.grid_estado_orden .estilo_estado_orden:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 900px) {
+    .grid_estado_orden {
+        grid-template-areas:
+            "grid_estado_0 grid_estado_1 grid_estado_2"
+            "grid_estado_3 grid_estado_4 grid_estado_5";
+        grid-gap: 10px;
+    }
+}*/

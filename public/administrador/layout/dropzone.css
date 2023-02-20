@@ -1,0 +1,75 @@
+/*CONTENEDOR IMAGENES SUBIDAS*/
+.contenedor_imagenes_subidas_dropzone {
+    width: 100%;
+    padding: 40px 100px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-gap: 20px;
+    justify-content: center;
+}
+
+.contenedor_imagenes_subidas_dropzone div {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+.contenedor_imagenes_subidas_dropzone img {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.contenedor_imagenes_subidas_dropzone div .imagen_dropzone_eliminar {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background-color: red;
+    border-radius: 50px;
+    padding: 0px 7px;
+}
+
+.contenedor_imagenes_subidas_dropzone div .imagen_dropzone_eliminar:hover {
+    background-color: #df1616;
+}
+
+.contenedor_imagenes_subidas_dropzone div .imagen_dropzone_primero {
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    background-color: rgb(236, 122, 15);
+    border-radius: 50px;
+    padding: 0px 7px;
+}
+
+/*ESTILOS MENSAJE DROPZONE*/
+.mensaje_dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    color: #a1a5b7;
+}
+
+@media (max-width: 1500px) {
+    .contenedor_imagenes_subidas_dropzone {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contenedor_imagenes_subidas_dropzone div {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 500px) {
+    .contenedor_imagenes_subidas_dropzone {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

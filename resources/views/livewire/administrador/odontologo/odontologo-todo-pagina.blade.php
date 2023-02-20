@@ -6,34 +6,33 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Odontologos</h2>
+            <h2>Odontólogos</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.odontologo.crear') }}">
-                Crear <i class="fa-solid fa-square-plus"></i></a>
+                Nuevo <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
-        @if ($odontologos->count())
-
-            <!--BUSCADOR-->
-            <div class="contenedor_panel_producto_admin formulario">
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Buscar producto: <span class="campo_opcional">(Opcional)</span> </p>
-                    <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
-                </div>
+        <!--BUSCADOR-->
+        <div class="contenedor_panel_producto_admin formulario">
+            <div class="contenedor_elemento_item">
+                <p class="estilo_nombre_input">Buscar odontólogo: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
             </div>
-
+        </div>
+        
+        @if ($odontologos->count())
             <!--TABLA-->
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista ({{ $cantidad_total_odontologos }})</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -56,6 +55,8 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        Nº</th>
+                                    <th>
                                         Nombres</th>
                                     <th>
                                         Apellidos</th>
@@ -72,12 +73,13 @@
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Fecha Nacimiento</th>
+                                        Nacimiento</th>
                                     <th>
                                         Género</th>
-
                                     <th>
                                         Puntos</th>
+                                    <th>
+                                        Registro</th>
                                     <th>
                                         Acción</th>
                                 </tr>
@@ -85,6 +87,9 @@
                             <tbody>
                                 @foreach ($odontologos as $odontologo)
                                     <tr>
+                                        <td>
+                                            {{ $loop->iteration }}
+                                        </td>
                                         <td>
                                             {{ $odontologo->nombre }}
                                         </td>
@@ -119,16 +124,17 @@
                                             {{ $odontologo->puntos }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
-                                                <i class="fa-solid fa-eye" style="color: #009eff;"></i>
+                                            {{ $odontologo->created_at }}
+                                        </td>
+                                        <td>
+                                            <a style="color: #009eff;"
+                                                href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
+                                                <i class="fa-solid fa-eye"></i>
                                             </a>
-                                            |
-                                            <a href="{{ route('administrador.odontologo.editar', $odontologo) }}">
+
+                                            <a style="color: green;"
+                                                href="{{ route('administrador.odontologo.editar', $odontologo) }}">
                                                 <span><i class="fa-solid fa-pencil"></i></span>
-                                            </a>
-                                            |
-                                            <a style="color: red;">
-                                                <i class="fa-solid fa-trash"></i>
                                             </a>
                                         </td>
                                     </tr>

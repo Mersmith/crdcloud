@@ -1,0 +1,108 @@
+/*CONTENEDOR ESTADO ORDEN VENTA*/
+.contenedor_estado_orden_venta {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+}
+
+/*ESTADO ORDEN ICONO TEXTO*/
+.estado_orden_icono_texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.estado_orden_icono_texto .estado_orden_icono {
+    display: flex;
+    height: 2.2rem;
+    width: 2.2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-fondo-terciario-boton);
+}
+
+.estado_orden_icono_texto .estado_orden_icono:hover {
+    opacity: 0.8;
+}
+
+.contenedor_estado_orden_venta label {
+    cursor: pointer;
+}
+
+.contenedor_estado_orden_venta input {
+    display: none;
+}
+
+.contenedor_estado_orden_venta i {
+    color: var(--color-quinario-texto-boton);
+}
+
+.estado_orden_icono_texto p {
+    color: var(--color-terciario-texto);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/*ESTADO ORDEN LINEA*/
+.estado_orden_linea {
+    flex: 1 1 0%;
+    height: 0.2rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/*CONTENEDOR BOTOENES ESTADO ORDEN*/
+.contenedor_botones_estado_orden {
+    display: flex;
+    gap: 5px;
+}
+
+.contenedor_estado_orden_venta_boton {
+    border-radius: 100px;
+    padding: 0 24px;
+    height: 28px;
+    font-size: 14px;
+    border-width: 1px;
+}
+
+.contenedor_estado_orden_venta_boton:hover {
+    background-color: var(--color-secundario-texto);
+    color: var(--color-quinario-texto-boton);
+}
+
+.contenedor_estado_orden_venta_boton span {
+    font-weight: 500;
+}
+
+.orden_boton_actualizar {
+    border-style: solid;
+    background-color: var(--color-quinario-texto-boton);
+    border-color: var(--color-secundario-texto);
+    color: var(--color-secundario-texto);
+}
+
+.orden_boton_cancelar {
+    border-style: solid;
+    background-color: var(--color-quinario-texto-boton);
+    border-color: var(--color-sexagenario-borde);
+}
+
+@media (max-width: 900px) {
+    .estado_orden_icono_texto .estado_orden_icono {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .contenedor_estado_orden_venta i {
+        font-size: 13px;
+    }
+
+    .estado_orden_icono_texto p {
+        font-size: 12px;
+    }
+
+    .contenedor_botones_estado_orden {
+        flex-direction: column;
+    }
+}

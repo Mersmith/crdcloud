@@ -1,0 +1,23 @@
+/*ESTILOS NO HAY ELEMENTOS EN UNA LISTA*/
+.contenedor_no_existe_elementos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #aaaaaa;
+    font-size: 24px;
+}
+
+.contenedor_no_existe_elementos_izquierda {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    color: #aaaaaa;
+    font-size: 24px;
+}
+
+.contenedor_paginacion{
+    padding: 0px 10px;
+    margin: 10px;
+}

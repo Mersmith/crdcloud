@@ -1,168 +1,182 @@
- <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
- <div class="contenedor_administrador_contenido">
+ <div>
+     <!--SEO-->
+     @section('tituloPagina', 'Odontólogo - Provincia')
 
-     @if ($odontologos_provincias->count())
-
-         <!--TABLA-->
-         <div class="contenedor_panel_producto_admin">
-             <!--CONTENEDOR SUBTITULO-->
-             <div class="contenedor_subtitulo_admin">
-                 <h3>Lista</h3>
-             </div>
-
-             <!--CONTENEDOR BOTONES-->
-             <div class="contenedor_botones_admin">
-                 <button>
-                     PDF <i class="fa-solid fa-file-pdf"></i>
-                 </button>
-                 <button>
-                     EXCEL <i class="fa-regular fa-file-excel"></i>
-                 </button>
-                 <button onClick="window.scrollTo(0, document.body.scrollHeight);">
-                     Abajo <i class="fa-solid fa-arrow-down"></i>
-                 </button>
-             </div>
+     <!--CONTENEDOR CABECERA-->
+     <div class="contenedor_administrador_cabecera">
+         <!--CONTENEDOR TITULO-->
+         <div class="contenedor_titulo_admin">
+             <h2>Provincia</h2>
+         </div>
+         <!--CONTENEDOR BOTONES-->
+         <div class="contenedor_botones_admin">
+             <a href="{{ URL::previous() }}">
+                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+         </div>
+     </div>
+     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
+     <div class="contenedor_administrador_contenido">
+         {{-- <!--LISTA ODONTÓLOGOS-->
+         @if ($odontologos_provincias->count())
 
              <!--TABLA-->
-             <div class="tabla_administrador py-4 overflow-x-auto">
-                 <div class="inline-block min-w-full overflow-hidden">
-                     <table class="min-w-full leading-normal">
-                         <thead>
-                             <tr>
-                                 <th>
-                                     Nombres</th>
-                                 <th>
-                                     Apellidos</th>
-                                 <th>
-                                     Email</th>
-                                 <th>
-                                     Celular</th>
-                                 <th>
-                                     Fecha Nacimiento</th>
-                                 <th>
-                                     Género</th>
+             <div class="contenedor_panel_producto_admin">
+                 <!--CONTENEDOR SUBTITULO-->
+                 <div class="contenedor_subtitulo_admin">
+                     <h3>Lista</h3>
+                 </div>
 
-                                 <th>
-                                     Puntos</th>
-                                 <th>
-                                     Acción</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             @foreach ($odontologos_provincias as $odontologo)
+                 <!--CONTENEDOR BOTONES-->
+                 <div class="contenedor_botones_admin">
+                     <button>
+                         PDF <i class="fa-solid fa-file-pdf"></i>
+                     </button>
+                     <button>
+                         EXCEL <i class="fa-regular fa-file-excel"></i>
+                     </button>
+                     <button onClick="window.scrollTo(0, document.body.scrollHeight);">
+                         Abajo <i class="fa-solid fa-arrow-down"></i>
+                     </button>
+                 </div>
+
+                 <!--TABLA-->
+                 <div class="tabla_administrador py-4 overflow-x-auto">
+                     <div class="inline-block min-w-full overflow-hidden">
+                         <table class="min-w-full leading-normal">
+                             <thead>
                                  <tr>
-                                     <td>
-                                         {{ $odontologo->nombre }}
-                                     </td>
-                                     <td>
-                                         {{ $odontologo->apellido }}
-                                     </td>
+                                     <th>
+                                         Nombres</th>
+                                     <th>
+                                         Apellidos</th>
+                                     <th>
+                                         Email</th>
+                                     <th>
+                                         Celular</th>
+                                     <th>
+                                         Fecha Nacimiento</th>
+                                     <th>
+                                         Género</th>
 
-                                     <td>
-                                         {{ $odontologo->email }}
-                                     </td>
-
-                                     <td>
-                                         {{ $odontologo->celular }}
-                                     </td>
-                                     <td>
-                                         {{ $odontologo->fecha_nacimiento }}
-                                     </td>
-                                     <td>
-                                         {{ $odontologo->genero }}
-                                     </td>
-                                     <td>
-                                         {{ $odontologo->puntos }}
-                                     </td>
-                                     <td>
-
-                                     </td>
+                                     <th>
+                                         Puntos</th>
+                                     <th>
+                                         Acción</th>
                                  </tr>
-                             @endforeach
-                         </tbody>
-                     </table>
+                             </thead>
+                             <tbody>
+                                 @foreach ($odontologos_provincias as $odontologo)
+                                     <tr>
+                                         <td>
+                                             {{ $odontologo->nombre }}
+                                         </td>
+                                         <td>
+                                             {{ $odontologo->apellido }}
+                                         </td>
+
+                                         <td>
+                                             {{ $odontologo->email }}
+                                         </td>
+
+                                         <td>
+                                             {{ $odontologo->celular }}
+                                         </td>
+                                         <td>
+                                             {{ $odontologo->fecha_nacimiento }}
+                                         </td>
+                                         <td>
+                                             {{ $odontologo->genero }}
+                                         </td>
+                                         <td>
+                                             {{ $odontologo->puntos }}
+                                         </td>
+                                         <td>
+
+                                         </td>
+                                     </tr>
+                                 @endforeach
+                             </tbody>
+                         </table>
+                     </div>
                  </div>
              </div>
-         </div>
-     @else
-         <div class="contenedor_no_existe_elementos">
-             <p>No hay elementos</p>
-             <i class="fa-solid fa-spinner"></i>
-         </div>
-     @endif
-
-
-     @if ($odontologos_distritos_cantidad->count())
-
-         <!--TABLA-->
-         <div class="contenedor_panel_producto_admin">
-             <!--CONTENEDOR SUBTITULO-->
-             <div class="contenedor_subtitulo_admin">
-                 <h3>Usuarios</h3>
+         @else
+             <div class="contenedor_no_existe_elementos">
+                 <p>No hay elementos</p>
+                 <i class="fa-solid fa-spinner"></i>
              </div>
+         @endif --}}
 
-             <!--CONTENEDOR BOTONES-->
-             <div class="contenedor_botones_admin">
-                 <button>
-                     PDF <i class="fa-solid fa-file-pdf"></i>
-                 </button>
-                 <button>
-                     EXCEL <i class="fa-regular fa-file-excel"></i>
-                 </button>
-                 <button onClick="window.scrollTo(0, document.body.scrollHeight);">
-                     Abajo <i class="fa-solid fa-arrow-down"></i>
-                 </button>
-             </div>
+         <!--LISTA PROVINCIAS-->
+         @if ($odontologos_distritos_cantidad->count())
 
              <!--TABLA-->
-             <div class="tabla_administrador py-4 overflow-x-auto">
-                 <div class="inline-block min-w-full overflow-hidden">
-                     <table class="min-w-full leading-normal">
-                         <thead>
-                             <tr>
-                                 <th>
-                                     DISTRITO</th>
-                                 <th>
-                                     Cantidad</th>
-                                 <th>
-                                     Acción</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             @foreach ($odontologos_distritos_cantidad as $distrito)
+             <div class="contenedor_panel_producto_admin">
+                 <!--CONTENEDOR SUBTITULO-->
+                 <div class="contenedor_subtitulo_admin">
+                     <h3>Distritos</h3>
+                 </div>
+
+                 <!--CONTENEDOR BOTONES-->
+                 <div class="contenedor_botones_admin">
+                     <button>
+                         PDF <i class="fa-solid fa-file-pdf"></i>
+                     </button>
+                     <button>
+                         EXCEL <i class="fa-regular fa-file-excel"></i>
+                     </button>
+                     <button onClick="window.scrollTo(0, document.body.scrollHeight);">
+                         Abajo <i class="fa-solid fa-arrow-down"></i>
+                     </button>
+                 </div>
+
+                 <!--TABLA-->
+                 <div class="tabla_administrador py-4 overflow-x-auto">
+                     <div class="inline-block min-w-full overflow-hidden">
+                         <table class="min-w-full leading-normal">
+                             <thead>
                                  <tr>
-                                     <td>
-                                         {{ $distrito->nombre }}
-                                     </td>
-                                     <td>
-                                         {{ $distrito->cantidad }}
-                                     </td>
-                                     <td>
-                                         <a
-                                             href="{{ route('administrador.odontologo.estadistica.distrito.lista', $distrito->id) }}">
-                                             <i class="fa-solid fa-eye" style="color: #009eff;"></i>
-                                         </a>
-                                         |
-                                         <a href="">
-                                             <span><i class="fa-solid fa-pencil"></i></span>
-                                         </a>
-                                         |
-                                         <a style="color: red;">
-                                             <i class="fa-solid fa-trash"></i>
-                                         </a>
-                                     </td>
+                                     <th>
+                                         N°</th>
+                                     <th>
+                                         Distrito</th>
+                                     <th>
+                                         Cantidad</th>
+                                     <th>
+                                         Acción</th>
                                  </tr>
-                             @endforeach
-                         </tbody>
-                     </table>
+                             </thead>
+                             <tbody>
+                                 @foreach ($odontologos_distritos_cantidad as $distrito)
+                                     <tr>
+                                        <td>
+                                            {{ $loop->iteration }}
+                                        </td>
+                                         <td>
+                                             {{ $distrito->nombre }}
+                                         </td>
+                                         <td>
+                                             {{ $distrito->cantidad }}
+                                         </td>
+                                         <td>
+                                             <a style="color: #009eff;"
+                                                 href="{{ route('administrador.odontologo.estadistica.distrito.lista', $distrito->id) }}">
+                                                 <i class="fa-solid fa-eye"></i>
+                                             </a>
+                                         </td>
+                                     </tr>
+                                 @endforeach
+                             </tbody>
+                         </table>
+                     </div>
                  </div>
              </div>
-         </div>
-     @else
-         <div class="contenedor_no_existe_elementos">
-             <p>No hay elementos</p>
-             <i class="fa-solid fa-spinner"></i>
-         </div>
-     @endif
+         @else
+             <div class="contenedor_no_existe_elementos">
+                 <p>No hay elementos</p>
+                 <i class="fa-solid fa-spinner"></i>
+             </div>
+         @endif
 
+     </div>
  </div>
