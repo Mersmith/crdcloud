@@ -25,4 +25,9 @@ class Sede extends Model
     {
         return $this->hasMany(Clinica::class);
     }
+
+    public function pacientes()
+    {
+        return $this->hasMany(Paciente::class);
+    }
 }

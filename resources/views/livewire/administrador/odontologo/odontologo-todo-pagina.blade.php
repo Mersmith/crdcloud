@@ -1,6 +1,6 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Odontologos')
+    @section('tituloPagina', 'Odontólogos')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
@@ -12,7 +12,7 @@
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.odontologo.crear') }}">
-                Nuevo <i class="fa-solid fa-square-plus"></i></a>
+                Nuevo odontólogo <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
                 <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
             </div>
         </div>
-        
+
         @if ($odontologos->count())
             <!--TABLA-->
             <div class="contenedor_panel_producto_admin">

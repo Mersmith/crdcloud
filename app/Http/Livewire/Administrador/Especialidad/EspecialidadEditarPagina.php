@@ -25,6 +25,13 @@ class EspecialidadEditarPagina extends Component
         'editarFormulario.descripcion.required' => 'La :attribute es requerido.',
     ];
 
+    public function mount(Especialidad $especialidad)
+    {
+        $this->especialidad = $especialidad;
+        $this->editarFormulario['nombre'] = $especialidad->nombre;
+        $this->editarFormulario['descripcion'] = $especialidad->descripcion;
+    }
+
     public function editarEspecialidad()
     {
         $rules = [];
@@ -39,13 +46,6 @@ class EspecialidadEditarPagina extends Component
 
         $this->especialidad->update($this->editarFormulario);
         $this->emit('mensajeActualizado', "Actualizado.");
-    }
-
-    public function mount(Especialidad $especialidad)
-    {
-        $this->especialidad = $especialidad;
-        $this->editarFormulario['nombre'] = $especialidad->nombre;
-        $this->editarFormulario['descripcion'] = $especialidad->descripcion;
     }
 
     public function render()

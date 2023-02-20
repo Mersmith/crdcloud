@@ -42,7 +42,6 @@ class EspecialidadCrearPagina extends Component
         $this->emit('mensajeCreado', "Creado.");
         $this->reset('crearFormulario');
         return redirect()->route('administrador.especialidad.index');
-
     }
 
     public function render()

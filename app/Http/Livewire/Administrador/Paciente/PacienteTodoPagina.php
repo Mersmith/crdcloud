@@ -10,11 +10,17 @@ class PacienteTodoPagina extends Component
 {
     use WithPagination;
     public $buscarPaciente;
+    public $cantidad_total_pacientes;
     protected $paginate = 10;
 
     public function updatingBuscarPaciente()
     {
         $this->resetPage();
+    }
+
+    public function mount()
+    {
+        $this->cantidad_total_pacientes = Paciente::count();
     }
 
     public function render()

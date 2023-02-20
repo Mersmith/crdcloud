@@ -13,13 +13,12 @@
             <a href="{{ route('administrador.odontologo.paciente.todo', $odontologo) }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <button wire:click="$emit('eliminarOdontologoModal')">
-                Eliminar <i class="fa-solid fa-trash-can"></i>
+                Eliminar paciente <i class="fa-solid fa-trash-can"></i>
             </button>
             <a href="{{ route('administrador.odontologo.paciente.crear', $odontologo) }}">
-                Nuevo Paciente <i class="fa-solid fa-square-plus"></i></a>
+                Nuevo paciente <i class="fa-solid fa-square-plus"></i></a>
             <a href="{{ route('administrador.paciente.informacion', $paciente) }}">
-                Información <i class="fa-solid fa-eye"></i></a>
-
+                Información del paciente <i class="fa-solid fa-eye"></i></a>
         </div>
     </div>
 
@@ -95,7 +94,7 @@
 
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI: </p>
+                        <p>DNI:  <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="number" wire:model="dni">
                         @error('dni')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -116,7 +115,7 @@
 
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento: </p>
+                        <p>Fecha de Nacimiento:  <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -124,12 +123,11 @@
                     </div>
                 </div>
 
-
                 <!--GÉNERO-->
                 <div class="contenedor_2_elementos">
                     <!--GÉNERO-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Genero: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Género: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <div>
                             <label>
                                 <input type="radio" value="hombre" name="genero" wire:model="genero">

@@ -3,24 +3,19 @@
 namespace App\Http\Livewire\Administrador\Especialidad;
 
 use App\Models\Especialidad;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class EspecialidadInformacionPagina extends Component
 {
-    public $especialidad, $odontologos;
+    public $especialidad;
+    public $cantidad_total_odontologos;
+    public $cantidad_total_clinicas;
 
     public function mount(Especialidad $especialidad)
     {
         $this->especialidad = $especialidad;
-        $especialidad_id = $especialidad->id;
-
-        $this->odontologos = $this->especialidad->odontologos()->limit(10)->get();
-        /*$this->odontologos = DB::table('especialidads')
-        ->join('odontologos', 'especialidads.id', '=', 'odontologos.especialidad_id')
-        ->select('odontologos.nombre', 'odontologos.apellido', 'odontologos.email')
-        ->where('especialidads.id', '=', $especialidad_id)
-        ->get();*/
+        $this->cantidad_total_odontologos = $especialidad->odontologos()->count();
+        $this->cantidad_total_clinicas = $especialidad->odontologos()->count();
     }
 
     public function render()
