@@ -99,6 +99,8 @@ php artisan make:livewire Administrador/Sede/SedePacienteTodoPagina
 php artisan make:livewire Administrador/Sede/SedeClinicaTodoPagina
 php artisan make:livewire Administrador/Sede/SedeOdontologoTodoPagina
 php artisan make:livewire Administrador/Sede/SedeEstadisticaOdontologoCantidadPagina
+php artisan make:livewire Administrador/Sede/SedeEstadisticaClinicaCantidadPagina
+php artisan make:livewire Administrador/Sede/SedeEstadisticaRegistroMesActualCantidadPagina
 
 ->CRUD Servicio
 php artisan make:livewire Administrador/Servicio/ServicioTodoPagina
@@ -112,25 +114,19 @@ php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoLi
 php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaProvinciaPagina
 php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDistritoPagina
 
-
 php artisan vendor:publish --tag=jetstream-views
-
 
 git checkout -b 3_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "3_Modificacion"
 git push origin 3_Modificacion
 ->Click en boton Merge pull request
 
-
-
 git checkout -b 4_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "4_Modificacion"
 git push origin 4_Modificacion
@@ -139,7 +135,6 @@ git push origin 4_Modificacion
 git checkout -b 5_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "5_Modificacion"
 git push origin 5_Modificacion
@@ -148,7 +143,6 @@ git push origin 5_Modificacion
 git checkout -b 6_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "6_Modificacion"
 git push origin 6_Modificacion
@@ -157,7 +151,6 @@ git push origin 6_Modificacion
 git checkout -b 7_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "7_Modificacion"
 git push origin 7_Modificacion
@@ -166,7 +159,6 @@ git push origin 7_Modificacion
 git checkout -b 8_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "8_Modificacion"
 git push origin 8_Modificacion
@@ -175,8 +167,15 @@ git push origin 8_Modificacion
 git checkout -b 9_Modificacion
 git branch
 git status
-
 git add .
 git commit -m "9_Modificacion"
 git push origin 9_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 10_Modificacion
+git branch
+git status
+git add .
+git commit -m "10_Modificacion"
+git push origin 10_Modificacion
 ->Click en boton Merge pull request

@@ -13,6 +13,8 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.sede.crear') }}">
                 Nueva sede <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.mes.actual.cantidad') }}">
+                Registros mes actual <i class="fa-regular fa-calendar-days"></i></a>
         </div>
     </div>
 

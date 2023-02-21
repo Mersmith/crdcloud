@@ -12,10 +12,11 @@ class SedeEstadisticaOdontologoCantidadPagina extends Component
     public function mount()
     {
         $this->sede_odontologo_cantidad = DB::table('sedes')
-        ->leftJoin('odontologos', 'sedes.id', '=', 'odontologos.sede_id')
-        ->select('sedes.id', 'sedes.nombre', DB::raw('count(odontologos.id) as cantidad'))
-        ->groupBy('sedes.id', 'sedes.nombre')
-        ->get();
+            ->leftJoin('odontologos', 'sedes.id', '=', 'odontologos.sede_id')
+            ->select('sedes.id', 'sedes.nombre', DB::raw('count(odontologos.id) as cantidad'))
+            ->groupBy('sedes.id', 'sedes.nombre')
+            ->orderBy('cantidad', 'asc')
+            ->get();
     }
 
     public function render()

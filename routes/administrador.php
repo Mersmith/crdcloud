@@ -35,7 +35,9 @@ use App\Http\Livewire\Administrador\Paciente\PacienteVerPagina;
 use App\Http\Livewire\Administrador\Sede\SedeClinicaTodoPagina;
 use App\Http\Livewire\Administrador\Sede\SedeCrearPagina;
 use App\Http\Livewire\Administrador\Sede\SedeEditarPagina;
+use App\Http\Livewire\Administrador\Sede\SedeEstadisticaClinicaCantidadPagina;
 use App\Http\Livewire\Administrador\Sede\SedeEstadisticaOdontologoCantidadPagina;
+use App\Http\Livewire\Administrador\Sede\SedeEstadisticaRegistroMesActualCantidadPagina;
 use App\Http\Livewire\Administrador\Sede\SedeInformacionPagina;
 use App\Http\Livewire\Administrador\Sede\SedeOdontologoTodoPagina;
 use App\Http\Livewire\Administrador\Sede\SedePacienteTodoPagina;
@@ -61,6 +63,8 @@ Route::get('sede/{sede}/odontologos', SedeOdontologoTodoPagina::class)->name('se
 Route::get('sede/{sede}/clinicas', SedeClinicaTodoPagina::class)->name('sede.clinica.todo');
 Route::get('sede/{sede}/pacientes', SedePacienteTodoPagina::class)->name('sede.paciente.todo');
 Route::get('sede/odontologos', SedeEstadisticaOdontologoCantidadPagina::class)->name('sede.estadistica.odontologo.cantidad');
+Route::get('sede/clinicas', SedeEstadisticaClinicaCantidadPagina::class)->name('sede.estadistica.clinica.cantidad');
+Route::get('sede/registros-mes-actual', SedeEstadisticaRegistroMesActualCantidadPagina::class)->name('sede.estadistica.registro.mes.actual.cantidad');
 
 Route::get('especialidades', EspecialidadTodoPagina::class)->name('especialidad.index');
 Route::get('especialidad/crear', EspecialidadCrearPagina::class)->name('especialidad.crear');

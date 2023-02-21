@@ -17,12 +17,12 @@
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
-        <!--TABLA ODONTÓLOGOS-->
+        <!--TABLA CLÍNICA-->
         <div class="contenedor_panel_producto_admin">
-            @if ($sede_odontologo_cantidad->count())
+            @if ($sede_clinica_cantidad->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Odontólogos</h3>
+                    <h3>Clínicas</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -55,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($sede_odontologo_cantidad as $item)
+                                @foreach ($sede_clinica_cantidad as $item)
                                     <tr>
                                         <td>
                                             {{ $loop->iteration }}
@@ -89,18 +89,18 @@
         <!--ESTADÍSTICA CLÍNICA-->
         <div class="contenedor_panel_producto_admin">
             @php
-                $label_chart_sede_odontologos = [];
-                $data_chart_sede_odontologos = [];
+                $label_chart_sede_clinicas = [];
+                $data_chart_sede_clinicas = [];
             @endphp
 
-            @if (count($sede_odontologo_cantidad))
+            @if (count($sede_clinica_cantidad))
                 @php
-                    foreach ($sede_odontologo_cantidad as $item) {
-                        array_push($label_chart_sede_odontologos, $item->nombre);
-                        array_push($data_chart_sede_odontologos, $item->cantidad);
+                    foreach ($sede_clinica_cantidad as $item) {
+                        array_push($label_chart_sede_clinicas, $item->nombre);
+                        array_push($data_chart_sede_clinicas, $item->cantidad);
                     }
                 @endphp
-                <canvas id="chart_sede_odontologos"></canvas>
+                <canvas id="chart_sede_clinicas"></canvas>
             @endif
         </div>
 
@@ -110,14 +110,14 @@
 
 @push('script')
     <script>
-        const ctx_chart_sede_odontologos = document.getElementById('chart_sede_odontologos');
-        new Chart(ctx_chart_sede_odontologos, {
+        const ctx_chart_sede_clinicas = document.getElementById('chart_sede_clinicas');
+        new Chart(ctx_chart_sede_clinicas, {
             type: 'bar',
             data: {
-                labels: {{ Js::from($label_chart_sede_odontologos) }},
+                labels: {{ Js::from($label_chart_sede_clinicas) }},
                 datasets: [{
-                    label: 'CANTIDAD DE ODONTÓLOGOS',
-                    data: {{ Js::from($data_chart_sede_odontologos) }},
+                    label: 'CANTIDAD DE CLÍNICAS',
+                    data: {{ Js::from($data_chart_sede_clinicas) }},
                     borderWidth: 1,
                     backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',
                         'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)',
