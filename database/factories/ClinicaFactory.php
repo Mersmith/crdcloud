@@ -33,7 +33,8 @@ class ClinicaFactory extends Factory
             'ruc' => $this->faker->unique()->randomNumber(),
             'nombre_clinica' => $this->faker->unique()->sentence(2),
             'rol' => "clinica",
-            'created_at' => $this->faker->dateTimeInInterval('-2 months', '+1 months'),
+            //'created_at' => $this->faker->dateTimeInInterval('-2 months', '+1 months'), // Dos meses antes y 1 mes después
+            'created_at' => $this->faker->dateTimeInInterval('first day of this month', '+1 month -1 second'), //mes actual
         ];
     }
 }

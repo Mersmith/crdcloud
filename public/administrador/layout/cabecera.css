@@ -22,11 +22,19 @@
     padding: 5px 0px;
 }
 
+.contenedor_subtitulo_admin span {
+    display: flex;
+    font-size: 14px;
+    color: #189bb6;
+}
+
 /*CONTENEDOR BOTONES ADMIN*/
 .contenedor_botones_admin {
     display: flex;
     color: #181C32;
     padding: 1px 0px;
+    overflow-y: auto;
+    white-space: nowrap;
 }
 
 .contenedor_botones_admin a,

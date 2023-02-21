@@ -1,53 +1,70 @@
 <?php
 
-namespace App\Http\Livewire\Administrador\Odontologo;
+namespace App\Http\Livewire\Administrador\Clinica;
 
-use App\Models\Odontologo;
+use App\Models\Especialidad;
+use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
-class OdontologoPacienteCrearPagina extends Component
+class ClinicaCrearPagina extends Component
 {
-    public $odontologo;
+    public $especialidades;
+    public $sedes;
 
     public
+        $especialidad_id = "",
         $sede_id = "",
-        $odontologo_id = "",
         $nombre = null,
         $apellido = null,
         $email = null,
         $password = null,
         $dni = null,
+        $cop = null,
         $celular = null,
         $fecha_nacimiento = null,
-        $genero = "hombre";
+        $genero = "hombre",
+        $puntos = 0,
+        $ruc = null,
+        $nombre_clinica = null;
 
     protected $rules = [
+        'especialidad_id' => 'required',
         'sede_id' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'email' => 'required|unique:users',
         'password' => 'required',
         'dni' => 'required|digits:7|unique:users',
+        'cop' => 'required|digits:6|unique:users',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
+        'puntos' => 'required',
+        'ruc' => 'required|unique:clinicas',
+        'nombre_clinica' => 'required|unique:clinicas',
     ];
 
     protected $validationAttributes = [
+        'especialidad_id' => 'especialidad',
         'sede_id' => 'sede',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
         'email' => 'email',
         'password' => 'contraseña',
         'dni' => 'DNI',
+        'cop' => 'COP',
         'celular' => 'celular',
         'fecha_nacimiento' => 'fecha de nacimiento',
         'genero' => 'genero',
+        'puntos' => 'puntos',
+        'ruc' => 'ruc',
+        'nombre_clinica' => 'nombre de la clínica',
     ];
 
     protected $messages = [
+        'especialidad_id.required' => 'La :attribute es requerido.',
         'sede_id.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
@@ -57,20 +74,27 @@ class OdontologoPacienteCrearPagina extends Component
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
         'dni.digits' => 'El :attribute acepta 7 dígitos.',
+        'cop.unique' => 'El :attribute ya existe.',
+        'cop.required' => 'El :attribute es requerido.',
+        'cop.digits' => 'El :attribute acepta 6 dígitos.',
         'celular.required' => 'El :attribute es requerido.',
         'celular.digits' => 'El :attribute acepta 9 dígitos.',
         'fecha_nacimiento.required' => 'La :attribute es requerido.',
         'genero.required' => 'El :attribute es requerido.',
+        'puntos.required' => 'Los :attribute son requerido.',
+        'ruc.required' => 'El :attribute es requerido.',
+        'ruc.unique' => 'El :attribute ya existe.',
+        'nombre_clinica.required' => 'El :attribute es requerido.',
+        'nombre_clinica.unique' => 'El :attribute ya existe.',
     ];
 
-    public function mount(Odontologo $odontologo)
+    public function mount()
     {
-        $this->odontologo = $odontologo;
-        $this->sede_id = $odontologo->sede->id;
-        $this->odontologo_id = $odontologo->id;
+        $this->especialidades = Especialidad::all();
+        $this->sedes = Sede::all();
     }
 
-    public function crearPaciente()
+    public function crearClinica()
     {
         $this->validate();
 
@@ -78,10 +102,13 @@ class OdontologoPacienteCrearPagina extends Component
         $usuario->email = $this->email;
         $usuario->password = Hash::make($this->password);
         $usuario->dni = $this->dni;
+        $usuario->cop = $this->cop;
+        $usuario->rol = "clinica";
         $usuario->save();
 
-        $usuario->paciente()->create(
+        $usuario->clinica()->create(
             [
+                'especialidad_id' => $this->especialidad_id,
                 'sede_id' => $this->sede_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
@@ -89,18 +116,19 @@ class OdontologoPacienteCrearPagina extends Component
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
+                'puntos' => $this->puntos,
+                'ruc' => $this->ruc,
+                'nombre_clinica' => $this->nombre_clinica,
             ]
         );
 
-        $usuario->paciente->odontologos()->attach($this->odontologo_id);
-
         $this->emit('mensajeCreado', "Creado.");
 
-        return redirect()->route('administrador.odontologo.paciente.editar', ['odontologo' => $this->odontologo_id, 'paciente' => $usuario->paciente->id]);
+        return redirect()->route('administrador.clinica.editar', $usuario->clinica->id);
     }
 
     public function render()
     {
-        return view('livewire.administrador.odontologo.odontologo-paciente-crear-pagina')->layout('layouts.administrador.index');
+        return view('livewire.administrador.clinica.clinica-crear-pagina')->layout('layouts.administrador.index');
     }
 }

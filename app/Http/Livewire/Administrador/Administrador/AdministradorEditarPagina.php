@@ -101,18 +101,26 @@ class AdministradorEditarPagina extends Component
         );
 
         if ($this->editar_password) {
-            $usuario = User::find($this->odontologo->user_id);
+            //$usuario = User::find($this->administrador->user_id);
 
             //$contrasenaAntiguaHash = $usuario->password;
             $contrasenaNueva = $this->editar_password;
 
-            $usuario->password = Hash::make($contrasenaNueva);
-            $usuario->save();
+            $this->usuario_administrador->password = Hash::make($contrasenaNueva);
+            $this->usuario_administrador->save();
         }
 
         $this->emit('mensajeActualizado', "Editado.");
 
-        //return redirect()->route('administrador.odontologo.index');
+        //return redirect()->route('administrador.administrador.index');
+    }
+
+    public function eliminarAdministrador()
+    {
+        $this->administrador->delete();
+        $this->usuario_administrador->delete();
+
+        return redirect()->route('administrador.administrador.index');
     }
 
     public function render()

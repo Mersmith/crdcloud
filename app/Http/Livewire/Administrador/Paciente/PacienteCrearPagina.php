@@ -111,6 +111,7 @@ class PacienteCrearPagina extends Component
             $usuario->email = $this->email;
             $usuario->password = Hash::make($this->password);
             $usuario->dni = $this->dni;
+            $usuario->rol = "paciente";
             $usuario->save();
 
             $usuario->paciente()->create(

@@ -1,18 +1,18 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Administradores')
+    @section('tituloPagina', 'Clínicas')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Administradores</h2>
+            <h2>Clínicas</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.administrador.crear') }}">
-                Nuevo administrador <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('administrador.clinica.crear') }}">
+                Nueva clínica <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -22,18 +22,17 @@
         <!--BUSCADOR-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
-                <p class="estilo_nombre_input">Buscar administrador: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarAdministrador" placeholder="Buscar...">
+                <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
             </div>
         </div>
 
         <!--TABLA-->
         <div class="contenedor_panel_producto_admin">
-            @if ($administradores->count())
-
+            @if ($clinicas->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de administradores <span> Cantidad: {{ $cantidad_total_administradores }}</span></h3>
+                    <h3>Lista ({{ $cantidad_total_clinicas }})</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -58,9 +57,13 @@
                                     <th>
                                         Nº</th>
                                     <th>
+                                        Clínica</th>
+                                    <th>
                                         Nombres</th>
                                     <th>
                                         Apellidos</th>
+                                    <th>
+                                        Especialidad</th>
                                     <th>
                                         Sede</th>
                                     <th>
@@ -68,7 +71,15 @@
                                     <th>
                                         DNI</th>
                                     <th>
+                                        COP</th>
+                                    <th>
                                         Celular</th>
+                                    <th>
+                                        Nacimiento</th>
+                                    <th>
+                                        Género</th>
+                                    <th>
+                                        Puntos</th>
                                     <th>
                                         Registro</th>
                                     <th>
@@ -76,40 +87,58 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($administradores as $administrador)
-                                    <tr style="text-align: center;">
-                                        <td>
+                                @foreach ($clinicas as $clinica)
+                                    <tr>
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
-                                            {{ $administrador->nombre }}
+                                            {{ $clinica->nombre_clinica }}
                                         </td>
                                         <td>
-                                            {{ $administrador->apellido }}
+                                            {{ $clinica->nombre }}
                                         </td>
                                         <td>
-                                            {{ $administrador->sede->nombre }}
+                                            {{ $clinica->apellido }}
                                         </td>
                                         <td>
-                                            {{ $administrador->email }}
+                                            {{ $clinica->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $administrador->user->dni }}
+                                            {{ $clinica->sede->nombre }}
                                         </td>
                                         <td>
-                                            {{ $administrador->celular }}
+                                            {{ $clinica->email }}
                                         </td>
                                         <td>
-                                            {{ $administrador->created_at }}
+                                            {{ $clinica->user->dni }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->user->cop }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->celular }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->fecha_nacimiento }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->genero }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->puntos }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->created_at }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.administrador.informacion', $administrador) }}">
+                                                href="{{ route('administrador.clinica.informacion', $clinica) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
 
                                             <a style="color: green;"
-                                                href="{{ route('administrador.administrador.editar', $administrador) }}">
+                                                href="{{ route('administrador.clinica.editar', $clinica) }}">
                                                 <span><i class="fa-solid fa-pencil"></i></span>
                                             </a>
                                         </td>
@@ -120,14 +149,14 @@
                     </div>
                 </div>
 
-                @if ($administradores->hasPages())
+                @if ($clinicas->hasPages())
                     <div>
-                        {{ $administradores->links('pagination::tailwind') }}
+                        {{ $clinicas->links('pagination::tailwind') }}
                     </div>
                 @endif
             @else
                 <div class="contenedor_no_existe_elementos">
-                    <p>No hay administradores.</p>
+                    <p>No hay elementos</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

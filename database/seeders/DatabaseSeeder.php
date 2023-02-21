@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
         $this->call(SedeSeeder::class);
         $this->call(EspecialidadSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(ClinicaPacienteSeeder::class);
-        $this->call(OdontologoPacienteSeeder::class);
+        /*$this->call(ClinicaPacienteSeeder::class);
+        $this->call(OdontologoPacienteSeeder::class);*/
         $this->call(DepartamentoSeeder::class);
         $this->call(ProvinciaSeeder::class);
         $this->call(DistritoSeeder::class);
-        $this->call(DireccionSeeder::class);
-        $this->call(ServicioSeeder::class);
+        /*$this->call(DireccionSeeder::class);
+        $this->call(ServicioSeeder::class);*/
     }
 }
