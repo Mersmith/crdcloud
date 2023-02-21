@@ -27,9 +27,9 @@
             </div>
         </div>
 
-        @if ($odontologos->count())
-            <!--TABLA-->
-            <div class="contenedor_panel_producto_admin">
+        <!--TABLA-->
+        <div class="contenedor_panel_producto_admin">
+            @if ($odontologos->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
                     <h3>Lista ({{ $cantidad_total_odontologos }})</h3>
@@ -143,19 +143,20 @@
                         </table>
                     </div>
                 </div>
-            </div>
 
-            @if ($odontologos->hasPages())
-                <div>
-                    {{ $odontologos->links('pagination::tailwind') }}
+
+                @if ($odontologos->hasPages())
+                    <div>
+                        {{ $odontologos->links('pagination::tailwind') }}
+                    </div>
+                @endif
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No hay elementos</p>
+                    <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No hay elementos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
+        </div>
 
     </div>
 </div>

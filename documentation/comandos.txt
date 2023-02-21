@@ -59,7 +59,7 @@ php artisan make:livewire Administrador/Administrador/AdministradorCrearPagina
 php artisan make:livewire Administrador/Administrador/AdministradorEditarPagina
 php artisan make:livewire Administrador/Administrador/AdministradorInformacionPagina
 
-->CRUD Odontologo
+->CRUD Odontólogo
 php artisan make:livewire Administrador/Odontologo/OdontologoTodoPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoCrearPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoEditarPagina
@@ -73,6 +73,21 @@ php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDepartam
 php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDepartamentoListaPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaProvinciaListaPagina
 php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDistritoListaPagina
+
+->CRUD Clínica
+php artisan make:livewire Administrador/Clinica/ClinicaTodoPagina
+php artisan make:livewire Administrador/Clinica/ClinicaCrearPagina
+php artisan make:livewire Administrador/Clinica/ClinicaEditarPagina
+php artisan make:livewire Administrador/Clinica/ClinicaInformacionPagina
+php artisan make:livewire Administrador/Clinica/ClinicaPacienteTodoPagina
+php artisan make:livewire Administrador/Clinica/ClinicaPacienteCrearPagina
+php artisan make:livewire Administrador/Clinica/ClinicaPacienteEditarPagina
+php artisan make:livewire Administrador/Clinica/ClinicaDireccionCrearPagina
+php artisan make:livewire Administrador/Clinica/ClinicaDireccionEditarPagina
+php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaDepartamentoCantidadPagina
+php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaDepartamentoListaPagina
+php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaProvinciaListaPagina
+php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaDistritoListaPagina
 
 ->CRUD Paciente
 php artisan make:livewire Administrador/Paciente/PacienteTodoPagina
@@ -178,4 +193,12 @@ git status
 git add .
 git commit -m "10_Modificacion"
 git push origin 10_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 11_Modificacion
+git branch
+git status
+git add .
+git commit -m "11_Modificacion"
+git push origin 11_Modificacion
 ->Click en boton Merge pull request

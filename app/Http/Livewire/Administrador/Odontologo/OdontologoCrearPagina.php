@@ -93,6 +93,7 @@ class OdontologoCrearPagina extends Component
         $usuario->password = Hash::make($this->password);
         $usuario->dni = $this->dni;
         $usuario->cop = $this->cop;
+        $usuario->rol = "odontologo";
         $usuario->save();
 
         $usuario->odontologo()->create(

@@ -1,11 +1,10 @@
 <div>
     @section('tituloPagina', 'Sedes | Registro')
-
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Registros</h2>
+            <h2>Registros de odontólogos y clínicas</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -20,9 +19,14 @@
         <!--TABLA CLÍNICA-->
         <div class="contenedor_panel_producto_admin">
             @if ($cantidad_odontologos_clinicas_mes_actual->count())
+                @php
+                    setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish'); // Establecer la configuración regional en español
+                    $mes_actual = date('n'); // Obtener el número del mes actual
+                    $nombre_mes = strftime('%B', mktime(0, 0, 0, $mes_actual, 1)); // Obtener el nombre del mes en español
+                @endphp
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Mes actual</h3>
+                    <h3>Mes actual - {{ $nombre_mes }} </h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -47,7 +51,7 @@
                                     <th>
                                         Nº</th>
                                     <th>
-                                        Fecha</th>
+                                        Día</th>
                                     <th>
                                         Cantidad</th>
                                 </tr>
@@ -55,13 +59,13 @@
                             <tbody>
                                 @foreach ($cantidad_odontologos_clinicas_mes_actual as $item)
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $item->fecha }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $item->cantidad_registros }}
                                         </td>
                                     </tr>
@@ -81,6 +85,7 @@
         <!--ESTADÍSTICA CLÍNICA-->
         <div class="contenedor_panel_producto_admin">
             @php
+                $fecha_actual = date('Y-m-d');
                 $label_chart_sede_clinicas = [];
                 $data_chart_sede_clinicas = [];
             @endphp
@@ -88,7 +93,7 @@
             @if (count($cantidad_odontologos_clinicas_mes_actual))
                 @php
                     foreach ($cantidad_odontologos_clinicas_mes_actual as $item) {
-                        array_push($label_chart_sede_clinicas, $item->fecha);
+                        array_push($label_chart_sede_clinicas, utf8_encode(strftime('%A', strtotime(date('Y-m-' . str_pad($item->fecha, 2, '0', STR_PAD_LEFT))))) . ' ' . $item->fecha);
                         array_push($data_chart_sede_clinicas, $item->cantidad_registros);
                     }
                 @endphp
@@ -108,7 +113,7 @@
             data: {
                 labels: {{ Js::from($label_chart_sede_clinicas) }},
                 datasets: [{
-                    label: 'REGISTRADOR EN ESTE MES',
+                    label: 'NUEVOS REGISTROS EN ESTE MES DE ONDONTÓLOGOS Y CLÍNICAS',
                     data: {{ Js::from($data_chart_sede_clinicas) }},
                     borderWidth: 1,
                     backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',

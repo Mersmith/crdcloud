@@ -13,6 +13,6 @@ class EspecialidadSeeder extends Seeder
      */
     public function run(): void
     {
-        Especialidad::factory(30)->create();
+        Especialidad::factory(1)->create();
     }
 }

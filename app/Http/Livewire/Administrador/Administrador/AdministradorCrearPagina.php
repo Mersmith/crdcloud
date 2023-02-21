@@ -27,7 +27,7 @@ class AdministradorCrearPagina extends Component
         'apellido' => 'required',
         'email' => 'required|unique:users',
         'password' => 'required',
-        'dni' => 'required|digits:7|unique:users',
+        'dni' => 'required|digits:8|unique:users',
         'celular' => 'required|digits:9',
     ];
 
@@ -50,7 +50,7 @@ class AdministradorCrearPagina extends Component
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
-        'dni.digits' => 'El :attribute acepta 7 dígitos.',
+        'dni.digits' => 'El :attribute acepta 8 dígitos.',
         'celular.required' => 'El :attribute es requerido.',
         'celular.digits' => 'El :attribute acepta 9 dígitos.',
     ];
@@ -68,6 +68,7 @@ class AdministradorCrearPagina extends Component
         $usuario->email = $this->email;
         $usuario->password = Hash::make($this->password);
         $usuario->dni = $this->dni;
+        $usuario->rol = "administrador";
         $usuario->save();
 
         $usuario->administrador()->create(

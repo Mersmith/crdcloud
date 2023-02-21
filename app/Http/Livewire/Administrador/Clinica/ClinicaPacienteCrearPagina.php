@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\Administrador\Odontologo;
+namespace App\Http\Livewire\Administrador\Clinica;
 
-use App\Models\Odontologo;
+use App\Models\Clinica;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
-class OdontologoPacienteCrearPagina extends Component
+class ClinicaPacienteCrearPagina extends Component
 {
-    public $odontologo;
+    public $clinica;
 
     public
         $sede_id = "",
-        $odontologo_id = "",
+        $clinica_id = "",
         $nombre = null,
         $apellido = null,
         $email = null,
@@ -63,11 +63,11 @@ class OdontologoPacienteCrearPagina extends Component
         'genero.required' => 'El :attribute es requerido.',
     ];
 
-    public function mount(Odontologo $odontologo)
+    public function mount(Clinica $clinica)
     {
-        $this->odontologo = $odontologo;
-        $this->sede_id = $odontologo->sede->id;
-        $this->odontologo_id = $odontologo->id;
+        $this->clinica = $clinica;
+        $this->sede_id = $clinica->sede->id;
+        $this->clinica_id = $clinica->id;
     }
 
     public function crearPaciente()
@@ -92,15 +92,15 @@ class OdontologoPacienteCrearPagina extends Component
             ]
         );
 
-        $usuario->paciente->odontologos()->attach($this->odontologo_id);
+        $usuario->paciente->clinicas()->attach($this->clinica_id);
 
         $this->emit('mensajeCreado', "Creado.");
 
-        return redirect()->route('administrador.odontologo.paciente.editar', ['odontologo' => $this->odontologo_id, 'paciente' => $usuario->paciente->id]);
+        return redirect()->route('administrador.clinica.paciente.editar', ['clinica' => $this->clinica_id, 'paciente' => $usuario->paciente->id]);
     }
 
     public function render()
     {
-        return view('livewire.administrador.odontologo.odontologo-paciente-crear-pagina')->layout('layouts.administrador.index');
+        return view('livewire.administrador.clinica.clinica-paciente-crear-pagina')->layout('layouts.administrador.index');
     }
 }

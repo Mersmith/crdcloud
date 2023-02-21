@@ -1,18 +1,20 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Administradores')
+    @section('tituloPagina', 'Pacientes')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Administradores</h2>
+            <h2>Pacientes</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.administrador.crear') }}">
-                Nuevo administrador <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('administrador.clinica.index') }}">
+                <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <a href="{{ route('administrador.clinica.paciente.crear', $clinica) }}">
+                Nuevo Paciente <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -22,18 +24,17 @@
         <!--BUSCADOR-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
-                <p class="estilo_nombre_input">Buscar administrador: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarAdministrador" placeholder="Buscar...">
+                <p class="estilo_nombre_input">Buscar paciente: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarPaciente" placeholder="Buscar...">
             </div>
         </div>
 
-        <!--TABLA-->
-        <div class="contenedor_panel_producto_admin">
-            @if ($administradores->count())
-
+        @if ($pacientes->count())
+            <!--TABLA-->
+            <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de administradores <span> Cantidad: {{ $cantidad_total_administradores }}</span></h3>
+                    <h3>Lista ({{ $pacientes_cantidad_total }})</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -70,47 +71,56 @@
                                     <th>
                                         Celular</th>
                                     <th>
+                                        Fecha Nacimiento</th>
+                                    <th>
+                                        Género</th>
+                                    <th>
                                         Registro</th>
                                     <th>
                                         Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($administradores as $administrador)
-                                    <tr style="text-align: center;">
+                                @foreach ($pacientes as $paciente)
+                                    <tr>
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
-                                            {{ $administrador->nombre }}
+                                            {{ $paciente->nombre }}
                                         </td>
                                         <td>
-                                            {{ $administrador->apellido }}
+                                            {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{ $administrador->sede->nombre }}
+                                            {{ $paciente->sede->nombre }}
                                         </td>
                                         <td>
-                                            {{ $administrador->email }}
+                                            {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $administrador->user->dni }}
+                                            {{ $paciente->user->dni }}
                                         </td>
                                         <td>
-                                            {{ $administrador->celular }}
+                                            {{ $paciente->celular }}
                                         </td>
                                         <td>
-                                            {{ $administrador->created_at }}
+                                            {{ $paciente->fecha_nacimiento }}
+                                        </td>
+                                        <td>
+                                            {{ $paciente->genero }}
+                                        </td>
+                                        <td>
+                                            {{ $paciente->created_at }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.administrador.informacion', $administrador) }}">
+                                                href="{{ route('administrador.paciente.informacion', $paciente) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
-
                                             <a style="color: green;"
-                                                href="{{ route('administrador.administrador.editar', $administrador) }}">
-                                                <span><i class="fa-solid fa-pencil"></i></span>
+                                                href="{{ route('administrador.clinica.paciente.editar', ['clinica' => $clinica->id, 'paciente' => $paciente->id]) }}">
+                                                <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -119,19 +129,19 @@
                         </table>
                     </div>
                 </div>
+            </div>
 
-                @if ($administradores->hasPages())
-                    <div>
-                        {{ $administradores->links('pagination::tailwind') }}
-                    </div>
-                @endif
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No hay administradores.</p>
-                    <i class="fa-solid fa-spinner"></i>
+            @if ($pacientes->hasPages())
+                <div>
+                    {{ $pacientes->links('pagination::tailwind') }}
                 </div>
             @endif
-        </div>
+        @else
+            <div class="contenedor_no_existe_elementos">
+                <p>No hay elementos</p>
+                <i class="fa-solid fa-spinner"></i>
+            </div>
+        @endif
 
     </div>
 </div>

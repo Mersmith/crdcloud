@@ -1,39 +1,36 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Administradores')
+    @section('tituloPagina', 'Clínica - Distritos')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Administradores</h2>
+            <h2>Distritos</h2>
         </div>
-
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.administrador.crear') }}">
-                Nuevo administrador <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ URL::previous() }}">
+                <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
         </div>
     </div>
 
-    <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
-
         <!--BUSCADOR-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
-                <p class="estilo_nombre_input">Buscar administrador: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarAdministrador" placeholder="Buscar...">
+                <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
             </div>
         </div>
 
         <!--TABLA-->
         <div class="contenedor_panel_producto_admin">
-            @if ($administradores->count())
+            @if ($clinicas_distritos->count())
 
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de administradores <span> Cantidad: {{ $cantidad_total_administradores }}</span></h3>
+                    <h3>Lista</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -62,55 +59,51 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
-                                    <th>
-                                        DNI</th>
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Registro</th>
+                                        Fecha Nacimiento</th>
+                                    <th>
+                                        Género</th>
+
+                                    <th>
+                                        Puntos</th>
                                     <th>
                                         Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($administradores as $administrador)
-                                    <tr style="text-align: center;">
+                                @foreach ($clinicas_distritos as $clinica)
+                                    <tr>
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
-                                            {{ $administrador->nombre }}
+                                            {{ $clinica->nombre }}
                                         </td>
                                         <td>
-                                            {{ $administrador->apellido }}
+                                            {{ $clinica->apellido }}
                                         </td>
                                         <td>
-                                            {{ $administrador->sede->nombre }}
+                                            {{ $clinica->email }}
                                         </td>
                                         <td>
-                                            {{ $administrador->email }}
+                                            {{ $clinica->celular }}
                                         </td>
                                         <td>
-                                            {{ $administrador->user->dni }}
+                                            {{ $clinica->fecha_nacimiento }}
                                         </td>
                                         <td>
-                                            {{ $administrador->celular }}
+                                            {{ $clinica->genero }}
                                         </td>
                                         <td>
-                                            {{ $administrador->created_at }}
+                                            {{ $clinica->puntos }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.administrador.informacion', $administrador) }}">
+                                                href="{{ route('administrador.clinica.informacion', $clinica->id) }}">
                                                 <i class="fa-solid fa-eye"></i>
-                                            </a>
-
-                                            <a style="color: green;"
-                                                href="{{ route('administrador.administrador.editar', $administrador) }}">
-                                                <span><i class="fa-solid fa-pencil"></i></span>
                                             </a>
                                         </td>
                                     </tr>
@@ -120,14 +113,15 @@
                     </div>
                 </div>
 
-                @if ($administradores->hasPages())
+
+                @if ($clinicas_distritos->hasPages())
                     <div>
-                        {{ $administradores->links('pagination::tailwind') }}
+                        {{ $clinicas_distritos->links('pagination::tailwind') }}
                     </div>
                 @endif
             @else
                 <div class="contenedor_no_existe_elementos">
-                    <p>No hay administradores.</p>
+                    <p>No hay elementos</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

@@ -60,6 +60,13 @@
                         "nombreSubMenu2Url": "administrador.sede.estadistica.clinica.cantidad",
                         "iconoSubMenu2": "fa-solid fa-house-medical-flag",
                         "subMenu3": []
+                    },
+                    {
+                        "id": 1,
+                        "nombreSubMenu2": "Registros",
+                        "nombreSubMenu2Url": "administrador.sede.estadistica.registro.mes.actual.cantidad",
+                        "iconoSubMenu2": "fa-regular fa-calendar-days",
+                        "subMenu3": []
                     }
                 ]
             }
@@ -104,6 +111,43 @@
     },
     {
         "id": 4,
+        "nombrePrincipal": "Clínicas",
+        "nombrePrincipalUrl": "#",
+        "iconoPrincipal": "fa-solid fa-house-medical-flag",
+        "subMenu1": [
+            {
+                "id": 1,
+                "nombreSubMenu1": "Lista",
+                "nombreSubMenu1Url": "administrador.clinica.index",
+                "iconoSubMenu1": "fa-solid fa-table-list",
+                "subMenu2": []
+            },
+            {
+                "id": 2,
+                "nombreSubMenu1": "Nuevo",
+                "nombreSubMenu1Url": "administrador.clinica.crear",
+                "iconoSubMenu1": "fa-solid fa-square-plus",
+                "subMenu2": []
+            },
+            {
+                "id": 5,
+                "nombreSubMenu1": "Estadística",
+                "nombreSubMenu1Url": "#",
+                "iconoSubMenu1": "fa-solid fa-chart-simple",
+                "subMenu2": [
+                    {
+                        "id": 1,
+                        "nombreSubMenu2": "Departamentos",
+                        "nombreSubMenu2Url": "administrador.clinica.estadistica.departamento.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-mountain-sun",
+                        "subMenu3": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 5,
         "nombrePrincipal": "Pacientes",
         "nombrePrincipalUrl": "#",
         "iconoPrincipal": "fa-solid fa-user-injured",
@@ -125,7 +169,7 @@
         ]
     },
     {
-        "id": 5,
+        "id": 6,
         "nombrePrincipal": "Especialidades",
         "nombrePrincipalUrl": "#",
         "iconoPrincipal": "fa-solid fa-stethoscope",
@@ -162,7 +206,7 @@
         ]
     },
     {
-        "id": 6,
+        "id": 7,
         "nombrePrincipal": "Servicios",
         "nombrePrincipalUrl": "#",
         "iconoPrincipal": "fa-solid fa-briefcase-medical",

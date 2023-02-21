@@ -32,7 +32,8 @@ class OdontologoFactory extends Factory
             'genero' => $this->faker->randomElement(['hombre', 'mujer']),
             'puntos' => $this->faker->randomElement([0, 20, 50, 70, 80, 100, 500]),
             'rol' => "odontologo",
-            'created_at' => $this->faker->dateTimeInInterval('-2 months', '+1 months'),
+            //'created_at' => $this->faker->dateTimeInInterval('-2 months', '+1 months'), // Dos meses antes y 1 mes después
+            'created_at' => $this->faker->dateTimeInInterval('first day of this month', '+1 month -1 second'), //mes actual
         ];
     }
 }

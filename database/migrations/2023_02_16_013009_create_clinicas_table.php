@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('genero', ['hombre', 'mujer']);
             $table->integer('puntos')->nullable()->default(0);
             $table->string('ruc')->nullable()->unique();
-            $table->string('nombre_clinica')->nullable();
+            $table->string('nombre_clinica')->nullable()->unique();
             $table->string('rol')->nullable()->default("clinica");
 
             $table->foreign('especialidad_id')->references('id')->on('especialidads');
