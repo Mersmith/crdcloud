@@ -53,6 +53,13 @@
                         "nombreSubMenu2Url": "administrador.sede.estadistica.odontologo.cantidad",
                         "iconoSubMenu2": "fa-solid fa-user-doctor",
                         "subMenu3": []
+                    },
+                    {
+                        "id": 1,
+                        "nombreSubMenu2": "Clínicas",
+                        "nombreSubMenu2Url": "administrador.sede.estadistica.clinica.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-house-medical-flag",
+                        "subMenu3": []
                     }
                 ]
             }
