@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Información odontólogo</h2>
+            <h2>Odontólogo: {{ $odontologo->nombre }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -24,14 +24,17 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos</h3>
+                <h3>Datos del odontólogo:</h3>
             </div>
             <div>
                 <p><strong>Nombre: </strong>{{ $odontologo->nombre }} </p>
                 <p><strong>Correo: </strong>{{ $usuario_odontologo->email }} </p>
-                <p><strong>COP: </strong>{{ $usuario_odontologo->cop }} </p>
-                <p><strong>Especialidad: </strong>{{ $especialidad->nombre }} </p>
                 <p><strong>Sede: </strong>{{ $odontologo->sede->nombre }} </p>
+                <p><strong>Especialidad: </strong>{{ $especialidad->nombre }} </p>
+                <p><strong>COP: </strong>{{ $usuario_odontologo->cop }} </p>
+                <p><strong>DNI: </strong>{{ $usuario_odontologo->dni }} </p>
+                <p><strong>Celular: </strong>{{ $odontologo->celular }} </p>
+                <p><strong>Email: </strong>{{ $odontologo->email }} </p>
                 <p><strong>Puntos: </strong>{{ $odontologo->puntos }} </p>
             </div>
         </div>
@@ -40,7 +43,7 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Dirección</h3>
+                <h3>Dirección del odontólogo:</h3>
             </div>
             @if ($direccion)
                 <div>
@@ -50,114 +53,16 @@
                     <p><strong>Dirección: </strong>{{ $direccion->direccion }} </p>
                     <p><strong>Referencia: </strong>{{ $direccion->referencia }} </p>
                     <p><strong>Código postal: </strong>{{ $direccion->codigo_postal }} </p>
-                    <a href="{{ route('administrador.odontologo.direccion.editar', $odontologo) }}">Editar
+                    <a href="{{ route('administrador.odontologo.direccion.editar', $odontologo) }}"
+                        class="boton_suelto">Editar
                         Dirección</a>
                 </div>
             @else
                 <div>
-                    <a href="{{ route('administrador.odontologo.direccion.crear', $odontologo) }}">Crear Dirección</a>
+                    <a href="{{ route('administrador.odontologo.direccion.crear', $odontologo) }}"
+                        class="boton_suelto">Crear Dirección</a>
                 </div>
             @endif
         </div>
-
-        {{-- <!--TABLA-->
-        @if ($pacientes->count())
-            <div class="contenedor_panel_producto_admin">
-                <!--CONTENEDOR SUBTITULO-->
-                <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
-                </div>
-
-                <!--CONTENEDOR BOTONES-->
-                <div class="contenedor_botones_admin">
-                    <button>
-                        PDF <i class="fa-solid fa-file-pdf"></i>
-                    </button>
-                    <button>
-                        EXCEL <i class="fa-regular fa-file-excel"></i>
-                    </button>
-                    <button onClick="window.scrollTo(0, document.body.scrollHeight);">
-                        Abajo <i class="fa-solid fa-arrow-down"></i>
-                    </button>
-                </div>
-
-                <!--TABLA-->
-                <div class="tabla_administrador py-4 overflow-x-auto">
-                    <div class="inline-block min-w-full overflow-hidden">
-                        <table class="min-w-full leading-normal">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Nº</th>
-                                    <th>
-                                        Nombres</th>
-                                    <th>
-                                        Apellidos</th>
-                                    <th>
-                                        Sede</th>
-                                    <th>
-                                        Email</th>
-                                    <th>
-                                        DNI</th>
-                                    <th>
-                                        Celular</th>
-                                    <th>
-                                        Fecha Nacimiento</th>
-                                    <th>
-                                        Género</th>
-                                    <th>
-                                        Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pacientes as $paciente)
-                                    <tr>
-                                        <td>
-                                            {{ $loop->iteration }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->nombre }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->apellido }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->sede->nombre }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->email }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->user->dni }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->celular }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->fecha_nacimiento }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->genero }}
-                                        </td>
-                                        <td>
-                                            <a style="color: green;"
-                                                href="{{ route('administrador.paciente.editar', $paciente) }}">
-                                                <span><i class="fa-solid fa-pencil"></i></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No hay elementos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif --}}
-
     </div>
 </div>

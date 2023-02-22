@@ -32,7 +32,7 @@
             @if ($clinicas->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista ({{ $cantidad_total_clinicas }})</h3>
+                    <h3>Lista de clínicas  <span> Cantidad: {{ $cantidad_total_clinicas }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -88,8 +88,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas as $clinica)
-                                    <tr>
-                                        <td style="text-align: center;">
+                                    <tr  style="text-align: center;">
+                                        <td>
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
@@ -156,7 +156,7 @@
                 @endif
             @else
                 <div class="contenedor_no_existe_elementos">
-                    <p>No hay elementos</p>
+                    <p>No hay clínicas.</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

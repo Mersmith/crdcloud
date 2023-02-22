@@ -25,7 +25,7 @@
             </div>
 
             <!--FORMULARIO-->
-            <form wire:submit.prevent="crearClinica" x-data class="formulario">
+            <form wire:submit.prevent="crearClinica" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '', digitosRuc: '' }" class="formulario">
 
                 <!--SEDES Y ESPECIALIDADES-->
                 <div class="contenedor_2_elementos">
@@ -108,8 +108,9 @@
                 <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI: </p>
-                        <input type="number" wire:model="dni">
+                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span> </p>
+                        <input type="number" wire:model="dni" x-ref="digitosDniRef" x-model="digitosDni"
+                            x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)">
                         @error('dni')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -118,7 +119,8 @@
                     <!--COP-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
-                        <input type="number" wire:model="cop">
+                        <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
+                            x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
                         @error('cop')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -130,7 +132,8 @@
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="tel" wire:model="celular">
+                        <input type="number" wire:model="celular" x-ref="digitosCelularRef" x-model="digitosCelular"
+                            x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)">
                         @error('celular')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -138,7 +141,8 @@
 
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento: </p>
+                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span
+                                class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -182,7 +186,8 @@
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">RUC: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
-                        <input type="text" wire:model="ruc">
+                        <input type="number" wire:model="ruc" x-ref="digitosRucRef" x-model="digitosRuc"
+                            x-on:keydown="limitarEntrada($refs.digitosRucRef, 11, $event)">
                         @error('ruc')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -210,3 +215,16 @@
     </div>
 
 </div>
+
+@push('script')
+    <script>
+        function limitarEntrada(input, longitudMaxima, event) {
+            const valor = input.value;
+
+            if (valor.length >= longitudMaxima && event.key !== 'Backspace' && event.key !== 'Delete' && event.key !==
+                'ArrowLeft' && event.key !== 'ArrowRight') {
+                event.preventDefault();
+            }
+        }
+    </script>
+@endpush

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Administrador>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Encargado>
  */
-class AdministradorFactory extends Factory
+class EncargadoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,11 +18,15 @@ class AdministradorFactory extends Factory
      */
     public function definition(): array
     {
+        $sedes = Sede::all();
+        $sedesUnicas = Collection::make($sedes)->unique()->random(2);
+
         return [
+            'sede_id' => $sedesUnicas->first()->id,
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
             'celular' => $this->faker->phoneNumber(),
-            'rol' => "administrador",
+            'rol' => "encargado",
         ];
     }
 }

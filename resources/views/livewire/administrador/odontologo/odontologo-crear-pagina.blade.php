@@ -25,10 +25,24 @@
             </div>
 
             <!--FORMULARIO-->
-            <form wire:submit.prevent="crearOdontologo" x-data class="formulario">
+            <form wire:submit.prevent="crearOdontologo" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '' }" class="formulario">
 
-                <!--ESPECIALIDADES Y EMAIL-->
+                <!--SEDES Y ESPECIALIDADES-->
                 <div class="contenedor_2_elementos">
+                    <!--SEDES-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <select wire:model="sede_id">
+                            <option value="" selected disabled>Seleccione una sede</option>
+                            @foreach ($sedes as $sede)
+                                <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('sede_id')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <!--ESPECIALIDADES-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Especialidades: <span
@@ -43,7 +57,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--EMAIL Y PASSWORD-->
+                <div class="contenedor_2_elementos">
                     <!--EMAIL-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Correo: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -52,10 +69,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--PASSWORD Y NOMBRE-->
-                <div class="contenedor_2_elementos">
                     <!--PASSWORD-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Contraseña: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -65,7 +79,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--NOMBRE Y APELLIDO-->
+                <div class="contenedor_2_elementos">
                     <!--NOMBRE-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Nombres: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -75,10 +92,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--PASSWORD Y NOMBRE-->
-                <div class="contenedor_2_elementos">
                     <!--APELLIDO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Apellidos: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -88,45 +102,61 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--DNI Y COP-->
+                <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI: </p>
-                        <input type="number" wire:model="dni">
+                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="number" wire:model="dni" x-ref="digitosDniRef" x-model="digitosDni"
+                            x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)">
                         @error('dni')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--COP Y CELULAR-->
-                <div class="contenedor_2_elementos">
                     <!--COP-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
-                        <input type="number" wire:model="cop">
+                        <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
+                        x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
                         @error('cop')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--CELULAR Y FECHA DE NACIMIENTO-->
+                <div class="contenedor_2_elementos">
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="tel" wire:model="celular">
+                        <input type="number" wire:model="celular" x-ref="digitosCelularRef" x-model="digitosCelular"
+                            x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)">
                         @error('celular')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!--FECHA DE NACIMIENTO-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span
+                                class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="date" wire:model="fecha_nacimiento">
+                        @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!--FECHA DE NACIMIENTO Y GÉNERO-->
+                <!--PUNTOS Y GÉNERO-->
                 <div class="contenedor_2_elementos">
-                    <!--FECHA DE NACIMIENTO-->
+                    <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento: </p>
-                        <input type="date" wire:model="fecha_nacimiento">
-                        @error('fecha_nacimiento')
+                        <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="number" wire:model="puntos">
+                        @error('puntos')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -150,18 +180,6 @@
                     </div>
                 </div>
 
-                <!--PUNTOS-->
-                <div class="contenedor_2_elementos">
-                    <!--PUNTOS-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="puntos">
-                        @error('puntos')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">
                     <input type="submit" value="Crear">
@@ -172,3 +190,16 @@
     </div>
 
 </div>
+
+@push('script')
+    <script>
+        function limitarEntrada(input, longitudMaxima, event) {
+            const valor = input.value;
+
+            if (valor.length >= longitudMaxima && event.key !== 'Backspace' && event.key !== 'Delete' && event.key !==
+                'ArrowLeft' && event.key !== 'ArrowRight') {
+                event.preventDefault();
+            }
+        }
+    </script>
+@endpush

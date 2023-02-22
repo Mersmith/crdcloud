@@ -13,6 +13,13 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.especialidad.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <button wire:click="$emit('eliminarEspecialidadModal')">
+                Eliminar especialidad <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <a href="{{ route('administrador.especialidad.crear') }}">
+                Nueva especialidad <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('administrador.especialidad.informacion', $especialidad) }}">
+                Información de la especialidad <i class="fa-solid fa-eye"></i></a>
         </div>
     </div>
 
@@ -66,3 +73,30 @@
     </div>
 
 </div>
+
+@push('script')
+    <script>
+        Livewire.on('eliminarEspecialidadModal', () => {
+            Swal.fire({
+                title: '¿Quieres eliminar?',
+                text: "No podrás recuparlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('administrador.especialidad.especialidad-editar-pagina',
+                        'eliminarEspecialidad');
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'Eliminaste correctamente.',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+@endpush

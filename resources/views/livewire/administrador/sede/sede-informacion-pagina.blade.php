@@ -7,7 +7,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>{{ $sede->nombre }}</h2>
+            <h2>Sede: {{ $sede->nombre }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -29,11 +29,11 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos</h3>
+                <h3>Datos de la sede:</h3>
             </div>
             <div>
                 <p><strong>Nombre: </strong>{{ $sede->nombre }} </p>
-                <p><strong>Descripción: </strong>{{ $sede->descripcion }} </p>
+                <p><strong>Dirección: </strong>{{ $sede->direccion }} </p>
             </div>
         </div>
 

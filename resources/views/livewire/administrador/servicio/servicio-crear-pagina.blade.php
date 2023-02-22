@@ -65,7 +65,7 @@
                     <!--PUNTOS A GANAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Puntos a ganar: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="text" wire:model="crearFormulario.puntos_ganar">
+                        <input type="number" wire:model="crearFormulario.puntos_ganar">
                         @error('crearFormulario.puntos_ganar')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror

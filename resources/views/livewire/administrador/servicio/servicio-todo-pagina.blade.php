@@ -27,12 +27,13 @@
                 <input type="text" wire:model="buscarServicio" placeholder="Buscar...">
             </div>
         </div>
+
         <!--TABLA-->
         <div class="contenedor_panel_producto_admin">
             @if ($servicios->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista de servicios <span> Cantidad: {{ $cantidad_total_servicios }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -73,25 +74,25 @@
                             <tbody>
                                 @foreach ($servicios as $servicio)
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
                                             {{ $servicio->nombre }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             S/. {{ number_format($servicio->precio_venta, 2, '.', ',') }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $servicio->puntos_ganar }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $servicio->puntos_canjeo }}
                                         </td>
                                         <td>
                                             {{ Str::limit($servicio->descripcion, 35) }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <a style="color: #009eff;"
                                                 href="{{ route('administrador.servicio.informacion', $servicio) }}">
                                                 <i class="fa-solid fa-eye"></i>
@@ -115,7 +116,7 @@
                 @endif
             @else
                 <div class="contenedor_no_existe_elementos">
-                    <p>No hay elementos</p>
+                    <p>No hay servicios.</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

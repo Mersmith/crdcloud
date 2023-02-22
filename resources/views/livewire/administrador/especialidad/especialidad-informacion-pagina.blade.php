@@ -7,7 +7,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>{{ $especialidad->nombre }}</h2>
+            <h2>Especialidad: {{ $especialidad->nombre }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -25,7 +25,7 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos</h3>
+                <h3>Datos de la especialidad:</h3>
             </div>
             <div>
                 <p><strong>Nombre: </strong>{{ $especialidad->nombre }} </p>

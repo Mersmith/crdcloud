@@ -12,7 +12,7 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.servicio.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
-            <button wire:click="$emit('eliminarOdontologoModal')">
+            <button wire:click="$emit('eliminarServicioModal')">
                 Eliminar servicio <i class="fa-solid fa-trash-can"></i>
             </button>
             <a href="{{ route('administrador.servicio.crear') }}">
@@ -100,3 +100,30 @@
         </div>
     </div>
 </div>
+
+@push('script')
+    <script>
+        Livewire.on('eliminarServicioModal', () => {
+            Swal.fire({
+                title: '¿Quieres eliminar?',
+                text: "No podrás recuparlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('administrador.servicio.servicio-editar-pagina',
+                        'eliminarServicio');
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'Eliminaste correctamente.',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+@endpush

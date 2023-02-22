@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Información clínica</h2>
+            <h2>Clínica: {{ $clinica->nombre_clinica }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -24,16 +24,19 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos</h3>
+                <h3>Datos de la clínica:</h3>
             </div>
             <div>
                 <p><strong>Clinica: </strong>{{ $clinica->nombre_clinica }} </p>
                 <p><strong>RUC: </strong>{{ $clinica->ruc }} </p>
                 <p><strong>Nombre: </strong>{{ $clinica->nombre }} </p>
                 <p><strong>Correo: </strong>{{ $usuario_clinica->email }} </p>
-                <p><strong>COP: </strong>{{ $usuario_clinica->cop }} </p>
-                <p><strong>Especialidad: </strong>{{ $especialidad->nombre }} </p>
                 <p><strong>Sede: </strong>{{ $clinica->sede->nombre }} </p>
+                <p><strong>Especialidad: </strong>{{ $especialidad->nombre }} </p>
+                <p><strong>COP: </strong>{{ $usuario_clinica->cop }} </p>
+                <p><strong>DNI: </strong>{{ $usuario_clinica->dni }} </p>
+                <p><strong>Celular: </strong>{{ $clinica->celular }} </p>
+                <p><strong>Email: </strong>{{ $clinica->email }} </p>
                 <p><strong>Puntos: </strong>{{ $clinica->puntos }} </p>
             </div>
         </div>
@@ -42,7 +45,7 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Dirección</h3>
+                <h3>Dirección de la clínica:</h3>
             </div>
             @if ($direccion)
                 <div>
@@ -52,12 +55,14 @@
                     <p><strong>Dirección: </strong>{{ $direccion->direccion }} </p>
                     <p><strong>Referencia: </strong>{{ $direccion->referencia }} </p>
                     <p><strong>Código postal: </strong>{{ $direccion->codigo_postal }} </p>
-                    <a href="{{ route('administrador.clinica.direccion.editar', $clinica) }}">Editar
+                    <a href="{{ route('administrador.clinica.direccion.editar', $clinica) }}"
+                        class="boton_suelto">Editar
                         Dirección</a>
                 </div>
             @else
                 <div>
-                    <a href="{{ route('administrador.clinica.direccion.crear', $clinica) }}">Crear Dirección</a>
+                    <a href="{{ route('administrador.clinica.direccion.crear', $clinica) }}" class="boton_suelto">Crear
+                        Dirección</a>
                 </div>
             @endif
         </div>

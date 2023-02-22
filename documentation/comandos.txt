@@ -1,8 +1,12 @@
+php artisan make:model Administrador -msf
+
+php artisan make:seeder UserAdministradorSeeder
+
 php artisan make:model Sede -msf
 
 php artisan make:model Especialidad -msf
 
-php artisan make:model Administrador -msf
+php artisan make:model Encargado -msf
 
 php artisan make:model Odontologo -msf
 
@@ -58,6 +62,12 @@ php artisan make:livewire Administrador/Administrador/AdministradorTodoPagina
 php artisan make:livewire Administrador/Administrador/AdministradorCrearPagina
 php artisan make:livewire Administrador/Administrador/AdministradorEditarPagina
 php artisan make:livewire Administrador/Administrador/AdministradorInformacionPagina
+
+->CRUD Encargado
+php artisan make:livewire Administrador/Encargado/EncargadoTodoPagina
+php artisan make:livewire Administrador/Encargado/EncargadoCrearPagina
+php artisan make:livewire Administrador/Encargado/EncargadoEditarPagina
+php artisan make:livewire Administrador/Encargado/EncargadoInformacionPagina
 
 ->CRUD Odontólogo
 php artisan make:livewire Administrador/Odontologo/OdontologoTodoPagina
@@ -201,4 +211,12 @@ git status
 git add .
 git commit -m "11_Modificacion"
 git push origin 11_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 12_Modificacion
+git branch
+git status
+git add .
+git commit -m "12_Modificacion"
+git push origin 12_Modificacion
 ->Click en boton Merge pull request

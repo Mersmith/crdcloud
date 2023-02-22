@@ -10,11 +10,17 @@ class SedeTodoPagina extends Component
 {
     use WithPagination;
     public $buscarSede;
+    public $cantidad_total_sedes;
     protected $paginate = 10;
 
     public function updatingBuscarSede()
     {
         $this->resetPage();
+    }
+
+    public function mount()
+    {
+        $this->cantidad_total_sedes = Sede::count();
     }
 
     public function render()

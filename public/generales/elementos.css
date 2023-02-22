@@ -21,3 +21,19 @@
     padding: 0px 10px;
     margin: 10px;
 }
+
+.boton_suelto{
+    border-radius: 5px;
+    border: none;
+    background-color: #189bb6;
+    color: white;
+    padding: 5px 8px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.boton_suelto:hover{
+    background-color: #1da4be;
+}

@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class ServicioEditarPagina extends Component
 {
+    protected $listeners = ['eliminarServicio'];
+
     public $servicio;
 
     public $editarFormulario = [
@@ -64,6 +66,13 @@ class ServicioEditarPagina extends Component
 
         $this->servicio->update($this->editarFormulario);
         $this->emit('mensajeActualizado', "Actualizado.");
+    }
+
+    public function eliminarServicio()
+    {
+        $this->servicio->delete();
+
+        return redirect()->route('administrador.servicio.index');
     }
 
     public function render()

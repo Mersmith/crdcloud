@@ -32,7 +32,7 @@ class PacienteCrearPagina extends Component
         'apellido' => 'required',
         'email' => 'required|unique:users',
         'password' => 'required',
-        'dni' => 'required|digits:7|unique:users',
+        'dni' => 'required|digits:8|unique:users',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
@@ -59,7 +59,7 @@ class PacienteCrearPagina extends Component
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
-        'dni.digits' => 'El :attribute acepta 7 dígitos.',
+        'dni.digits' => 'El :attribute acepta 8 dígitos.',
         'celular.required' => 'El :attribute es requerido.',
         'celular.digits' => 'El :attribute acepta 9 dígitos.',
         'fecha_nacimiento.required' => 'La :attribute es requerido.',
@@ -97,7 +97,7 @@ class PacienteCrearPagina extends Component
                 $this->reset('clinica_id');
             } elseif ($this->clinica_id) {
 
-                $clinica = Clinica::find($this->odontologo_id);
+                $clinica = Clinica::find($this->clinica_id);
                 $this->sede_id = $clinica->sede->id;
 
                 $rules['clinica_id'] = 'required';

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Administrador;
 use App\Models\Clinica;
+use App\Models\Encargado;
 use App\Models\Especialidad;
 use App\Models\Odontologo;
 use App\Models\Paciente;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -20,14 +22,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create([
-            'rol' => 'administrador',
+        /*User::factory(1)->create([
+            'rol' => 'encargado',
         ])->each(function (User $usuario) {
-            Administrador::factory(1)->create([
+            Encargado::factory(1)->create([
                 'user_id' => $usuario->id,
                 'email' => $usuario->email,
             ]);
-        });
+        });*/
 
         /*User::factory(15)->create([
             'rol' => 'odontologo',
