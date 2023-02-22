@@ -27,12 +27,12 @@
             </div>
         </div>
 
-        @if ($pacientes->count())
-            <!--TABLA-->
-            <div class="contenedor_panel_producto_admin">
+        <!--TABLA-->
+        <div class="contenedor_panel_producto_admin">
+            @if ($pacientes->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista ({{ $cantidad_total_pacientes }})</h3>
+                    <h3>Lista de pacientes <span> Cantidad: {{ $cantidad_total_pacientes }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -80,7 +80,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($pacientes as $paciente)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -127,19 +127,20 @@
                         </table>
                     </div>
                 </div>
-            </div>
 
-            @if ($pacientes->hasPages())
-                <div>
-                    {{ $pacientes->links('pagination::tailwind') }}
+
+                @if ($pacientes->hasPages())
+                    <div>
+                        {{ $pacientes->links('pagination::tailwind') }}
+                    </div>
+                @endif
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No hay pacientes.</p>
+                    <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No hay elementos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
+        </div>
 
     </div>
 </div>

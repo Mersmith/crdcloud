@@ -36,13 +36,13 @@ class ClinicaCrearPagina extends Component
         'apellido' => 'required',
         'email' => 'required|unique:users',
         'password' => 'required',
-        'dni' => 'required|digits:7|unique:users',
+        'dni' => 'required|digits:8|unique:users',
         'cop' => 'required|digits:6|unique:users',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
-        'ruc' => 'required|unique:clinicas',
+        'ruc' => 'required|digits:11|unique:clinicas',
         'nombre_clinica' => 'required|unique:clinicas',
     ];
 
@@ -84,6 +84,7 @@ class ClinicaCrearPagina extends Component
         'puntos.required' => 'Los :attribute son requerido.',
         'ruc.required' => 'El :attribute es requerido.',
         'ruc.unique' => 'El :attribute ya existe.',
+        'ruc.digits' => 'El :attribute acepta 11 dígitos.',
         'nombre_clinica.required' => 'El :attribute es requerido.',
         'nombre_clinica.unique' => 'El :attribute ya existe.',
     ];

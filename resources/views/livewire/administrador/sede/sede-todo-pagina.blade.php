@@ -29,13 +29,13 @@
                 <input type="text" wire:model="buscarSede" placeholder="Buscar...">
             </div>
         </div>
+        <!--TABLA-->
+        <div class="contenedor_panel_producto_admin">
 
-        @if ($sedes->count())
-            <!--TABLA-->
-            <div class="contenedor_panel_producto_admin">
+            @if ($sedes->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista de sedes <span> Cantidad: {{ $cantidad_total_sedes }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -62,14 +62,14 @@
                                     <th>
                                         Sede</th>
                                     <th>
-                                        Descripción</th>
+                                        Dirección</th>
                                     <th>
                                         Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($sedes as $sede)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -77,7 +77,7 @@
                                             {{ $sede->nombre }}
                                         </td>
                                         <td>
-                                            {{ $sede->descripcion }}
+                                            {{ $sede->direccion }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
@@ -95,19 +95,20 @@
                         </table>
                     </div>
                 </div>
-            </div>
 
-            @if ($sedes->hasPages())
-                <div>
-                    {{ $sedes->links('pagination::tailwind') }}
+                @if ($sedes->hasPages())
+                    <div>
+                        {{ $sedes->links('pagination::tailwind') }}
+                    </div>
+                @endif
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No hay sedes.</p>
+                    <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No hay elementos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
+
+        </div>
 
     </div>
 </div>

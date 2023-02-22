@@ -55,7 +55,7 @@ class PacienteEditarPagina extends Component
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
-        'dni.digits' => 'El :attribute acepta 7 dígitos.',
+        'dni.digits' => 'El :attribute acepta 8 dígitos.',
         'celular.required' => 'El :attribute es requerido.',
         'celular.digits' => 'El :attribute acepta 9 dígitos.',
         'fecha_nacimiento.required' => 'La :attribute es requerido.',
@@ -80,7 +80,8 @@ class PacienteEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|digits:7|unique:users,dni,' . $this->usuario_paciente->id;
+        $rules['dni'] = 'required|digits:8|unique:users,dni,' . $this->usuario_paciente->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_paciente->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -93,6 +94,7 @@ class PacienteEditarPagina extends Component
         $this->usuario_paciente->update(
             [
                 'dni' => $this->dni,
+                'email' => $this->email,
             ]
         );
 
@@ -100,6 +102,7 @@ class PacienteEditarPagina extends Component
             [
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
+                'email' => $this->email,
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
@@ -107,17 +110,27 @@ class PacienteEditarPagina extends Component
         );
 
         if ($this->editar_password) {
-            $usuario = User::find($this->paciente->user_id);
+            //$usuario = User::find($this->paciente->user_id);
 
             //$contrasenaAntiguaHash = $usuario->password;
             $contrasenaNueva = $this->editar_password;
 
-            $usuario->password = Hash::make($contrasenaNueva);
-            $usuario->save();
+            $this->usuario_paciente->password = Hash::make($contrasenaNueva);
+            $this->usuario_paciente->save();
         }
 
         $this->emit('mensajeActualizado', "Editado.");
-        //return redirect()->route('administrador.odontologo.index');
+        //return redirect()->route('administrador.paciente.index');
+    }
+
+    public function eliminarPaciente()
+    {
+        $this->paciente->delete();
+
+        //$usuario = User::find($this->usuario_odontologo->id);
+        $this->usuario_paciente->delete();
+
+        return redirect()->route('administrador.paciente.index');
     }
 
     public function render()

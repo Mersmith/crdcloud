@@ -38,13 +38,13 @@
                     </div>
                 </div>
 
-                <!--DESCRIPCIÓN-->
+                <!--DIRECCIÓN-->
                 <div class="contenedor_1_elementos_100">
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Descripción: <span class="campo_opcional">(Opcional)</span>
+                        <p class="estilo_nombre_input">Dirección: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
-                        <textarea rows="2" wire:model="crearFormulario.descripcion"></textarea>
-                        @error('crearFormulario.descripcion')
+                        <textarea rows="2" wire:model="crearFormulario.direccion"></textarea>
+                        @error('crearFormulario.direccion')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>

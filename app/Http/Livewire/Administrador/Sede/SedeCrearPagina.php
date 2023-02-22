@@ -9,31 +9,28 @@ class SedeCrearPagina extends Component
 {
     public $crearFormulario = [
         'nombre' => null,
-        'descripcion' => null,
+        'direccion' => null,
     ];
 
     protected $rules = [
         'crearFormulario.nombre' => 'required|unique:sedes,nombre',
+        'crearFormulario.direccion' => 'required',
     ];
 
     protected $validationAttributes = [
         'crearFormulario.nombre' => 'nombre',
-        'crearFormulario.descripcion' => 'descripción',
+        'crearFormulario.direccion' => 'dirección',
     ];
 
     protected $messages = [
         'crearFormulario.nombre.required' => 'El :attribute es requerido.',
         'crearFormulario.nombre.unique' => 'El :attribute ya existe.',
-        'crearFormulario.descripcion.required' => 'La :attribute es requerido.',
+        'crearFormulario.direccion.required' => 'La :attribute es requerido.',
     ];
 
     public function crearSede()
     {
         $rules = $this->rules;
-
-        if ($this->crearFormulario['descripcion']) {
-            $rules['crearFormulario.descripcion'] = 'required';
-        }
 
         $this->validate($rules);
 

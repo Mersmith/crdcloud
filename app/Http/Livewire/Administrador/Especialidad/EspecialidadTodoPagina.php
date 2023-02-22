@@ -10,11 +10,17 @@ class EspecialidadTodoPagina extends Component
 {
     use WithPagination;
     public $buscarEspecialidad;
+    public $cantidad_total_especialidades;
     protected $paginate = 10;
 
     public function updatingBuscarEspecialidad()
     {
         $this->resetPage();
+    }
+
+    public function mount()
+    {
+        $this->cantidad_total_especialidades = Especialidad::count();
     }
 
     public function render()

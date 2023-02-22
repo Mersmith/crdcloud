@@ -8,14 +8,14 @@ use Livewire\Component;
 class PacienteInformacionPagina extends Component
 {
     public $paciente;
-    public $usuario;
+    public $usuario_paciente;
     public $odontologos;
     public $clinicas;
 
     public function mount(Paciente $paciente)
     {
         $this->paciente = $paciente;
-        $this->usuario = $paciente->user;
+        $this->usuario_paciente = $paciente->user;
         $this->odontologos = $paciente->odontologos()->limit(10)->get();
         $this->clinicas = $paciente->clinicas()->limit(10)->get();
     }

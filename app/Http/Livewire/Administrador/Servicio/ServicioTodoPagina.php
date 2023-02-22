@@ -10,11 +10,17 @@ class ServicioTodoPagina extends Component
 {
     use WithPagination;
     public $buscarServicio;
+    public $cantidad_total_servicios;
     protected $paginate = 20;
 
     public function updatingBuscarServicio()
     {
         $this->resetPage();
+    }
+
+    public function mount()
+    {
+        $this->cantidad_total_servicios = Servicio::count();
     }
 
     public function render()

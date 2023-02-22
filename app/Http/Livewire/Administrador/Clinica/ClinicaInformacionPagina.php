@@ -11,7 +11,6 @@ class ClinicaInformacionPagina extends Component
     public $clinica;
     public $usuario_clinica;
     public $especialidad;
-    public $sede;
     public $direccion;
 
     public function mount(Clinica $clinica)
@@ -19,8 +18,6 @@ class ClinicaInformacionPagina extends Component
         $this->clinica = $clinica;
         $this->usuario_clinica = $clinica->user;
         $this->especialidad = Especialidad::find($clinica->especialidad_id);
-        $this->sede = $clinica->sede;
-
         $this->direccion = $clinica->user->direccion;
     }
 

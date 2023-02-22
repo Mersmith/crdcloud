@@ -69,13 +69,17 @@ class ClinicaEditarPagina extends Component
         'apellido.required' => 'El :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
+        'dni.digits' => 'El :attribute acepta 8 dígitos.',
         'cop.required' => 'El :attribute es requerido.',
         'cop.unique' => 'El :attribute ya existe.',
+        'cop.digits' => 'El :attribute acepta 6 dígitos.',
         'celular.required' => 'El :attribute es requerido.',
+        'celular.digits' => 'El :attribute acepta 9 dígitos.',
         'fecha_nacimiento.required' => 'La :attribute es requerido.',
         'puntos.required' => 'Los :attribute son requerido.',
         'ruc.required' => 'El :attribute es requerido.',
         'ruc.unique' => 'El :attribute ya existe.',
+        'ruc.digits' => 'El :attribute acepta 11 dígitos.',
         'nombre_clinica.required' => 'El :attribute es requerido.',
         'nombre_clinica.unique' => 'El :attribute ya existe.',
     ];
@@ -107,10 +111,10 @@ class ClinicaEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|unique:users,dni,' . $this->usuario_clinica->id;
-        $rules['cop'] = 'required|unique:users,cop,' . $this->usuario_clinica->id;
+        $rules['dni'] = 'required|digits:8|unique:users,dni,' . $this->usuario_clinica->id;
+        $rules['cop'] = 'required|digits:6|unique:users,cop,' . $this->usuario_clinica->id;
         $rules['email'] = 'required|unique:users,email,' . $this->usuario_clinica->id;
-        $rules['ruc'] = 'required|unique:clinicas,ruc,' . $this->clinica->id;
+        $rules['ruc'] = 'required|digits:11|unique:clinicas,ruc,' . $this->clinica->id;
         $rules['nombre_clinica'] = 'required|unique:clinicas,nombre_clinica,' . $this->clinica->id;
 
         if ($this->editar_password) {
@@ -132,6 +136,7 @@ class ClinicaEditarPagina extends Component
         $this->clinica->update(
             [
                 'especialidad_id' => $this->especialidad_id,
+                'sede_id' => $this->sede_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
                 'email' => $this->email,
@@ -145,13 +150,13 @@ class ClinicaEditarPagina extends Component
         );
 
         if ($this->editar_password) {
-            $usuario = User::find($this->clinica->user_id);
+            //$usuario = User::find($this->clinica->user_id);
 
             //$contrasenaAntiguaHash = $usuario->password;
             $contrasenaNueva = $this->editar_password;
 
-            $usuario->password = Hash::make($contrasenaNueva);
-            $usuario->save();
+            $this->usuario_clinica->password = Hash::make($contrasenaNueva);
+            $this->usuario_clinica->save();
         }
 
         $this->emit('mensajeActualizado', "Editado.");
@@ -163,8 +168,8 @@ class ClinicaEditarPagina extends Component
     {
         $this->clinica->delete();
 
-        $usuario = User::find($this->usuario_clinica->id);
-        $usuario->delete();
+        //$usuario = User::find($this->usuario_clinica->id);
+        $this->usuario_clinica->delete();
 
         return redirect()->route('administrador.clinica.index');
     }

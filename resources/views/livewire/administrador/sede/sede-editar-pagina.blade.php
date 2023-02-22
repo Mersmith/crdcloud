@@ -13,6 +13,9 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <button wire:click="$emit('eliminarSedeModal')">
+                Eliminar sede <i class="fa-solid fa-trash-can"></i>
+            </button>
         </div>
     </div>
 
@@ -39,14 +42,13 @@
                     </div>
                 </div>
 
-                <!--DESCRIPCIÓN-->
+                <!--DIRECCIÓN-->
                 <div class="contenedor_1_elementos_100">
                     <div class="contenedor_elemento_item">
-
-                        <p class="estilo_nombre_input">Descripción: <span class="campo_opcional">(Opcional)</span>
+                        <p class="estilo_nombre_input">Dirección: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
-                        <textarea rows="2" wire:model="editarFormulario.descripcion"></textarea>
-                        @error('editarFormulario.descripcion')
+                        <textarea rows="2" wire:model="editarFormulario.direccion"></textarea>
+                        @error('editarFormulario.direccion')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -54,8 +56,7 @@
 
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">
-                    <button wire:loading.attr="disabled" wire:target="editarSede"
-                        wire:click="editarSede">
+                    <button wire:loading.attr="disabled" wire:target="editarSede" wire:click="editarSede">
                         Actualizar
                     </button>
                 </div>
@@ -66,3 +67,30 @@
     </div>
 
 </div>
+
+@push('script')
+    <script>
+        Livewire.on('eliminarSedeModal', () => {
+            Swal.fire({
+                title: '¿Quieres eliminar?',
+                text: "No podrás recuparlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('administrador.sede.sede-editar-pagina',
+                        'eliminarSede');
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'Eliminaste correctamente.',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+@endpush

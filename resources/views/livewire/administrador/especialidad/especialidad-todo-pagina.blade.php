@@ -31,12 +31,12 @@
             </div>
         </div>
 
-        @if ($especialidades->count())
-            <!--TABLA-->
-            <div class="contenedor_panel_producto_admin">
+        <!--TABLA-->
+        <div class="contenedor_panel_producto_admin">
+            @if ($especialidades->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista de especialidades <span> Cantidad: {{ $cantidad_total_especialidades }}</span> </h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -71,16 +71,16 @@
                             <tbody>
                                 @foreach ($especialidades as $especialidad)
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center">
                                             {{ $loop->iteration }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center">
                                             {{ $especialidad->nombre }}
                                         </td>
                                         <td>
                                             {{ $especialidad->descripcion }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center">
                                             <a style="color: #009eff;"
                                                 href="{{ route('administrador.especialidad.informacion', $especialidad) }}">
                                                 <i class="fa-solid fa-eye"></i>
@@ -96,19 +96,19 @@
                         </table>
                     </div>
                 </div>
-            </div>
 
-            @if ($especialidades->hasPages())
-                <div>
-                    {{ $especialidades->links('pagination::tailwind') }}
+                @if ($especialidades->hasPages())
+                    <div>
+                        {{ $especialidades->links('pagination::tailwind') }}
+                    </div>
+                @endif
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No hay especialidades.</p>
+                    <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No hay elementos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
+        </div>
 
     </div>
 </div>

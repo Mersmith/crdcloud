@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Información paciente</h2>
+            <h2>Paciente: {{ $paciente->nombre }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -27,19 +27,24 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos</h3>
+                <h3>Datos del paciente:</h3>
             </div>
             <div>
                 <div>
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
-                    <p><strong>DNI: </strong>{{ $usuario->dni }} </p>
+                    <p><strong>DNI: </strong>{{ $usuario_paciente->dni }} </p>
                     <p><strong>Registro Sede: </strong>{{ $paciente->sede->nombre }} </p>
+                    <p><strong>DNI: </strong>{{ $usuario_paciente->dni }} </p>
+                    <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
+                    <p><strong>Email: </strong>{{ $paciente->email }} </p>
+
                 </div>
             </div>
         </div>
 
-        @if ($odontologos->count())
-            <div class="contenedor_panel_producto_admin">
+        <!--LISTA ODONTÓLOGOS-->
+        <div class="contenedor_panel_producto_admin">
+            @if ($odontologos->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
                     <h3>Sus odontólogos</h3>
@@ -129,19 +134,18 @@
                         </table>
                     </div>
                 </div>
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No tiene odontólogos.</p>
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+            @endif
+        </div>
 
-            </div>
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No tiene odontólogos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
+        <!--LISTA CLÍNICAS-->
+        <div class="contenedor_panel_producto_admin">
+            @if ($clinicas->count())
 
-        @if ($clinicas->count())
-
-            <!--TABLA-->
-            <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
                     <h3>Sus clínicas</h3>
@@ -227,16 +231,13 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No tiene clínicas</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
-
-
-
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No tiene clínicas.</p>
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+            @endif
+        </div>
 
     </div>
 
