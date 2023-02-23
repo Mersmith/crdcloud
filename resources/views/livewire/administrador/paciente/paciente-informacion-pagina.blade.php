@@ -42,6 +42,32 @@
             </div>
         </div>
 
+        <!--DIRECCIÓN-->
+        <div class="contenedor_panel_producto_admin">
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Dirección del paciente:</h3>
+            </div>
+            @if ($direccion)
+                <div>
+                    <p><strong>Departamento: </strong>{{ $direccion->departamento_nombre }} </p>
+                    <p><strong>Provincia: </strong>{{ $direccion->provincia_nombre }} </p>
+                    <p><strong>Distrito: </strong>{{ $direccion->distrito_nombre }} </p>
+                    <p><strong>Dirección: </strong>{{ $direccion->direccion }} </p>
+                    <p><strong>Referencia: </strong>{{ $direccion->referencia }} </p>
+                    <p><strong>Código postal: </strong>{{ $direccion->codigo_postal }} </p>
+                    <a href="{{ route('administrador.paciente.direccion.editar', $paciente) }}"
+                        class="boton_suelto">Editar
+                        Dirección</a>
+                </div>
+            @else
+                <div>
+                    <a href="{{ route('administrador.paciente.direccion.crear', $paciente) }}" class="boton_suelto">Crear
+                        Dirección</a>
+                </div>
+            @endif
+        </div>
+
         <!--LISTA ODONTÓLOGOS-->
         <div class="contenedor_panel_producto_admin">
             @if ($odontologos->count())

@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('venta_detalles', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('venta_id');
+            $table->unsignedBigInteger('servicio_id');
+
+            $table->integer('cantidad');
+            $table->float('precio');
+            $table->json('contenido')->nullable();    
+
+            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');
+            $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

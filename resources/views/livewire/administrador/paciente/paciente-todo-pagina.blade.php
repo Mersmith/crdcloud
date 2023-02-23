@@ -128,12 +128,12 @@
                     </div>
                 </div>
 
-
                 @if ($pacientes->hasPages())
                     <div>
                         {{ $pacientes->links('pagination::tailwind') }}
                     </div>
                 @endif
+                
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No hay pacientes.</p>

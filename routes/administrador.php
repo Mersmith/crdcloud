@@ -42,6 +42,8 @@ use App\Http\Livewire\Administrador\Odontologo\OdontologoPacienteTodoPagina;
 use App\Http\Livewire\Administrador\Odontologo\OdontologoTodoPagina;
 use App\Http\Livewire\Administrador\Paciente\PacienteClinicaTodoPagina;
 use App\Http\Livewire\Administrador\Paciente\PacienteCrearPagina;
+use App\Http\Livewire\Administrador\Paciente\PacienteDireccionCrearPagina;
+use App\Http\Livewire\Administrador\Paciente\PacienteDireccionEditarPagina;
 use App\Http\Livewire\Administrador\Paciente\PacienteEditarPagina;
 use App\Http\Livewire\Administrador\Paciente\PacienteEstadisticaDepartamentoPagina;
 use App\Http\Livewire\Administrador\Paciente\PacienteInformacionPagina;
@@ -65,6 +67,9 @@ use App\Http\Livewire\Administrador\Servicio\ServicioInformacionPagina;
 use App\Http\Livewire\Administrador\Servicio\ServicioTodoPagina;
 use App\Http\Livewire\Administrador\Usuario\UsuarioEstadisticaDepartamentoCantidadPagina;
 use App\Http\Livewire\Administrador\Usuario\UsuarioEstadisticaDepartamentoListaPagina;
+use App\Http\Livewire\Administrador\Venta\VentaCrearLivewire;
+use App\Http\Livewire\Administrador\Venta\VentaEditarLivewire;
+use App\Http\Livewire\Administrador\Venta\VentaTodoLivewire;
 use App\Models\Odontologo;
 use Illuminate\Support\Facades\Route;
 
@@ -139,6 +144,12 @@ Route::get('paciente/{paciente}/editar', PacienteEditarPagina::class)->name('pac
 Route::get('paciente/{paciente}/informacion', PacienteInformacionPagina::class)->name('paciente.informacion');//
 Route::get('paciente/{paciente}/odontologos', PacienteOdontogoTodoPagina::class)->name('paciente.odontologo.todo');
 Route::get('paciente/{paciente}/clinicas', PacienteClinicaTodoPagina::class)->name('paciente.clinica.todo');
+Route::get('paciente/{paciente}/direccion/crear', PacienteDireccionCrearPagina::class)->name('paciente.direccion.crear');//
+Route::get('paciente/{paciente}/direccion/editar', PacienteDireccionEditarPagina::class)->name('paciente.direccion.editar');//
+
+Route::get('ventas', VentaTodoLivewire::class)->name('venta.index');
+Route::get('venta/crear', VentaCrearLivewire::class)->name('venta.crear');
+Route::get('venta/{venta}/editar', VentaEditarLivewire::class)->name('venta.editar');
 
 Route::get('usuarios/departamentos', UsuarioEstadisticaDepartamentoCantidadPagina::class)->name('usuario.estadistica.departamento.cantidad');
 Route::get('usuarios/departamento/{departamento}', UsuarioEstadisticaDepartamentoListaPagina::class)->name('usuario.estadistica.departamento.lista');
