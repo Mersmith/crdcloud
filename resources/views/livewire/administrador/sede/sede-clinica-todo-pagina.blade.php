@@ -6,13 +6,19 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>{{$sede->nombre}}</h2>
+            <h2>Sede: {{ $sede->nombre }}</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.sede.informacion', $sede) }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <a href="{{ route('administrador.sede.odontologo.todo', $sede) }}">
+                Odontólogos <i class="fa-solid fa-user-doctor"></i></a>
+            <a href="{{ route('administrador.sede.clinica.todo', $sede) }}">
+                Clínicas <i class="fa-solid fa-house-medical-flag"></i></a>
+            <a href="{{ route('administrador.sede.paciente.todo', $sede) }}">
+                Pacientes <i class="fa-solid fa-user-injured"></i></a>
         </div>
     </div>
 
@@ -33,7 +39,7 @@
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Clínicas ({{$cantidad_clinicas}})</h3>
+                    <h3>Lista de clínicas <span> Cantidad: {{ $cantidad_clinicas }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -85,7 +91,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas as $clinica)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -123,8 +129,7 @@
                                             {{ $clinica->puntos }}
                                         </td>
                                         <td>
-                                            <a style="color: #009eff;"
-                                                href="">
+                                            <a style="color: #009eff;" href="{{ route('administrador.clinica.informacion', $clinica) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>

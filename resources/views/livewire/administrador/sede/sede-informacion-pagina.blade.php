@@ -34,6 +34,7 @@
             <div>
                 <p><strong>Nombre: </strong>{{ $sede->nombre }} </p>
                 <p><strong>Dirección: </strong>{{ $sede->direccion }} </p>
+                <p><strong>Encargado: </strong>  {{ $sede->encargados()->first() ? $sede->encargados()->first()->nombre : 'Falta asignar' }} </p>
             </div>
         </div>
 

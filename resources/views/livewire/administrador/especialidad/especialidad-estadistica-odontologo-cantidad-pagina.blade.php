@@ -5,7 +5,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Especialidades de odontólogos</h2>
+            <h2>Cantidad de odóntologos por especialidad</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -21,7 +21,7 @@
             <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista de cantidad de odóntologos por especialidad</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($especialidad_odontologo_cantidad as $item)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>

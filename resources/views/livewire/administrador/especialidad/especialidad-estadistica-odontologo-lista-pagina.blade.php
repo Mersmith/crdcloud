@@ -7,7 +7,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>{{$especialidad->nombre}}</h2>
+            <h2>Especialidad: {{ $especialidad->nombre }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -27,13 +27,13 @@
             </div>
         </div>
 
-        @if ($odontologos->count())
+        <!--TABLA-->
+        <div class="contenedor_panel_producto_admin">
+            @if ($odontologos->count())
 
-            <!--TABLA-->
-            <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Odontólogos  ({{ $cantidad_total_odontologos }})</h3>
+                    <h3>Lista de odontólogos <span> Cantidad: {{ $cantidad_total_odontologos }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -139,13 +139,13 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        @else
-            <div class="contenedor_no_existe_elementos">
-                <p>No hay elementos</p>
-                <i class="fa-solid fa-spinner"></i>
-            </div>
-        @endif
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No hay odontólogos.</p>
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+            @endif
+        </div>
 
     </div>
 

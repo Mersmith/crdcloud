@@ -15,6 +15,8 @@
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <a href="{{ route('administrador.especialidad.estadistica.odontologo.lista', $especialidad->id) }}">
                 Cantidad odontólogos <i class="fa-solid fa-user-doctor"></i></a>
+            <a href="{{ route('administrador.especialidad.estadistica.clinica.lista', $especialidad->id) }}">
+                Cantidad clínicas <i class="fa-solid fa-user-doctor"></i></a>
         </div>
     </div>
 

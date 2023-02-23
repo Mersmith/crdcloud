@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('administrador_id');
+            $table->unsignedBigInteger('sede_id');
             $table->unsignedBigInteger('paciente_id');
             $table->unsignedBigInteger('odontologo_id')->nullable();
             $table->unsignedBigInteger('clinica_id')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->text('observacion')->nullable();
             $table->integer('descargas')->default(0);
 
-            $table->foreign('administrador_id')->references('id')->on('administradors');
+            $table->foreign('sede_id')->references('id')->on('sedes');
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->foreign('odontologo_id')->references('id')->on('odontologos')->onDelete('cascade');
             $table->foreign('clinica_id')->references('id')->on('clinicas')->onDelete('set null');

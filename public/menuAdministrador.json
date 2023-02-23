@@ -33,17 +33,31 @@
                         "subMenu3": []
                     },
                     {
-                        "id": 1,
+                        "id": 2,
                         "nombreSubMenu2": "Clínicas",
                         "nombreSubMenu2Url": "administrador.sede.estadistica.clinica.cantidad",
                         "iconoSubMenu2": "fa-solid fa-house-medical-flag",
                         "subMenu3": []
                     },
                     {
-                        "id": 1,
-                        "nombreSubMenu2": "Registros",
+                        "id": 3,
+                        "nombreSubMenu2": "Mes",
                         "nombreSubMenu2Url": "administrador.sede.estadistica.registro.mes.actual.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-calendar",
+                        "subMenu3": []
+                    },
+                    {
+                        "id": 4,
+                        "nombreSubMenu2": "Año",
+                        "nombreSubMenu2Url": "administrador.sede.estadistica.registro.mes.ano.actual.cantidad",
                         "iconoSubMenu2": "fa-regular fa-calendar-days",
+                        "subMenu3": []
+                    },
+                    {
+                        "id": 5,
+                        "nombreSubMenu2": "Años",
+                        "nombreSubMenu2Url": "administrador.sede.estadistica.registro.ano.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-calendar-days",
                         "subMenu3": []
                     }
                 ]
