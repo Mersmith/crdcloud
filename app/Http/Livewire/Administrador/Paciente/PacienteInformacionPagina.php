@@ -11,6 +11,7 @@ class PacienteInformacionPagina extends Component
     public $usuario_paciente;
     public $odontologos;
     public $clinicas;
+    public $direccion;
 
     public function mount(Paciente $paciente)
     {
@@ -18,6 +19,7 @@ class PacienteInformacionPagina extends Component
         $this->usuario_paciente = $paciente->user;
         $this->odontologos = $paciente->odontologos()->limit(10)->get();
         $this->clinicas = $paciente->clinicas()->limit(10)->get();
+        $this->direccion = $paciente->user->direccion;
     }
 
     public function render()

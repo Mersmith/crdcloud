@@ -40,3 +40,6 @@
 
 <!--PÁGINA ORDEN ADMINISTRADOR-->
 <link rel="stylesheet" href="{{ asset('administrador/orden/orden.css') }}">
+
+<!--PÁGINA VENTA INICIO ADMINISTRADOR-->
+<link rel="stylesheet" href="{{ asset('administrador/venta/venta.css') }}">

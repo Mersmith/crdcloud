@@ -106,6 +106,8 @@ php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
 php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
 php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
 php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteDireccionCrearPagina
+php artisan make:livewire Administrador/Paciente/PacienteDireccionEditarPagina
 
 ->CRUD Especialidad
 php artisan make:livewire Administrador/Especialidad/EspecialidadTodoPagina
@@ -138,6 +140,12 @@ php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoCa
 php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDepartamentoListaPagina
 php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaProvinciaPagina
 php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDistritoPagina
+
+->CRUD Venta
+php artisan make:livewire Administrador/Venta/VentaTodoLivewire
+php artisan make:livewire Administrador/Venta/VentaCrearLivewire
+php artisan make:livewire Administrador/Venta/VentaEditarLivewire
+
 
 php artisan vendor:publish --tag=jetstream-views
 
@@ -219,4 +227,12 @@ git status
 git add .
 git commit -m "12_Modificacion"
 git push origin 12_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 13_Modificacion
+git branch
+git status
+git add .
+git commit -m "13_Modificacion"
+git push origin 13_Modificacion
 ->Click en boton Merge pull request
