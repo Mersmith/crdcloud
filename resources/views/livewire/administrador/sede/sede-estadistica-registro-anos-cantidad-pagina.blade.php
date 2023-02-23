@@ -1,28 +1,33 @@
 <div>
-    @section('tituloPagina', 'Sedes | Odontólogos')
-
+    @section('tituloPagina', 'Sedes | Registro')
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Cantidad de odontólogos por sede </h2>
+            <h2>Registros de odontólogos y clínicas de todos los años</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <a href="{{ route('administrador.sede.estadistica.registro.mes.actual.cantidad') }}">
+                Registros mes actual <i class="fa-solid fa-calendar"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.mes.ano.actual.cantidad') }}">
+                Registros año actual <i class="fa-regular fa-calendar-days"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.ano.cantidad') }}">
+                Todos los años <i class="fa-solid fa-calendar-days"></i></a>
         </div>
     </div>
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
-        <!--TABLA ODONTÓLOGOS-->
+        <!--TABLA CLÍNICA-->
         <div class="contenedor_panel_producto_admin">
-            @if ($sede_odontologo_cantidad->count())
+            @if ($cantidad_odontologos_clinicas_anios->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de sedes y cantidad de odontólogos</h3>
+                    <h3>Todos los años</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -47,30 +52,22 @@
                                     <th>
                                         Nº</th>
                                     <th>
-                                        Sede</th>
+                                        Año</th>
                                     <th>
                                         Cantidad</th>
-                                    <th>
-                                        Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($sede_odontologo_cantidad as $item)
-                                    <tr style="text-align: center;">
-                                        <td>
+                                @foreach ($cantidad_odontologos_clinicas_anios as $item)
+                                    <tr>
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
-                                        <td>
-                                            {{ $item->nombre }}
+                                        <td style="text-align: center;">
+                                            {{ $item->anio }}
                                         </td>
-                                        <td>
-                                            {{ $item->cantidad }}
-                                        </td>
-                                        <td>
-                                            <a style="color: #009eff;"
-                                                href="{{ route('administrador.sede.odontologo.todo', $item->id) }}">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
+                                        <td style="text-align: center;">
+                                            {{ $item->cantidad_registros }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -89,18 +86,18 @@
         <!--ESTADÍSTICA CLÍNICA-->
         <div class="contenedor_panel_producto_admin">
             @php
-                $label_chart_sede_odontologos = [];
-                $data_chart_sede_odontologos = [];
+                $label_chart_sede_clinicas = [];
+                $data_chart_sede_clinicas = [];
             @endphp
 
-            @if (count($sede_odontologo_cantidad))
+            @if (count($cantidad_odontologos_clinicas_anios))
                 @php
-                    foreach ($sede_odontologo_cantidad as $item) {
-                        array_push($label_chart_sede_odontologos, $item->nombre);
-                        array_push($data_chart_sede_odontologos, $item->cantidad);
+                    foreach ($cantidad_odontologos_clinicas_anios as $item) {
+                        array_push($label_chart_sede_clinicas, $item->anio);
+                        array_push($data_chart_sede_clinicas, $item->cantidad_registros);
                     }
                 @endphp
-                <canvas id="chart_sede_odontologos"></canvas>
+                <canvas id="chart_sede_clinicas"></canvas>
             @endif
         </div>
 
@@ -110,14 +107,14 @@
 
 @push('script')
     <script>
-        const ctx_chart_sede_odontologos = document.getElementById('chart_sede_odontologos');
-        new Chart(ctx_chart_sede_odontologos, {
+        const ctx_chart_sede_clinicas = document.getElementById('chart_sede_clinicas');
+        new Chart(ctx_chart_sede_clinicas, {
             type: 'bar',
             data: {
-                labels: {{ Js::from($label_chart_sede_odontologos) }},
+                labels: {{ Js::from($label_chart_sede_clinicas) }},
                 datasets: [{
-                    label: 'CANTIDAD DE ODONTÓLOGOS POR SEDES',
-                    data: {{ Js::from($data_chart_sede_odontologos) }},
+                    label: 'NUEVOS REGISTROS DE ONDONTÓLOGOS Y CLÍNICAS EN ESTE MES',
+                    data: {{ Js::from($data_chart_sede_clinicas) }},
                     borderWidth: 1,
                     backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',
                         'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)',

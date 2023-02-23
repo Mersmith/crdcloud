@@ -4,12 +4,18 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Registros de odontólogos y clínicas</h2>
+            <h2>Registros de odontólogos y clínicas en este mes</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <a href="{{ route('administrador.sede.estadistica.registro.mes.actual.cantidad') }}">
+                Registros mes actual <i class="fa-solid fa-calendar"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.mes.ano.actual.cantidad') }}">
+                Registros año actual <i class="fa-regular fa-calendar-days"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.ano.cantidad') }}">
+                Todos los años <i class="fa-solid fa-calendar-days"></i></a>
         </div>
     </div>
 
@@ -113,7 +119,7 @@
             data: {
                 labels: {{ Js::from($label_chart_sede_clinicas) }},
                 datasets: [{
-                    label: 'NUEVOS REGISTROS EN ESTE MES DE ONDONTÓLOGOS Y CLÍNICAS',
+                    label: 'NUEVOS REGISTROS DE ONDONTÓLOGOS Y CLÍNICAS EN ESTE MES',
                     data: {{ Js::from($data_chart_sede_clinicas) }},
                     borderWidth: 1,
                     backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',

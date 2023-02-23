@@ -26,9 +26,6 @@ class SedeEstadisticaRegistroMesActualCantidadPagina extends Component
             ->groupBy(DB::raw('DAY(created_at)'))
             ->orderBy(DB::raw('DAY(created_at)'))
             ->get();
-
-            //dd($this->cantidad_odontologos_clinicas_mes_actual);
-
     }
 
     public function render()

@@ -14,7 +14,11 @@
             <a href="{{ route('administrador.sede.crear') }}">
                 Nueva sede <i class="fa-solid fa-square-plus"></i></a>
             <a href="{{ route('administrador.sede.estadistica.registro.mes.actual.cantidad') }}">
-                Registros mes actual <i class="fa-regular fa-calendar-days"></i></a>
+                Registros mes actual <i class="fa-solid fa-calendar"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.mes.ano.actual.cantidad') }}">
+                Registros año actual <i class="fa-regular fa-calendar-days"></i></a>
+            <a href="{{ route('administrador.sede.estadistica.registro.ano.cantidad') }}">
+                Todos los años <i class="fa-solid fa-calendar-days"></i></a>
         </div>
     </div>
 
@@ -64,6 +68,8 @@
                                     <th>
                                         Dirección</th>
                                     <th>
+                                        Encargado</th>
+                                    <th>
                                         Acción</th>
                                 </tr>
                             </thead>
@@ -78,6 +84,9 @@
                                         </td>
                                         <td>
                                             {{ $sede->direccion }}
+                                        </td>
+                                        <td>
+                                            {{ $sede->encargados()->first() ? $sede->encargados()->first()->nombre : 'Falta asignar' }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"

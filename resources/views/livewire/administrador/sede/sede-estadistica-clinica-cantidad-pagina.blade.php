@@ -1,11 +1,11 @@
 <div>
-    @section('tituloPagina', 'Sedes | Odontólogos')
+    @section('tituloPagina', 'Sedes | Clínicas')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Sedes</h2>
+            <h2>Cantidad de clínicas por sede </h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -22,7 +22,7 @@
             @if ($sede_clinica_cantidad->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Clínicas</h3>
+                    <h3>Lista de sedes y cantidad de clínicas</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -56,7 +56,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($sede_clinica_cantidad as $item)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -68,7 +68,7 @@
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.sede.odontologo.todo', $item->id) }}">
+                                                href="{{ route('administrador.sede.clinica.todo', $item->id) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
@@ -116,7 +116,7 @@
             data: {
                 labels: {{ Js::from($label_chart_sede_clinicas) }},
                 datasets: [{
-                    label: 'CANTIDAD DE CLÍNICAS',
+                    label: 'CANTIDAD DE CLÍNICAS POR SEDES',
                     data: {{ Js::from($data_chart_sede_clinicas) }},
                     borderWidth: 1,
                     backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',

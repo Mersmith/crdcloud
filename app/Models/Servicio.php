@@ -10,5 +10,4 @@ class Servicio extends Model
     use HasFactory;
 
     protected $fillable = ['nombre', 'precio_venta', 'descripcion', 'puntos_ganar', 'puntos_canjeo'];
-
 }

@@ -16,6 +16,11 @@ class Sede extends Model
         return $this->hasMany(Administrador::class);
     }
 
+    public function encargados()
+    {
+        return $this->hasMany(Encargado::class);
+    }
+
     public function odontologos()
     {
         return $this->hasMany(Odontologo::class);

@@ -4,6 +4,8 @@ php artisan make:seeder UserAdministradorSeeder
 
 php artisan make:model Sede -msf
 
+php artisan make:seeder UserEncargadoSeeder
+
 php artisan make:model Especialidad -msf
 
 php artisan make:model Encargado -msf
@@ -116,6 +118,8 @@ php artisan make:livewire Administrador/Especialidad/EspecialidadEditarPagina
 php artisan make:livewire Administrador/Especialidad/EspecialidadInformacionPagina
 php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaOdontologoCantidadPagina
 php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaOdontologoListaPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaClinicaCantidadPagina
+php artisan make:livewire Administrador/Especialidad/EspecialidadEstadisticaClinicaListaPagina
 
 ->CRUD Sede
 php artisan make:livewire Administrador/Sede/SedeTodoPagina
@@ -128,6 +132,8 @@ php artisan make:livewire Administrador/Sede/SedeOdontologoTodoPagina
 php artisan make:livewire Administrador/Sede/SedeEstadisticaOdontologoCantidadPagina
 php artisan make:livewire Administrador/Sede/SedeEstadisticaClinicaCantidadPagina
 php artisan make:livewire Administrador/Sede/SedeEstadisticaRegistroMesActualCantidadPagina
+php artisan make:livewire Administrador/Sede/SedeEstadisticaRegistroMesesAnoActualCantidadPagina
+php artisan make:livewire Administrador/Sede/SedeEstadisticaRegistroAnosCantidadPagina
 
 ->CRUD Servicio
 php artisan make:livewire Administrador/Servicio/ServicioTodoPagina
@@ -235,4 +241,12 @@ git status
 git add .
 git commit -m "13_Modificacion"
 git push origin 13_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 14_Modificacion
+git branch
+git status
+git add .
+git commit -m "14_Modificacion"
+git push origin 14_Modificacion
 ->Click en boton Merge pull request

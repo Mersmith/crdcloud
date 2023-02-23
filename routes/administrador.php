@@ -23,6 +23,8 @@ use App\Http\Livewire\Administrador\Encargado\EncargadoInformacionPagina;
 use App\Http\Livewire\Administrador\Encargado\EncargadoTodoPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadCrearPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadEditarPagina;
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadEstadisticaClinicaCantidadPagina;
+use App\Http\Livewire\Administrador\Especialidad\EspecialidadEstadisticaClinicaListaPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadEstadisticaOdontologoCantidadPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadEstadisticaOdontologoListaPagina;
 use App\Http\Livewire\Administrador\Especialidad\EspecialidadInformacionPagina;
@@ -56,7 +58,10 @@ use App\Http\Livewire\Administrador\Sede\SedeCrearPagina;
 use App\Http\Livewire\Administrador\Sede\SedeEditarPagina;
 use App\Http\Livewire\Administrador\Sede\SedeEstadisticaClinicaCantidadPagina;
 use App\Http\Livewire\Administrador\Sede\SedeEstadisticaOdontologoCantidadPagina;
+use App\Http\Livewire\Administrador\Sede\SedeEstadisticaRegistroAnosCantidadPagina;
 use App\Http\Livewire\Administrador\Sede\SedeEstadisticaRegistroMesActualCantidadPagina;
+use App\Http\Livewire\Administrador\Sede\SedeEstadisticaRegistroMesesAnoActualCantidadPagina;
+use App\Http\Livewire\Administrador\Sede\SedeEstadisticaRegistroMesesAnosActualCantidadPagina;
 use App\Http\Livewire\Administrador\Sede\SedeInformacionPagina;
 use App\Http\Livewire\Administrador\Sede\SedeOdontologoTodoPagina;
 use App\Http\Livewire\Administrador\Sede\SedePacienteTodoPagina;
@@ -87,11 +92,13 @@ Route::get('sede/crear', SedeCrearPagina::class)->name('sede.crear');//
 Route::get('sede/{sede}/editar', SedeEditarPagina::class)->name('sede.editar');//
 Route::get('sede/{sede}/informacion', SedeInformacionPagina::class)->name('sede.informacion');//
 Route::get('sede/{sede}/odontologos', SedeOdontologoTodoPagina::class)->name('sede.odontologo.todo');
-Route::get('sede/{sede}/clinicas', SedeClinicaTodoPagina::class)->name('sede.clinica.todo');
-Route::get('sede/{sede}/pacientes', SedePacienteTodoPagina::class)->name('sede.paciente.todo');
-Route::get('sede/odontologos', SedeEstadisticaOdontologoCantidadPagina::class)->name('sede.estadistica.odontologo.cantidad');
-Route::get('sede/clinicas', SedeEstadisticaClinicaCantidadPagina::class)->name('sede.estadistica.clinica.cantidad');
-Route::get('sede/registros-mes-actual', SedeEstadisticaRegistroMesActualCantidadPagina::class)->name('sede.estadistica.registro.mes.actual.cantidad');
+Route::get('sede/{sede}/clinicas', SedeClinicaTodoPagina::class)->name('sede.clinica.todo');//
+Route::get('sede/{sede}/pacientes', SedePacienteTodoPagina::class)->name('sede.paciente.todo');//
+Route::get('sede/odontologos', SedeEstadisticaOdontologoCantidadPagina::class)->name('sede.estadistica.odontologo.cantidad');//
+Route::get('sede/clinicas', SedeEstadisticaClinicaCantidadPagina::class)->name('sede.estadistica.clinica.cantidad');//
+Route::get('sede/registros-mes-actual', SedeEstadisticaRegistroMesActualCantidadPagina::class)->name('sede.estadistica.registro.mes.actual.cantidad');//
+Route::get('sede/registros-meses-anio-actual', SedeEstadisticaRegistroMesesAnoActualCantidadPagina::class)->name('sede.estadistica.registro.mes.ano.actual.cantidad');//
+Route::get('sede/registros-anios', SedeEstadisticaRegistroAnosCantidadPagina::class)->name('sede.estadistica.registro.ano.cantidad');//
 
 Route::get('encargados', EncargadoTodoPagina::class)->name('encargado.index');//
 Route::get('encargado/crear', EncargadoCrearPagina::class)->name('encargado.crear');//
@@ -102,8 +109,10 @@ Route::get('especialidades', EspecialidadTodoPagina::class)->name('especialidad.
 Route::get('especialidad/crear', EspecialidadCrearPagina::class)->name('especialidad.crear');//
 Route::get('especialidad/{especialidad}/editar', EspecialidadEditarPagina::class)->name('especialidad.editar');//
 Route::get('especialidad/{especialidad}/informacion', EspecialidadInformacionPagina::class)->name('especialidad.informacion');//
-Route::get('especialidad/odontologos', EspecialidadEstadisticaOdontologoCantidadPagina::class)->name('especialidad.estadistica.odontologo.cantidad');
-Route::get('especialidad/{especialidad}/odontologos', EspecialidadEstadisticaOdontologoListaPagina::class)->name('especialidad.estadistica.odontologo.lista');
+Route::get('especialidad/odontologos', EspecialidadEstadisticaOdontologoCantidadPagina::class)->name('especialidad.estadistica.odontologo.cantidad');//
+Route::get('especialidad/{especialidad}/odontologos', EspecialidadEstadisticaOdontologoListaPagina::class)->name('especialidad.estadistica.odontologo.lista');//
+Route::get('especialidad/clinicas', EspecialidadEstadisticaClinicaCantidadPagina::class)->name('especialidad.estadistica.clinica.cantidad');
+Route::get('especialidad/{especialidad}/clinicas', EspecialidadEstadisticaClinicaListaPagina::class)->name('especialidad.estadistica.clinica.lista');
 
 Route::get('odontologos', OdontologoTodoPagina::class)->name('odontologo.index');//
 Route::get('odontologo/crear', OdontologoCrearPagina::class)->name('odontologo.crear');//
