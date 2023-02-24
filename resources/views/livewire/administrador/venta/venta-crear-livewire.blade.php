@@ -26,15 +26,15 @@
             <!--ENCARGADO-->
             <div class="contenedor_1_elementos_100">
                 <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Encargados: <span class="campo_obligatorio">(Obligatorio)</span>
+                    <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span>
                     </p>
-                    <select wire:model="encargado_id">
-                        <option value="" selected>Seleccione un encargado de sede</option>
-                        @foreach ($encargados as $encargadoItem)
-                            <option value="{{ $encargadoItem->id }}">{{ $encargadoItem->nombre }}</option>
+                    <select wire:model="sede_id">
+                        <option value="" selected>Seleccione una sede</option>
+                        @foreach ($sedes as $sedeItem)
+                            <option value="{{ $sedeItem->id }}">{{ $sedeItem->nombre }}</option>
                         @endforeach
                     </select>
-                    @error('encargado_id')
+                    @error('sede_id')
                         <span class="campo_obligatorio">{{ $message }}</span>
                     @enderror
                 </div>
@@ -49,7 +49,8 @@
                     <select wire:model="odontologo_id">
                         <option value="" selected disabled>Seleccione un odontólgo</option>
                         @foreach ($odontologos as $odontologoItem)
-                            <option value="{{ $odontologoItem->id }}">{{ $odontologoItem->nombre }}</option>
+                            <option value="{{ $odontologoItem->id }}">
+                                {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}</option>
                         @endforeach
                     </select>
                     @error('odontologo_id')
@@ -64,7 +65,9 @@
                     <select wire:model="clinica_id">
                         <option value="" selected disabled>Seleccione una clínica</option>
                         @foreach ($clinicas as $clinicaItem)
-                            <option value="{{ $clinicaItem->id }}">{{ $clinicaItem->nombre }}</option>
+                            <option value="{{ $clinicaItem->id }}">
+                                {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
+                            </option>
                         @endforeach
                     </select>
                     @error('clinica_id')
@@ -80,9 +83,10 @@
                     <p class="estilo_nombre_input">Pacientes: <span class="campo_obligatorio">(Obligatorio)</span>
                     </p>
                     <select wire:model="paciente_id">
-                        <option value="" selected disabled>Seleccione un odontólgo</option>
+                        <option value="" selected disabled>Seleccione un paciente</option>
                         @foreach ($pacientes as $pacienteItem)
-                            <option value="{{ $pacienteItem->id }}">{{ $pacienteItem->nombre }}</option>
+                            <option value="{{ $pacienteItem->id }}">
+                                {{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}</option>
                         @endforeach
                     </select>
                     @error('paciente_id')
@@ -124,36 +128,38 @@
                         <table class="min-w-full leading-normal">
                             <tr>
                                 <th>
-                                    Nombre</th>
+                                    N°</th>
+                                <th>
+                                    Servicio</th>
                                 <th>
                                     Precio</th>
                                 <th>
                                     Cantidad</th>
                                 <th>
                                     SubTotal</th>
-                                <th>
-                                    Acción</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach ($carrito as $carritoItem)
                                     <tr>
+                                        <td style="text-align: center;">
+                                            {{ $loop->iteration }}
+                                        </td>
                                         <td>
                                             {{ $carritoItem['nombre'] }}
-                                        </td>
-                                        <td>
-                                            {{ $carritoItem['precio'] }}
-                                        </td>
-                                        <td>
-                                            {{ $carritoItem['cantidad'] }}
-                                        </td>
-                                        <td>
-                                            {{ $carritoItem['subtotal_compra'] }}
-                                        </td>
-                                        <td>
+                                            <br>
                                             <a wire:click="eliminarServicioCarrito({{ $loop->index }})"> <span><i
                                                         class="fa-solid fa-pencil"></i></span>
                                                 Eliminar</a>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            S/. {{ number_format($carritoItem['precio'], 2, '.', ',') }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $carritoItem['cantidad'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            S/. {{ number_format($carritoItem['subtotal_compra'], 2, '.', ',') }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -166,7 +172,7 @@
                                 <tr>
                                     <td style="text-align: right;" colspan="4">TOTAL:</td>
                                     <td style="text-align: end;">
-                                        ${{ $total }}
+                                        S/. {{ number_format($total, 2, '.', ',') }}
                                     </td>
                                 </tr>
                             </tfoot>
@@ -174,9 +180,11 @@
                         </table>
 
                         <!--ENVIAR-->
-                        <div>
-                            <button wire:loading.attr="disabled" wire:target="crearCompra" wire:click="crearCompra">
-                                Crear compra
+                        <div style="display: flex;
+                        justify-content: flex-end;">
+                            <button class="boton_suelto" wire:loading.attr="disabled" wire:target="crearVenta"
+                                wire:click="crearVenta">
+                                Crear venta
                             </button>
                         </div>
                     </div>

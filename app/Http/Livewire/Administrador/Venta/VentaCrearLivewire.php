@@ -6,6 +6,7 @@ use App\Models\Clinica;
 use App\Models\Encargado;
 use App\Models\Odontologo;
 use App\Models\Paciente;
+use App\Models\Sede;
 use App\Models\Servicio;
 use App\Models\Venta;
 use Illuminate\Support\Facades\Auth;
@@ -13,17 +14,13 @@ use Livewire\Component;
 
 class VentaCrearLivewire extends Component
 {
-    public $encargados;
+    public $sedes;
     public $odontologos = [];
     public $clinicas = [];
     public $pacientes = [];
     public $servicios;
 
-    public
-        $encargado,
-        $encargado_id = "",
-        $usuario_encargado,
-        $sede_id = "";
+    public $sede,  $sede_id = "";
 
     public
         $odontologo,
@@ -43,19 +40,17 @@ class VentaCrearLivewire extends Component
 
     public function mount()
     {
-        $this->encargados = Encargado::all();
+        $this->sedes = Sede::all();
         $this->servicios = Servicio::select('id', 'nombre')->get();
     }
 
-    public function updatedEncargadoId($value)
+    public function updatedSedeId($value)
     {
-        $this->encargado = Encargado::find($value);
-        $this->encargado_id = $this->encargado->id;
-        $this->usuario_encargado = $this->encargado->user;
-        $this->sede_id = $this->encargado->sede_id;
+        $this->sede = Sede::find($value);
+        $this->sede_id = $this->sede->id;
 
-        $this->odontologos = Odontologo::where('sede_id', $this->encargado->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $this->encargado->sede_id)->get();
+        $this->odontologos = Odontologo::where('sede_id', $this->sede_id)->get();
+        $this->clinicas = Clinica::where('sede_id', $this->sede_id)->get();
 
         $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
     }
@@ -88,7 +83,7 @@ class VentaCrearLivewire extends Component
     {
         $rules = [];
 
-        $rules['encargado_id'] = 'required';
+        $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
         $rules['servicio'] = 'required';
 
@@ -111,8 +106,8 @@ class VentaCrearLivewire extends Component
             $cantidadCompra = 1;
 
             $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
-            $servicioFiltrado["precio"] = $precioCompra;
             $servicioFiltrado["cantidad"] = $cantidadCompra;
+            $servicioFiltrado["precio"] = $precioCompra;
             $servicioFiltrado["subtotal_compra"] = $cantidadCompra * $precioCompra;
 
             array_push($this->carrito, $servicioFiltrado);
@@ -128,23 +123,44 @@ class VentaCrearLivewire extends Component
         array_splice($this->carrito, $index, 1);
     }
 
-    public function crearCompra()
+    public function crearVenta()
     {
-        /*$array_columna = 'subtotal_compra';
-        $subTotal = array_sum(array_column($this->carrito, $array_columna));
-        $totalPagar = $subTotal + ($subTotal * $this->impuesto) / 100;
+        $rules = [];
 
-        $nuevaVenta = new Venta();
-        $nuevaVenta->total = $totalPagar;
-        $nuevaVenta->impuesto = $this->impuesto;
-        $nuevaVenta->proveedor_id = $this->proveedor_id;
-        $nuevaVenta->user_id = Auth::user()->id;
+        $rules['sede_id'] = 'required';
+        $rules['paciente_id'] = 'required';
 
-        $nuevaVenta->save();
+        if ($this->odontologo_id || $this->clinica_id) {
+            $this->validate($rules);
 
-        $nuevaVenta->ventaDetalle()->createMany($this->carrito);*/
+            if ($this->odontologo_id) {
+                $this->clinica_id = null;
+            } else {
+                $this->odontologo_id = null;
+            }
 
-        $this->emit('mensajeCreado', "Creado.");
+            $array_columna = 'subtotal_compra';
+            $subTotal = array_sum(array_column($this->carrito, $array_columna));
+            $totalPagar = $subTotal;
+
+            $nuevaVenta = new Venta();
+            $nuevaVenta->sede_id = $this->sede_id;
+            $nuevaVenta->paciente_id = $this->paciente_id;
+            $nuevaVenta->odontologo_id = $this->odontologo_id;
+            $nuevaVenta->clinica_id = $this->clinica_id;
+            $nuevaVenta->estado = 1;
+            $nuevaVenta->total = $totalPagar;
+            $nuevaVenta->link = "https://drive.com";
+            $nuevaVenta->observacion = "Falta pagar";
+
+            $nuevaVenta->save();
+
+            $nuevaVenta->ventaDetalle()->createMany($this->carrito);
+
+            $this->emit('mensajeCreado', "Creado.");
+        } else {
+            $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
+        }
     }
 
     public function render()

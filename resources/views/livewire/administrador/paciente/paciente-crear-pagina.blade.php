@@ -35,7 +35,8 @@
                         <select wire:model="odontologo_id">
                             <option value="" selected disabled>Seleccione un odontólgo</option>
                             @foreach ($odontologos as $odontologo)
-                                <option value="{{ $odontologo->id }}">{{ $odontologo->nombre }}</option>
+                                <option value="{{ $odontologo->id }}">
+                                    {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</option>
                             @endforeach
                         </select>
                         @error('odontologo_id')
@@ -50,7 +51,9 @@
                         <select wire:model="clinica_id">
                             <option value="" selected disabled>Seleccione una clínica</option>
                             @foreach ($clinicas as $clinica)
-                                <option value="{{ $clinica->id }}">{{ $clinica->nombre }}</option>
+                                <option value="{{ $clinica->id }}">
+                                    {{ $clinica->nombre_clinica . ' - ' . $clinica->nombre . ' ' . $clinica->apellido }}
+                                </option>
                             @endforeach
                         </select>
                         @error('clinica_id')
@@ -108,7 +111,7 @@
                 <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="number" wire:model="dni" x-ref="digitosDniRef" x-model="digitosDni"
                             x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)">
                         @error('dni')
@@ -119,7 +122,7 @@
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="tel" wire:model="celular" x-ref="digitosCelularRef" x-model="digitosCelular"
+                        <input type="number" wire:model="celular" x-ref="digitosCelularRef" x-model="digitosCelular"
                             x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)">
                         @error('celular')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -131,7 +134,8 @@
                 <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span
+                                class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>

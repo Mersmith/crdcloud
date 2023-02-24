@@ -108,7 +108,7 @@
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="tel" wire:model="celular" x-ref="digitosCelularRef"
+                        <input type="number" wire:model="celular" x-ref="digitosCelularRef"
                             x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)" x-init="digitosCelular = $refs.digitosCelularRef.value">
                         @error('celular')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -117,7 +117,7 @@
 
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
