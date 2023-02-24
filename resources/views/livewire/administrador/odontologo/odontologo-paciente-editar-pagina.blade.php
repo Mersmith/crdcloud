@@ -12,7 +12,7 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.odontologo.paciente.todo', $odontologo) }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
-            <button wire:click="$emit('eliminarOdontologoModal')">
+            <button wire:click="$emit('eliminarPacienteModal')">
                 Eliminar paciente <i class="fa-solid fa-trash-can"></i>
             </button>
             <a href="{{ route('administrador.odontologo.paciente.crear', $odontologo) }}">
@@ -34,7 +34,7 @@
             </div>
 
             <!--FORMULARIO-->
-            <form wire:submit.prevent="editarPaciente" x-data class="formulario">
+            <form wire:submit.prevent="editarPaciente" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '' }" class="formulario">
                 <!--EMAIL Y PASSWORD-->
                 <div class="contenedor_2_elementos">
                     <!--EMAIL-->
@@ -94,8 +94,9 @@
 
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI:  <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="dni">
+                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="number" wire:model="dni" x-ref="digitosDniRef"
+                            x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)" x-init="digitosDni = $refs.digitosDniRef.value">
                         @error('dni')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -107,7 +108,8 @@
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="tel" wire:model="celular">
+                        <input type="tel" wire:model="celular" x-ref="digitosCelularRef"
+                            x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)" x-init="digitosCelular = $refs.digitosCelularRef.value">
                         @error('celular')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -115,7 +117,7 @@
 
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
-                        <p>Fecha de Nacimiento:  <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -153,3 +155,39 @@
         </div>
     </div>
 </div>
+
+@push('script')
+    <script>
+        function limitarEntrada(input, longitudMaxima, event) {
+            const valor = input.value;
+
+            if (valor.length >= longitudMaxima && event.key !== 'Backspace' && event.key !== 'Delete' &&
+                event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+                event.preventDefault();
+            }
+        }
+
+        Livewire.on('eliminarPacienteModal', () => {
+            Swal.fire({
+                title: '¿Quieres eliminar?',
+                text: "No podrás recuparlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('administrador.odontologo.odontologo-paciente-editar-pagina',
+                        'eliminarPaciente');
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'Eliminaste correctamente.',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+@endpush

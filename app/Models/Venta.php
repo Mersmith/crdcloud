@@ -14,4 +14,29 @@ class Venta extends Model
     const PENDIENTE = 1;
     const PAGADO = 2;
     const ANULADO = 3;
+
+    public function ventaDetalle()
+    {
+        return $this->hasMany(VentaDetalle::class);
+    }
+
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class);
+    }
+
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class);
+    }
+
+    public function odontologo()
+    {
+        return $this->belongsTo(Odontologo::class);
+    }
+
+    public function clinica()
+    {
+        return $this->belongsTo(Clinica::class);
+    }
 }

@@ -20,7 +20,7 @@
                 "subMenu2": []
             },
             {
-                "id": 5,
+                "id": 3,
                 "nombreSubMenu1": "Estadística",
                 "nombreSubMenu1Url": "#",
                 "iconoSubMenu1": "fa-solid fa-chart-simple",
@@ -107,7 +107,7 @@
                 "subMenu2": []
             },
             {
-                "id": 5,
+                "id": 3,
                 "nombreSubMenu1": "Estadística",
                 "nombreSubMenu1Url": "#",
                 "iconoSubMenu1": "fa-solid fa-chart-simple",
@@ -117,6 +117,13 @@
                         "nombreSubMenu2": "Odontólogos",
                         "nombreSubMenu2Url": "administrador.especialidad.estadistica.odontologo.cantidad",
                         "iconoSubMenu2": "fa-solid fa-user-doctor",
+                        "subMenu3": []
+                    },
+                    {
+                        "id": 2,
+                        "nombreSubMenu2": "Clínicas",
+                        "nombreSubMenu2Url": "administrador.especialidad.estadistica.clinica.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-house-medical-flag",
                         "subMenu3": []
                     }
                 ]
@@ -144,7 +151,7 @@
                 "subMenu2": []
             },
             {
-                "id": 5,
+                "id": 3,
                 "nombreSubMenu1": "Estadística",
                 "nombreSubMenu1Url": "#",
                 "iconoSubMenu1": "fa-solid fa-chart-simple",
@@ -181,7 +188,7 @@
                 "subMenu2": []
             },
             {
-                "id": 5,
+                "id": 3,
                 "nombreSubMenu1": "Estadística",
                 "nombreSubMenu1Url": "#",
                 "iconoSubMenu1": "fa-solid fa-chart-simple",

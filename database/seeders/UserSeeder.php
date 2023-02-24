@@ -22,16 +22,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        /*User::factory(1)->create([
-            'rol' => 'encargado',
-        ])->each(function (User $usuario) {
-            Encargado::factory(1)->create([
-                'user_id' => $usuario->id,
-                'email' => $usuario->email,
-            ]);
-        });*/
-
-        /*User::factory(15)->create([
+        User::factory(15)->create([
             'rol' => 'odontologo',
         ])->each(function (User $usuario) {
             Odontologo::factory(1)->create([
@@ -56,6 +47,6 @@ class UserSeeder extends Seeder
                 'user_id' => $usuario->id,
                 'email' => $usuario->email,
             ]);
-        });*/
+        });
     }
 }
