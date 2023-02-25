@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Nuevo paciente</h2>
+            <h2>Nuevo paciente de: {{ $clinica->nombre_clinica . ' - ' . $clinica->nombre . ' '. $clinica->apellido }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">

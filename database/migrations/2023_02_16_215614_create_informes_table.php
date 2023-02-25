@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('imagens', function (Blueprint $table) {
+        Schema::create('informes', function (Blueprint $table) {
             $table->id();
+
+            $table->string('informe_ruta');
+            $table->unsignedBigInteger('informeable_id');
+            $table->string('informeable_type');
+
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('imagens');
+        Schema::dropIfExists('informes');
     }
 };

@@ -18,6 +18,29 @@
     opacity: 0.7;
 }
 
+/*GRID CONTENEDOR VENTA*/
+.grid_contenedor_venta {
+    display: grid;
+    grid-template-areas: "grid_contenedor_venta_formulario grid_contenedor_venta_tabla";
+    grid-template-columns: 300px 1fr;
+    align-items: start;
+    grid-gap: 20px;
+}
+
+.grid_contenedor_venta_formulario {
+    grid-area: grid_contenedor_venta_formulario;
+}
+
+.grid_contenedor_venta_tabla {
+    grid-area: grid_contenedor_venta_tabla;
+}
+
+.grid_contenedor_venta_enviar {
+    grid-area: grid_contenedor_venta_enviar;
+}
+
+
+
 @media (max-width: 900px) {
     .grid_estado_orden {
         grid-template-areas:

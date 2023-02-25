@@ -4,7 +4,7 @@
     font-size: 13px;
 }
 
-.tabla_administrador a{
+.tabla_administrador a {
     cursor: pointer;
 }
 
@@ -28,6 +28,16 @@
     background-color: #f6fafc;
     font-weight: 600;
     border: 1px solid rgb(239, 242, 245);
+}
+
+.tabla_administrador_bordes {
+    border: 1px solid #ccc;
+}
+
+.tabla_administrador_bordes td,
+.tabla_administrador_bordes th,
+.tabla_administrador_bordes tr{
+    border: 1px solid #ccc;
 }
 
 .tabla_administrador .tabla_editar {
@@ -85,15 +95,15 @@
     transition: 0.4s;
 }
 
-.tabla_switch input:checked + .slider {
+.tabla_switch input:checked+.slider {
     background-color: #2196f3;
 }
 
-.tabla_switch input:focus + .slider {
+.tabla_switch input:focus+.slider {
     box-shadow: 0 0 1px #2196f3;
 }
 
-.tabla_switch input:checked + .slider:before {
+.tabla_switch input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administrador\VentaController;
 use App\Http\Livewire\Administrador\Administrador\AdministradorCrearPagina;
 use App\Http\Livewire\Administrador\Administrador\AdministradorEditarPagina;
 use App\Http\Livewire\Administrador\Administrador\AdministradorInformacionPagina;
@@ -159,6 +160,7 @@ Route::get('paciente/{paciente}/direccion/editar', PacienteDireccionEditarPagina
 Route::get('ventas', VentaTodoLivewire::class)->name('venta.index');
 Route::get('venta/crear', VentaCrearLivewire::class)->name('venta.crear');
 Route::get('venta/{venta}/editar', VentaEditarLivewire::class)->name('venta.editar');
+Route::post('venta/{venta}/dropzone', [VentaController::class, 'dropzone'])->name('venta.dropzone');
 
 Route::get('usuarios/departamentos', UsuarioEstadisticaDepartamentoCantidadPagina::class)->name('usuario.estadistica.departamento.cantidad');
 Route::get('usuarios/departamento/{departamento}', UsuarioEstadisticaDepartamentoListaPagina::class)->name('usuario.estadistica.departamento.lista');
