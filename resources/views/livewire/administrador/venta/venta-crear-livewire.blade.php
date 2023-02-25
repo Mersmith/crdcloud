@@ -19,182 +19,309 @@
     <!--CONTENEDOR CONTENIDO-->
     <div class="contenedor_administrador_contenido" x-data>
 
+        <!--GRID CONTENEDOR VENTA-->
+        <div class="grid_contenedor_venta">
 
-        <!--FORMULARIO-->
-        <div x-data class="formulario contenedor_panel_producto_admin">
+            <!--GRID FORMULARIO-->
+            <div x-data class="grid_contenedor_venta_formulario formulario">
 
-            <!--ENCARGADO-->
-            <div class="contenedor_1_elementos_100">
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span>
-                    </p>
-                    <select wire:model="sede_id">
-                        <option value="" selected>Seleccione una sede</option>
-                        @foreach ($sedes as $sedeItem)
-                            <option value="{{ $sedeItem->id }}">{{ $sedeItem->nombre }}</option>
-                        @endforeach
-                    </select>
-                    @error('sede_id')
-                        <span class="campo_obligatorio">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
-            <!--ODONTOLOGOS Y CLINICAS-->
-            <div class="contenedor_2_elementos">
-                <!--ODONTOLOGOS-->
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Odontólogos: <span class="campo_obligatorio">(Obligatorio)</span>
-                    </p>
-                    <select wire:model="odontologo_id">
-                        <option value="" selected disabled>Seleccione un odontólgo</option>
-                        @foreach ($odontologos as $odontologoItem)
-                            <option value="{{ $odontologoItem->id }}">
-                                {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}</option>
-                        @endforeach
-                    </select>
-                    @error('odontologo_id')
-                        <span class="campo_obligatorio">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!--CLINICAS-->
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Clínicas: <span class="campo_obligatorio">(Obligatorio)</span>
-                    </p>
-                    <select wire:model="clinica_id">
-                        <option value="" selected disabled>Seleccione una clínica</option>
-                        @foreach ($clinicas as $clinicaItem)
-                            <option value="{{ $clinicaItem->id }}">
-                                {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('clinica_id')
-                        <span class="campo_obligatorio">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
-            <!--PACIENTES Y SERVICIOS-->
-            <div class="contenedor_2_elementos">
-                <!--PACIENTES-->
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Pacientes: <span class="campo_obligatorio">(Obligatorio)</span>
-                    </p>
-                    <select wire:model="paciente_id">
-                        <option value="" selected disabled>Seleccione un paciente</option>
-                        @foreach ($pacientes as $pacienteItem)
-                            <option value="{{ $pacienteItem->id }}">
-                                {{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}</option>
-                        @endforeach
-                    </select>
-                    @error('paciente_id')
-                        <span class="campo_obligatorio">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!--SERVICIOS-->
-                <div class="contenedor_elemento_item">
-                    <p class="estilo_nombre_input">Servicios: <span class="campo_obligatorio">(Obligatorio)</span>
-                    </p>
-                    <select wire:model="servicio">
-                        <option value="" selected disabled>Seleccione una clínica</option>
-                        @foreach ($servicios as $servicioItem)
-                            <option value="{{ $servicioItem }}">{{ $servicioItem->nombre }}</option>
-                        @endforeach
-                    </select>
-                    @error('servicio')
-                        <span class="campo_obligatorio">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
-            <!--ENVIAR-->
-            <div class="contenedor_1_elementos">
-                <button wire:target="agregarCarrito" wire:click="agregarCarrito">
-                    Agregar servicio
-                </button>
-            </div>
-
-        </div>
-
-        <!--LISTA-->
-        <div class="contenedor_panel_producto_admin">
-            @if (count($carrito) > 0)
-                <!--TABLA-->
-                <div class="tabla_administrador py-4 overflow-x-auto">
-                    <div class="inline-block min-w-full overflow-hidden">
-                        <table class="min-w-full leading-normal">
-                            <tr>
-                                <th>
-                                    N°</th>
-                                <th>
-                                    Servicio</th>
-                                <th>
-                                    Precio</th>
-                                <th>
-                                    Cantidad</th>
-                                <th>
-                                    SubTotal</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($carrito as $carritoItem)
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            {{ $loop->iteration }}
-                                        </td>
-                                        <td>
-                                            {{ $carritoItem['nombre'] }}
-                                            <br>
-                                            <a wire:click="eliminarServicioCarrito({{ $loop->index }})"> <span><i
-                                                        class="fa-solid fa-pencil"></i></span>
-                                                Eliminar</a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            S/. {{ number_format($carritoItem['precio'], 2, '.', ',') }}
-                                        </td>
-                                        <td style="text-align: center;">
-                                            {{ $carritoItem['cantidad'] }}
-                                        </td>
-                                        <td style="text-align: center;">
-                                            S/. {{ number_format($carritoItem['subtotal_compra'], 2, '.', ',') }}
-                                        </td>
-                                    </tr>
+                <!--FORMULARIO-->
+                <div class="formulario contenedor_panel_producto_admin">
+                    <!--SEDES-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="sede_id">
+                                <option value="" selected>Seleccione una sede</option>
+                                @foreach ($sedes as $sedeItem)
+                                    <option value="{{ $sedeItem->id }}">{{ $sedeItem->nombre }}</option>
                                 @endforeach
-                            </tbody>
-                            @php
-                                $array_columna = 'subtotal_compra';
-                                $total = array_sum(array_column($carrito, $array_columna));
-                            @endphp
-                            <tfoot>
-                                <tr>
-                                    <td style="text-align: right;" colspan="4">TOTAL:</td>
-                                    <td style="text-align: end;">
-                                        S/. {{ number_format($total, 2, '.', ',') }}
-                                    </td>
-                                </tr>
-                            </tfoot>
+                            </select>
+                            @error('sede_id')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
-                        </table>
+                    <!--ODONTOLOGOS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Odontólogos: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="odontologo_id">
+                                <option value="" selected disabled>Seleccione un odontólogo</option>
+                                @foreach ($odontologos as $odontologoItem)
+                                    <option value="{{ $odontologoItem->id }}">
+                                        {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}</option>
+                                @endforeach
+                            </select>
+                            @error('odontologo_id')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
-                        <!--ENVIAR-->
-                        <div style="display: flex;
-                        justify-content: flex-end;">
-                            <button class="boton_suelto" wire:loading.attr="disabled" wire:target="crearVenta"
-                                wire:click="crearVenta">
-                                Crear venta
+                    <!--CLINICAS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Clínicas: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="clinica_id">
+                                <option value="" selected disabled>Seleccione una clínica</option>
+                                @foreach ($clinicas as $clinicaItem)
+                                    <option value="{{ $clinicaItem->id }}">
+                                        {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('clinica_id')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!--PACIENTES-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Pacientes: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="paciente_id">
+                                <option value="" selected disabled>Seleccione un paciente</option>
+                                @foreach ($pacientes as $pacienteItem)
+                                    <option value="{{ $pacienteItem->id }}">
+                                        {{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}</option>
+                                @endforeach
+                            </select>
+                            @error('paciente_id')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!--SERVICIOS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Servicios: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="servicio">
+                                <option value="" selected disabled>Seleccione una clínica</option>
+                                @foreach ($servicios as $servicioItem)
+                                    <option value="{{ $servicioItem }}">{{ $servicioItem->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('servicio')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!--CANTIDAD-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <input type="number" wire:model="cantidad">
+                            @error('cantidad')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!--ENVIAR-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_1_elementos">
+                            <button wire:target="agregarCarrito" wire:click="agregarCarrito">
+                                Agregar servicio
                             </button>
                         </div>
                     </div>
+
                 </div>
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No hay elementos</p>
-                    <i class="fa-solid fa-spinner"></i>
+
+                <!--DATOS-->
+                <div class="formulario contenedor_panel_producto_admin">
+
+                    <!--LINK-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Link: <span class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <input type="text" wire:model="link">
+                            @error('link')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!--ESTADOS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Estado de venta: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="estado">
+                                <option value="" selected disabled>Seleccione un estado</option>
+                                <option value="1">Pendiente</option>
+                                <option value="2">Pagado</option>
+                            </select>
+                            @error('estado')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
-            @endif
+
+            </div>
+
+            <!--GRID DETALLE-->
+            <div class="grid_contenedor_venta_tabla">
+
+                @if (count($carrito) > 0)
+                    <!--TABLA-->
+                    <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
+
+                        <div class="inline-block min-w-full overflow-hidden">
+                            <table class="min-w-full leading-normal tabla_administrador_bordes">
+                                <tr>
+                                    <th>
+                                        N°</th>
+                                    <th>
+                                        Servicio</th>
+                                    <th>
+                                        Precio</th>
+                                    <th>
+                                        Cantidad</th>
+                                    <th>
+                                        SubTotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($carrito as $carritoItem)
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td>
+                                                {{ $carritoItem['nombre'] }}
+                                                <br>
+                                                <a wire:click="eliminarServicioCarrito({{ $loop->index }})">
+                                                    <span><i class="fa-solid fa-pencil"></i></span>
+                                                    Eliminar</a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                S/. {{ number_format($carritoItem['precio'], 2, '.', ',') }}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                {{ $carritoItem['cantidad'] }}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                S/.
+                                                {{ number_format($carritoItem['subtotal_compra'], 2, '.', ',') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                @php
+                                    $array_columna = 'subtotal_compra';
+                                    $total = array_sum(array_column($carrito, $array_columna));
+                                @endphp
+                                <tfoot>
+                                    <tr>
+                                        <td style="text-align: right;" colspan="4">TOTAL:</td>
+                                        <td style="text-align: end;">
+                                            S/. {{ number_format($total, 2, '.', ',') }}
+                                        </td>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <!--IMAGENES-->
+                    <div class="formulario contenedor_panel_producto_admin">
+                        <!--IMAGENES-->
+                        <div class="contenedor_1_elementos_100">
+                            <div class="contenedor_elemento_item">
+                                <p class="estilo_nombre_input">Imagenes: <span
+                                        class="campo_obligatorio">(Obligatorio)</span>
+                                </p>
+                                <div class="contenedor_subir_imagen_sola">
+                                    <img src="{{ asset('imagenes/radiografia/sin_foto_radiografia.png') }}">
+                                    <div class="opcion_cambiar_imagen">
+                                        <label for="imagenes">
+                                            <div style="cursor: pointer;">
+                                                Subir <i class="fa-solid fa-camera"></i>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="file" wire:model="imagenes" multiple style="display: none"
+                                    id="imagenes">
+                                @error('imagenes')
+                                    <span class="campo_obligatorio">{{ $message }} </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!--Imagenes-->
+                        @if ($imagenes)
+                            <div class="contenedor_1_elementos_imagen">
+                                <div class="contenedor_imagenes_subidas_dropzone">
+                                    @foreach ($imagenes as $key => $imagen)
+                                        <div wire:key="{{ $loop->index }}" data-id="{{ $key }}">
+                                            <img class="handle2 cursor-grab" src="{{ $imagen->temporaryUrl() }}">
+                                            <span class="imagen_dropzone_eliminar"
+                                                wire:click="eliminarImagen({{ $loop->index }})">
+                                                <i class="fa-solid fa-xmark"style="color: white;"></i>
+                                            </span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <!--OBSERVACIÓN-->
+                    <div class="formulario contenedor_panel_producto_admin">
+                        <!--OBSERVACIÓN-->
+                        <div class="contenedor_1_elementos_100">
+                            <div class="contenedor_elemento_item">
+                                <p class="estilo_nombre_input">Observación: <span
+                                        class="campo_obligatorio">(Obligatorio)</span>
+                                </p>
+                                <textarea rows="3" wire:model="observacion"></textarea>
+                                @error('observacion')
+                                    <span class="campo_obligatorio">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--ENVIAR-->
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button class="boton_suelto" wire:loading.attr="disabled" wire:target="crearVenta"
+                            wire:click="crearVenta">
+                            Crear venta
+                        </button>
+                    </div>
+                @else
+                    <div class="contenedor_panel_producto_admin contenedor_no_existe_elementos">
+                        <p>No hay servicios agregados</p>
+                        <i class="fa-solid fa-spinner"></i>
+                    </div>
+                @endif
+
+            </div>
+
         </div>
 
     </div>

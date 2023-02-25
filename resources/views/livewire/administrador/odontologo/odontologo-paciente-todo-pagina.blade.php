@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Pacientes</h2>
+            <h2>Pacientes de: {{$odontologo->nombre .' '. $odontologo->apellido}}</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->

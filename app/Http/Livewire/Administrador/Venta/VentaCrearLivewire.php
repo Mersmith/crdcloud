@@ -3,24 +3,31 @@
 namespace App\Http\Livewire\Administrador\Venta;
 
 use App\Models\Clinica;
-use App\Models\Encargado;
 use App\Models\Odontologo;
-use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\Servicio;
 use App\Models\Venta;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class VentaCrearLivewire extends Component
 {
+    use WithFileUploads;
+
+    protected $listeners = ['cambiarPosicionImagenes'];
+
+    public $imagenes = [];
+
     public $sedes;
     public $odontologos = [];
     public $clinicas = [];
     public $pacientes = [];
     public $servicios;
 
-    public $sede,  $sede_id = "";
+    public
+        $sede,
+        $sede_id = "";
 
     public
         $odontologo,
@@ -34,9 +41,20 @@ class VentaCrearLivewire extends Component
 
     public
         $paciente_id = "",
-        $servicio = "";
+        $servicio = "",
+        $cantidad = 1,
+        $link = "",
+        $estado= 1,
+        $observacion = "";
 
     public $carrito = [];
+
+    protected $messages = [
+        'paciente_id.required' => 'El paciente es requerido.',
+        'servicio.required' => 'El servicio es requerido.',
+        'imagenes.required' => 'Las imagenes son requerido.',
+        'link.required' => 'El link es requerido.',
+    ];
 
     public function mount()
     {
@@ -103,7 +121,7 @@ class VentaCrearLivewire extends Component
             $servicioFiltrado = array_intersect_key($servicioCarrito, array_flip($extraerKeys));
 
             $precioCompra = $servicioCarrito["precio_venta"];
-            $cantidadCompra = 1;
+            $cantidadCompra = $this->cantidad;
 
             $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
             $servicioFiltrado["cantidad"] = $cantidadCompra;
@@ -123,12 +141,32 @@ class VentaCrearLivewire extends Component
         array_splice($this->carrito, $index, 1);
     }
 
+    public function eliminarImagen($index)
+    {
+        array_splice($this->imagenes, $index, 1);
+    }
+
+    public function cambiarPosicionImagenes($sorts)
+    {
+        $sorted = [];
+
+        foreach ($sorts as  $position) {
+            $existe = $this->imagenes[$position];
+            array_push($sorted, $existe);
+        }
+
+        $this->imagenes = $sorted;
+    }
+
     public function crearVenta()
     {
         $rules = [];
 
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
+        $rules['imagenes'] = 'required';
+        $rules['link'] = 'required';
+        $rules['carrito'] = 'required';
 
         if ($this->odontologo_id || $this->clinica_id) {
             $this->validate($rules);
@@ -148,14 +186,23 @@ class VentaCrearLivewire extends Component
             $nuevaVenta->paciente_id = $this->paciente_id;
             $nuevaVenta->odontologo_id = $this->odontologo_id;
             $nuevaVenta->clinica_id = $this->clinica_id;
-            $nuevaVenta->estado = 1;
+            $nuevaVenta->estado = $this->estado;
             $nuevaVenta->total = $totalPagar;
-            $nuevaVenta->link = "https://drive.com";
+            $nuevaVenta->link = $this->link;
             $nuevaVenta->observacion = "Falta pagar";
 
             $nuevaVenta->save();
 
             $nuevaVenta->ventaDetalle()->createMany($this->carrito);
+
+            foreach ($this->imagenes as $key => $imagen) {
+                $urlImagen = Storage::put('radiografias', $imagen);
+
+                $nuevaVenta->imagenes()->create([
+                    'imagen_ruta' => $urlImagen,
+                    'posicion' => $key + 1,
+                ]);
+            }
 
             $this->emit('mensajeCreado', "Creado.");
         } else {

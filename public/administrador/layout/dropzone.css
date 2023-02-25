@@ -34,6 +34,10 @@
     border-radius: 50px;
     padding: 0px 7px;
 }
+.dz-default{
+    display: flex;
+    justify-content: center;
+}
 
 .contenedor_imagenes_subidas_dropzone div .imagen_dropzone_eliminar:hover {
     background-color: #df1616;
@@ -50,6 +54,7 @@
 
 /*ESTILOS MENSAJE DROPZONE*/
 .mensaje_dropzone {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -39,4 +39,14 @@ class Venta extends Model
     {
         return $this->belongsTo(Clinica::class);
     }
+
+    public function imagenes()
+    {
+        return $this->morphMany(Imagen::class, "imagenable");
+    }
+
+    public function informes()
+    {
+        return $this->morphMany(Informe::class, "informeable");
+    }
 }

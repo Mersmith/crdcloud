@@ -59,6 +59,9 @@ php artisan make:model Canjeo -msf
 
 php artisan make:model CanjeoDetalle -msf
 
+->Controlador Venta
+php artisan make:controller Administrador/VentaController
+
 ->CRUD Administrador
 php artisan make:livewire Administrador/Administrador/AdministradorTodoPagina
 php artisan make:livewire Administrador/Administrador/AdministradorCrearPagina
@@ -154,6 +157,8 @@ php artisan make:livewire Administrador/Venta/VentaEditarLivewire
 
 
 php artisan vendor:publish --tag=jetstream-views
+
+php artisan storage:link
 
 git checkout -b 3_Modificacion
 git branch
@@ -257,4 +262,12 @@ git status
 git add .
 git commit -m "15_Modificacion"
 git push origin 15_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 16_Modificacion
+git branch
+git status
+git add .
+git commit -m "16_Modificacion"
+git push origin 16_Modificacion
 ->Click en boton Merge pull request
