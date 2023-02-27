@@ -280,3 +280,10 @@ git commit -m "17_Modificacion"
 git push origin 17_Modificacion
 ->Click en boton Merge pull request
 
+git checkout -b 18_Modificacion
+git branch
+git status
+git add .
+git commit -m "18_Modificacion"
+git push origin 18_Modificacion
+->Click en boton Merge pull request

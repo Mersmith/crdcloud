@@ -15,257 +15,100 @@ use Livewire\WithFileUploads;
 
 class VentaEditarLivewire extends Component
 {
-    use WithFileUploads;
-
-    protected $listeners = ['cambiarPosicionImagenes', 'dropImagenes', 'eliminarVenta'];
-
+    public $venta_id;
     public $venta;
-    public $venta_detalle;
-    public $venta_detalle_editado;
-
-    public $sedes;
-    public $odontologos;
-    public $clinicas;
-    public $pacientes;
     public $servicios;
+    public $estado;
+    public $venta_detalles = [];
 
-    public
-        $sede,
-        $odontologo,
-        $clinica;
+    public $total;
 
-    public
-        $sede_id = "",
-        $paciente_id = "",
-        $odontologo_id = "",
-        $clinica_id = "",
-        $servicio_id = "";
+    public $nuevo_servicio_id;
+    public $nueva_cantidad;
 
-    public
-        $cantidad = 1,
-        $link,
-        $estado,
-        $observacion;
-
-    public $sub_total = 0;
-    public $total = 0;
-
-    public $updatedQuantities = [];
-
-    public function editSaleDetail($id, $servicio_id, $cantidad)
-    {
-        // Set the initial quantity for the sale detail being edited
-        $this->updatedQuantities[$id] = $cantidad;
-    }
-
-    public function updateSaleDetailQuantity($id)
-    {
-        $cantidad = $this->updatedQuantities[$id];
-
-        $venta_detalle = VentaDetalle::find($id);
-        $venta_detalle->cantidad = $cantidad;
-        $venta_detalle->save();
-
-        $this->venta_detalle = $this->venta_detalle->fresh();
-
-        // Recalculate the sub total
-        $this->sub_total = 0;
-        foreach ($this->venta_detalle as $venta_detalle_item) {
-            $this->sub_total += $venta_detalle_item->precio * $venta_detalle_item->cantidad;
-        }
-    }
-
+    protected $rules = [
+        'venta.estado' => 'required',
+    ];
 
     public function mount(Venta $venta)
     {
-        $this->venta = $venta;
-        $this->venta_detalle = $venta->ventaDetalle;
-        $this->venta_detalle_editado = $venta->ventaDetalle;
-        $this->sedes = Sede::all();
-        $this->servicios = Servicio::select('id', 'nombre')->get();
-        $this->sede_id = $venta->sede_id;
-        $this->paciente_id = $venta->paciente_id;
-        $this->odontologo_id = $venta->odontologo_id ? $venta->odontologo_id : "";
-        $this->clinica_id = $venta->clinica_id ? $venta->clinica_id : "";
-        $this->link = $venta->link;
-        $this->estado = $venta->estado;
-        $this->observacion = $venta->observacion;
-        $this->total = $venta->total;
+        $this->venta_id = $venta->id;
+        $this->venta = Venta::findOrFail($venta->id);
+        $this->servicios = Servicio::all();
+        $this->venta_detalles = $this->venta->ventaDetalle->toArray();
+        $this->total = $this->venta->total;
+        $this->estado = $this->venta->estado;
 
-        $this->odontologos = Odontologo::where('sede_id', $venta->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $venta->sede_id)->get();
-
-        if ($venta->odontologo_id) {
-            $odontologo = Odontologo::find($venta->odontologo_id);
-            $this->pacientes = $odontologo->pacientes()
-                ->orderBy('created_at', 'desc')->get();
-        } else {
-            $clinica = Clinica::find($venta->clinica_id);
-            $this->pacientes = $clinica->pacientes()
-                ->orderBy('created_at', 'desc')->get();
-        }
-    }
-
-    public function agregarCarrito()
-    {
-        $rules = [];
-
-        $rules['sede_id'] = 'required';
-        $rules['paciente_id'] = 'required';
-        $rules['servicio_id'] = 'required';
-
-        if ($this->odontologo_id || $this->clinica_id) {
-            $this->validate($rules);
-
-            $servicio = Servicio::find($this->servicio_id);
-            $venta_detalle = [
-                'servicio_id' => $servicio->id,
-                'cantidad' => $this->cantidad,
-                'precio' => $servicio->precio_venta,
-            ];
-
-            // Convertir la colección de sale_details a una matriz
-            $venta_detalle_array = $this->venta_detalle->toArray();
-
-
-            // Verificar si el producto ya ha sido agregado
-            foreach ($venta_detalle_array as $detail) {
-                if ($detail['servicio_id'] == $servicio->id) {
-                    $this->emit('mensajeError', "Ya existe el servicio.");
-                    return;
-                }
-            }
-
-            $venta_detalle_array[] = $venta_detalle;
-
-            $this->venta_detalle = collect($venta_detalle_array);
-
-            $this->servicio_id = null;
-            $this->cantidad = null;
-
-            $this->emit('mensajeCreado', "Agregado.");
-            dd($this->venta_detalle);
-        } else {
-            $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
-        }
-    }
-
-    public function updatedSedeId($value)
-    {
-        $this->sede = Sede::find($value);
-        $this->sede_id = $this->sede->id;
-
-        $this->odontologos = Odontologo::where('sede_id', $this->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $this->sede_id)->get();
-
-        $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
-    }
-
-    public function updatedOdontologoId($value)
-    {
-        $this->odontologo = Odontologo::find($value);
-        $this->odontologo_id = $this->odontologo->id;
-
-        $this->pacientes = $this->odontologo->pacientes()
-            ->orderBy('created_at', 'desc')->get();
-
-        $this->reset('clinica_id', 'paciente_id');
-    }
-
-    public function updatedClinicaId($value)
-    {
-        $this->clinica = Clinica::find($value);
-        $this->clinica_id = $this->clinica->id;
-
-        $this->pacientes = $this->clinica->pacientes()
-            ->orderBy('created_at', 'desc')->get();
-
-        $this->reset('odontologo_id', 'paciente_id');
     }
 
 
-    public function editarDetalleVenta($venta_detalle_id, $servicio_id, $cantidad)
+
+    public function actualizarVenta()
     {
-        $venta_detalle = VentaDetalle::find($venta_detalle_id);
-        $venta_detalle->update([
-            'servicio_id' => $servicio_id,
-            'cantidad' => $cantidad,
-        ]);
+        $this->validate();
+
+        $this->venta->total = $this->total;
+
+        $this->venta->save();
     }
 
-    public function editarVenta()
+    public function actualizarDetalleVenta($venta_detalle_id, $cantidad)
     {
-        if ($this->venta->imagenes->count()) {
-
-            $this->venta->total = $this->total;
-
-            $this->venta->update();
-
-            // Update the quantities of each sale detail in the database
-            foreach ($this->updatedQuantities as $id => $cantidad) {
-                $venta_detalle = VentaDetalle::find($id);
-                $venta_detalle->cantidad = $cantidad;
-                $venta_detalle->save();
-            }
-
-            // Recalculate the sub total
-            $this->sub_total = 0;
-            foreach ($this->venta_detalle as $venta_detalle_item) {
-                $this->sub_total += $venta_detalle_item->precio * $venta_detalle_item->cantidad;
-            }
-
-            $this->venta_detalle = $this->venta_detalle->fresh();
-
-            $this->emit('mensajeActualizado', "El producto ha sido actualizado.");
-        } else {
-            $this->emit('mensajeError', "Falta subir imagen.");
-        }
+        $venta_detalle = VentaDetalle::findOrFail($venta_detalle_id);
+        $venta_detalle->cantidad = $cantidad;
+        $venta_detalle->save();
     }
 
-    public function dropImagenes()
+    public function agregarServicioAlDetalleVenta()
     {
-        $this->venta = $this->venta->fresh();
-    }
+        $servicio = Servicio::findOrFail($this->nuevo_servicio_id);
 
-    public function cambiarPosicionImagenes($sorts)
-    {
-        $posicion = 1;
+        foreach ($this->venta_detalles as $detalle) {
+            if ($detalle['servicio_id'] == $this->nuevo_servicio_id) {
+                $this->emit('mensajeError', "Ya existe el servicio.");
 
-        foreach ($sorts as $sort) {
-
-            $slider = Imagen::find($sort);
-            $slider->posicion = $posicion;
-            $slider->save();
-
-            $posicion++;
-        }
-
-        $this->dropImagenes();
-    }
-
-    public function eliminarImagen(Imagen $imagen)
-    {
-        Storage::delete([$imagen->imagen_ruta]);
-        $imagen->delete();
-
-        $this->venta = $this->venta->fresh();
-        $this->emit('mensajeEliminado', "Eliminado.");
-    }
-
-    public function eliminarVenta()
-    {
-        $imagenes = $this->venta->imagenes;
-
-        if ($this->venta->imagenes->count()) {
-            foreach ($imagenes as $imagen) {
-                Storage::delete($imagen->imagen_ruta);
-                $imagen->delete();
+                return;
             }
         }
 
-        $this->venta->delete();
+        $venta_detalle = new VentaDetalle();
+        $venta_detalle->venta_id = $this->venta_id;
+        $venta_detalle->servicio_id = $this->nuevo_servicio_id;
+        $venta_detalle->cantidad = $this->nueva_cantidad;
+        $venta_detalle->precio =  $servicio->precio_venta;
 
-        return redirect()->route('administrador.venta.index');
+        $venta_detalle->save();
+
+        $this->venta_detalles = $this->venta->ventaDetalle->toArray();
+
+        //array_push($this->venta_detalles, $this->venta->ventaDetalle->toArray());
+
+
+        //$this->venta->refresh();
+    }
+
+    public function eliminarUnDetalleVenta($venta_detalle_id)
+    {
+        $venta_detalle = VentaDetalle::findOrFail($venta_detalle_id);
+        $venta_detalle->delete();
+
+        $this->venta_detalles = $this->venta->ventaDetalle->toArray();
+        $this->venta->refresh();
+    }
+
+    public function actualizarTotal()
+    {
+        $this->total = $this->obtenerTotal();
+
+        $this->venta->total = $this->total;
+        $this->venta->save();
+    }
+
+    public function obtenerTotal()
+    {
+        return array_reduce($this->venta_detalles, function ($carry, $item) {
+            return $carry + ($item['cantidad'] * $item['precio']);
+        }, 0);
     }
 
     public function render()
