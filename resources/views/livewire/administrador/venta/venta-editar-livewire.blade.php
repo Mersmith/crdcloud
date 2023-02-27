@@ -1,345 +1,102 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Crear venta')
+    @section('tituloPagina', 'Editar venta')
 
-    <!--CONTENEDOR CABECERA-->
-    <div class="contenedor_administrador_cabecera">
-        <!--CONTENEDOR TITULO-->
-        <div class="contenedor_titulo_admin">
-            <h2>Editar venta</h2>
-        </div>
+    <div>
+        <h1>Editar Venta</h1>
 
-        <!--CONTENEDOR BOTONES-->
-        <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.venta.index') }}">
-                <i class="fa-solid fa-arrow-left"></i> Regresar</a>
-        </div>
-    </div>
+        <form wire:submit.prevent="actualizarVenta">
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado" wire:model="venta.estado">
+                <option value="1">Pendiente</option>
+                <option value="2">Pagado</option>
+                <option value="3">Cancelado</option>
+            </select>
 
-    <!--CONTENEDOR CONTENIDO-->
-    <div class="contenedor_administrador_contenido" x-data>
+            <button type="submit">Actualizar</button>
+        </form>
 
-        <!--GRID CONTENEDOR VENTA-->
-        <div class="grid_contenedor_venta">
+        <form wire:submit.prevent="agregarServicioAlDetalleVenta">
+            <div class="form-group">
+                <label for="nuevo_servicio_id">Servicio:</label>
+                <select class="form-control" wire:model="nuevo_servicio_id">
+                    <option value="">Seleccione un servicio</option>
+                    @foreach ($servicios as $servicio)
+                        <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
+                    @endforeach
+                </select>
+                @error('nuevo_servicio_id')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="nueva_cantidad">Cantidad:</label>
+                <input type="number" class="form-control" wire:model="nueva_cantidad">
+                @error('nueva_cantidad')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
 
-            <!--GRID FORMULARIO-->
-            <div x-data class="grid_contenedor_venta_formulario formulario">
+        <button type="button" wire:click="actualizarTotal">Actualizar total
+        </button>
 
-                <!--FORMULARIO-->
-                <div class="formulario contenedor_panel_producto_admin">
-                    <!--SEDES-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="sede_id">
-                                <option value="" selected>Seleccione una sede</option>
-                                @foreach ($sedes as $sedeItem)
-                                    <option value="{{ $sedeItem->id }}">{{ $sedeItem->nombre }}</option>
+        <table>
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($venta_detalles as $index => $venta_detalle)
+                    <tr>
+                        <td>
+                            <select id="servicio{{ $index }}" name="servicio"
+                                wire:model="venta_detalles.{{ $index }}.servicio_id">
+                                @foreach ($servicios as $servicio)
+                                    <option value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
                                 @endforeach
                             </select>
-                            @error('sede_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+                        </td>
 
-                    <!--ODONTOLOGOS-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Odontólogos: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="odontologo_id">
-                                <option value="" selected disabled>Seleccione un odontólogo</option>
-                                @foreach ($odontologos as $odontologoItem)
-                                    <option value="{{ $odontologoItem->id }}">
-                                        {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}</option>
-                                @endforeach
-                            </select>
-                            @error('odontologo_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <!--CLINICAS-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Clínicas: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="clinica_id">
-                                <option value="" selected disabled>Seleccione una clínica</option>
-                                @foreach ($clinicas as $clinicaItem)
-                                    <option value="{{ $clinicaItem->id }}">
-                                        {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('clinica_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+                        <td><input type="number" class="form-control"
+                                wire:model="venta_detalles.{{ $index }}.cantidad"></td>
 
-                    <!--PACIENTES-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Pacientes: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="paciente_id">
-                                <option value="" selected disabled>Seleccione un paciente</option>
-                                @foreach ($pacientes as $pacienteItem)
-                                    <option value="{{ $pacienteItem->id }}">
-                                        {{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}</option>
-                                @endforeach
-                            </select>
-                            @error('paciente_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+                        <td><input type="number" id="precio{{ $index }}" name="precio"
+                                wire:model="venta_detalles.{{ $index }}.precio" min="0"></td>
 
-                    <!--SERVICIOS-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Servicios: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="servicio_id">
-                                <option value="" selected disabled>Seleccione un servicio</option>
-                                @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem->id }}">{{ $servicioItem->nombre }}</option>
-                                @endforeach
-                            </select>
-                            @error('servicio_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+                        <td>{{ $venta_detalle['cantidad'] * $venta_detalle['precio'] }}</td>
 
-                    <!--CANTIDAD-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <input type="number" wire:model="cantidad">
-                            @error('cantidad')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!--ENVIAR-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_1_elementos">
-                            <button wire:target="agregarCarrito" wire:click="agregarCarrito">
-                                Agregar servicio
+                        <td>
+                            <button class="btn btn-primary"
+                                wire:click="actualizarDetalleVenta({{ $venta_detalle['id'] }}, {{ $venta_detalle['cantidad'] }})">Actualizar
                             </button>
-                        </div>
-                    </div>
+                            <button type="button"
+                                wire:click="eliminarUnDetalleVenta({{ $venta_detalle['id'] }})">Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-                </div>
+        @php
+            $total = array_reduce(
+                $venta_detalles,
+                function ($carry, $item) {
+                    return $carry + $item['cantidad'] * $item['precio'];
+                },
+                0,
+            );
 
-                <!--DATOS-->
-                <div class="formulario contenedor_panel_producto_admin">
+        @endphp
 
-                    <!--LINK-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Link: <span class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <input type="text" wire:model="link">
-                            @error('link')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!--ESTADOS-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Estado de venta: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="estado">
-                                <option value="" selected disabled>Seleccione un estado</option>
-                                <option value="1">Pendiente</option>
-                                <option value="2">Pagado</option>
-                            </select>
-                            @error('estado')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!--GRID DETALLE-->
-            <div class="grid_contenedor_venta_tabla">
-
-                @if (true)
-                    <!--TABLA-->
-
-                    <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
-
-                        <div class="inline-block min-w-full overflow-hidden">
-                            <table class="min-w-full leading-normal tabla_administrador_bordes">
-                                <tr>
-                                    <th>
-                                        N°</th>
-                                    <th>
-                                        Servicio</th>
-                                    <th>
-                                        Precio</th>
-                                    <th>
-                                        Cantidad actual</th>
-                                    <th>
-                                        Cantidad</th>
-                                    <th>
-                                        SubTotal</th>
-                                    <th>
-                                        Acción</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($venta_detalle as $venta_detalle_item)
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                {{ $loop->iteration }}
-                                            </td>
-                                            <td>
-                                                {{ $venta_detalle_item['servicio']['nombre'] }}
-                                                <br>
-                                                <a wire:click="eliminarServicioCarrito({{ $loop->index }})">
-                                                    <span><i class="fa-solid fa-pencil"></i></span>
-                                                    Eliminar</a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                S/. {{ $venta_detalle_item['precio'] }}
-                                            </td>
-                                            <td style="text-align: center;">
-                                                {{ $venta_detalle_item['cantidad']}}
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <input type="number"
-                                                    wire:model="updatedQuantities.{{ $venta_detalle_item['id'] }}" />
-                                                <button
-                                                    wire:click="updateSaleDetailQuantity({{ $venta_detalle_item['id']}})">Guardar</button>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                S/.
-                                                {{ number_format($venta_detalle_item['precio'] * $venta_detalle_item['cantidad']) }}
-                                            </td>
-                                            <td>
-                                                <a
-                                                    wire:click="editSaleDetail({{ $venta_detalle_item['id'] }}, {{ $venta_detalle_item['servicio']['id'] }}, {{ $venta_detalle_item['cantidad']}})">Editar</a>
-                                            </td>
-
-                                        </tr>
-                                        @php
-                                            $sub_total += $venta_detalle_item['precio'] * $venta_detalle_item['cantidad'];
-                                        @endphp
-                                    @endforeach
-                                </tbody>
-
-                                <tfoot>
-                                    @php
-                                        $total = $sub_total;
-                                    @endphp
-                                    <tr>
-                                        <td style="text-align: right;" colspan="6">SUBTOTAL:</td>
-                                        <td style="text-align: end;">
-                                            S/. {{ number_format($sub_total) }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: right;" colspan="6">TOTAL:</td>
-                                        <td style="text-align: end;">
-                                            S/. {{ number_format($total) }}
-                                        </td>
-                                    </tr>
-                                </tfoot>
-
-                            </table>
-
-                        </div>
-                    </div>
-
-                    <!--Dropzone-->
-                    <div class="contenedor_panel_producto_admin">
-                        <div class="contenedor_elemento_formulario" wire:ignore>
-                            <form action="{{ route('administrador.venta.dropzone', $venta) }}" method="POST"
-                                class="dropzone" id="my-awesome-dropzone"></form>
-                        </div>
-                    </div>
-
-                    <!--Imagenes-->
-                    <div class="contenedor_panel_producto_admin">
-                        @if ($venta->imagenes->count())
-                            <div class="contenedor_1_elementos_imagen">
-                                <div class="contenedor_imagenes_subidas_dropzone" id="sortableimagenes">
-                                    @foreach ($venta->imagenes->sortBy('posicion') as $key => $imagen)
-                                        <div wire:key="imagen-{{ $imagen->id }}" data-id="{{ $imagen->id }}">
-                                            <img class="handle2 cursor-grab"
-                                                src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
-                                            <span class="imagen_dropzone_eliminar"
-                                                wire:click="eliminarImagen({{ $imagen->id }})"
-                                                wire:loading.attr="disabled"
-                                                wire:target="eliminarImagen({{ $imagen->id }})">
-                                                <i class="fa-solid fa-xmark" style="color: white;"></i>
-                                            </span>
-                                            @if ($loop->first)
-                                                <span class="imagen_dropzone_primero">
-                                                    <i class="fa-solid fa-1" style="color: white;"></i>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-
-                    <!--OBSERVACIÓN-->
-                    <div class="formulario contenedor_panel_producto_admin">
-                        <!--OBSERVACIÓN-->
-                        <div class="contenedor_1_elementos_100">
-                            <div class="contenedor_elemento_item">
-                                <p class="estilo_nombre_input">Observación: <span
-                                        class="campo_obligatorio">(Obligatorio)</span>
-                                </p>
-                                <textarea rows="3" wire:model="observacion"></textarea>
-                                @error('observacion')
-                                    <span class="campo_obligatorio">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--ENVIAR-->
-                    <div style="display: flex; justify-content: flex-end;">
-                        <button class="boton_suelto" wire:loading.attr="disabled" wire:target="editarVenta"
-                            wire:click="editarVenta">
-                            Editar venta
-                        </button>
-                    </div>
-                @else
-                    <div class="contenedor_panel_producto_admin contenedor_no_existe_elementos">
-                        <p>No hay servicios agregados</p>
-                        <i class="fa-solid fa-spinner"></i>
-                    </div>
-                @endif
-
-            </div>
-
-        </div>
-
+        <p>Total: {{$total }}</p>
     </div>
 
 </div>
