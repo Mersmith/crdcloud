@@ -35,10 +35,11 @@ class VentaEditarLivewire extends Component
         $clinica;
 
     public
-        $sede_id,
-        $paciente_id,
-        $odontologo_id,
-        $clinica_id;
+        $sede_id = "",
+        $paciente_id = "",
+        $odontologo_id = "",
+        $clinica_id = "",
+        $servicio_id = "";
 
     public
         $cantidad = 1,
@@ -84,8 +85,8 @@ class VentaEditarLivewire extends Component
         $this->servicios = Servicio::select('id', 'nombre')->get();
         $this->sede_id = $venta->sede_id;
         $this->paciente_id = $venta->paciente_id;
-        $this->odontologo_id = $venta->odontologo_id;
-        $this->clinica_id = $venta->clinica_id;
+        $this->odontologo_id = $venta->odontologo_id ? $venta->odontologo_id : "";
+        $this->clinica_id = $venta->clinica_id ? $venta->clinica_id : "";
         $this->link = $venta->link;
         $this->estado = $venta->estado;
         $this->observacion = $venta->observacion;
@@ -102,6 +103,50 @@ class VentaEditarLivewire extends Component
             $clinica = Clinica::find($venta->clinica_id);
             $this->pacientes = $clinica->pacientes()
                 ->orderBy('created_at', 'desc')->get();
+        }
+    }
+
+    public function agregarCarrito()
+    {
+        $rules = [];
+
+        $rules['sede_id'] = 'required';
+        $rules['paciente_id'] = 'required';
+        $rules['servicio_id'] = 'required';
+
+        if ($this->odontologo_id || $this->clinica_id) {
+            $this->validate($rules);
+
+            $servicio = Servicio::find($this->servicio_id);
+            $venta_detalle = [
+                'servicio_id' => $servicio->id,
+                'cantidad' => $this->cantidad,
+                'precio' => $servicio->precio_venta,
+            ];
+
+            // Convertir la colección de sale_details a una matriz
+            $venta_detalle_array = $this->venta_detalle->toArray();
+
+
+            // Verificar si el producto ya ha sido agregado
+            foreach ($venta_detalle_array as $detail) {
+                if ($detail['servicio_id'] == $servicio->id) {
+                    $this->emit('mensajeError', "Ya existe el servicio.");
+                    return;
+                }
+            }
+
+            $venta_detalle_array[] = $venta_detalle;
+
+            $this->venta_detalle = collect($venta_detalle_array);
+
+            $this->servicio_id = null;
+            $this->cantidad = null;
+
+            $this->emit('mensajeCreado', "Agregado.");
+            dd($this->venta_detalle);
+        } else {
+            $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
         }
     }
 
