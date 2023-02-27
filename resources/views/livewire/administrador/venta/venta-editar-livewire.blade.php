@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Crear venta</h2>
+            <h2>Editar venta</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
@@ -107,13 +107,13 @@
                             <p class="estilo_nombre_input">Servicios: <span
                                     class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <select wire:model="servicio">
-                                <option value="" selected disabled>Seleccione una clínica</option>
+                            <select wire:model="servicio_id">
+                                <option value="" selected disabled>Seleccione un servicio</option>
                                 @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem }}">{{ $servicioItem->nombre }}</option>
+                                    <option value="{{ $servicioItem->id }}">{{ $servicioItem->nombre }}</option>
                                 @endforeach
                             </select>
-                            @error('servicio')
+                            @error('servicio_id')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
@@ -207,42 +207,43 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach ($venta_detalle as $venta_detalle_item)
                                         <tr>
                                             <td style="text-align: center;">
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td>
-                                                {{ $venta_detalle_item->servicio->nombre }}
+                                                {{ $venta_detalle_item['servicio']['nombre'] }}
                                                 <br>
                                                 <a wire:click="eliminarServicioCarrito({{ $loop->index }})">
                                                     <span><i class="fa-solid fa-pencil"></i></span>
                                                     Eliminar</a>
                                             </td>
                                             <td style="text-align: center;">
-                                                S/. {{ $venta_detalle_item->precio }}
+                                                S/. {{ $venta_detalle_item['precio'] }}
                                             </td>
                                             <td style="text-align: center;">
-                                                 {{ $venta_detalle_item->cantidad }}
+                                                {{ $venta_detalle_item['cantidad']}}
                                             </td>
                                             <td style="text-align: center;">
                                                 <input type="number"
-                                                    wire:model="updatedQuantities.{{ $venta_detalle_item->id }}" />
+                                                    wire:model="updatedQuantities.{{ $venta_detalle_item['id'] }}" />
                                                 <button
-                                                    wire:click="updateSaleDetailQuantity({{ $venta_detalle_item->id }})">Guardar</button>
+                                                    wire:click="updateSaleDetailQuantity({{ $venta_detalle_item['id']}})">Guardar</button>
                                             </td>
                                             <td style="text-align: center;">
                                                 S/.
-                                                {{ number_format($venta_detalle_item->precio * $venta_detalle_item->cantidad) }}
+                                                {{ number_format($venta_detalle_item['precio'] * $venta_detalle_item['cantidad']) }}
                                             </td>
                                             <td>
                                                 <a
-                                                    wire:click="editSaleDetail({{ $venta_detalle_item->id }}, {{ $venta_detalle_item->servicio_id }}, {{ $venta_detalle_item->cantidad }})">Editar</a>
+                                                    wire:click="editSaleDetail({{ $venta_detalle_item['id'] }}, {{ $venta_detalle_item['servicio']['id'] }}, {{ $venta_detalle_item['cantidad']}})">Editar</a>
                                             </td>
 
                                         </tr>
                                         @php
-                                            $sub_total += $venta_detalle_item->precio * $venta_detalle_item->cantidad;
+                                            $sub_total += $venta_detalle_item['precio'] * $venta_detalle_item['cantidad'];
                                         @endphp
                                     @endforeach
                                 </tbody>
@@ -252,13 +253,13 @@
                                         $total = $sub_total;
                                     @endphp
                                     <tr>
-                                        <td style="text-align: right;" colspan="4">SUBTOTAL:</td>
+                                        <td style="text-align: right;" colspan="6">SUBTOTAL:</td>
                                         <td style="text-align: end;">
                                             S/. {{ number_format($sub_total) }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: right;" colspan="4">TOTAL:</td>
+                                        <td style="text-align: right;" colspan="6">TOTAL:</td>
                                         <td style="text-align: end;">
                                             S/. {{ number_format($total) }}
                                         </td>
