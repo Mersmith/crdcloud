@@ -44,10 +44,12 @@ class VentaCrearLivewire extends Component
         $servicio = "",
         $cantidad = 1,
         $link = "",
-        $estado= 1,
+        $estado = 1,
         $observacion = "";
 
     public $carrito = [];
+
+    public $informe;
 
     protected $messages = [
         'paciente_id.required' => 'El paciente es requerido.',
@@ -162,6 +164,11 @@ class VentaCrearLivewire extends Component
     {
         $rules = [];
 
+        if ($this->informe) {
+            $rules['informe'] = 'required|file|mimes:pdf';
+        }
+
+
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
         $rules['imagenes'] = 'required';
@@ -201,6 +208,13 @@ class VentaCrearLivewire extends Component
                 $nuevaVenta->imagenes()->create([
                     'imagen_ruta' => $urlImagen,
                     'posicion' => $key + 1,
+                ]);
+            }
+
+            if ($this->informe) {
+                $informeSubir = $this->informe->store('informes');
+                $nuevaVenta->informes()->create([
+                    'informe_ruta' => $informeSubir
                 ]);
             }
 

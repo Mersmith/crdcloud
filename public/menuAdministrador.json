@@ -269,5 +269,27 @@
                 "subMenu2": []
             }
         ]
+    },
+    {
+        "id": 8,
+        "nombrePrincipal": "Canjeos",
+        "nombrePrincipalUrl": "#",
+        "iconoPrincipal": "fa-solid fa-file-invoice-dollar",
+        "subMenu1": [
+            {
+                "id": 1,
+                "nombreSubMenu1": "Lista",
+                "nombreSubMenu1Url": "administrador.canjeo.index",
+                "iconoSubMenu1": "fa-solid fa-table-list",
+                "subMenu2": []
+            },
+            {
+                "id": 2,
+                "nombreSubMenu1": "Nueva",
+                "nombreSubMenu1Url": "administrador.canjeo.crear",
+                "iconoSubMenu1": "fa-solid fa-square-plus",
+                "subMenu2": []
+            }
+        ]
     }
 ]

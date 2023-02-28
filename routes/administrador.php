@@ -5,6 +5,9 @@ use App\Http\Livewire\Administrador\Administrador\AdministradorCrearPagina;
 use App\Http\Livewire\Administrador\Administrador\AdministradorEditarPagina;
 use App\Http\Livewire\Administrador\Administrador\AdministradorInformacionPagina;
 use App\Http\Livewire\Administrador\Administrador\AdministradorTodoPagina;
+use App\Http\Livewire\Administrador\Canjeo\CanjeoCrearLivewire;
+use App\Http\Livewire\Administrador\Canjeo\CanjeoEditarLivewire;
+use App\Http\Livewire\Administrador\Canjeo\CanjeoTodoLivewire;
 use App\Http\Livewire\Administrador\Clinica\ClinicaCrearPagina;
 use App\Http\Livewire\Administrador\Clinica\ClinicaDireccionCrearPagina;
 use App\Http\Livewire\Administrador\Clinica\ClinicaDireccionEditarPagina;
@@ -164,3 +167,7 @@ Route::post('venta/{venta}/dropzone', [VentaController::class, 'dropzone'])->nam
 
 Route::get('usuarios/departamentos', UsuarioEstadisticaDepartamentoCantidadPagina::class)->name('usuario.estadistica.departamento.cantidad');
 Route::get('usuarios/departamento/{departamento}', UsuarioEstadisticaDepartamentoListaPagina::class)->name('usuario.estadistica.departamento.lista');
+
+Route::get('canjeos', CanjeoTodoLivewire::class)->name('canjeo.index');
+Route::get('canjeo/crear', CanjeoCrearLivewire::class)->name('canjeo.crear');
+Route::get('canjeo/{canjeo}/editar', CanjeoEditarLivewire::class)->name('canjeo.editar');

@@ -183,7 +183,7 @@
             <!--GRID DETALLE-->
             <div class="grid_contenedor_venta_tabla">
 
-                @if (count($carrito) > 0)
+                @if (!count($carrito) > 0)
                     <!--TABLA-->
                     <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
 
@@ -288,6 +288,37 @@
                                 </div>
                             </div>
                         @endif
+                    </div>
+
+                    <!--INFORME-->
+                    <div class="formulario contenedor_panel_producto_admin">
+                        <div class="contenedor_1_elementos_100">
+                            <div class="contenedor_elemento_item">
+                                <p class="estilo_nombre_input">Informe: <span
+                                        class="campo_obligatorio">(Obligatorio)</span></p>
+                                <div class="contenedor_subir_imagen_sola">
+                                    @if ($informe)
+                                        <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
+                                        <span class="boton_imagen_eliminar" wire:click="$set('informe', null)">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </span>
+                                    @else
+                                        <img src="{{ asset('imagenes/informe/sin_foto_pdf.png') }}">
+                                    @endif
+                                    <div class="opcion_cambiar_imagen">
+                                        <label for="informeSubir">
+                                            <div style="cursor: pointer;">
+                                                Editar <i class="fa-solid fa-file-pdf"></i>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="file" wire:model="informe" style="display: none" id="informeSubir">
+                                @error('informe')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <!--OBSERVACIÓN-->
