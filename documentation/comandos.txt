@@ -155,6 +155,10 @@ php artisan make:livewire Administrador/Venta/VentaTodoLivewire
 php artisan make:livewire Administrador/Venta/VentaCrearLivewire
 php artisan make:livewire Administrador/Venta/VentaEditarLivewire
 
+->CRUD Canjeo
+php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
+php artisan make:livewire Administrador/Canjeo/CanjeoCrearLivewire
+php artisan make:livewire Administrador/Canjeo/CanjeoEditarLivewire
 
 php artisan vendor:publish --tag=jetstream-views
 
@@ -286,4 +290,12 @@ git status
 git add .
 git commit -m "18_Modificacion"
 git push origin 18_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 19_Modificacion
+git branch
+git status
+git add .
+git commit -m "19_Modificacion"
+git push origin 19_Modificacion
 ->Click en boton Merge pull request
