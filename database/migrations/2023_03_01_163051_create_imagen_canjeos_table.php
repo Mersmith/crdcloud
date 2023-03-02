@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('canjeos', function (Blueprint $table) {
+        Schema::create('imagen_canjeos', function (Blueprint $table) {
             $table->id();
+
+            $table->string('imagen_canjeo_ruta');
+            $table->unsignedBigInteger('imagen_canjeoable_id');
+            $table->string('imagen_canjeoable_type');
+            $table->integer('posicion')->nullable();
+
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('canjeos');
+        Schema::dropIfExists('imagen_canjeos');
     }
 };

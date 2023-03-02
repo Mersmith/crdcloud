@@ -1,0 +1,124 @@
+/*GRID CONTENEDOR LOGIN*/
+.contenedor_login {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100vh;
+    grid-template-areas: "contenedor_login_imagen contenedor_login_formulario";
+}
+
+/*GRID LOGIN IMAGEN*/
+.contenedor_login .contenedor_login_imagen {
+    grid-area: contenedor_login_imagen;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #009eff;
+
+}
+
+/*GRID LOGIN FORMULARIO*/
+.contenedor_login .contenedor_login_formulario {
+    grid-area: contenedor_login_formulario;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+/*IMAGEN*/
+.contenedor_login .contenedor_login_imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+}
+
+.contenedor_login .contenedor_login_imagen div {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+}
+
+/*TEXTO IMAGEN*/
+.contenedor_login .contenedor_login_imagen div h2,
+.contenedor_login .contenedor_login_imagen div h3,
+.contenedor_login .contenedor_login_imagen div p {
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.596);
+}
+
+.contenedor_login .contenedor_login_imagen div h2 {
+    font-size: 34px;
+}
+
+.contenedor_login .contenedor_login_imagen div h3 {
+    font-size: 24px;
+}
+
+/*FORMULARIO CENTRAR*/
+.contenedor_login .login_formulario_centrar {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    justify-content: center;
+}
+
+.contenedor_login .login_formulario_logo img {
+    width: 150px;
+}
+
+.contenedor_login .login_formulario_arriba {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.contenedor_login .login_formulario_arriba a {
+    background-color: #ffa03d;
+    padding: 10px 15px;
+    color: white;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.contenedor_login .contenedor_login_formulario h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.contenedor_login .contenedor_login_formulario p {
+    font-size: 20px;
+    text-align: center;
+
+}
+
+.contenedor_login .contenedor_login_inputs {
+    width: 100%;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 900px) {
+    .contenedor_login {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "contenedor_login_formulario"
+            "contenedor_login_imagen";
+    }
+
+    .contenedor_login .login_formulario_centrar {
+        width: 80%;
+    }
+}

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Web\InicioController;
+use App\Http\Livewire\Sesion\Administrador\AdministradorIngresarLivewire;
+use App\Http\Livewire\Sesion\Odontologo\OdontologoRegistrarLivewire;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', InicioController::class)->name('inicio');
+Route::get('/', AdministradorIngresarLivewire::class)->name('inicio');
+
+Route::get('registrar-odontologo', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -25,3 +30,4 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
