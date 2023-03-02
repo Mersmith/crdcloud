@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('canjeo_detalles', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('canjeo_id');
+            $table->unsignedBigInteger('servicio_id');
+
+            $table->integer('cantidad');
+            $table->float('puntos');
+
+            $table->foreign('canjeo_id')->references('id')->on('canjeos')->onDelete('cascade');
+            $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -183,7 +183,7 @@
             <!--GRID DETALLE-->
             <div class="grid_contenedor_venta_tabla">
 
-                @if (!count($carrito) > 0)
+                @if (count($carrito) > 0)
                     <!--TABLA-->
                     <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
 

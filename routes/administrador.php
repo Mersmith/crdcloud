@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administrador\CanjeoController;
 use App\Http\Controllers\Administrador\VentaController;
 use App\Http\Livewire\Administrador\Administrador\AdministradorCrearPagina;
 use App\Http\Livewire\Administrador\Administrador\AdministradorEditarPagina;
@@ -171,3 +172,4 @@ Route::get('usuarios/departamento/{departamento}', UsuarioEstadisticaDepartament
 Route::get('canjeos', CanjeoTodoLivewire::class)->name('canjeo.index');
 Route::get('canjeo/crear', CanjeoCrearLivewire::class)->name('canjeo.crear');
 Route::get('canjeo/{canjeo}/editar', CanjeoEditarLivewire::class)->name('canjeo.editar');
+Route::post('canjeo/{canjeo}/dropzone', [CanjeoController::class, 'dropzone'])->name('canjeo.dropzone');

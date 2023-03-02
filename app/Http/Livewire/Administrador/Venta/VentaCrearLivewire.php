@@ -196,8 +196,7 @@ class VentaCrearLivewire extends Component
             $nuevaVenta->estado = $this->estado;
             $nuevaVenta->total = $totalPagar;
             $nuevaVenta->link = $this->link;
-            $nuevaVenta->observacion = "Falta pagar";
-
+            $nuevaVenta->observacion = $this->observacion;
             $nuevaVenta->save();
 
             $nuevaVenta->ventaDetalle()->createMany($this->carrito);

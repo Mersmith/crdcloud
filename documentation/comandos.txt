@@ -59,8 +59,15 @@ php artisan make:model Canjeo -msf
 
 php artisan make:model CanjeoDetalle -msf
 
+php artisan make:model ImagenCanjeo -msf
+
+php artisan make:model InformeCanjeo -msf
+
 ->Controlador Venta
 php artisan make:controller Administrador/VentaController
+
+->Controlador Canjeo
+php artisan make:controller Administrador/CanjeoController
 
 ->CRUD Administrador
 php artisan make:livewire Administrador/Administrador/AdministradorTodoPagina
@@ -159,6 +166,10 @@ php artisan make:livewire Administrador/Venta/VentaEditarLivewire
 php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
 php artisan make:livewire Administrador/Canjeo/CanjeoCrearLivewire
 php artisan make:livewire Administrador/Canjeo/CanjeoEditarLivewire
+
+->CRUD Sesion
+php artisan make:livewire Sesion/Administrador/AdministradorIngresarLivewire
+php artisan make:livewire Sesion/Odontologo/OdontologoRegistrarLivewire
 
 php artisan vendor:publish --tag=jetstream-views
 
@@ -298,4 +309,12 @@ git status
 git add .
 git commit -m "19_Modificacion"
 git push origin 19_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 20_Modificacion
+git branch
+git status
+git add .
+git commit -m "20_Modificacion"
+git push origin 20_Modificacion
 ->Click en boton Merge pull request
