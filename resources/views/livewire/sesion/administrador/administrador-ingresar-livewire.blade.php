@@ -1,55 +1,75 @@
- <!--GRID CONTENEDOR LOGIN-->
- <div class="contenedor_login">
-    <!--GRID LOGIN IMAGEN-->
-    <div class="contenedor_login_imagen">
-        <!--IMAGEN-->
-        <img src="{{ asset('imagenes/odontologos/1.jpg') }}" alt="" />
-        <!--TEXTO-->
-        <div>
-            <h2>"Canjea tus puntos para que ahorres."</h2>
-            <h3>Nickol Sinchi </h3>
-            <p>Odontologa</p>
+<div>
+    <!--SEO-->
+    @section('tituloPagina', 'Ingresar')
+
+    <!--GRID CONTENEDOR LOGIN-->
+    <div class="contenedor_login">
+        <!--GRID LOGIN IMAGEN-->
+        <div class="contenedor_login_imagen">
+            <!--IMAGEN-->
+            <img src="{{ asset('imagenes/odontologos/1.jpg') }}" alt="" />
+            <!--TEXTO-->
+            <div>
+                <h2>"Canjea tus puntos por radiografías."</h2>
+                <h3>Nickol Sinchi </h3>
+                <p>Odontóloga</p>
+            </div>
         </div>
-    </div>
-    <!--GRID LOGIN FORMULARIO-->
-    <div class="contenedor_login_formulario">
-        <!--FORMULARIO CENTRAR-->
-        <div class="login_formulario_centrar">
+        <!--GRID LOGIN FORMULARIO-->
+        <div class="contenedor_login_formulario">
+            <!--FORMULARIO CENTRAR-->
+            <div class="login_formulario_centrar">
 
-            <div class="login_formulario_arriba">
-                <span>Ya tienes una cuenta?</span>
-                <a href="https://centroradiologico.com.pe/crdPunto2/login.php">Registrarse</a>
-            </div>
+                <div class="login_formulario_arriba">
+                    <span>¿No tienes una cuenta?</span>
+                    <a href="{{ route('regitrar.odontologo') }}">Regístrarte</a>
+                </div>
 
-            <div class="login_formulario_logo">
-                <a href="{{ route('inicio') }}">
-                    <img src="{{ asset('imagenes/empresa/logo.png') }}" alt="" />
-                </a>
-            </div>
+                <div class="login_formulario_logo">
+                    <a href="{{ route('inicio') }}">
+                        <img src="{{ asset('imagenes/empresa/logo.png') }}" alt="" />
+                    </a>
+                </div>
 
-            <h1>¡HOLA! BIENVENIDO DE NUEVO </h1>
-            <p>Inicie sesión con los datos que ingresó durante su registro en CRD CLOUD.
+                <h1 class="titulo_formulario">¡HOLA! BIENVENIDO DE NUEVO </h1>
+                <p class="descripcion_formulario">Inicie sesión con los datos que ingresó durante su registro en CRD
+                    CLOUD.
+                </p>
 
-            <div class="contenedor_login_inputs">
-
-                <form wire:submit.prevent="login">
-                    <div>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" wire:model.defer="email" required autofocus>
-                        @error('email') <span>{{ $message }}</span> @enderror
+                <form wire:submit.prevent="ingresar" class="formulario" style="width: 100%; margin-top: 30px;">
+                    <!--EMAIL-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Email:</p>
+                            <input type="email" id="email" wire:model="email" autofocus>
+                            @error('email')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" wire:model.defer="password" required>
-                        @error('password') <span>{{ $message }}</span> @enderror
+                    <!--CONTRASEÑA-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Contraseña:</p>
+                            <input type="password" id="password" wire:model="password">
+                            @error('password')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
-                    <button type="submit">Login</button>
+                    <!--ENVIAR-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <input type="submit" value="Ingresar">
+                        </div>
+                    </div>
+
                 </form>
 
             </div>
-            </p>
         </div>
     </div>
+
 </div>

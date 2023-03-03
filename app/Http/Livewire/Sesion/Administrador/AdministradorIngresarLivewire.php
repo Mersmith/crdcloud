@@ -10,8 +10,25 @@ class AdministradorIngresarLivewire extends Component
     public $email;
     public $password;
 
-    public function login()
+    protected $rules = [
+        'email' => 'required',
+        'password' => 'required',
+    ];
+
+    protected $validationAttributes = [
+        'email' => 'email',
+        'password' => 'contraseña',
+    ];
+
+    protected $messages = [
+        'email.required' => 'El :attribute es requerido.',
+        'password.required' => 'La :attribute es requerido.',
+    ];
+
+    public function ingresar()
     {
+        $this->validate();
+
         $credentials = [
             'email' => $this->email,
             'password' => $this->password,

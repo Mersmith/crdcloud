@@ -318,3 +318,11 @@ git add .
 git commit -m "20_Modificacion"
 git push origin 20_Modificacion
 ->Click en boton Merge pull request
+
+git checkout -b 21_Modificacion
+git branch
+git status
+git add .
+git commit -m "21_Modificacion"
+git push origin 21_Modificacion
+->Click en boton Merge pull request
