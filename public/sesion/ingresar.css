@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #009eff;
+    background-color: #189bb6;
 
 }
 
@@ -70,7 +70,7 @@
 }
 
 .contenedor_login .login_formulario_logo img {
-    width: 150px;
+    width: 190px;
 }
 
 .contenedor_login .login_formulario_arriba {
@@ -82,7 +82,7 @@
 }
 
 .contenedor_login .login_formulario_arriba a {
-    background-color: #ffa03d;
+    background-color: #189bb6;
     padding: 10px 15px;
     color: white;
     font-weight: 600;
@@ -90,22 +90,17 @@
     margin-left: 5px;
 }
 
-.contenedor_login .contenedor_login_formulario h1 {
+.contenedor_login .contenedor_login_formulario .titulo_formulario {
     font-size: 24px;
     font-weight: 700;
     margin-top: 30px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
-.contenedor_login .contenedor_login_formulario p {
+.contenedor_login .contenedor_login_formulario .descripcion_formulario {
     font-size: 20px;
     text-align: center;
-
-}
-
-.contenedor_login .contenedor_login_inputs {
-    width: 100%;
-    margin-top: 30px;
 }
 
 @media screen and (max-width: 900px) {
@@ -119,6 +114,6 @@
     }
 
     .contenedor_login .login_formulario_centrar {
-        width: 80%;
+        width: 100%;
     }
 }

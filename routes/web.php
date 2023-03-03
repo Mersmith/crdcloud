@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', AdministradorIngresarLivewire::class)->name('inicio');
 
-Route::get('registrar-odontologo', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
+Route::get('registrar', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
 
 
 Route::middleware([
