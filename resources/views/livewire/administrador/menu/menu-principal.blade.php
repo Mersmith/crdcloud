@@ -27,13 +27,13 @@
             </div>
             <hr>
             <div class="contenedor_administrador_sidebar">
-                @if (Auth::user()->administrador->imagen_ruta)
+                {{--@if (Auth::user()->administrador->imagen_ruta)
                     <img src="{{ Storage::url(Auth::user()->administrador->imagen_ruta) }}">
-                @else
+                @else--}}
                     <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
-                @endif
+                {{--@endif--}}
 
-                <p>{{ Auth::user()->administrador->nombre }}</p>
+                <p>{{ $usuario->nombre }}</p>
 
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
