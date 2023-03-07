@@ -40,15 +40,15 @@ class AdministradorIngresarLivewire extends Component
             if ($usuario->rol == "administrador") {
                 return redirect()->route('administrador.encargado.index');
             } elseif ($usuario->rol == "encargado") {
-                return redirect()->route('administrador.encargado.index');
+                return redirect()->route('encargado.odontologo.index');
             } elseif ($usuario->rol == "odontologo") {
-                return redirect()->route('administrador.encargado.index');
+                return redirect()->route('odontologo.encargado.index');
             } elseif ($usuario->rol == "clinica") {
-                return redirect()->route('administrador.encargado.index');
+                return redirect()->route('clinica.encargado.index');
             } elseif ($usuario->rol == "paciente") {
-                return redirect()->route('administrador.encargado.index');
+                return redirect()->route('paciente.encargado.index');
             } else {
-                return redirect()->route('administrador.encargado.index');
+                return redirect()->route('inicio');
             }
 
         } else {
