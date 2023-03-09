@@ -35,11 +35,6 @@ class Venta extends Model
         return $this->belongsTo(Odontologo::class);
     }
 
-    public function clinica()
-    {
-        return $this->belongsTo(Clinica::class);
-    }
-
     public function imagenes()
     {
         return $this->morphMany(Imagen::class, "imagenable");

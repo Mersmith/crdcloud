@@ -19,8 +19,9 @@ class UserEncargadoSeeder extends Seeder
         //Encargado 1
         $usuario1 = User::create([
             'email' => 'miraflores@centroradiologico.com.pe',
+            'username' => 'crdmiraflores',
             'password' => Hash::make('123456789'),
-            'dni' => '48090912',
+            //'dni' => '48090912',
             'rol' => 'encargado',
         ]);
 
@@ -37,8 +38,9 @@ class UserEncargadoSeeder extends Seeder
         //Encargado 2
         $usuario2 = User::create([
             'email' => 'sanisidro@centroradiologico.com.pe',
+            'username' => 'crdsanisidro',
             'password' => Hash::make('123456789'),
-            'dni' => '99990919',
+            //'dni' => '99990919',
             'rol' => 'encargado',
         ]);
 
@@ -55,8 +57,9 @@ class UserEncargadoSeeder extends Seeder
         //Encargado 3
         $usuario3 = User::create([
             'email' => 'losolivos@centroradiologico.com.pe',
+            'username' => 'crdlosolivos',
             'password' => Hash::make('123456789'),
-            'dni' => '72866990',
+            //'dni' => '72866990',
             'rol' => 'encargado',
         ]);
 
@@ -73,8 +76,9 @@ class UserEncargadoSeeder extends Seeder
         //Encargado 4
         $usuario4 = User::create([
             'email' => 'lamolina@centroradiologico.com.pe',
+            'username' => 'crdlamolina',
             'password' => Hash::make('123456789'),
-            'dni' => '74709901',
+            //'dni' => '74709901',
             'rol' => 'encargado',
         ]);
 
@@ -91,8 +95,9 @@ class UserEncargadoSeeder extends Seeder
         //Encargado 5
         $usuario5 = User::create([
             'email' => 'sjl@centroradiologico.com.pe',
+            'username' => 'crdsjl',
             'password' => Hash::make('123456789'),
-            'dni' => '75001476',
+            //'dni' => '75001476',
             'rol' => 'encargado',
         ]);
 

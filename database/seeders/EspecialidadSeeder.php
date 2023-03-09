@@ -20,75 +20,83 @@ class EspecialidadSeeder extends Seeder
         $especialidades = [
             [
                 //'id' => 1,
-                'nombre' => 'Anestesiología dental',
+                'nombre' => 'Ninguno',
             ],
             [
                 //'id' => 2,
-                'nombre' => 'Odontología de salud pública',
+                'nombre' => 'Anestesiología dental',
             ],
             [
                 //'id' => 3,
-                'nombre' => 'Endodoncia',
+                'nombre' => 'Odontología de salud pública',
             ],
             [
                 //'id' => 4,
-                'nombre' => 'Patología oral y maxilofacial',
+                'nombre' => 'Endodoncia',
             ],
             [
                 //'id' => 5,
-                'nombre' => 'Radiología oral y maxilofacial',
+                'nombre' => 'Patología oral y maxilofacial',
             ],
             [
                 //'id' => 6,
-                'nombre' => 'Cirugía oral y maxilofacial',
+                'nombre' => 'Radiología oral y maxilofacial',
             ],
             [
                 //'id' => 7,
-                'nombre' => 'Medicina oral',
+                'nombre' => 'Cirugía oral y maxilofacial',
             ],
             [
                 //'id' => 8,
-                'nombre' => 'Ortodoncia',
+                'nombre' => 'Medicina oral',
             ],
             [
                 //'id' => 9,
-                'nombre' => 'Especialista en dolor orofacial',
+                'nombre' => 'Ortodoncia',
             ],
             [
                 //'id' => 10,
-                'nombre' => 'Odontología pediátrica',
+                'nombre' => 'Especialista en dolor orofacial',
             ],
             [
                 //'id' => 11,
-                'nombre' => 'Periodoncia',
+                'nombre' => 'Odontología pediátrica',
             ],
             [
                 //'id' => 12,
-                'nombre' => 'Prostodoncia',
+                'nombre' => 'Periodoncia',
             ],
             [
                 //'id' => 13,
-                'nombre' => 'Cirugía maxilofacial y oral',
+                'nombre' => 'Prostodoncia',
             ],
             [
                 //'id' => 14,
-                'nombre' => 'Endodoncista o especialista en tratamientos de conducto',
+                'nombre' => 'Cirugía maxilofacial y oral',
             ],
             [
                 //'id' => 15,
-                'nombre' => 'Odontopediatría o dentista pediátrico',
+                'nombre' => 'Endodoncista o especialista en tratamientos de conducto',
             ],
             [
                 //'id' => 16,
-                'nombre' => 'Odontología general',
+                'nombre' => 'Odontopediatría o dentista pediátrico',
             ],
             [
                 //'id' => 17,
-                'nombre' => 'Ortopedia dentofacial',
+                'nombre' => 'Odontología general',
             ],
             [
                 //'id' => 18,
+                'nombre' => 'Ortopedia dentofacial',
+            ],
+            [
+                //'id' => 19,
                 'nombre' => 'Odontología protésica',
+            ],
+            [
+                //'id' => 50,
+                'nombre' => 'Otro',
             ],
         ];
 

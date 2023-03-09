@@ -32,15 +32,6 @@ class UserSeeder extends Seeder
         });
 
         User::factory(15)->create([
-            'rol' => 'clinica',
-        ])->each(function (User $usuario) {
-            Clinica::factory(1)->create([
-                'user_id' => $usuario->id,
-                'email' => $usuario->email,
-            ]);
-        });
-
-        User::factory(15)->create([
             'rol' => 'paciente',
         ])->each(function (User $usuario) {
             Paciente::factory(1)->create([

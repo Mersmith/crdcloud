@@ -23,12 +23,7 @@ class Sede extends Model
 
     public function odontologos()
     {
-        return $this->hasMany(Odontologo::class);
-    }
-
-    public function clinicas()
-    {
-        return $this->hasMany(Clinica::class);
+        return $this->belongsToMany(Odontologo::class, 'odontologo_sede');
     }
 
     public function pacientes()
