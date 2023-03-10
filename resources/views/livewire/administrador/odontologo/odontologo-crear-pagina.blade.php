@@ -25,12 +25,12 @@
             </div>
 
             <!--FORMULARIO-->
-            <form wire:submit.prevent="crearOdontologo" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '' }" class="formulario">
+            <form wire:submit.prevent="crearOdontologo" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '', digitosRuc: '' }" class="formulario">
 
                 <!--SEDES Y ESPECIALIDADES-->
                 <div class="contenedor_2_elementos">
                     <!--SEDES-->
-                    <div class="contenedor_elemento_item">
+                    {{-- <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <select wire:model="sede_id">
                             <option value="" selected disabled>Seleccione una sede</option>
@@ -39,6 +39,18 @@
                             @endforeach
                         </select>
                         @error('sede_id')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div> --}}
+
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <select wire:model="sedesArray" multiple id="sedesArray" name="sedesArray[]">
+                            @foreach ($sedes as $sede)
+                                <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('sedesArray')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -58,7 +70,6 @@
                         @enderror
                     </div>
                 </div>
-
                 <!--EMAIL Y PASSWORD-->
                 <div class="contenedor_2_elementos">
                     <!--EMAIL-->
@@ -108,7 +119,7 @@
                 <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span> </p>
                         <input type="number" wire:model="dni" x-ref="digitosDniRef" x-model="digitosDni"
                             x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)">
                         @error('dni')
@@ -120,7 +131,7 @@
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
                         <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
-                        x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
+                            x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
                         @error('cop')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -175,6 +186,48 @@
                             </label>
                         </div>
                         @error('genero')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="contenedor_1_elementos_100">
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">¿Tiénes una clínica?</p>
+                        <div>
+                            <label>
+                                <input type="radio" value="1" name="tiene_clinica"
+                                    wire:model.defer="tiene_clinica" x-on:click="$wire.tiene_clinica = true">
+                                Sí
+                            </label>
+                            <label>
+                                <input type="radio" value="0" name="tiene_clinica"
+                                    wire:model.defer="tiene_clinica" x-on:click="$wire.tiene_clinica = false">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--RUC Y NOMBRE CLÍNICA-->
+                <div class="contenedor_2_elementos" x-show="$wire.tiene_clinica">
+                    <!--RUC-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">RUC: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="number" wire:model="ruc" x-ref="digitosRucRef" x-model="digitosRuc"
+                            x-on:keydown="limitarEntrada($refs.digitosRucRef, 11, $event)">
+                        @error('ruc')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!--NOMBRE CLÍNICA-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Nombre de la clínica: <span
+                                class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="text" wire:model="nombre_clinica">
+                        @error('nombre_clinica')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>

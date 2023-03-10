@@ -15,9 +15,4 @@ class Especialidad extends Model
     {
         return $this->hasMany(Odontologo::class);
     }
-
-    public function clinicas()
-    {
-        return $this->hasMany(Clinica::class);
-    }
 }

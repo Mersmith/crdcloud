@@ -16,9 +16,9 @@ class Odontologo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sede()
+    public function sedes()
     {
-        return $this->belongsTo(Sede::class);
+        return $this->belongsToMany(Sede::class, 'odontologo_sede');
     }
 
     public function especialidad()

@@ -100,7 +100,7 @@
                                             {{ $odontologo->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->sede->nombre }}
+                                            {{-- $odontologo->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $odontologo->email }}

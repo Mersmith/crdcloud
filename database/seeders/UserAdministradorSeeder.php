@@ -18,6 +18,7 @@ class UserAdministradorSeeder extends Seeder
         //Administrador 1
         $usuario1 = User::create([
             'email' => 'master@crd.com',
+            'username' => 'master',
             'password' => Hash::make('123456789'),
             'rol' => 'administrador',
         ]);
@@ -33,6 +34,7 @@ class UserAdministradorSeeder extends Seeder
         //Administrador 2
         $usuario2 = User::create([
             'email' => 'webmaster@crd.com',
+            'username' => 'webmaster',
             'password' => Hash::make('123456789'),
             'rol' => 'administrador',
         ]);
@@ -48,14 +50,15 @@ class UserAdministradorSeeder extends Seeder
         //Administrador 3
         $usuario3 = User::create([
             'email' => 'coordinador@crd.com',
+            'username' => 'coordinador',
             'password' => Hash::make('123456789'),
             'rol' => 'administrador',
         ]);
 
         Administrador::create([
             'user_id' => $usuario3->id,
-            'nombre' => 'Daniel',
-            'apellido' => 'Chipana',
+            'nombre' => 'Frank',
+            'apellido' => 'Torres',
             'email' => $usuario3->email,
             'rol' => 'administrador',
         ]);

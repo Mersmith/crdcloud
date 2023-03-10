@@ -35,11 +35,6 @@ class Canjeo extends Model
         return $this->belongsTo(Odontologo::class);
     }
 
-    public function clinica()
-    {
-        return $this->belongsTo(Clinica::class);
-    }
-
     public function imagenesCanjeo()
     {
         return $this->morphMany(ImagenCanjeo::class, "imagen_canjeoable");

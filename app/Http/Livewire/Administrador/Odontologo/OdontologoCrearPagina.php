@@ -16,7 +16,8 @@ class OdontologoCrearPagina extends Component
 
     public
         $especialidad_id = "",
-        $sede_id = "",
+        //$sede_id = "",
+        $sedesArray = [],
         $nombre = null,
         $apellido = null,
         $email = null,
@@ -26,11 +27,17 @@ class OdontologoCrearPagina extends Component
         $celular = null,
         $fecha_nacimiento = null,
         $genero = "hombre",
-        $puntos = 0;
+        $puntos = 0,
+        $ruc = null,
+        $nombre_clinica = null;
+
+    public $tiene_clinica = true;
 
     protected $rules = [
         'especialidad_id' => 'required',
-        'sede_id' => 'required',
+        'sedesArray' => 'required|array|min:1',
+        'sedesArray.*' => 'exists:sedes,id',
+        //'sede_id' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'email' => 'required|unique:users',
@@ -41,11 +48,13 @@ class OdontologoCrearPagina extends Component
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
+        //'ruc' => 'required|digits:11',
+        //'nombre_clinica' => 'required|unique:odontologos',
     ];
 
     protected $validationAttributes = [
         'especialidad_id' => 'especialidad',
-        'sede_id' => 'sede',
+        //'sede_id' => 'sede',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
         'email' => 'email',
@@ -56,11 +65,13 @@ class OdontologoCrearPagina extends Component
         'fecha_nacimiento' => 'fecha de nacimiento',
         'genero' => 'genero',
         'puntos' => 'puntos',
+        'ruc' => 'ruc',
+        'nombre_clinica' => 'nombre de la clínica',
     ];
 
     protected $messages = [
         'especialidad_id.required' => 'La :attribute es requerido.',
-        'sede_id.required' => 'La :attribute es requerido.',
+        //'sede_id.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
         'email.required' => 'El :attribute es requerido.',
@@ -77,6 +88,11 @@ class OdontologoCrearPagina extends Component
         'fecha_nacimiento.required' => 'La :attribute es requerido.',
         'genero.required' => 'El :attribute es requerido.',
         'puntos.required' => 'Los :attribute son requerido.',
+        'ruc.required' => 'El :attribute es requerido.',
+        'ruc.unique' => 'El :attribute ya existe.',
+        'ruc.digits' => 'El :attribute acepta 11 dígitos.',
+        'nombre_clinica.required' => 'El :attribute es requerido.',
+        'nombre_clinica.unique' => 'El :attribute ya existe.',
     ];
 
     public function mount()
@@ -87,7 +103,19 @@ class OdontologoCrearPagina extends Component
 
     public function crearOdontologo()
     {
-        $this->validate();
+        $rules = $this->rules;
+
+        if ($this->tiene_clinica) {
+            $rules['ruc'] = 'required|digits:11';
+            $rules['nombre_clinica'] = 'required|unique:odontologos';
+            $rol = "clinica";
+        } else {
+            $this->ruc = null;
+            $this->nombre_clinica = null;
+            $rol = "odontologo";
+        }
+
+        $this->validate($rules);
 
         $usuario = new User();
         $usuario->email = $this->email;
@@ -100,7 +128,7 @@ class OdontologoCrearPagina extends Component
         $usuario->odontologo()->create(
             [
                 'especialidad_id' => $this->especialidad_id,
-                'sede_id' => $this->sede_id,
+                //'sede_id' => $this->sede_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
                 'email' => $this->email,
@@ -108,8 +136,13 @@ class OdontologoCrearPagina extends Component
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
                 'puntos' => $this->puntos,
+                'rol' => $rol,
+                'ruc' => $this->ruc,
+                'nombre_clinica' => $this->nombre_clinica,
             ]
         );
+
+        $usuario->odontologo->sedes()->attach($this->sedesArray);
 
         $this->emit('mensajeCreado', "Creado.");
 

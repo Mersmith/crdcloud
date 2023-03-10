@@ -26,6 +26,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
         'dni',
         'cop',
@@ -74,11 +75,6 @@ class User extends Authenticatable
     public function odontologo()
     {
         return $this->hasOne(Odontologo::class, 'user_id', 'id');
-    }
-
-    public function clinica()
-    {
-        return $this->hasOne(Clinica::class, 'user_id', 'id');
     }
 
     public function paciente()

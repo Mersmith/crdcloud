@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('sede_id');
             $table->unsignedBigInteger('paciente_id');
             $table->unsignedBigInteger('odontologo_id')->nullable();
-            $table->unsignedBigInteger('clinica_id')->nullable();
 
             $table->enum('estado', [Canjeo::PENDIENTE, Canjeo::APLICADO, Canjeo::ANULADO])->default(Canjeo::PENDIENTE);
             $table->float('total_puntos');
@@ -30,7 +29,6 @@ return new class extends Migration
             $table->foreign('sede_id')->references('id')->on('sedes');
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->foreign('odontologo_id')->references('id')->on('odontologos')->onDelete('cascade');
-            $table->foreign('clinica_id')->references('id')->on('clinicas')->onDelete('set null');
 
             $table->timestamps();
         });

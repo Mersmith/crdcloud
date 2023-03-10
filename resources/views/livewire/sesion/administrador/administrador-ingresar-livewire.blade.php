@@ -13,6 +13,7 @@
                 <h2>"Canjea tus puntos por radiografías."</h2>
                 <h3>Nickol Sinchi </h3>
                 <p>Odontóloga</p>
+                <a wire:click="contra">Cambiar</a>
             </div>
         </div>
         <!--GRID LOGIN FORMULARIO-->
@@ -36,12 +37,12 @@
                     CLOUD.
                 </p>
 
-                <form wire:submit.prevent="ingresar" class="formulario" style="width: 100%; margin-top: 30px;">
+                <form wire:submit.prevent="authenticate" class="formulario" style="width: 100%; margin-top: 30px;">
                     <!--EMAIL-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Email:</p>
-                            <input type="email" id="email" wire:model="email" autofocus>
+                            <input type="text" id="email" wire:model="email" autofocus>
                             @error('email')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
@@ -57,6 +58,13 @@
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div>
+                        <label for="remember">
+                            <input type="checkbox" wire:model="remember" name="remember" id="remember" />
+                            Recordarme
+                        </label>
                     </div>
 
                     <!--ENVIAR-->

@@ -25,9 +25,4 @@ class Paciente extends Model
     {
         return $this->belongsToMany(Odontologo::class);
     }
-
-    public function clinicas()
-    {
-        return $this->belongsToMany(Clinica::class);
-    }
 }

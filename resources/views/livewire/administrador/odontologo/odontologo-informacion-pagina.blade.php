@@ -39,6 +39,24 @@
             </div>
         </div>
 
+        <!--PACIENTE-->
+        <div class="contenedor_panel_producto_admin">
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Datos del paciente:</h3>
+            </div>
+            @if ($paciente)
+                <div>
+                    <p><strong>Paciente: </strong>Sí</p>
+                    <a wire:click="desasignarPaciente" class="boton_suelto">¿Desasignar como paciente?</a>
+                </div>
+            @else
+                <div>
+                    <a wire:click="asignarPaciente" class="boton_suelto">¿Asignarlo también como paciente?</a>
+                </div>
+            @endif
+        </div>
+
         <!--DIRECCIÓN-->
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
