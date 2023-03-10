@@ -15,11 +15,7 @@ class SedeEditarPagina extends Component
         'nombre' => null,
         'direccion' => null,
     ];
-
-    protected $rules = [
-        'editarFormulario.direccion' => 'required',
-    ];
-
+  
     protected $validationAttributes = [
         'editarFormulario.nombre' => 'nombre',
         'editarFormulario.direccion' => 'descripción',
@@ -40,9 +36,15 @@ class SedeEditarPagina extends Component
 
     public function editarSede()
     {
-        $rules = $this->rules;
+        $rules = [];
 
         $rules['editarFormulario.nombre'] = 'required|unique:sedes,nombre,' . $this->sede->id;
+
+        if($this->editarFormulario['direccion']){
+            $rules['editarFormulario.direccion'] = 'required';
+        }else{
+            $this->editarFormulario['direccion'] = null;
+        }
 
         $this->validate($rules);
 

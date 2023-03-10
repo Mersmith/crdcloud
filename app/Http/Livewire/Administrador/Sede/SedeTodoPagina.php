@@ -26,7 +26,7 @@ class SedeTodoPagina extends Component
     public function render()
     {
         $sedes = Sede::where('nombre', 'like', '%' . $this->buscarSede . '%')
-            ->orderBy('created_at', 'desc')
+            //->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view('livewire.administrador.sede.sede-todo-pagina', compact('sedes'))->layout('layouts.administrador.index');

@@ -28,6 +28,6 @@ class Sede extends Model
 
     public function pacientes()
     {
-        return $this->hasMany(Paciente::class);
+        return $this->belongsToMany(Paciente::class, 'paciente_sede');
     }
 }

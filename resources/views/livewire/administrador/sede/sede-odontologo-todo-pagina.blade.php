@@ -105,16 +105,16 @@
                                             {{ $odontologo->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{-- $odontologo->sede->nombre --}}
+                                            {{ $sede->nombre }}
                                         </td>
                                         <td>
                                             {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->dni }}
+                                            {{ $odontologo->dni }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->cop }}
+                                            {{ $odontologo->cop }}
                                         </td>
                                         <td>
                                             {{ $odontologo->celular }}
