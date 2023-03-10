@@ -10,7 +10,7 @@ class SedePacienteTodoPagina extends Component
 {
     use WithPagination;
     public $buscarPaciente;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public $sede;
     public $cantidad_pacientes;
@@ -31,7 +31,7 @@ class SedePacienteTodoPagina extends Component
         $pacientes = $this->sede->pacientes()
             ->where('nombre', 'LIKE', '%' . $this->buscarPaciente . '%')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
 
         return view('livewire.administrador.sede.sede-paciente-todo-pagina', compact('pacientes'))->layout('layouts.administrador.index');
     }

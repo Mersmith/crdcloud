@@ -105,16 +105,16 @@
                                             {{ $clinica->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $clinica->sede->nombre }}
+                                            {{ $sede->nombre }}
                                         </td>
                                         <td>
                                             {{ $clinica->email }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->dni }}
+                                            {{ $clinica->dni }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->cop }}
+                                            {{ $clinica->cop }}
                                         </td>
                                         <td>
                                             {{ $clinica->celular }}

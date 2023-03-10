@@ -16,9 +16,9 @@ class Paciente extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sede()
+    public function sedes()
     {
-        return $this->belongsTo(Sede::class);
+        return $this->belongsToMany(Sede::class, 'paciente_sede');
     }
 
     public function odontologos()

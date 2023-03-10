@@ -14,7 +14,6 @@ class SedeCrearPagina extends Component
 
     protected $rules = [
         'crearFormulario.nombre' => 'required|unique:sedes,nombre',
-        'crearFormulario.direccion' => 'required',
     ];
 
     protected $validationAttributes = [
@@ -31,6 +30,10 @@ class SedeCrearPagina extends Component
     public function crearSede()
     {
         $rules = $this->rules;
+
+        if($this->crearFormulario['direccion']){
+            $rules['crearFormulario.direccion'] = 'required';
+        }
 
         $this->validate($rules);
 

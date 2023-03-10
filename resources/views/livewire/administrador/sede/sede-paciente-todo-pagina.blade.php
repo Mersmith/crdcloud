@@ -97,13 +97,13 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{ $paciente->sede->nombre }}
+                                            {{ $sede->nombre }}
                                         </td>
                                         <td>
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->dni }}
+                                            {{ $paciente->dni }}
                                         </td>
                                         <td>
                                             {{ $paciente->celular }}

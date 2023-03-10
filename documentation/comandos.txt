@@ -12,13 +12,15 @@ php artisan make:model Encargado -msf
 
 php artisan make:model Odontologo -msf
 
+php artisan make:model OdontologoSede -msf
+
 php artisan make:model Paciente -msf
 
-php artisan make:model Clinica -msf
+php artisan make:model PacienteSede -msf
 
 php artisan make:model OdontologoPaciente -msf
 
-php artisan make:model OdontologoSede -msf
+php artisan make:model Clinica -msf
 
 php artisan make:model ClinicaPaciente -msf
 
@@ -45,6 +47,8 @@ composer install
 npm install
 
 php artisan key:generate
+
+git clone https://github.com/Mersmith/crd.git
 
 /*Controlador de Inicio*/
 php artisan make:controller Web/InicioController
@@ -343,4 +347,12 @@ git status
 git add .
 git commit -m "23_Modificacion"
 git push origin 23_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 24_Modificacion
+git branch
+git status
+git add .
+git commit -m "24_Modificacion"
+git push origin 24_Modificacion
 ->Click en boton Merge pull request
