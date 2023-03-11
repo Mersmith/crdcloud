@@ -69,8 +69,8 @@ class VentaCrearLivewire extends Component
         $this->sede = Sede::find($value);
         $this->sede_id = $this->sede->id;
 
-        $this->odontologos = Odontologo::where('sede_id', $this->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $this->sede_id)->get();
+        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
 
         $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
     }
@@ -89,7 +89,7 @@ class VentaCrearLivewire extends Component
 
     public function updatedClinicaId($value)
     {
-        $this->clinica = Clinica::find($value);
+        $this->clinica = Odontologo::find($value);
         $this->clinica_id = $this->clinica->id;
         $this->usuario_clinica = $this->clinica->user;
 
@@ -191,8 +191,13 @@ class VentaCrearLivewire extends Component
             $nuevaVenta = new Venta();
             $nuevaVenta->sede_id = $this->sede_id;
             $nuevaVenta->paciente_id = $this->paciente_id;
-            $nuevaVenta->odontologo_id = $this->odontologo_id;
-            $nuevaVenta->clinica_id = $this->clinica_id;
+
+            if ($this->odontologo_id) {
+                $nuevaVenta->odontologo_id = $this->odontologo_id;
+            } else {
+                $nuevaVenta->odontologo_id = $this->clinica_id;
+            }
+
             $nuevaVenta->estado = $this->estado;
             $nuevaVenta->total = $totalPagar;
             $nuevaVenta->link = $this->link;

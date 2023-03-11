@@ -87,13 +87,12 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-
-                    <!--DNI-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="dni" x-ref="digitosDniRef" x-model="digitosDni"
-                            x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)">
-                        @error('dni')
+                     <!--USERNAME-->
+                     <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="text" wire:model="username">
+                        @error('username')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>

@@ -14,8 +14,8 @@ class EspecialidadInformacionPagina extends Component
     public function mount(Especialidad $especialidad)
     {
         $this->especialidad = $especialidad;
-        $this->cantidad_total_odontologos = $especialidad->odontologos()->count();
-        $this->cantidad_total_clinicas = $especialidad->odontologos()->count();
+        $this->cantidad_total_odontologos = $especialidad->odontologos()->where('rol', '=', 'odontologo')->count();
+        $this->cantidad_total_clinicas = $especialidad->odontologos()->where('rol', '=', 'clinica')->count();
     }
 
     public function render()

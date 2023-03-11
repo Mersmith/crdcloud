@@ -67,8 +67,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar venta: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarNumeroDeVenta"
-                    placeholder="Ingrese el número de venta.">
+                <input type="text" wire:model="buscarNumeroDeVenta" placeholder="Ingrese el número de venta.">
             </div>
         </div>
 
@@ -104,28 +103,20 @@
                                     <th>
                                         N° Orden</th>
                                     <th>
-                                        Contacto</th>
-                                    <th>
-                                        Celular</th>
-                                    <th>
                                         Estado</th>
                                     <th>
                                         Total</th>
+                                    <th>
+                                        Registro</th>
                                     <th>
                                         Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $ventaItem)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             N° 00000-{{ $ventaItem->id }}
-                                        </td>
-                                        <td>
-                                            {{ $ventaItem->contacto }}
-                                        </td>
-                                        <td>
-                                            {{ $ventaItem->celular }}
                                         </td>
                                         <td>
                                             @switch($ventaItem->estado)
@@ -154,7 +145,10 @@
                                             @endswitch
                                         </td>
                                         <td>
-                                            {{ $ventaItem->total }} USD
+                                            S/. {{ $ventaItem->total }}
+                                        </td>
+                                        <td>
+                                            {{ $ventaItem->created_at }}
                                         </td>
                                         <td>
                                             <a class="tabla_editar"
@@ -173,7 +167,6 @@
                         {{ $ventas->links('pagination::tailwind') }}
                     </div>
                 @endif
-
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No hay ventas</p>

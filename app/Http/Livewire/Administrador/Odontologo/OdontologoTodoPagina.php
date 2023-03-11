@@ -11,7 +11,7 @@ class OdontologoTodoPagina extends Component
     use WithPagination;
     public $buscarOdontologo;
     public $cantidad_total_odontologos;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public function updatingBuscarOdontologo()
     {
@@ -20,15 +20,18 @@ class OdontologoTodoPagina extends Component
 
     public function mount()
     {
-        $this->cantidad_total_odontologos = Odontologo::count();
+        $this->cantidad_total_odontologos = Odontologo::where('rol', '=', 'odontologo')->count();
     }
 
     public function render()
     {
-        $odontologos = Odontologo::where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
-            ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%')
+        $odontologos = Odontologo::where('rol', '=', 'odontologo')
+            ->where(function ($query) {
+                $query->where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
+                    ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%');
+            })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
 
         return view('livewire.administrador.odontologo.odontologo-todo-pagina', compact('odontologos'))->layout('layouts.administrador.index');
     }

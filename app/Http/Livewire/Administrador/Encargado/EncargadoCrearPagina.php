@@ -6,6 +6,7 @@ use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class EncargadoCrearPagina extends Component
 {
@@ -15,28 +16,28 @@ class EncargadoCrearPagina extends Component
         $sede_id = "",
         $nombre = null,
         $apellido = null,
+        $username = null,
         $email = null,
         $password = null,
-        $dni = null,
         $celular = null;
 
     protected $rules = [
         'sede_id' => 'required|unique:encargados',
         'nombre' => 'required',
+        'username' => 'required|unique:users',
         'apellido' => 'required',
         'email' => 'required|unique:users',
         'password' => 'required',
-        'dni' => 'required|digits:8|unique:users',
         'celular' => 'required|digits:9',
     ];
 
     protected $validationAttributes = [
         'sede_id' => 'sede',
         'nombre' => 'nombre',
+        'username' => 'nombre de usuario',
         'apellido' => 'apellido',
         'email' => 'email',
         'password' => 'contraseña',
-        'dni' => 'DNI',
         'celular' => 'celular',
     ];
 
@@ -47,10 +48,9 @@ class EncargadoCrearPagina extends Component
         'apellido.required' => 'El :attribute es requerido.',
         'email.required' => 'El :attribute es requerido.',
         'email.unique' => 'El :attribute ya existe.',
+        'username.required' => 'El :attribute es requerido.',
+        'username.unique' => 'El :attribute ya existe.',
         'password.required' => 'La :attribute es requerido.',
-        'dni.required' => 'El :attribute es requerido.',
-        'dni.unique' => 'El :attribute ya existe.',
-        'dni.digits' => 'El :attribute acepta 8 dígitos.',
         'celular.required' => 'El :attribute es requerido.',
         'celular.digits' => 'El :attribute acepta 9 dígitos.',
     ];
@@ -60,14 +60,43 @@ class EncargadoCrearPagina extends Component
         $this->sedes = Sede::all();
     }
 
+    public function generarUsername($nombre, $apellido)
+    {
+        $nombre_sin_espacios = preg_replace('/[^A-Za-z0-9\-]/', '', $nombre);
+        $apellido_sin_espacios = preg_replace('/[^A-Za-z0-9\-]/', '', $apellido);
+
+        $nombre_abreviado = substr($nombre_sin_espacios, 0, 2);
+        $apellido_abreviado = substr($apellido_sin_espacios, 0, 2);
+
+        $resto_username = str_shuffle($nombre_sin_espacios . $apellido_sin_espacios);
+        $resto_username = substr($resto_username, 0, 6);
+
+        $username = Str::lower($nombre_abreviado . $apellido_abreviado . $resto_username);
+        $username = substr($username, 0, 8);
+        $username;
+
+        return $username;
+    }
+
+    public function updatedNombre()
+    {
+        $this->username = $this->generarUsername($this->nombre, $this->apellido);
+    }
+
+    public function updatedApellido()
+    {
+
+        $this->username = $this->generarUsername($this->nombre, $this->apellido);
+    }
+
     public function crearEncargado()
     {
         $this->validate();
 
         $usuario = new User();
         $usuario->email = $this->email;
+        $usuario->username = $this->username;
         $usuario->password = Hash::make($this->password);
-        $usuario->dni = $this->dni;
         $usuario->rol = "encargado";
         $usuario->save();
 

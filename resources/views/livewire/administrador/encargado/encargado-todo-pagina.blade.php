@@ -66,8 +66,6 @@
                                     <th>
                                         Email</th>
                                     <th>
-                                        DNI</th>
-                                    <th>
                                         Celular</th>
                                     <th>
                                         Registro</th>
@@ -92,9 +90,6 @@
                                         </td>
                                         <td>
                                             {{ $encargado->email }}
-                                        </td>
-                                        <td>
-                                            {{ $encargado->user->dni }}
                                         </td>
                                         <td>
                                             {{ $encargado->celular }}

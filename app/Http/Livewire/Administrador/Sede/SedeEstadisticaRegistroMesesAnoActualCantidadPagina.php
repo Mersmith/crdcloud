@@ -11,20 +11,12 @@ class SedeEstadisticaRegistroMesesAnoActualCantidadPagina extends Component
 
     public function mount()
     {
-        $this->cantidad_odontologos_clinicas_anio_actual = DB::table(DB::raw("
-        (
-            SELECT created_at, 'clinicas' as tipo_registro
-            FROM clinicas
-            UNION ALL
-            SELECT created_at, 'odontologos' as tipo_registro
-            FROM odontologos
-        ) as subquery
-    "))
-            ->select(DB::raw('MONTH(created_at) as mes'), DB::raw('COUNT(*) as cantidad_registros'))
-            ->whereRaw('YEAR(created_at) = ?', [date('Y')])
-            ->groupBy(DB::raw('MONTH(created_at)'))
-            ->orderBy(DB::raw('MONTH(created_at)'))
-            ->get();
+        $this->cantidad_odontologos_clinicas_anio_actual = DB::table('odontologos')
+        ->select(DB::raw('MONTH(created_at) as mes'), DB::raw('COUNT(*) as cantidad_registros'))
+        ->whereRaw('YEAR(created_at) = ?', [date('Y')])
+        ->groupBy(DB::raw('MONTH(created_at)'))
+        ->orderBy(DB::raw('MONTH(created_at)'))
+        ->get();
     }
 
     public function render()

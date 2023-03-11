@@ -12,9 +12,11 @@ class EspecialidadEstadisticaClinicaCantidadPagina extends Component
     public function mount()
     {
         $this->especialidad_clinica_cantidad = DB::table('especialidads')
-            ->leftJoin('clinicas', 'especialidads.id', '=', 'clinicas.especialidad_id')
-            ->select('especialidads.id', 'especialidads.nombre', DB::raw('COUNT(clinicas.id) as cantidad'))
+            ->leftJoin('odontologos', 'especialidads.id', '=', 'odontologos.especialidad_id')
+            ->select('especialidads.id', 'especialidads.nombre', DB::raw('COUNT(odontologos.id) as cantidad'))
+            ->where('odontologos.rol', '=', 'clinica') // agregamos la condición aquí
             ->groupBy('especialidads.id', 'especialidads.nombre')
+            ->orderBy('cantidad', 'asc')
             ->get();
     }
 

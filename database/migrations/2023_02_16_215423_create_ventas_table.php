@@ -21,10 +21,7 @@ return new class extends Migration
 
             $table->enum('estado', [Venta::PENDIENTE, Venta::PAGADO, Venta::ANULADO])->default(Venta::PENDIENTE);
             $table->float('total');
-            //$table->json('contenido')->nullable();
-            //$table->string('puntos_usados')->nullable();
             $table->string('puntos_ganados')->nullable();
-            //$table->string('puntos_dinero')->nullable();
             $table->string('link')->nullable();
             $table->text('observacion')->nullable();
             $table->integer('descargas')->default(0);

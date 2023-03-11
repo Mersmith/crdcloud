@@ -11,7 +11,7 @@ class PacienteTodoPagina extends Component
     use WithPagination;
     public $buscarPaciente;
     public $cantidad_total_pacientes;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public function updatingBuscarPaciente()
     {
@@ -28,7 +28,7 @@ class PacienteTodoPagina extends Component
         $pacientes = Paciente::where('nombre', 'like', '%' . $this->buscarPaciente . '%')
             ->orWhere('email', 'LIKE', '%' . $this->buscarPaciente . '%')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
 
         return view('livewire.administrador.paciente.paciente-todo-pagina', compact('pacientes'))->layout('layouts.administrador.index');
     }

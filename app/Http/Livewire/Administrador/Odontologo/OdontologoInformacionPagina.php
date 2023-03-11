@@ -22,7 +22,7 @@ class OdontologoInformacionPagina extends Component
         $this->especialidad = Especialidad::find($odontologo->especialidad_id);
         $this->direccion = $odontologo->user->direccion;
 
-        $this->paciente = Paciente::where('user_id', $odontologo->user->id)->get()->first();
+        $this->paciente = Paciente::where('dni', $odontologo->dni)->orWhere('email', $odontologo->email)->get()->first();
     }
 
     public function asignarPaciente()

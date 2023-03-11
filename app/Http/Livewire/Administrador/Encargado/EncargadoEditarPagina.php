@@ -19,10 +19,10 @@ class EncargadoEditarPagina extends Component
         $sede_id = "",
         $nombre,
         $apellido,
+        $username,
         $email,
         $password = "contrasenaejemplo",
         $editar_password = null,
-        $dni,
         $celular;
 
     protected $rules = [
@@ -37,7 +37,7 @@ class EncargadoEditarPagina extends Component
         'apellido' => 'apellido',
         'email' => 'email',
         'editar_password' => 'contraseña',
-        'dni' => 'DNI',
+        'username' => 'username',
         'celular' => 'celular',
     ];
 
@@ -48,8 +48,8 @@ class EncargadoEditarPagina extends Component
         'editar_password.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
-        'dni.required' => 'El :attribute es requerido.',
-        'dni.unique' => 'El :attribute ya existe.',
+        'username.required' => 'El :attribute es requerido.',
+        'username.unique' => 'El :attribute ya existe.',
         'celular.required' => 'El :attribute es requerido.',
     ];
 
@@ -64,7 +64,7 @@ class EncargadoEditarPagina extends Component
         $this->email = $encargado->email;
         $this->nombre = $encargado->nombre;
         $this->apellido = $encargado->apellido;
-        $this->dni = $this->usuario_encargado->dni;
+        $this->username = $this->usuario_encargado->username;
         $this->celular = $encargado->celular;
     }
 
@@ -72,7 +72,7 @@ class EncargadoEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|digits:8|unique:users,dni,' . $this->usuario_encargado->id;
+        $rules['username'] = 'required|unique:users,username,' . $this->usuario_encargado->id;
         $rules['email'] = 'required|unique:users,email,' . $this->usuario_encargado->id;
         $rules['sede_id'] = 'required|unique:encargados,sede_id,' . $this->encargado->id;
 
@@ -86,7 +86,7 @@ class EncargadoEditarPagina extends Component
 
         $this->usuario_encargado->update(
             [
-                'dni' => $this->dni,
+                //'username' => $this->username,
                 'email' => $this->email,
             ]
         );

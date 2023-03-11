@@ -40,13 +40,13 @@
                     <!--SEDES-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <select wire:model="sede_id">
-                            <option value="" selected disabled>Seleccione una sede</option>
+                        <select wire:model="sedesSeleccionadas" id="sedesSeleccionadas" name="sedesSeleccionadas[]"
+                            multiple>
                             @foreach ($sedes as $sede)
                                 <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
                             @endforeach
                         </select>
-                        @error('sede_id')
+                        @error('sedesSeleccionadas')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -124,6 +124,19 @@
                         @enderror
                     </div>
 
+                    <!--USERNAME-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="text" wire:model="username" disabled>
+                        @error('username')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!--COP Y CELULAR-->
+                <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
                         <p>DNI: </p>
@@ -133,10 +146,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--COP Y CELULAR-->
-                <div class="contenedor_2_elementos">
                     <!--COP-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
@@ -146,7 +156,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--FECHA DE NACIMIENTO Y PUNTOS-->
+                <div class="contenedor_2_elementos">
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -156,10 +169,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--FECHA DE NACIMIENTO Y PUNTOS-->
-                <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Fecha de Nacimiento: <span
@@ -169,7 +179,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--GÉNERO Y RUC-->
+                <div class="contenedor_2_elementos">
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -179,10 +192,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--GÉNERO Y RUC-->
-                <div class="contenedor_2_elementos">
                     <!--GÉNERO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Género: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -201,7 +211,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--NOMBRE CLÍNICA-->
+                <div class="contenedor_2_elementos">
                     <!--RUC-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">RUC: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -212,10 +225,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--NOMBRE CLÍNICA-->
-                <div class="contenedor_2_elementos">
                     <!--NOMBRE CLÍNICA-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Nombre de la clínica: <span
