@@ -29,10 +29,9 @@
             <div>
                 <p><strong>Nombre: </strong>{{ $odontologo->nombre }} </p>
                 <p><strong>Correo: </strong>{{ $usuario_odontologo->email }} </p>
-                <p><strong>Sede: </strong>{{ $odontologo->sede->nombre }} </p>
                 <p><strong>Especialidad: </strong>{{ $especialidad->nombre }} </p>
-                <p><strong>COP: </strong>{{ $usuario_odontologo->cop }} </p>
-                <p><strong>DNI: </strong>{{ $usuario_odontologo->dni }} </p>
+                <p><strong>COP: </strong>{{ $odontologo->cop }} </p>
+                <p><strong>DNI: </strong>{{ $odontologo->dni }} </p>
                 <p><strong>Celular: </strong>{{ $odontologo->celular }} </p>
                 <p><strong>Email: </strong>{{ $odontologo->email }} </p>
                 <p><strong>Puntos: </strong>{{ $odontologo->puntos }} </p>

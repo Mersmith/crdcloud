@@ -35,6 +35,20 @@
 
             <!--FORMULARIO-->
             <form wire:submit.prevent="editarPaciente" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '' }" class="formulario">
+
+                <div class="contenedor_elemento_item">
+                    <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                    <select wire:model="sedesSeleccionadas" id="sedesSeleccionadas" name="sedesSeleccionadas[]"
+                        multiple>
+                        @foreach ($sedes as $sede)
+                            <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                        @endforeach
+                    </select>
+                    @error('sedesSeleccionadas')
+                        <span class="campo_obligatorio">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <!--EMAIL Y PASSWORD-->
                 <div class="contenedor_2_elementos">
                     <!--EMAIL-->
@@ -42,29 +56,6 @@
                         <p class="estilo_nombre_input">Correo: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="email" wire:model="email">
                         @error('email')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!--PASSWORD-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Contraseña actual: <span
-                                class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="password" wire:model="password" disabled>
-                        @error('password')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <!--NUEVO PASSWORD Y NOMBRE-->
-                <div class="contenedor_2_elementos">
-                    <!--NUEVO PASSWORD-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Nueva contraseña: <span class="campo_opcional">(Opcional)</span>
-                        </p>
-                        <input type="password" wire:model="editar_password" autocomplete="off">
-                        @error('editar_password')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -111,15 +102,6 @@
                         <input type="number" wire:model="celular" x-ref="digitosCelularRef"
                             x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)" x-init="digitosCelular = $refs.digitosCelularRef.value">
                         @error('celular')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!--FECHA DE NACIMIENTO-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="date" wire:model="fecha_nacimiento">
-                        @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>

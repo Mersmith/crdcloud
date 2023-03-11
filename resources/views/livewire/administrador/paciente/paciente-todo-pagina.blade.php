@@ -91,13 +91,13 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{ $paciente->sede->nombre }}
+                                            {{-- $paciente->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->dni }}
+                                            {{ $paciente->dni }}
                                         </td>
                                         <td>
                                             {{ $paciente->celular }}
@@ -133,7 +133,7 @@
                         {{ $pacientes->links('pagination::tailwind') }}
                     </div>
                 @endif
-                
+
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No hay pacientes.</p>

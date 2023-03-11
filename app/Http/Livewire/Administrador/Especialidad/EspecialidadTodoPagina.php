@@ -11,7 +11,7 @@ class EspecialidadTodoPagina extends Component
     use WithPagination;
     public $buscarEspecialidad;
     public $cantidad_total_especialidades;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public function updatingBuscarEspecialidad()
     {
@@ -27,7 +27,7 @@ class EspecialidadTodoPagina extends Component
     {
         $especialidades = Especialidad::where('nombre', 'like', '%' . $this->buscarEspecialidad . '%')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
 
         return view('livewire.administrador.especialidad.especialidad-todo-pagina', compact('especialidades'))->layout('layouts.administrador.index');
     }

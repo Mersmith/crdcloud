@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Pacientes de: {{ $clinica->nombre_clinica . ' - ' . $clinica->nombre . ' '. $clinica->apellido }}</h2>
+            <h2>Pacientes de2: {{ $clinica->nombre_clinica . ' - ' . $clinica->nombre . ' '. $clinica->apellido }}</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
@@ -71,8 +71,6 @@
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Fecha Nacimiento</th>
-                                    <th>
                                         Género</th>
                                     <th>
                                         Registro</th>
@@ -93,19 +91,16 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{ $paciente->sede->nombre }}
+                                            {{-- $paciente->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->user->dni }}
+                                            {{ $paciente->dni }}
                                         </td>
                                         <td>
                                             {{ $paciente->celular }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->fecha_nacimiento }}
                                         </td>
                                         <td>
                                             {{ $paciente->genero }}

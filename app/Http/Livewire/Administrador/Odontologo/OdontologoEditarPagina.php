@@ -24,6 +24,7 @@ class OdontologoEditarPagina extends Component
         //$sede_id = "",
         $nombre,
         $apellido,
+        $username,
         $email,
         $password = "contrasenaejemplo",
         $editar_password = null,
@@ -45,6 +46,7 @@ class OdontologoEditarPagina extends Component
         'sedesSeleccionadas.*' => 'exists:sedes,id',
         'nombre' => 'required',
         'apellido' => 'required',
+        'username' => 'required',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
@@ -54,6 +56,8 @@ class OdontologoEditarPagina extends Component
     protected $validationAttributes = [
         'nombre' => 'nombre',
         'apellido' => 'apellido',
+        'username.required' => 'El :attribute es requerido.',
+        'username.unique' => 'El :attribute ya existe.',
         'email' => 'email',
         'editar_password' => 'contraseña',
         'dni' => 'DNI',
@@ -103,8 +107,9 @@ class OdontologoEditarPagina extends Component
         $this->email = $odontologo->email;
         $this->nombre = $odontologo->nombre;
         $this->apellido = $odontologo->apellido;
-        $this->dni = $this->usuario_odontologo->dni;
-        $this->cop = $this->usuario_odontologo->cop;
+        $this->username = $this->usuario_odontologo->username;
+        $this->dni = $odontologo->dni;
+        $this->cop = $odontologo->cop;
         $this->celular = $odontologo->celular;
         $this->fecha_nacimiento = $odontologo->fecha_nacimiento;
         $this->genero = $odontologo->genero;
@@ -115,7 +120,7 @@ class OdontologoEditarPagina extends Component
         if ($odontologo->rol == "odontologo") {
             $this->tiene_clinica = false;
         } else {
-            $this->tiene_clinica = true;
+            $this->tiene_clinica = false;
         }
     }
 
@@ -123,8 +128,9 @@ class OdontologoEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|digits:8|unique:users,dni,' . $this->usuario_odontologo->id;
-        $rules['cop'] = 'required|digits:6|unique:users,cop,' . $this->usuario_odontologo->id;
+        $rules['username'] = 'required|unique:users,username,' . $this->usuario_odontologo->id;
+        $rules['dni'] = 'required|digits:8|unique:odontologos,dni,' . $this->odontologo->id;
+        $rules['cop'] = 'required|max:6|unique:odontologos,cop,' . $this->odontologo->id;
         $rules['email'] = 'required|unique:users,email,' . $this->usuario_odontologo->id;
 
         if ($this->tiene_clinica) {
@@ -147,8 +153,7 @@ class OdontologoEditarPagina extends Component
 
         $this->usuario_odontologo->update(
             [
-                'dni' => $this->dni,
-                'cop' => $this->cop,
+                //'username' => $this->username,
                 'email' => $this->email,
             ]
         );
@@ -160,6 +165,8 @@ class OdontologoEditarPagina extends Component
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
                 'email' => $this->email,
+                'dni' => $this->dni,
+                'cop' => $this->cop,
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,

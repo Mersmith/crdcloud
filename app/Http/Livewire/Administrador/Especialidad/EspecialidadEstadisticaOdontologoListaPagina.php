@@ -12,7 +12,7 @@ class EspecialidadEstadisticaOdontologoListaPagina extends Component
     public $especialidad;
     public $buscarOdontologo;
     public $cantidad_total_odontologos;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public function updatingBuscarOdontologo()
     {
@@ -22,13 +22,14 @@ class EspecialidadEstadisticaOdontologoListaPagina extends Component
     public function mount(Especialidad $especialidad)
     {
         $this->especialidad = $especialidad;
-        $this->cantidad_total_odontologos = $especialidad->odontologos()->count();
+        $this->cantidad_total_odontologos = $especialidad->odontologos()->where('rol', '=', 'odontologo')->count();
     }
 
     public function render()
     {
-        $odontologos =  $this->especialidad->odontologos()->where('nombre', 'LIKE', '%' . $this->buscarOdontologo . '%')
-            ->paginate(10);
+        $odontologos =  $this->especialidad->odontologos()->where('rol', '=', 'odontologo')
+        ->where('nombre', 'LIKE', '%' . $this->buscarOdontologo . '%')
+        ->paginate(30);
 
         return view('livewire.administrador.especialidad.especialidad-estadistica-odontologo-lista-pagina', compact('odontologos'))->layout('layouts.administrador.index');
     }

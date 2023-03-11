@@ -106,7 +106,7 @@
                                             {{ $clinica->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $clinica->sede->nombre }}
+                                            {{-- $clinica->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $clinica->email }}
@@ -144,9 +144,15 @@
                         </table>
                     </div>
                 </div>
+
+                @if ($clinicas->hasPages())
+                    <div>
+                        {{ $clinicas->links('pagination::tailwind') }}
+                    </div>
+                @endif
             @else
                 <div class="contenedor_no_existe_elementos">
-                    <p>No hay odontólogos.</p>
+                    <p>No hay clínicas.</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

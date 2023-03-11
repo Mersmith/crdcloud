@@ -10,14 +10,15 @@ class VentaTodoLivewire extends Component
 {
     use WithPagination;
     public $buscarNumeroDeVenta;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public $estado;
     protected $queryString = ['estado'];
 
     public function render()
     {
-        $ventas = Venta::query()->orderBy('updated_at', 'desc');
+        $ventas = Venta::query()->orderBy('created_at', 'desc');
+        //$ventas = Venta::query();
 
         if ($this->estado) {
             $ventas->where('estado', $this->estado);
@@ -30,7 +31,7 @@ class VentaTodoLivewire extends Component
             }
         }
 
-        $ventas = $ventas->paginate(10)->withQueryString();
+        $ventas = $ventas->paginate(30)->withQueryString();
 
         $pendiente = Venta::where('estado', 1)->count();
         $pagado = Venta::where('estado', 2)->count();

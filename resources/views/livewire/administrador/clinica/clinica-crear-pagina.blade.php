@@ -32,13 +32,12 @@
                     <!--SEDES-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <select wire:model="sede_id">
-                            <option value="" selected disabled>Seleccione una sede</option>
+                        <select wire:model="sedesArray" multiple id="sedesArray" name="sedesArray[]">
                             @foreach ($sedes as $sede)
                                 <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
                             @endforeach
                         </select>
-                        @error('sede_id')
+                        @error('sedesArray')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -106,6 +105,16 @@
 
                 <!--DNI Y COP-->
                 <div class="contenedor_2_elementos">
+                     <!--USERNAME-->
+                     <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="text" wire:model="username">
+                        @error('username')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span> </p>
@@ -115,9 +124,12 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
-                    <!--COP-->
-                    <div class="contenedor_elemento_item">
+                <!--CELULAR Y FECHA DE NACIMIENTO-->
+                <div class="contenedor_2_elementos">
+                      <!--COP-->
+                      <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
                         <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
                             x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
@@ -125,10 +137,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--CELULAR Y FECHA DE NACIMIENTO-->
-                <div class="contenedor_2_elementos">
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -138,7 +147,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--PUNTOS Y GÉNERO-->
+                <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Fecha de Nacimiento: <span
@@ -148,10 +160,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--PUNTOS Y GÉNERO-->
-                <div class="contenedor_2_elementos">
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -160,10 +169,13 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
-                    <!--GÉNERO-->
+                <!--GÉNERO-->
+                <div class="contenedor_1_elementos_100">
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Genero: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Genero: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
                         <div>
                             <label>
                                 <input type="radio" value="hombre" name="genero" wire:model="genero">

@@ -382,7 +382,7 @@
 
 @push('script')
     <script>
-        new Sortable(sortableimagenes, {
+        /*new Sortable(sortableimagenes, {
             handle: '.handle2',
             animation: 150,
             ghostClass: 'bg-blue-100',
@@ -397,7 +397,7 @@
                     console.log(evt.oldIndex);
                 },
             }
-        });
+        });*/
 
         let mensajeDropZone =
             "<div class='mensaje_dropzone'><i class='fa-solid fa-cloud-arrow-up'></i><span>Suelte las imagenes aquí o haga clic para subir.</span></div>";

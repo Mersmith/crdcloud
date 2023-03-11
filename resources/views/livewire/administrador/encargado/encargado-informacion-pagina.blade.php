@@ -28,7 +28,6 @@
                 <p><strong>Nombre: </strong>{{ $encargado->nombre }} </p>
                 <p><strong>Apellido: </strong>{{ $encargado->apellido }} </p>
                 <p><strong>Correo: </strong>{{ $encargado->email }} </p>
-                <p><strong>DNI: </strong>{{ $usuario_encargado->dni }} </p>
                 <p><strong>Sede: </strong>{{ $encargado->sede->nombre }} </p>
                 <p><strong>Celular: </strong>{{ $encargado->celular }} </p>
             </div>

@@ -356,3 +356,25 @@ git add .
 git commit -m "24_Modificacion"
 git push origin 24_Modificacion
 ->Click en boton Merge pull request
+
+SELECT o.DNI AS odontologo_id, o.nombre, o.departamento AS departamento_id, o.provincia AS provincia_id, o.distrito AS distrito_id, o.direccion, d.departamento AS departamento_nombre, p.provincia AS provincia_nombre, di.distrito AS distrito_nombre
+FROM odontologo o
+JOIN ubdepartamento d ON o.departamento = d.idDepa
+JOIN ubprovincia p ON o.provincia = p.idProv
+JOIN ubdistrito di ON o.distrito = di.idDist;//359
+
+SELECT *
+FROM odontologo
+WHERE departamento IS NULL OR departamento = '';//52
+
+SELECT *
+FROM odontologo
+WHERE provincia IS NULL OR provincia = '';//66
+
+git checkout -b 25_Modificacion
+git branch
+git status
+git add .
+git commit -m "25_Modificacion"
+git push origin 25_Modificacion
+->Click en boton Merge pull request

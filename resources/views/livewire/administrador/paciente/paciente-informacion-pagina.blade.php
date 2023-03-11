@@ -32,12 +32,9 @@
             <div>
                 <div>
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
-                    <p><strong>DNI: </strong>{{ $usuario_paciente->dni }} </p>
-                    <p><strong>Registro Sede: </strong>{{ $paciente->sede->nombre }} </p>
-                    <p><strong>DNI: </strong>{{ $usuario_paciente->dni }} </p>
+                    <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
                     <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
-
                 </div>
             </div>
         </div>
@@ -131,7 +128,7 @@
                                             {{ $odontologo->apellido }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->sede->nombre }}
+                                            {{-- $odontologo->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $odontologo->email }}
@@ -231,7 +228,7 @@
                                             {{ $clinica->apellido }}
                                         </td>
                                         <td>
-                                            {{ $clinica->sede->nombre }}
+                                            {{-- $clinica->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $clinica->email }}

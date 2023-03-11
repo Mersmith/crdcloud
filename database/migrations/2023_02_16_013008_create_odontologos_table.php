@@ -16,7 +16,6 @@ return new class extends Migration
 
             $table->foreignId('user_id')->unique()->constrained('users');
             $table->unsignedBigInteger('especialidad_id');
-            //$table->foreignId('sede_id')->constrained('sedes');
 
             $table->string('nombre')->nullable();
             $table->string('apellido')->nullable();
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->date('fecha_nacimiento')->nullable();
             $table->enum('genero', ['hombre', 'mujer']);
             $table->integer('puntos')->nullable()->default(0);
-            //$table->string('rol')->nullable()->default("odontologo");
             $table->enum('rol', ['odontologo', 'clinica']);
             $table->string('ruc')->nullable();
             $table->string('nombre_clinica')->nullable();

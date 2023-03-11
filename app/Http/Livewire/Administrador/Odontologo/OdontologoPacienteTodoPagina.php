@@ -10,7 +10,7 @@ class OdontologoPacienteTodoPagina extends Component
 {
     use WithPagination;
     public $buscarPaciente;
-    protected $paginate = 10;
+    protected $paginate = 30;
 
     public $odontologo;
     public $pacientes_cantidad_total;
@@ -32,7 +32,7 @@ class OdontologoPacienteTodoPagina extends Component
         $pacientes = $this->odontologo->pacientes()
             ->where('nombre', 'LIKE', '%' . $this->buscarPaciente . '%')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
 
         return view('livewire.administrador.odontologo.odontologo-paciente-todo-pagina', compact('pacientes'))->layout('layouts.administrador.index');
     }

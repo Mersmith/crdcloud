@@ -101,7 +101,7 @@
                                             {{ $odontologo->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->sede->nombre }}
+                                            {{-- $odontologo->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $odontologo->email }}
@@ -139,6 +139,13 @@
                         </table>
                     </div>
                 </div>
+
+                @if ($odontologos->hasPages())
+                    <div>
+                        {{ $odontologos->links('pagination::tailwind') }}
+                    </div>
+                @endif
+
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No hay odontólogos.</p>

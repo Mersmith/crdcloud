@@ -31,10 +31,9 @@
                 <p><strong>RUC: </strong>{{ $clinica->ruc }} </p>
                 <p><strong>Nombre: </strong>{{ $clinica->nombre }} </p>
                 <p><strong>Correo: </strong>{{ $usuario_clinica->email }} </p>
-                <p><strong>Sede: </strong>{{ $clinica->sede->nombre }} </p>
                 <p><strong>Especialidad: </strong>{{ $especialidad->nombre }} </p>
-                <p><strong>COP: </strong>{{ $usuario_clinica->cop }} </p>
-                <p><strong>DNI: </strong>{{ $usuario_clinica->dni }} </p>
+                <p><strong>COP: </strong>{{ $clinica->cop }} </p>
+                <p><strong>DNI: </strong>{{ $clinica->dni }} </p>
                 <p><strong>Celular: </strong>{{ $clinica->celular }} </p>
                 <p><strong>Email: </strong>{{ $clinica->email }} </p>
                 <p><strong>Puntos: </strong>{{ $clinica->puntos }} </p>

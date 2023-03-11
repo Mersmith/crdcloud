@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Administrador\Clinica;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Clinica;
+use App\Models\Odontologo;
 
 class ClinicaTodoPagina extends Component
 {
@@ -20,15 +21,18 @@ class ClinicaTodoPagina extends Component
 
     public function mount()
     {
-        $this->cantidad_total_clinicas = Clinica::count();
+        $this->cantidad_total_clinicas = Odontologo::where('rol', '=', 'clinica')->count();
     }
 
     public function render()
     {
-        $clinicas = Clinica::where('nombre_clinica', 'like', '%' . $this->buscarClinica . '%')
-            ->orWhere('email', 'LIKE', '%' . $this->buscarClinica . '%')
+        $clinicas = Odontologo::where('rol', '=', 'clinica')
+            ->where(function ($query) {
+                $query->where('nombre', 'like', '%' . $this->buscarClinica . '%')
+                    ->orWhere('email', 'LIKE', '%' . $this->buscarClinica . '%');
+            })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
 
         return view('livewire.administrador.clinica.clinica-todo-pagina', compact('clinicas'))->layout('layouts.administrador.index');
     }

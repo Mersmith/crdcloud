@@ -109,12 +109,12 @@
 
                 <!--DNI Y CELULAR-->
                 <div class="contenedor_2_elementos">
-                    <!--DNI-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="dni" x-ref="digitosDniRef"
-                            x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)" x-init="digitosDni = $refs.digitosDniRef.value">
-                        @error('dni')
+                     <!--USERNAME-->
+                     <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="text" wire:model="username" disabled>
+                        @error('username')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>

@@ -117,6 +117,16 @@
 
                 <!--DNI Y COP-->
                 <div class="contenedor_2_elementos">
+                    <!--USERNAME-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="text" wire:model="username">
+                        @error('username')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span> </p>
@@ -127,6 +137,11 @@
                         @enderror
                     </div>
 
+
+                </div>
+
+                <!--CELULAR Y FECHA DE NACIMIENTO-->
+                <div class="contenedor_2_elementos">
                     <!--COP-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
@@ -136,10 +151,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--CELULAR Y FECHA DE NACIMIENTO-->
-                <div class="contenedor_2_elementos">
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -149,7 +161,10 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--PUNTOS Y GÉNERO-->
+                <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Fecha de Nacimiento: <span
@@ -159,10 +174,8 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--PUNTOS Y GÉNERO-->
-                <div class="contenedor_2_elementos">
+
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -171,10 +184,13 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
-                    <!--GÉNERO-->
+                <!--GÉNERO-->
+                <div class="contenedor_1_elementos_100">
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Genero: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Genero: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
                         <div>
                             <label>
                                 <input type="radio" value="hombre" name="genero" wire:model="genero">
@@ -190,7 +206,9 @@
                         @enderror
                     </div>
                 </div>
-                <div class="contenedor_1_elementos_100">
+
+                <!--TIENE CLÍNICA-->
+                {{-- <div class="contenedor_1_elementos_100">
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">¿Tiénes una clínica?</p>
                         <div>
@@ -209,7 +227,7 @@
                 </div>
 
                 <!--RUC Y NOMBRE CLÍNICA-->
-                <div class="contenedor_2_elementos" x-show="$wire.tiene_clinica">
+                 <div class="contenedor_2_elementos" x-show="$wire.tiene_clinica">
                     <!--RUC-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">RUC: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -232,7 +250,7 @@
                         @enderror
                     </div>
                 </div>
-
+                --}}
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">
                     <input type="submit" value="Crear">

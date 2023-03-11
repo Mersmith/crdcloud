@@ -26,6 +26,17 @@
 
             <!--FORMULARIO-->
             <form wire:submit.prevent="crearPaciente" x-data="{ digitosDni: '', digitosCelular: '' }" class="formulario">
+                <div class="contenedor_elemento_item">
+                    <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                    <select wire:model="sedesArray" multiple id="sedesArray" name="sedesArray[]">
+                        @foreach ($sedes as $sede)
+                            <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                        @endforeach
+                    </select>
+                    @error('sedesArray')
+                        <span class="campo_obligatorio">{{ $message }}</span>
+                    @enderror
+                </div>
                 <!--ODONTOLOGOS Y CLINICAS-->
                 <div class="contenedor_2_elementos">
                     <!--ODONTOLOGOS-->
@@ -69,16 +80,6 @@
                         <p class="estilo_nombre_input">Correo: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <input type="email" wire:model="email">
                         @error('email')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!--PASSWORD-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Contraseña: <span class="campo_obligatorio">(Obligatorio)</span>
-                        </p>
-                        <input type="password" wire:model="password" autocomplete="off">
-                        @error('password')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -132,15 +133,6 @@
 
                 <!--FECHA DE NACIMIENTO Y GÉNERO-->
                 <div class="contenedor_2_elementos">
-                    <!--FECHA DE NACIMIENTO-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Fecha de Nacimiento: <span
-                                class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="date" wire:model="fecha_nacimiento">
-                        @error('fecha_nacimiento')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
 
                     <!--GÉNERO-->
                     <div class="contenedor_elemento_item">

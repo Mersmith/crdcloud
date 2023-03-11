@@ -105,7 +105,7 @@
                                             {{ $clinica->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $clinica->sede->nombre }}
+                                            {{-- $clinica->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $clinica->email }}

@@ -65,26 +65,28 @@ class VentaEditarLivewire extends Component
         $this->sedes = Sede::all();
         $this->servicios = Servicio::select('id', 'nombre')->get();
         $this->sede_id = $venta->sede_id;
+        $this->sede = Sede::find($venta->sede_id);
         $this->paciente_id = $venta->paciente_id;
-        $this->odontologo_id = $venta->odontologo_id ? $venta->odontologo_id : "";
-        $this->clinica_id = $venta->clinica_id ? $venta->clinica_id : "";
+        $odontologo = Odontologo::find($venta->odontologo_id);
+
+        if ($odontologo->rol = "odontologo") {
+            $this->odontologo_id = $odontologo->id;
+            $this->clinica_id = "";
+        } else {
+            $this->clinica_id = $odontologo->id;
+            $this->odontologo_id = "";
+        }
+
         $this->link = $venta->link;
         $this->estado = $venta->estado;
         $this->observacion = $venta->observacion;
         $this->total = $venta->total;
 
-        $this->odontologos = Odontologo::where('sede_id', $venta->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $venta->sede_id)->get();
+        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
 
-        if ($venta->odontologo_id) {
-            $odontologo = Odontologo::find($venta->odontologo_id);
-            $this->pacientes = $odontologo->pacientes()
-                ->orderBy('created_at', 'desc')->get();
-        } else {
-            $clinica = Clinica::find($venta->clinica_id);
-            $this->pacientes = $clinica->pacientes()
-                ->orderBy('created_at', 'desc')->get();
-        }
+        $this->pacientes = $odontologo->pacientes()
+            ->orderBy('created_at', 'desc')->get();
 
         $this->informe = $venta->informes->count() ? Storage::url($venta->informes->first()->informe_ruta) : null;
     }
@@ -94,8 +96,8 @@ class VentaEditarLivewire extends Component
         $this->sede = Sede::find($value);
         $this->sede_id = $this->sede->id;
 
-        $this->odontologos = Odontologo::where('sede_id', $this->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $this->sede_id)->get();
+        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
 
         $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
     }
@@ -113,7 +115,7 @@ class VentaEditarLivewire extends Component
 
     public function updatedClinicaId($value)
     {
-        $this->clinica = Clinica::find($value);
+        $this->clinica = Odontologo::find($value);
         $this->clinica_id = $this->clinica->id;
 
         $this->pacientes = $this->clinica->pacientes()
@@ -151,8 +153,13 @@ class VentaEditarLivewire extends Component
 
             $this->venta->sede_id = $this->sede_id;
             $this->venta->paciente_id = $this->paciente_id;
-            $this->venta->odontologo_id = $this->odontologo_id;
-            $this->venta->clinica_id = $this->clinica_id;
+
+            if ($this->odontologo_id) {
+                $this->venta->odontologo_id = $this->odontologo_id;
+            } else {
+                $this->venta->odontologo_id = $this->clinica_id;
+            }
+
             $this->venta->total = $this->total;
             $this->venta->estado = $this->estado;
             $this->venta->observacion = $this->observacion;

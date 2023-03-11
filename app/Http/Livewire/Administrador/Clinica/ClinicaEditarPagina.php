@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Administrador\Clinica;
 
 use App\Models\Clinica;
 use App\Models\Especialidad;
+use App\Models\Odontologo;
 use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +21,10 @@ class ClinicaEditarPagina extends Component
 
     public
         $especialidad_id = "",
-        $sede_id = "",
+        $sedesSeleccionadas  = [],
         $nombre,
         $apellido,
+        $username,
         $email,
         $password = "contrasenaejemplo",
         $editar_password = null,
@@ -37,9 +39,10 @@ class ClinicaEditarPagina extends Component
 
     protected $rules = [
         'especialidad_id' => 'required',
-        'sede_id' => 'required',
+        'sedesSeleccionadas' => 'required|array|min:1',
         'nombre' => 'required',
         'apellido' => 'required',
+        'username' => 'required',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
@@ -49,6 +52,8 @@ class ClinicaEditarPagina extends Component
     protected $validationAttributes = [
         'nombre' => 'nombre',
         'apellido' => 'apellido',
+        'username.required' => 'El :attribute es requerido.',
+        'username.unique' => 'El :attribute ya existe.',
         'email' => 'email',
         'editar_password' => 'contraseña',
         'dni' => 'DNI',
@@ -84,7 +89,7 @@ class ClinicaEditarPagina extends Component
         'nombre_clinica.unique' => 'El :attribute ya existe.',
     ];
 
-    public function mount(Clinica $clinica)
+    public function mount(Odontologo $clinica)
     {
         $this->especialidades = Especialidad::all();
         $this->sedes = Sede::all();
@@ -93,12 +98,13 @@ class ClinicaEditarPagina extends Component
         $this->clinica = $clinica;
 
         $this->especialidad_id = $clinica->especialidad_id;
-        $this->sede_id = $clinica->sede_id;
+        $this->sedesSeleccionadas = $clinica->sedes->pluck('id')->toArray();
         $this->email = $clinica->email;
         $this->nombre = $clinica->nombre;
         $this->apellido = $clinica->apellido;
-        $this->dni = $this->usuario_clinica->dni;
-        $this->cop = $this->usuario_clinica->cop;
+        $this->username = $this->usuario_clinica->username;
+        $this->dni = $clinica->dni;
+        $this->cop = $clinica->cop;
         $this->celular = $clinica->celular;
         $this->fecha_nacimiento = $clinica->fecha_nacimiento;
         $this->genero = $clinica->genero;
@@ -111,11 +117,12 @@ class ClinicaEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|digits:8|unique:users,dni,' . $this->usuario_clinica->id;
-        $rules['cop'] = 'required|digits:6|unique:users,cop,' . $this->usuario_clinica->id;
+        $rules['username'] = 'required|unique:users,username,' . $this->usuario_clinica->id;
+        $rules['dni'] = 'required|digits:8|unique:odontologos,dni,' . $this->clinica->id;
+        $rules['cop'] = 'required|digits:6|unique:odontologos,cop,' . $this->clinica->id;
         $rules['email'] = 'required|unique:users,email,' . $this->usuario_clinica->id;
-        $rules['ruc'] = 'required|digits:11|unique:clinicas,ruc,' . $this->clinica->id;
-        $rules['nombre_clinica'] = 'required|unique:clinicas,nombre_clinica,' . $this->clinica->id;
+        $rules['ruc'] = 'required|digits:11|unique:odontologos,ruc,' . $this->clinica->id;
+        $rules['nombre_clinica'] = 'required|unique:odontologos,nombre_clinica,' . $this->clinica->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -127,8 +134,7 @@ class ClinicaEditarPagina extends Component
 
         $this->usuario_clinica->update(
             [
-                'dni' => $this->dni,
-                'cop' => $this->cop,
+                //'username' => $this->username,
                 'email' => $this->email,
             ]
         );
@@ -136,10 +142,11 @@ class ClinicaEditarPagina extends Component
         $this->clinica->update(
             [
                 'especialidad_id' => $this->especialidad_id,
-                'sede_id' => $this->sede_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
                 'email' => $this->email,
+                'dni' => $this->dni,
+                'cop' => $this->cop,
                 'celular' => $this->celular,
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
@@ -148,6 +155,8 @@ class ClinicaEditarPagina extends Component
                 'nombre_clinica' => $this->nombre_clinica,
             ]
         );
+
+        $this->clinica->sedes()->sync($this->sedesSeleccionadas);
 
         if ($this->editar_password) {
             //$usuario = User::find($this->clinica->user_id);
@@ -166,6 +175,8 @@ class ClinicaEditarPagina extends Component
 
     public function eliminarClinica()
     {
+        $this->clinica->sedes()->detach();
+
         $this->clinica->delete();
 
         //$usuario = User::find($this->usuario_clinica->id);
