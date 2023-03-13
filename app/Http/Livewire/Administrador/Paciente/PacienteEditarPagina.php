@@ -16,11 +16,13 @@ class PacienteEditarPagina extends Component
 
     public $paciente;
     public $sedes;
+    public $usuario_paciente;
 
     public
         $sedesSeleccionadas  = [],
         $nombre,
         $apellido,
+        $username,
         $email,
         $dni,
         $celular,
@@ -62,11 +64,13 @@ class PacienteEditarPagina extends Component
         $this->sedes = Sede::all();
 
         $this->paciente = $paciente;
+        $this->usuario_paciente = $paciente->user;
 
         $this->sedesSeleccionadas = $paciente->sedes->pluck('id')->toArray();
 
         $this->nombre = $paciente->nombre;
         $this->apellido = $paciente->apellido;
+        $this->username = $this->usuario_paciente->username;
         $this->email = $paciente->email;
         $this->dni = $paciente->dni;
         $this->celular = $paciente->celular;
@@ -77,10 +81,18 @@ class PacienteEditarPagina extends Component
     {
         $rules = $this->rules;
 
+        $rules['username'] = 'required|unique:users,username,' . $this->usuario_paciente->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_paciente->id;
         $rules['dni'] = 'required|digits:8|unique:pacientes,dni,' . $this->paciente->id;
-        $rules['email'] = 'required|unique:pacientes,email,' . $this->paciente->id;
 
         $this->validate($rules);
+
+        $this->usuario_paciente->update(
+            [
+                //'username' => $this->username,
+                'email' => $this->email,
+            ]
+        );
 
         $this->paciente->update(
             [
@@ -106,6 +118,8 @@ class PacienteEditarPagina extends Component
         $this->paciente->odontologos()->detach();
 
         $this->paciente->delete();
+
+        $this->usuario_paciente->delete();
 
         return redirect()->route('administrador.paciente.index');
     }

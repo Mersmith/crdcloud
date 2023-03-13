@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('rol', ['administrador', 'odontologo', 'clinica', 'paciente', 'encargado'])->default('odontologo');
+            $table->enum('rol', ['administrador', 'encargado', 'odontologo', 'paciente'])->default('odontologo');
             //$table->string('dni')->nullable()->unique();
             //$table->string('cop')->nullable()->unique();
             $table->rememberToken();

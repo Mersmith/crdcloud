@@ -15,6 +15,7 @@ class OdontologoEstadisticaDepartamentoCantidadPagina extends Component
             ->leftJoin('direccions', 'departamentos.id', '=', 'direccions.departamento_id')
             ->leftJoin('odontologos', 'direccions.user_id', '=', 'odontologos.user_id')
             ->select('departamentos.id', 'departamentos.nombre', DB::raw('count(odontologos.user_id) as cantidad'))
+            ->where('odontologos.rol', '=', 'odontologo')
             ->groupBy('departamentos.id', 'departamentos.nombre')
             ->get();
     }

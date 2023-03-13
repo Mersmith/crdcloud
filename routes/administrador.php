@@ -79,6 +79,11 @@ use App\Http\Livewire\Administrador\Usuario\UsuarioEstadisticaDepartamentoCantid
 use App\Http\Livewire\Administrador\Usuario\UsuarioEstadisticaDepartamentoListaPagina;
 use App\Http\Livewire\Administrador\Venta\VentaCrearLivewire;
 use App\Http\Livewire\Administrador\Venta\VentaEditarLivewire;
+use App\Http\Livewire\Administrador\Venta\VentaEstadisticaVentaAnosCantidadPagina;
+use App\Http\Livewire\Administrador\Venta\VentaEstadisticaVentaMesActualCantidadPagina;
+use App\Http\Livewire\Administrador\Venta\VentaEstadisticaVentaMesActualListaPagina;
+use App\Http\Livewire\Administrador\Venta\VentaEstadisticaVentaMesesAnoActualCantidadPagina;
+use App\Http\Livewire\Administrador\Venta\VentaEstadisticaVentaMesesAnoActualListaPagina;
 use App\Http\Livewire\Administrador\Venta\VentaTodoLivewire;
 use App\Models\Odontologo;
 use Illuminate\Support\Facades\Route;
@@ -122,16 +127,16 @@ Route::get('especialidad/{especialidad}/clinicas', EspecialidadEstadisticaClinic
 Route::get('odontologos', OdontologoTodoPagina::class)->name('odontologo.index');//
 Route::get('odontologo/crear', OdontologoCrearPagina::class)->name('odontologo.crear');//
 Route::get('odontologo/{odontologo}/editar', OdontologoEditarPagina::class)->name('odontologo.editar');//
-Route::get('odontologo/{odontologo}/informacion', OdontologoInformacionPagina::class)->name('odontologo.informacion');
+Route::get('odontologo/{odontologo}/informacion', OdontologoInformacionPagina::class)->name('odontologo.informacion');//
 Route::get('odontologo/{odontologo}/pacientes', OdontologoPacienteTodoPagina::class)->name('odontologo.paciente.todo');//
 Route::get('odontologo/{odontologo}/paciente/crear', OdontologoPacienteCrearPagina::class)->name('odontologo.paciente.crear');
 Route::get('odontologo/{odontologo}/paciente/{paciente}/editar', OdontologoPacienteEditarPagina::class)->name('odontologo.paciente.editar');
-Route::get('odontologo/{odontologo}/direccion/crear', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');
-Route::get('odontologo/{odontologo}/direccion/editar', OdontologoDireccionEditarPagina::class)->name('odontologo.direccion.editar');
-Route::get('odontologos/departamentos', OdontologoEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.estadistica.departamento.cantidad');
-Route::get('odontologos/departamento/{departamento}', OdontologoEstadisticaDepartamentoListaPagina::class)->name('odontologo.estadistica.departamento.lista');
-Route::get('odontologos/provincia/{provincia}', OdontologoEstadisticaProvinciaListaPagina::class)->name('odontologo.estadistica.provincia.lista');
-Route::get('odontologos/distrito/{distrito}', OdontologoEstadisticaDistritoListaPagina::class)->name('odontologo.estadistica.distrito.lista');
+Route::get('odontologo/{odontologo}/direccion/crear', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');//
+Route::get('odontologo/{odontologo}/direccion/editar', OdontologoDireccionEditarPagina::class)->name('odontologo.direccion.editar');//
+Route::get('odontologos/departamentos', OdontologoEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.estadistica.departamento.cantidad');//
+Route::get('odontologos/departamento/{departamento}', OdontologoEstadisticaDepartamentoListaPagina::class)->name('odontologo.estadistica.departamento.lista');//
+Route::get('odontologos/provincia/{provincia}', OdontologoEstadisticaProvinciaListaPagina::class)->name('odontologo.estadistica.provincia.lista');//
+Route::get('odontologos/distrito/{distrito}', OdontologoEstadisticaDistritoListaPagina::class)->name('odontologo.estadistica.distrito.lista');//
 
 Route::get('clinicas', ClinicaTodoPagina::class)->name('clinica.index');//
 Route::get('clinica/crear', ClinicaCrearPagina::class)->name('clinica.crear');//
@@ -155,16 +160,21 @@ Route::get('servicio/{servicio}/informacion', ServicioInformacionPagina::class)-
 Route::get('pacientes', PacienteTodoPagina::class)->name('paciente.index');//
 Route::get('paciente/crear', PacienteCrearPagina::class)->name('paciente.crear');//
 Route::get('paciente/{paciente}/editar', PacienteEditarPagina::class)->name('paciente.editar');//
-Route::get('paciente/{paciente}/informacion', PacienteInformacionPagina::class)->name('paciente.informacion');
+Route::get('paciente/{paciente}/informacion', PacienteInformacionPagina::class)->name('paciente.informacion');//
 Route::get('paciente/{paciente}/odontologos', PacienteOdontogoTodoPagina::class)->name('paciente.odontologo.todo');
 Route::get('paciente/{paciente}/clinicas', PacienteClinicaTodoPagina::class)->name('paciente.clinica.todo');
-Route::get('paciente/{paciente}/direccion/crear', PacienteDireccionCrearPagina::class)->name('paciente.direccion.crear');
-Route::get('paciente/{paciente}/direccion/editar', PacienteDireccionEditarPagina::class)->name('paciente.direccion.editar');
+Route::get('paciente/{paciente}/direccion/crear', PacienteDireccionCrearPagina::class)->name('paciente.direccion.crear');//
+Route::get('paciente/{paciente}/direccion/editar', PacienteDireccionEditarPagina::class)->name('paciente.direccion.editar');//
 
-Route::get('ventas', VentaTodoLivewire::class)->name('venta.index');
+Route::get('ventas', VentaTodoLivewire::class)->name('venta.index');//
 Route::get('venta/crear', VentaCrearLivewire::class)->name('venta.crear');
 Route::get('venta/{venta}/editar', VentaEditarLivewire::class)->name('venta.editar');
-Route::post('venta/{venta}/dropzone', [VentaController::class, 'dropzone'])->name('venta.dropzone');
+Route::post('venta/{venta}/dropzone', [VentaController::class, 'dropzone'])->name('venta.dropzone');//
+Route::get('venta/ventas-mes-actual-cantidad', VentaEstadisticaVentaMesActualCantidadPagina::class)->name('venta.estadistica.venta.mes.actual.cantidad');//
+Route::get('venta/ventas-mes-actual-lista', VentaEstadisticaVentaMesActualListaPagina::class)->name('venta.estadistica.venta.mes.actual.lista');//
+Route::get('venta/ventas-meses-anio-actual-cantidad', VentaEstadisticaVentaMesesAnoActualCantidadPagina::class)->name('venta.estadistica.venta.mes.ano.actual.cantidad');//
+Route::get('venta/ventas-meses-anio-actual-lista', VentaEstadisticaVentaMesesAnoActualListaPagina::class)->name('venta.estadistica.venta.mes.ano.actual.lista');//
+Route::get('venta/ventas-anios-cantidad', VentaEstadisticaVentaAnosCantidadPagina::class)->name('venta.estadistica.venta.ano.cantidad');//
 
 Route::get('usuarios/departamentos', UsuarioEstadisticaDepartamentoCantidadPagina::class)->name('usuario.estadistica.departamento.cantidad');
 Route::get('usuarios/departamento/{departamento}', UsuarioEstadisticaDepartamentoListaPagina::class)->name('usuario.estadistica.departamento.lista');

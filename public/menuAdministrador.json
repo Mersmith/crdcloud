@@ -267,6 +267,35 @@
                 "nombreSubMenu1Url": "administrador.venta.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []
+            },
+            {
+                "id": 3,
+                "nombreSubMenu1": "Estadística",
+                "nombreSubMenu1Url": "#",
+                "iconoSubMenu1": "fa-solid fa-chart-simple",
+                "subMenu2": [
+                    {
+                        "id": 3,
+                        "nombreSubMenu2": "Mes",
+                        "nombreSubMenu2Url": "administrador.venta.estadistica.venta.mes.actual.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-calendar",
+                        "subMenu3": []
+                    },
+                    {
+                        "id": 4,
+                        "nombreSubMenu2": "Año",
+                        "nombreSubMenu2Url": "administrador.venta.estadistica.venta.mes.ano.actual.cantidad",
+                        "iconoSubMenu2": "fa-regular fa-calendar-days",
+                        "subMenu3": []
+                    },
+                    {
+                        "id": 5,
+                        "nombreSubMenu2": "Años",
+                        "nombreSubMenu2Url": "administrador.venta.estadistica.venta.ano.cantidad",
+                        "iconoSubMenu2": "fa-solid fa-calendar-days",
+                        "subMenu3": []
+                    }
+                ]
             }
         ]
     },

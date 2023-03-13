@@ -167,6 +167,11 @@ php artisan make:livewire Administrador/Usuario/UsuarioEstadisticaDistritoPagina
 php artisan make:livewire Administrador/Venta/VentaTodoLivewire
 php artisan make:livewire Administrador/Venta/VentaCrearLivewire
 php artisan make:livewire Administrador/Venta/VentaEditarLivewire
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualCantidadPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualListaPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualCantidadPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualListaPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaAnosCantidadPagina
 
 ->CRUD Canjeo
 php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
@@ -357,11 +362,17 @@ git commit -m "24_Modificacion"
 git push origin 24_Modificacion
 ->Click en boton Merge pull request
 
-SELECT o.DNI AS odontologo_id, o.nombre, o.departamento AS departamento_id, o.provincia AS provincia_id, o.distrito AS distrito_id, o.direccion, d.departamento AS departamento_nombre, p.provincia AS provincia_nombre, di.distrito AS distrito_nombre
+SELECT o.DNI AS odontologo_id, o.nombre, o.departamento AS departamento_id, o.provincia AS provincia_id, o.distrito AS distrito_id, o.direccion, d.departamento AS departamento_nombre, p.provincia AS provincia_nombre, di.distrito AS distrito_nombre, o.fecha_registro AS created_at
 FROM odontologo o
 JOIN ubdepartamento d ON o.departamento = d.idDepa
 JOIN ubprovincia p ON o.provincia = p.idProv
 JOIN ubdistrito di ON o.distrito = di.idDist;//359
+
+SELECT o.Id_documento AS paciente_id, o.nombre, o.Departamento AS departamento_id, o.provincia AS provincia_id, o.distrito AS distrito_id, o.direccion, d.departamento AS departamento_nombre, p.provincia AS provincia_nombre, di.distrito AS distrito_nombre, o.fecha_registro AS created_at
+FROM paciente o
+JOIN ubdepartamento d ON o.Departamento = d.idDepa
+JOIN ubprovincia p ON o.provincia = p.idProv
+JOIN ubdistrito di ON o.distrito = di.idDist;
 
 SELECT *
 FROM odontologo
@@ -371,10 +382,23 @@ SELECT *
 FROM odontologo
 WHERE provincia IS NULL OR provincia = '';//66
 
+UPDATE odon
+INNER JOIN pacientes ON odon.paciente_id = pacientes.id
+SET odon.user_id = pacientes.user_id
+WHERE odon.user_id IS NULL;
+
 git checkout -b 25_Modificacion
 git branch
 git status
 git add .
 git commit -m "25_Modificacion"
 git push origin 25_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 26_Modificacion
+git branch
+git status
+git add .
+git commit -m "26_Modificacion"
+git push origin 26_Modificacion
 ->Click en boton Merge pull request

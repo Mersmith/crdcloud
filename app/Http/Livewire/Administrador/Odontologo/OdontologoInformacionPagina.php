@@ -22,22 +22,24 @@ class OdontologoInformacionPagina extends Component
         $this->especialidad = Especialidad::find($odontologo->especialidad_id);
         $this->direccion = $odontologo->user->direccion;
 
-        $this->paciente = Paciente::where('dni', $odontologo->dni)->orWhere('email', $odontologo->email)->get()->first();
+        $this->paciente = Paciente::where('user_id', $odontologo->user->id)->get()->first();
     }
 
     public function asignarPaciente()
     {
         $this->usuario_odontologo->paciente()->create(
             [
-                'sede_id' => $this->odontologo->sede_id,
                 'nombre' => $this->odontologo->nombre,
                 'apellido' => $this->odontologo->apellido,
                 'email' => $this->odontologo->email,
+                'dni' => $this->odontologo->dni,
                 'celular' => $this->odontologo->celular,
-                'fecha_nacimiento' => $this->odontologo->fecha_nacimiento,
-                'genero' =>  $this->odontologo->genero,
+                'genero' => $this->odontologo->genero,
+                'rol' =>   "paciente",
             ]
         );
+
+        $this->usuario_odontologo->paciente->sedes()->attach(1);
 
         $this->usuario_odontologo = $this->usuario_odontologo->fresh();
 
@@ -53,6 +55,11 @@ class OdontologoInformacionPagina extends Component
     public function desasignarPaciente()
     {
         if ($this->paciente) {
+
+            $this->paciente->sedes()->detach();
+
+            $this->paciente->odontologos()->detach();
+
             $this->paciente->delete();
 
             $this->emit('mensajeEliminado', "Desasignado.");
