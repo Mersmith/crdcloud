@@ -41,6 +41,7 @@ class OdontologoEstadisticaDistritoListaPagina extends Component
              $query->where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
                    ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%');
         })
+        ->where('odontologos.rol', '=', 'odontologo') 
         ->orderBy('odontologos.created_at', 'desc')
         ->paginate(10);
         /*$odontologos_distritos = DB::table('odontologos')

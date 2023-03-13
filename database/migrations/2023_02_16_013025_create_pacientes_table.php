@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
 
-            //$table->foreignId('user_id')->unique()->constrained('users');
+            $table->foreignId('user_id')->unique()->constrained('users');
             //$table->foreignId('sede_id')->constrained('sedes');
 
             $table->string('nombre')->nullable();

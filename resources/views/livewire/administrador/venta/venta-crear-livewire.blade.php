@@ -229,8 +229,8 @@
                                     @endforeach
                                 </tbody>
                                 @php
-                                    $array_columna = 'subtotal_compra';
-                                    $total = array_sum(array_column($carrito, $array_columna));
+                                    $total = array_sum(array_column($carrito, 'subtotal_compra'));
+                                    $totalPuntos = array_sum(array_column($carrito, 'subtotal_puntos'));
                                 @endphp
                                 <tfoot>
                                     <tr>
@@ -239,6 +239,13 @@
                                             S/. {{ number_format($total, 2, '.', ',') }}
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td style="text-align: right;" colspan="4">PUNTOS A GANAR:</td>
+                                        <td style="text-align: end;">
+                                            {{ $totalPuntos }}
+                                        </td>
+                                    </tr>
+
                                 </tfoot>
 
                             </table>

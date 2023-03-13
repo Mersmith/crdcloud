@@ -20,7 +20,8 @@ class PacienteInformacionPagina extends Component
         $this->usuario_paciente = $paciente->user;
         $this->odontologos = $paciente->odontologos()->where('rol', '=', 'odontologo')->limit(10)->get();
         $this->clinicas = $paciente->odontologos()->where('rol', '=', 'clinica')->limit(10)->get();
-        //$this->direccion = $paciente->user->direccion;
+
+        $this->direccion = $paciente->user->direccion;
     }
 
     public function render()

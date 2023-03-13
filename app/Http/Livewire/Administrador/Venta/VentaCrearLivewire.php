@@ -123,12 +123,15 @@ class VentaCrearLivewire extends Component
             $servicioFiltrado = array_intersect_key($servicioCarrito, array_flip($extraerKeys));
 
             $precioCompra = $servicioCarrito["precio_venta"];
+            $puntosGanar = $servicioCarrito["puntos_ganar"];
             $cantidadCompra = $this->cantidad;
 
             $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
             $servicioFiltrado["cantidad"] = $cantidadCompra;
             $servicioFiltrado["precio"] = $precioCompra;
+            $servicioFiltrado["puntos"] = $puntosGanar;
             $servicioFiltrado["subtotal_compra"] = $cantidadCompra * $precioCompra;
+            $servicioFiltrado["subtotal_puntos"] = $cantidadCompra * $puntosGanar;
 
             array_push($this->carrito, $servicioFiltrado);
 
@@ -168,7 +171,6 @@ class VentaCrearLivewire extends Component
             $rules['informe'] = 'required|file|mimes:pdf';
         }
 
-
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
         $rules['imagenes'] = 'required';
@@ -184,9 +186,11 @@ class VentaCrearLivewire extends Component
                 $this->odontologo_id = null;
             }
 
-            $array_columna = 'subtotal_compra';
-            $subTotal = array_sum(array_column($this->carrito, $array_columna));
+            $subTotal = array_sum(array_column($this->carrito, 'subtotal_compra'));
             $totalPagar = $subTotal;
+
+            $puntosTotal = array_sum(array_column($this->carrito, 'subtotal_puntos'));
+            $totalPuntos = $puntosTotal;
 
             $nuevaVenta = new Venta();
             $nuevaVenta->sede_id = $this->sede_id;
@@ -200,6 +204,7 @@ class VentaCrearLivewire extends Component
 
             $nuevaVenta->estado = $this->estado;
             $nuevaVenta->total = $totalPagar;
+            $nuevaVenta->puntos_ganados = $totalPuntos;
             $nuevaVenta->link = $this->link;
             $nuevaVenta->observacion = $this->observacion;
             $nuevaVenta->save();
@@ -220,6 +225,22 @@ class VentaCrearLivewire extends Component
                 $nuevaVenta->informes()->create([
                     'informe_ruta' => $informeSubir
                 ]);
+            }
+
+            if($this->estado == 2){
+                if ($this->odontologo_id) {
+                    $this->odontologo->update(
+                        [
+                            'puntos' => $this->odontologo->puntos + $totalPuntos
+                        ]
+                    );
+                } else {
+                    $this->clinica->update(
+                        [
+                            'puntos' => $this->clinica->puntos + $totalPuntos
+                        ]
+                    );
+                }
             }
 
             $this->emit('mensajeCreado', "Creado.");
