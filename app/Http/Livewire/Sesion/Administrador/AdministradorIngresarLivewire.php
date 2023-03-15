@@ -46,8 +46,6 @@ class AdministradorIngresarLivewire extends Component
                 return redirect()->route('encargado.odontologo.index');
             } elseif ($usuario->rol == "odontologo") {
                 return redirect()->route('odontologo.encargado.index');
-            } elseif ($usuario->rol == "clinica") {
-                return redirect()->route('clinica.encargado.index');
             } elseif ($usuario->rol == "paciente") {
                 return redirect()->route('paciente.encargado.index');
             } else {
@@ -71,7 +69,6 @@ class AdministradorIngresarLivewire extends Component
         if (Auth::attempt($credentials, $this->remember)) {
             //return redirect()->intended('/');
             return redirect()->route('administrador.encargado.index');
-
         }
         $this->addError('email', 'Credenciales inválidas');
     }
@@ -86,7 +83,6 @@ class AdministradorIngresarLivewire extends Component
                 ->where('id', $user->id)
                 ->update(['password' => bcrypt($user->password)]);
         }
-
     }
 
     public function render()
