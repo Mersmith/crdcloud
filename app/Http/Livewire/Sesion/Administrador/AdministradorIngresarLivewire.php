@@ -45,9 +45,9 @@ class AdministradorIngresarLivewire extends Component
             } elseif ($usuario->rol == "encargado") {
                 return redirect()->route('encargado.odontologo.index');
             } elseif ($usuario->rol == "odontologo") {
-                return redirect()->route('odontologo.encargado.index');
+                return redirect()->route('encargado.odontologo.index');
             } elseif ($usuario->rol == "paciente") {
-                return redirect()->route('paciente.encargado.index');
+                return redirect()->route('encargado.odontologo.index');
             } else {
                 return redirect()->route('inicio');
             }

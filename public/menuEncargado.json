@@ -8,7 +8,7 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.especialidad.index",
+                "nombreSubMenu1Url": "encargado.especialidad.sede.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },
@@ -28,14 +28,14 @@
                     {
                         "id": 1,
                         "nombreSubMenu2": "Odontólogos",
-                        "nombreSubMenu2Url": "administrador.especialidad.estadistica.odontologo.cantidad",
+                        "nombreSubMenu2Url": "encargado.especialidad.sede.estadistica.odontologo.cantidad",
                         "iconoSubMenu2": "fa-solid fa-user-doctor",
                         "subMenu3": []
                     },
                     {
                         "id": 2,
                         "nombreSubMenu2": "Clínicas",
-                        "nombreSubMenu2Url": "administrador.especialidad.estadistica.clinica.cantidad",
+                        "nombreSubMenu2Url": "encargado.especialidad.sede.estadistica.clinica.cantidad",
                         "iconoSubMenu2": "fa-solid fa-house-medical-flag",
                         "subMenu3": []
                     }
@@ -52,7 +52,7 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.odontologo.index",
+                "nombreSubMenu1Url": "encargado.odontologo.sede.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },
@@ -89,7 +89,7 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.clinica.index",
+                "nombreSubMenu1Url": "encargado.clinica.sede.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },
@@ -126,14 +126,14 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.servicio.index",
+                "nombreSubMenu1Url": "encargado.servicio.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },
             {
                 "id": 2,
                 "nombreSubMenu1": "Nuevo",
-                "nombreSubMenu1Url": "administrador.servicio.crear",
+                "nombreSubMenu1Url": "encargado.servicio.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []
             }
@@ -148,7 +148,7 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.paciente.index",
+                "nombreSubMenu1Url": "encargado.paciente.sede.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },
@@ -170,7 +170,7 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.venta.index",
+                "nombreSubMenu1Url": "encargado.venta.sede.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },

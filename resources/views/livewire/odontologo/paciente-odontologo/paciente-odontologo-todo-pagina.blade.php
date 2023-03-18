@@ -1,18 +1,20 @@
 <div>
-
     <!--SEO-->
-    @section('tituloPagina', 'Especialidad - Clínicas')
+    @section('tituloPagina', 'Pacientes')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Especialidad: {{ $especialidad->nombre }}</h2>
+            <h2>Pacientes de: {{$odontologo->nombre .' '. $odontologo->apellido}}</h2>
         </div>
+
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.especialidad.index') }}">
+            <a href="{{ route('administrador.odontologo.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
+            <a href="{{ route('administrador.odontologo.paciente.crear', $odontologo) }}">
+                Nuevo Paciente <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -22,18 +24,17 @@
         <!--BUSCADOR-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
-                <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
+                <p class="estilo_nombre_input">Buscar paciente: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarPaciente" placeholder="Buscar...">
             </div>
         </div>
 
-        <!--TABLA-->
-        <div class="contenedor_panel_producto_admin">
-            @if ($clinicas->count())
-
+        @if ($pacientes->count())
+            <!--TABLA-->
+            <div class="contenedor_panel_producto_admin">
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de clínicas <span> Cantidad: {{ $cantidad_total_clinicas }}</span></h3>
+                    <h3>Lista ({{ $pacientes_cantidad_total }})</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -58,13 +59,9 @@
                                     <th>
                                         Nº</th>
                                     <th>
-                                        Clínica</th>
-                                    <th>
                                         Nombres</th>
                                     <th>
                                         Apellidos</th>
-                                    <th>
-                                        Especialidad</th>
                                     <th>
                                         Sede</th>
                                     <th>
@@ -72,15 +69,9 @@
                                     <th>
                                         DNI</th>
                                     <th>
-                                        COP</th>
-                                    <th>
                                         Celular</th>
                                     <th>
-                                        Nacimiento</th>
-                                    <th>
                                         Género</th>
-                                    <th>
-                                        Puntos</th>
                                     <th>
                                         Registro</th>
                                     <th>
@@ -88,54 +79,43 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clinicas as $clinica)
+                                @foreach ($pacientes as $paciente)
                                     <tr>
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
-                                            {{ $clinica->nombre_clinica }}
+                                            {{ $paciente->nombre }}
                                         </td>
                                         <td>
-                                            {{ $clinica->nombre }}
+                                            {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{ $clinica->apellido }}
+                                            {{-- $paciente->sede->nombre --}}
                                         </td>
                                         <td>
-                                            {{ $clinica->especialidad->nombre }}
+                                            {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{-- $clinica->sede->nombre --}}
+                                            {{ $paciente->dni }}
                                         </td>
                                         <td>
-                                            {{ $clinica->email }}
+                                            {{ $paciente->celular }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->dni }}
+                                            {{ $paciente->genero }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->cop }}
-                                        </td>
-                                        <td>
-                                            {{ $clinica->celular }}
-                                        </td>
-                                        <td>
-                                            {{ $clinica->fecha_nacimiento }}
-                                        </td>
-                                        <td>
-                                            {{ $clinica->genero }}
-                                        </td>
-                                        <td>
-                                            {{ $clinica->puntos }}
-                                        </td>
-                                        <td>
-                                            {{ $clinica->created_at }}
+                                            {{ $paciente->created_at }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.clinica.informacion', $clinica) }}">
+                                                href="{{ route('administrador.paciente.informacion', $paciente) }}">
                                                 <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a style="color: green;"
+                                                href="{{ route('administrador.odontologo.paciente.editar', ['odontologo' => $odontologo->id, 'paciente' => $paciente->id]) }}">
+                                                <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -144,20 +124,19 @@
                         </table>
                     </div>
                 </div>
+            </div>
 
-                @if ($clinicas->hasPages())
-                    <div>
-                        {{ $clinicas->links('pagination::tailwind') }}
-                    </div>
-                @endif
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No hay clínicas.</p>
-                    <i class="fa-solid fa-spinner"></i>
+            @if ($pacientes->hasPages())
+                <div>
+                    {{ $pacientes->links('pagination::tailwind') }}
                 </div>
             @endif
-        </div>
+        @else
+            <div class="contenedor_no_existe_elementos">
+                <p>No hay elementos</p>
+                <i class="fa-solid fa-spinner"></i>
+            </div>
+        @endif
 
     </div>
-
 </div>

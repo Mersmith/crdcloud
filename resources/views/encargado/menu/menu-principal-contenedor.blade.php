@@ -1,15 +1,6 @@
  <!--MENU-->
  @php
-     if ($usuario->rol == 'administrador') {
-         $json_menu = file_get_contents('menuAdministrador.json');
-     } elseif ($usuario->rol == 'encargado') {
-         $json_menu = file_get_contents('menuEncargado.json');
-     } elseif ($usuario->rol == 'odontologo' || $usuario->rol == 'clinica') {
-         $json_menu = file_get_contents('menuOdontologo.json');
-     } elseif ($usuario->rol == 'paciente') {
-         $json_menu = file_get_contents('menuPaciente.json');
-     }
-
+     $json_menu = file_get_contents('menuEncargado.json');
      $menuPrincipal = collect(json_decode($json_menu, true));
  @endphp
  <!--MENU-PRINCIPAL-->

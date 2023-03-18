@@ -1,9 +1,5 @@
 <header class="contenedor_navbar" x-data="sidebar" x-on:click.away="cerrarSidebar()"
     @resize.window="abiertoSidebar = false > 900">
-    @php
-        $json_menu = file_get_contents('menuEncargado.json');
-        $menuPrincipal = collect(json_decode($json_menu, true));
-    @endphp
     <nav class="navbar">
         <!-- HAMBURGUESA -->
         <div x-on:click="toggleSidebar" class="contenedor_hamburguesa">
@@ -16,6 +12,7 @@
                 <img src="{{ asset('imagenes/empresa/logo.png') }}" alt="" />
             </a>
         </div>
+
         <!-- MENU -->
         <div class="contenedor_menu_link">
             <div class="sidebar_logo">
@@ -27,11 +24,11 @@
             </div>
             <hr>
             <div class="contenedor_administrador_sidebar">
-                {{--@if (Auth::user()->administrador->imagen_ruta)
+                {{-- @if (Auth::user()->administrador->imagen_ruta)
                     <img src="{{ Storage::url(Auth::user()->administrador->imagen_ruta) }}">
-                @else--}}
-                    <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
-                {{--@endif--}}
+                @else --}}
+                <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
+                {{-- @endif --}}
 
                 <p>{{ $usuario->nombre }}</p>
 
@@ -41,9 +38,10 @@
                         {{ __('Cerrar') }}
                     </a>
                 </form>
+
             </div>
             <hr>
-            @include('administrador.menu.menu-principal-contenedor')
+            @include('encargado.menu.menu-principal-contenedor')
             <hr>
             <!-- FIN MENU-PRINCIPAL -->
         </div>

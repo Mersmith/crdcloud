@@ -33,6 +33,6 @@ class OdontologoTodoPagina extends Component
             ->orderBy('created_at', 'desc')
             ->paginate(30);
 
-        return view('livewire.administrador.odontologo.odontologo-todo-pagina', compact('odontologos'))->layout('layouts.encargado.index');
+        return view('livewire.administrador.odontologo.odontologo-todo-pagina', compact('odontologos'))->layout('layouts.administrador.index');
     }
 }
