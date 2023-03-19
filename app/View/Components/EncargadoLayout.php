@@ -8,6 +8,6 @@ class EncargadoLayout extends Component
 {
     public function render()
     {
-        return view('layouts.administrador.index');
+        return view('layouts.encargado.index');
     }
 }

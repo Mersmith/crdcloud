@@ -17,8 +17,8 @@ class VentaTodoLivewire extends Component
 
     public function render()
     {
-        $ventas = Venta::query()->orderBy('created_at', 'desc');
-        //$ventas = Venta::query();
+        //$ventas = Venta::query()->orderBy('created_at', 'desc');
+        $ventas = Venta::query();
 
         if ($this->estado) {
             $ventas->where('estado', $this->estado);

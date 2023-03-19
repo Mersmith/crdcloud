@@ -87,24 +87,6 @@ Route::get('prueba-administrador', function () {
     return "Administrador";
 });
 
-Route::get('sedes', SedeTodoPagina::class)->name('sede.index');//
-Route::get('sede/crear', SedeCrearPagina::class)->name('sede.crear');//
-Route::get('sede/{sede}/editar', SedeEditarPagina::class)->name('sede.editar');//
-Route::get('sede/{sede}/informacion', SedeInformacionPagina::class)->name('sede.informacion');//
-Route::get('sede/{sede}/odontologos', SedeOdontologoTodoPagina::class)->name('sede.odontologo.todo');
-Route::get('sede/{sede}/clinicas', SedeClinicaTodoPagina::class)->name('sede.clinica.todo');//
-Route::get('sede/{sede}/pacientes', SedePacienteTodoPagina::class)->name('sede.paciente.todo');//
-Route::get('sede/odontologos', SedeEstadisticaOdontologoCantidadPagina::class)->name('sede.estadistica.odontologo.cantidad');//
-Route::get('sede/clinicas', SedeEstadisticaClinicaCantidadPagina::class)->name('sede.estadistica.clinica.cantidad');//
-Route::get('sede/registros-mes-actual', SedeEstadisticaRegistroMesActualCantidadPagina::class)->name('sede.estadistica.registro.mes.actual.cantidad');//
-Route::get('sede/registros-meses-anio-actual', SedeEstadisticaRegistroMesesAnoActualCantidadPagina::class)->name('sede.estadistica.registro.mes.ano.actual.cantidad');//
-Route::get('sede/registros-anios', SedeEstadisticaRegistroAnosCantidadPagina::class)->name('sede.estadistica.registro.ano.cantidad');//
-
-Route::get('encargados', EncargadoTodoPagina::class)->name('encargado.index');//
-Route::get('encargado/crear', EncargadoCrearPagina::class)->name('encargado.crear');//
-Route::get('encargado/{encargado}/editar', EncargadoEditarPagina::class)->name('encargado.editar');//
-Route::get('encargado/{encargado}/informacion', EncargadoInformacionPagina::class)->name('encargado.informacion');//
-
 Route::get('especialidades', EspecialidadTodoPagina::class)->name('especialidad.index');//
 Route::get('especialidad/crear', EspecialidadCrearPagina::class)->name('especialidad.crear');//
 Route::get('especialidad/{especialidad}/editar', EspecialidadEditarPagina::class)->name('especialidad.editar');//

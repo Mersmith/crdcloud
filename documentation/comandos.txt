@@ -402,3 +402,14 @@ git add .
 git commit -m "26_Modificacion"
 git push origin 26_Modificacion
 ->Click en boton Merge pull request
+
+
+php artisan make:livewire Encargado/Menu/MenuPrincipal
+
+git checkout -b 27_Modificacion
+git branch
+git status
+git add .
+git commit -m "27_Modificacion"
+git push origin 27_Modificacion
+->Click en boton Merge pull request
