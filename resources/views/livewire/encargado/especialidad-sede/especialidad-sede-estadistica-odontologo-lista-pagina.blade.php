@@ -1,7 +1,7 @@
 <div>
 
     <!--SEO-->
-    @section('tituloPagina', 'Especialidad - Clínicas')
+    @section('tituloPagina', 'Especialidad - Odontólogos')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
@@ -22,18 +22,18 @@
         <!--BUSCADOR-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
-                <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
+                <p class="estilo_nombre_input">Buscar odontólogo: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
             </div>
         </div>
 
         <!--TABLA-->
         <div class="contenedor_panel_producto_admin">
-            @if ($clinicas->count())
+            @if ($odontologos->count())
 
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de clínicas <span> Cantidad: {{ $cantidad_total_clinicas }}</span></h3>
+                    <h3>Lista de odontólogos <span> Cantidad: {{ $cantidad_total_odontologos }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -57,8 +57,6 @@
                                 <tr>
                                     <th>
                                         Nº</th>
-                                    <th>
-                                        Clínica</th>
                                     <th>
                                         Nombres</th>
                                     <th>
@@ -88,53 +86,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clinicas as $clinica)
+                                @foreach ($odontologos as $odontologo)
                                     <tr>
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
-                                            {{ $clinica->nombre_clinica }}
+                                            {{ $odontologo->nombre }}
                                         </td>
                                         <td>
-                                            {{ $clinica->nombre }}
+                                            {{ $odontologo->apellido }}
                                         </td>
                                         <td>
-                                            {{ $clinica->apellido }}
+                                            {{ $odontologo->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{ $clinica->especialidad->nombre }}
+                                            {{-- $odontologo->sede->nombre --}}
                                         </td>
                                         <td>
-                                            {{-- $clinica->sede->nombre --}}
+                                            {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $clinica->email }}
+                                            {{ $odontologo->user->dni }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->dni }}
+                                            {{ $odontologo->user->cop }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->cop }}
+                                            {{ $odontologo->celular }}
                                         </td>
                                         <td>
-                                            {{ $clinica->celular }}
+                                            {{ $odontologo->fecha_nacimiento }}
                                         </td>
                                         <td>
-                                            {{ $clinica->fecha_nacimiento }}
+                                            {{ $odontologo->genero }}
                                         </td>
                                         <td>
-                                            {{ $clinica->genero }}
+                                            {{ $odontologo->puntos }}
                                         </td>
                                         <td>
-                                            {{ $clinica->puntos }}
-                                        </td>
-                                        <td>
-                                            {{ $clinica->created_at }}
+                                            {{ $odontologo->created_at }}
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.clinica.informacion', $clinica) }}">
+                                                href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
@@ -145,14 +140,15 @@
                     </div>
                 </div>
 
-                @if ($clinicas->hasPages())
+                @if ($odontologos->hasPages())
                     <div>
-                        {{ $clinicas->links('pagination::tailwind') }}
+                        {{ $odontologos->links('pagination::tailwind') }}
                     </div>
                 @endif
+
             @else
                 <div class="contenedor_no_existe_elementos">
-                    <p>No hay clínicas.</p>
+                    <p>No hay odontólogos.</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

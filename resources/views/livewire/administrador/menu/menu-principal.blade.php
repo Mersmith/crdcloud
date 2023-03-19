@@ -1,9 +1,6 @@
 <header class="contenedor_navbar" x-data="sidebar" x-on:click.away="cerrarSidebar()"
     @resize.window="abiertoSidebar = false > 900">
-    @php
-        $json_menu = file_get_contents('menuAdministrador.json');
-        $menuPrincipal = collect(json_decode($json_menu, true));
-    @endphp
+
     <nav class="navbar">
         <!-- HAMBURGUESA -->
         <div x-on:click="toggleSidebar" class="contenedor_hamburguesa">
@@ -27,13 +24,21 @@
             </div>
             <hr>
             <div class="contenedor_administrador_sidebar">
-                {{--@if (Auth::user()->administrador->imagen_ruta)
+                {{-- @if (Auth::user()->administrador->imagen_ruta)
                     <img src="{{ Storage::url(Auth::user()->administrador->imagen_ruta) }}">
-                @else--}}
-                    <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
-                {{--@endif--}}
+                @else --}}
+                <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
+                {{-- @endif --}}
 
                 <p>{{ $usuario->nombre }}</p>
+
+                @can('rol', 'administrador')
+                    <h2>administrador</h2>
+                @endcan
+
+                @can('rol', 'encargado')
+                    <h2>encargado</h2>
+                @endcan
 
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
@@ -52,6 +57,7 @@
             <i class="fa-solid fa-heart" style="color: #ffa03d;"></i>
         </div>
     </nav>
+
 </header>
 
 @push('script')

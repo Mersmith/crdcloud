@@ -1,0 +1,26 @@
+->CRUD Paciente
+php artisan make:livewire Odontologo/PacienteOdontologo/PacienteOdontologoTodoPagina
+
+php artisan make:livewire Administrador/Paciente/PacienteCrearPagina
+php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
+php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
+php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
+php artisan make:livewire Administrador/Paciente/PacienteDireccionCrearPagina
+php artisan make:livewire Administrador/Paciente/PacienteDireccionEditarPagina
+
+->CRUD Venta
+php artisan make:livewire Odontologo/VentaOdontologo/VentaOdontologoTodoLivewire
+
+php artisan make:livewire Administrador/Venta/VentaCrearLivewire
+php artisan make:livewire Administrador/Venta/VentaEditarLivewire
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualCantidadPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualListaPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualCantidadPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualListaPagina
+php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaAnosCantidadPagina
+
+->CRUD Canjeo
+php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
+php artisan make:livewire Administrador/Canjeo/CanjeoCrearLivewire
+php artisan make:livewire Administrador/Canjeo/CanjeoEditarLivewire
