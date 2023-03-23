@@ -9,7 +9,7 @@
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.especialidad.index') }}">
+            <a href="{{ route('encargado.especialidad.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
         </div>
     </div>
@@ -67,7 +67,7 @@
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.especialidad.estadistica.odontologo.lista', $item->id) }}">
+                                                href="{{ route('encargado.especialidad.sede.estadistica.odontologo.lista', $item->id) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>

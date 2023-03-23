@@ -1,0 +1,215 @@
+git checkout -b 3_Modificacion
+git branch
+git status
+git add .
+git commit -m "3_Modificacion"
+git push origin 3_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 4_Modificacion
+git branch
+git status
+git add .
+git commit -m "4_Modificacion"
+git push origin 4_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 5_Modificacion
+git branch
+git status
+git add .
+git commit -m "5_Modificacion"
+git push origin 5_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 6_Modificacion
+git branch
+git status
+git add .
+git commit -m "6_Modificacion"
+git push origin 6_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 7_Modificacion
+git branch
+git status
+git add .
+git commit -m "7_Modificacion"
+git push origin 7_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 8_Modificacion
+git branch
+git status
+git add .
+git commit -m "8_Modificacion"
+git push origin 8_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 9_Modificacion
+git branch
+git status
+git add .
+git commit -m "9_Modificacion"
+git push origin 9_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 10_Modificacion
+git branch
+git status
+git add .
+git commit -m "10_Modificacion"
+git push origin 10_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 11_Modificacion
+git branch
+git status
+git add .
+git commit -m "11_Modificacion"
+git push origin 11_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 12_Modificacion
+git branch
+git status
+git add .
+git commit -m "12_Modificacion"
+git push origin 12_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 13_Modificacion
+git branch
+git status
+git add .
+git commit -m "13_Modificacion"
+git push origin 13_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 14_Modificacion
+git branch
+git status
+git add .
+git commit -m "14_Modificacion"
+git push origin 14_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 15_Modificacion
+git branch
+git status
+git add .
+git commit -m "15_Modificacion"
+git push origin 15_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 16_Modificacion
+git branch
+git status
+git add .
+git commit -m "16_Modificacion"
+git push origin 16_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 17_Modificacion
+git branch
+git status
+git add .
+git commit -m "17_Modificacion"
+git push origin 17_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 18_Modificacion
+git branch
+git status
+git add .
+git commit -m "18_Modificacion"
+git push origin 18_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 19_Modificacion
+git branch
+git status
+git add .
+git commit -m "19_Modificacion"
+git push origin 19_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 20_Modificacion
+git branch
+git status
+git add .
+git commit -m "20_Modificacion"
+git push origin 20_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 21_Modificacion
+git branch
+git status
+git add .
+git commit -m "21_Modificacion"
+git push origin 21_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 22_Modificacion
+git branch
+git status
+git add .
+git commit -m "22_Modificacion"
+git push origin 22_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 23_Modificacion
+git branch
+git status
+git add .
+git commit -m "23_Modificacion"
+git push origin 23_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 24_Modificacion
+git branch
+git status
+git add .
+git commit -m "24_Modificacion"
+git push origin 24_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 25_Modificacion
+git branch
+git status
+git add .
+git commit -m "25_Modificacion"
+git push origin 25_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 26_Modificacion
+git branch
+git status
+git add .
+git commit -m "26_Modificacion"
+git push origin 26_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 27_Modificacion
+git branch
+git status
+git add .
+git commit -m "27_Modificacion"
+git push origin 27_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 28_Modificacion
+git branch
+git status
+git add .
+git commit -m "28_Modificacion"
+git push origin 28_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 29_Modificacion
+git branch
+git status
+git add .
+git commit -m "29_Modificacion"
+git push origin 29_Modificacion
+->Click en boton Merge pull request

@@ -11,14 +11,8 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.sede.informacion', $sede) }}">
-                <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
-            <a href="{{ route('administrador.sede.odontologo.todo', $sede) }}">
-                Odontólogos <i class="fa-solid fa-user-doctor"></i></a>
-            <a href="{{ route('administrador.sede.clinica.todo', $sede) }}">
-                Clínicas <i class="fa-solid fa-house-medical-flag"></i></a>
-            <a href="{{ route('administrador.sede.paciente.todo', $sede) }}">
-                Pacientes <i class="fa-solid fa-user-injured"></i></a>
+            <a href="{{ route('encargado.clinica.sede.crear') }}">
+                Nueva clínica <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -129,8 +123,13 @@
                                             {{ $clinica->puntos }}
                                         </td>
                                         <td>
-                                            <a style="color: #009eff;" href="{{ route('administrador.clinica.informacion', $clinica) }}">
+                                            <a style="color: #009eff;" href="{{ route('encargado.clinica.sede.informacion', $clinica) }}">
                                                 <i class="fa-solid fa-eye"></i>
+                                            </a>
+
+                                            <a style="color: green;"
+                                                href="{{ route('encargado.clinica.sede.editar', $clinica) }}">
+                                                <span><i class="fa-solid fa-pencil"></i></span>
                                             </a>
                                         </td>
                                     </tr>

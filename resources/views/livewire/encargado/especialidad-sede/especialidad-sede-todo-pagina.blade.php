@@ -11,7 +11,7 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('encargado.especialidad.crear') }}">
+            <a href="{{ route('encargado.especialidad.sede.crear') }}">
                 Nueva especialidad <i class="fa-solid fa-square-plus"></i></a>
 
             <a href="{{ route('encargado.especialidad.sede.estadistica.odontologo.cantidad') }}">
@@ -89,7 +89,7 @@
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                             <a style="color: green;"
-                                                href="{{ route('encargado.especialidad.editar', $especialidad) }}">
+                                                href="{{ route('encargado.especialidad.sede.editar', $especialidad) }}">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </td>

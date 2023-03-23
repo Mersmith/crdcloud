@@ -1,71 +1,70 @@
+->CRUD Especialidad
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeTodoPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeCrearPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEditarPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeInformacionPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaOdontologoCantidadPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaOdontologoListaPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaClinicaCantidadPagina
+php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaClinicaListaPagina
+
 ->CRUD Odontólogo
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeTodoPagina
-
-php artisan make:livewire Administrador/Odontologo/OdontologoCrearPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoEditarPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoInformacionPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoPacienteTodoPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoPacienteCrearPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoPacienteEditarPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoDireccionCrearPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoDireccionEditarPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDepartamentoCantidadPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDepartamentoListaPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaProvinciaListaPagina
-php artisan make:livewire Administrador/Odontologo/OdontologoEstadisticaDistritoListaPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeCrearPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeEditarPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeInformacionPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedePacienteTodoPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedePacienteCrearPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedePacienteEditarPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeDireccionCrearPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeDireccionEditarPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeEstadisticaDepartamentoCantidadPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeEstadisticaDepartamentoListaPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeEstadisticaProvinciaListaPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeEstadisticaDistritoListaPagina
 
 ->CRUD Clínica
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeTodoPagina
-
-php artisan make:livewire Administrador/Clinica/ClinicaTodoPagina
-php artisan make:livewire Administrador/Clinica/ClinicaCrearPagina
-php artisan make:livewire Administrador/Clinica/ClinicaEditarPagina
-php artisan make:livewire Administrador/Clinica/ClinicaInformacionPagina
-php artisan make:livewire Administrador/Clinica/ClinicaPacienteTodoPagina
-php artisan make:livewire Administrador/Clinica/ClinicaPacienteCrearPagina
-php artisan make:livewire Administrador/Clinica/ClinicaPacienteEditarPagina
-php artisan make:livewire Administrador/Clinica/ClinicaDireccionCrearPagina
-php artisan make:livewire Administrador/Clinica/ClinicaDireccionEditarPagina
-php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaDepartamentoCantidadPagina
-php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaDepartamentoListaPagina
-php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaProvinciaListaPagina
-php artisan make:livewire Administrador/Clinica/ClinicaEstadisticaDistritoListaPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeCrearPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeEditarPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeInformacionPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedePacienteTodoPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedePacienteCrearPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedePacienteEditarPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeDireccionCrearPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeDireccionEditarPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeEstadisticaDepartamentoCantidadPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeEstadisticaDepartamentoListaPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeEstadisticaProvinciaListaPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeEstadisticaDistritoListaPagina
 
 ->CRUD Paciente
 php artisan make:livewire Encargado/PacienteSede/PacienteSedeTodoPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeCrearPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeEditarPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeInformacionPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeOdontogoTodoPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeClinicaTodoPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeDireccionCrearPagina
+php artisan make:livewire Encargado/PacienteSede/PacienteSedeDireccionEditarPagina
 
-php artisan make:livewire Administrador/Paciente/PacienteTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteCrearPagina
-php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
-php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
-php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteDireccionCrearPagina
-php artisan make:livewire Administrador/Paciente/PacienteDireccionEditarPagina
-
-->CRUD Especialidad
-php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeTodoPagina
-php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeInformacionPagina
-php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaOdontologoListaPagina
-php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaClinicaListaPagina
-php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaOdontologoCantidadPagina
-php artisan make:livewire Encargado/EspecialidadSede/EspecialidadSedeEstadisticaClinicaCantidadPagina
-
-php artisan make:livewire Administrador/Especialidad/EspecialidadCrearPagina
-php artisan make:livewire Administrador/Especialidad/EspecialidadEditarPagina
+->CRUD Servicio
+php artisan make:livewire Encargado/ServicioSede/ServicioSedeTodoPagina
+php artisan make:livewire Encargado/ServicioSede/ServicioSedeCrearPagina
+php artisan make:livewire Encargado/ServicioSede/ServicioSedeEditarPagina
+php artisan make:livewire Encargado/ServicioSede/ServicioSedeInformacionPagina
 
 ->CRUD Venta
 php artisan make:livewire Encargado/VentaSede/VentaSedeTodoLivewire
-
-php artisan make:livewire Administrador/Venta/VentaCrearLivewire
-php artisan make:livewire Administrador/Venta/VentaEditarLivewire
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualCantidadPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualListaPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualCantidadPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualListaPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaAnosCantidadPagina
+php artisan make:livewire Encargado/VentaSede/VentaSedeCrearLivewire
+php artisan make:livewire Encargado/VentaSede/VentaSedeEditarLivewire
+php artisan make:livewire Encargado/VentaSede/VentaSedeEstadisticaVentaMesActualCantidadPagina
+php artisan make:livewire Encargado/VentaSede/VentaSedeEstadisticaVentaMesActualListaPagina
+php artisan make:livewire Encargado/VentaSede/VentaSedeEstadisticaVentaMesesAnoActualCantidadPagina
+php artisan make:livewire Encargado/VentaSede/VentaSedeEstadisticaVentaMesesAnoActualListaPagina
+php artisan make:livewire Encargado/VentaSede/VentaSedeEstadisticaVentaAnosCantidadPagina
 
 ->CRUD Canjeo
-php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
-php artisan make:livewire Administrador/Canjeo/CanjeoCrearLivewire
-php artisan make:livewire Administrador/Canjeo/CanjeoEditarLivewire
+php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeTodoLivewire
+php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeCrearLivewire
+php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeEditarLivewire
