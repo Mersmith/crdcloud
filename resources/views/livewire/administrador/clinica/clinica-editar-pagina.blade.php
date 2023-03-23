@@ -139,7 +139,7 @@
                 <div class="contenedor_2_elementos">
                     <!--DNI-->
                     <div class="contenedor_elemento_item">
-                        <p>DNI: </p>
+                        <p class="estilo_nombre_input">DNI: </p>
                         <input type="number" wire:model="dni" x-ref="digitosDniRef"
                             x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)" x-init="digitosDni = $refs.digitosDniRef.value">
                         @error('dni')

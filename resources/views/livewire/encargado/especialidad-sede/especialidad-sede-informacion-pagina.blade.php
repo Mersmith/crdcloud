@@ -11,7 +11,7 @@
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.especialidad.index') }}">
+            <a href="{{ route('encargado.especialidad.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <a href="{{ route('encargado.especialidad.sede.estadistica.odontologo.lista', $especialidad->id) }}">
                 Lista odontólogos <i class="fa-solid fa-user-doctor"></i></a>

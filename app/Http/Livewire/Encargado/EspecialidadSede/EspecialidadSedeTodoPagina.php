@@ -29,7 +29,6 @@ class EspecialidadSedeTodoPagina extends Component
             ->orderBy('created_at', 'desc')
             ->paginate(30);
 
-
         return view('livewire.encargado.especialidad-sede.especialidad-sede-todo-pagina', compact('especialidades'))->layout('layouts.administrador.index');
     }
 }

@@ -236,3 +236,6 @@ $usuarios = User::whereHas('direcciones', function($query) use ($provincia_id) {
         $query->where('provincia_id', $provincia_id);
     });
 })->with('direcciones.distrito', 'direcciones.usuarios')->get();
+
+//Concatenar correo
+=L7886&""&A7886&""&M7886
