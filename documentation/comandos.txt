@@ -79,12 +79,14 @@ php artisan vendor:publish --tag=jetstream-views
 
 php artisan storage:link
 
+//Muestra las direcciones del odontologo
 SELECT o.DNI AS odontologo_id, o.nombre, o.departamento AS departamento_id, o.provincia AS provincia_id, o.distrito AS distrito_id, o.direccion, d.departamento AS departamento_nombre, p.provincia AS provincia_nombre, di.distrito AS distrito_nombre, o.fecha_registro AS created_at
 FROM odontologo o
 JOIN ubdepartamento d ON o.departamento = d.idDepa
 JOIN ubprovincia p ON o.provincia = p.idProv
 JOIN ubdistrito di ON o.distrito = di.idDist;//359
 
+//Muestra las direcciones del paciente
 SELECT o.Id_documento AS paciente_id, o.nombre, o.Departamento AS departamento_id, o.provincia AS provincia_id, o.distrito AS distrito_id, o.direccion, d.departamento AS departamento_nombre, p.provincia AS provincia_nombre, di.distrito AS distrito_nombre, o.fecha_registro AS created_at
 FROM paciente o
 JOIN ubdepartamento d ON o.Departamento = d.idDepa
@@ -108,3 +110,42 @@ php artisan make:livewire Encargado/Menu/MenuPrincipal
 
 php artisan make:middleware VerificarRol
 php artisan make:policy UserPolicy --model=User
+
+//Verificar las ventas_detalles con odontologos que no existen.
+SELECT v.id, v.total, v.estado, v.created_at
+FROM ventas v
+LEFT JOIN odontologos o ON v.odontologo_id = o.id
+WHERE o.id IS NULL;
+
+//Verificar las ventas_detalles con pacientes que no existen.
+SELECT v.id, v.total, v.estado, v.created_at
+FROM ventas v
+LEFT JOIN pacientes o ON v.odontologo_id = o.id
+WHERE o.id IS NULL;
+
+//Verificar las venta_detalles con servicios que no existen.
+SELECT v.id, v.cantidad, v.precio, v.created_at
+FROM venta_detalles2 v
+LEFT JOIN servicios o ON v.servicio_id = o.id
+WHERE o.id IS NULL;
+
+//Insertar servicios
+INSERT INTO `servicios` (`id`, `nombre`, `precio_venta`, `descripcion`, `puntos_ganar`, `puntos_canjeo`, `created_at`, `updated_at`) VALUES ('93', 'ORTO 2 VIRTUAL + SET DE INTRA+FOTOS EXTRA+2 ANALISIS', '200.00', NULL, '10.00', '0.00', NULL, NULL);
+
+//Relacionar odontologos con sus pacientes
+SELECT DISTINCT odontologos.id as odontologo_id, pacientes.id as paciente_id
+FROM odontologos
+JOIN ventas ON odontologos.id = ventas.odontologo_id
+JOIN pacientes ON ventas.paciente_id = pacientes.id;
+
+//Buscar registros repetidos en la tabla paciente_sede
+SELECT paciente_id, sede_id, COUNT(*) as count
+FROM paciente_sede
+GROUP BY paciente_id, sede_id
+HAVING COUNT(*) > 1;
+
+//Verificar las odontologos que no existen con odontologo_sede
+SELECT *
+FROM odontologo_sede2 v
+LEFT JOIN odontologos o ON v.odontologo_id = o.id
+WHERE o.id IS NULL;
