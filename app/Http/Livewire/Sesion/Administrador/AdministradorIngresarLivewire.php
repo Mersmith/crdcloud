@@ -75,9 +75,17 @@ class AdministradorIngresarLivewire extends Component
 
     public function contra()
     {
-        $users = DB::table('users')->get();
+        /*$users = DB::table('users')->get();
 
         // Actualizar la contraseña de cada usuario
+        foreach ($users as $user) {
+            DB::table('users')
+                ->where('id', $user->id)
+                ->update(['password' => bcrypt($user->password)]);
+        }*/
+
+        $users = DB::table('users')->where('id', '>=', 8330)->get();
+
         foreach ($users as $user) {
             DB::table('users')
                 ->where('id', $user->id)
