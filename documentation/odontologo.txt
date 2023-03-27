@@ -1,26 +1,21 @@
+->CRUD Perfil
+php artisan make:livewire Odontologo/PerfilOdontologo/PerfilOdontologoInformacionPagina
+
 ->CRUD Paciente
 php artisan make:livewire Odontologo/PacienteOdontologo/PacienteOdontologoTodoPagina
-
-php artisan make:livewire Administrador/Paciente/PacienteCrearPagina
-php artisan make:livewire Administrador/Paciente/PacienteEditarPagina
-php artisan make:livewire Administrador/Paciente/PacienteInformacionPagina
-php artisan make:livewire Administrador/Paciente/PacienteOdontogoTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteClinicaTodoPagina
-php artisan make:livewire Administrador/Paciente/PacienteDireccionCrearPagina
-php artisan make:livewire Administrador/Paciente/PacienteDireccionEditarPagina
+php artisan make:livewire Odontologo/PacienteOdontologo/PacienteOdontologoInformacionPagina
 
 ->CRUD Venta
 php artisan make:livewire Odontologo/VentaOdontologo/VentaOdontologoTodoLivewire
 
-php artisan make:livewire Administrador/Venta/VentaCrearLivewire
-php artisan make:livewire Administrador/Venta/VentaEditarLivewire
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualCantidadPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesActualListaPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualCantidadPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaMesesAnoActualListaPagina
-php artisan make:livewire Administrador/Venta/VentaEstadisticaVentaAnosCantidadPagina
+php artisan make:livewire Odontologo/VentaOdontologo/VentaOdontologoCrearLivewire
+php artisan make:livewire Odontologo/VentaOdontologo/VentaOdontologoEditarLivewire
 
 ->CRUD Canjeo
-php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
-php artisan make:livewire Administrador/Canjeo/CanjeoCrearLivewire
-php artisan make:livewire Administrador/Canjeo/CanjeoEditarLivewire
+php artisan make:livewire Odontologo/CanjeoOdontologo/CanjeoOdontologoTodoLivewire
+php artisan make:livewire Odontologo/CanjeoOdontologo/CanjeoOdontologoCrearLivewire
+php artisan make:livewire Odontologo/CanjeoOdontologo/CanjeoOdontologoEditarLivewire
+
+->CRUD Puntos
+php artisan make:livewire Odontologo/PuntosOdontologo/PuntosOdontologoTodoLivewire
+

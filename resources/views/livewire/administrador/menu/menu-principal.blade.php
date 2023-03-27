@@ -24,11 +24,12 @@
             </div>
             <hr>
             <div class="contenedor_administrador_sidebar">
-                {{-- @if (Auth::user()->administrador->imagen_ruta)
-                    <img src="{{ Storage::url(Auth::user()->administrador->imagen_ruta) }}">
-                @else --}}
-                <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
-                {{-- @endif --}}
+
+                @if ($usuario->imagenPerfil)
+                    <img src="{{ Storage::url($usuario->imagenPerfil->imagen_perfil_ruta) }}" />
+                @else
+                    <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
+                @endif
 
                 <p>{{ $usuario->nombre }}</p>
 

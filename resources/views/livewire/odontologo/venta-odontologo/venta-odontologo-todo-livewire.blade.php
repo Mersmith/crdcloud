@@ -152,7 +152,7 @@
                                         </td>
                                         <td>
                                             <a class="tabla_editar"
-                                                href="{{ route('administrador.venta.editar', $ventaItem) }}">
+                                                href="{{ route('odontologo.venta.odontologo.editar', $ventaItem) }}">
                                                 <i class="fa-solid fa-pencil"></i></a>
                                         </td>
                                     </tr>

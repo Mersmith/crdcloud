@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class MenuPrincipal extends Component
 {
+    protected $listeners = ['render'];
+
     public $usuario;
 
     public function mount()
