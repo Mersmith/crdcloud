@@ -19,3 +19,5 @@ php artisan make:livewire Odontologo/CanjeoOdontologo/CanjeoOdontologoEditarLive
 ->CRUD Puntos
 php artisan make:livewire Odontologo/PuntosOdontologo/PuntosOdontologoTodoLivewire
 
+->CRUD Imagenes
+php artisan make:livewire Odontologo/ImagenesOdontologo/ImagenesOdontologoTodoLivewire

@@ -48,5 +48,12 @@
         "nombrePrincipalUrl": "odontologo.puntos.odontologo.index",
         "iconoPrincipal": "fa-solid fa-arrows-to-circle",
         "subMenu1": []
+    },
+    {
+        "id": 11,
+        "nombrePrincipal": "Mis imagenes",
+        "nombrePrincipalUrl": "odontologo.imagenes.odontologo.index",
+        "iconoPrincipal": "fa-solid fa-panorama",
+        "subMenu1": []
     }
 ]

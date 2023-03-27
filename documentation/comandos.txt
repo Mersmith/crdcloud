@@ -164,4 +164,18 @@ TECHICERRO@GMAIL.COM / AURA
 DAURA
 //Paciente
 MARIA872SC@GMAIL.COM / 110008
-27966191 
+27966191
+
+//Crear un temporal y dar permisos
+mkdir -p storage/app/temp
+chmod -R 755 storage/app/temp
+
+//Actualizar la tabla odontologos con otra tabla para llenar el campo puntos_bienvenida
+UPDATE odontologos o
+JOIN puntos p ON o.id = p.id
+SET o.puntos_bienvenida = p.puntos_bienvenida;
+
+//Actualizar los odontologos con puntos null
+UPDATE odontologos
+SET puntos = 0
+WHERE puntos IS NULL;
