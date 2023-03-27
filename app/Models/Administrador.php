@@ -21,4 +21,9 @@ class Administrador extends Model
         return $this->belongsTo(Sede::class);
     }
 
+    public function imagenPerfil()
+    {
+        return $this->morphOne(ImagenPerfil::class, "imagen_perfilable");
+    }
+
 }

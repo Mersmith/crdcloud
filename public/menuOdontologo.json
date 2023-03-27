@@ -1,80 +1,28 @@
 [
     {
+        "id": 6,
+        "nombrePrincipal": "Mi perfil",
+        "nombrePrincipalUrl": "odontologo.perfil.odontologo.informacion",
+        "iconoPrincipal": "fa-solid fa-clipboard-user",
+        "subMenu1": []
+    },
+    {
         "id": 7,
-        "nombrePrincipal": "Pacientes",
-        "nombrePrincipalUrl": "#",
+        "nombrePrincipal": "Mis pacientes",
+        "nombrePrincipalUrl": "odontologo.paciente.odontologo.index",
         "iconoPrincipal": "fa-solid fa-user-injured",
-        "subMenu1": [
-            {
-                "id": 1,
-                "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "odontologo.paciente.odontologo.index",
-                "iconoSubMenu1": "fa-solid fa-table-list",
-                "subMenu2": []
-            },
-            {
-                "id": 2,
-                "nombreSubMenu1": "Nuevo",
-                "nombreSubMenu1Url": "administrador.paciente.crear",
-                "iconoSubMenu1": "fa-solid fa-square-plus",
-                "subMenu2": []
-            }
-        ]
+        "subMenu1": []
     },
     {
         "id": 8,
-        "nombrePrincipal": "Ventas",
-        "nombrePrincipalUrl": "#",
-        "iconoPrincipal": "fa-solid fa-file-invoice-dollar",
-        "subMenu1": [
-            {
-                "id": 1,
-                "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "odontologo.venta.odontologo.index",
-                "iconoSubMenu1": "fa-solid fa-table-list",
-                "subMenu2": []
-            },
-            {
-                "id": 2,
-                "nombreSubMenu1": "Nueva",
-                "nombreSubMenu1Url": "administrador.venta.crear",
-                "iconoSubMenu1": "fa-solid fa-square-plus",
-                "subMenu2": []
-            },
-            {
-                "id": 3,
-                "nombreSubMenu1": "Estadística",
-                "nombreSubMenu1Url": "#",
-                "iconoSubMenu1": "fa-solid fa-chart-simple",
-                "subMenu2": [
-                    {
-                        "id": 3,
-                        "nombreSubMenu2": "Mes",
-                        "nombreSubMenu2Url": "administrador.venta.estadistica.venta.mes.actual.cantidad",
-                        "iconoSubMenu2": "fa-solid fa-calendar",
-                        "subMenu3": []
-                    },
-                    {
-                        "id": 4,
-                        "nombreSubMenu2": "Año",
-                        "nombreSubMenu2Url": "administrador.venta.estadistica.venta.mes.ano.actual.cantidad",
-                        "iconoSubMenu2": "fa-regular fa-calendar-days",
-                        "subMenu3": []
-                    },
-                    {
-                        "id": 5,
-                        "nombreSubMenu2": "Años",
-                        "nombreSubMenu2Url": "administrador.venta.estadistica.venta.ano.cantidad",
-                        "iconoSubMenu2": "fa-solid fa-calendar-days",
-                        "subMenu3": []
-                    }
-                ]
-            }
-        ]
+        "nombrePrincipal": "Mis ordenes",
+        "nombrePrincipalUrl": "odontologo.venta.odontologo.index",
+        "iconoPrincipal": "fa-solid fa-images",
+        "subMenu1": []
     },
     {
-        "id": 8,
-        "nombrePrincipal": "Canjeos",
+        "id": 9,
+        "nombrePrincipal": "Mis canjeos",
         "nombrePrincipalUrl": "#",
         "iconoPrincipal": "fa-solid fa-file-invoice-dollar",
         "subMenu1": [
@@ -93,5 +41,12 @@
                 "subMenu2": []
             }
         ]
+    },
+    {
+        "id": 10,
+        "nombrePrincipal": "Mis puntos",
+        "nombrePrincipalUrl": "odontologo.puntos.odontologo.index",
+        "iconoPrincipal": "fa-solid fa-arrows-to-circle",
+        "subMenu1": []
     }
 ]

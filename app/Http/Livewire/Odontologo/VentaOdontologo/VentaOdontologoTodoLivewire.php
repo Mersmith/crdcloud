@@ -25,8 +25,8 @@ class VentaOdontologoTodoLivewire extends Component
     public function render()
     {
         $odontologoId = $this->odontologo_id;
-        //$ventas = Venta::query()->orderBy('created_at', 'desc');
-        $ventas = Venta::query();
+        $ventas = Venta::query()->orderBy('created_at', 'desc');
+        //$ventas = Venta::query();
 
         $ventas->where('odontologo_id', $odontologoId);
 

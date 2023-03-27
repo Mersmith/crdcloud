@@ -63,8 +63,6 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
                                     <th>
                                         DNI</th>
@@ -91,9 +89,6 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{-- $paciente->sede->nombre --}}
-                                        </td>
-                                        <td>
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
@@ -110,12 +105,8 @@
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.paciente.informacion', $paciente) }}">
+                                                href="{{ route('odontologo.paciente.odontologo.informacion', $paciente) }}">
                                                 <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                            <a style="color: green;"
-                                                href="{{ route('administrador.odontologo.paciente.editar', ['odontologo' => $odontologo->id, 'paciente' => $paciente->id]) }}">
-                                                <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </td>
                                     </tr>

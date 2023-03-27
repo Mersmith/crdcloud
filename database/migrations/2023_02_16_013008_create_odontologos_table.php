@@ -26,6 +26,7 @@ return new class extends Migration
             $table->date('fecha_nacimiento')->nullable();
             $table->enum('genero', ['hombre', 'mujer']);
             $table->integer('puntos')->nullable()->default(0);
+            $table->integer('puntos_bienvenida')->nullable()->default(0);
             $table->enum('rol', ['odontologo', 'clinica']);
             $table->string('ruc')->nullable();
             $table->string('nombre_clinica')->nullable();

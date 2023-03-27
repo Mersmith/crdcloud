@@ -69,6 +69,8 @@ php artisan make:model ImagenCanjeo -msf
 
 php artisan make:model InformeCanjeo -msf
 
+php artisan make:model ImagenPerfil -msf
+
 ->Controlador Venta
 php artisan make:controller Administrador/VentaController
 
@@ -149,3 +151,17 @@ SELECT *
 FROM odontologo_sede2 v
 LEFT JOIN odontologos o ON v.odontologo_id = o.id
 WHERE o.id IS NULL;
+
+//usuarios
+//Administrador
+master@crd.com / master
+123456789
+//Encargado
+miraflores@centroradiologico.com.pe / crdmiraflores
+123456789
+//Odontologo
+TECHICERRO@GMAIL.COM / AURA
+DAURA
+//Paciente
+MARIA872SC@GMAIL.COM / 110008
+27966191 

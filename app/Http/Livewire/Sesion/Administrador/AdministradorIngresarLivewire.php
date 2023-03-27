@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Sesion\Administrador;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -43,14 +42,15 @@ class AdministradorIngresarLivewire extends Component
             if ($usuario->rol == "administrador") {
                 return redirect()->route('administrador.encargado.index');
             } elseif ($usuario->rol == "encargado") {
-                return redirect()->route('encargado.odontologo.index');
+                return redirect()->route('encargado.especialidad.sede.index');
             } elseif ($usuario->rol == "odontologo") {
-                return redirect()->route('encargado.odontologo.index');
+                return redirect()->route('odontologo.paciente.odontologo.index');
             } elseif ($usuario->rol == "paciente") {
                 return redirect()->route('encargado.odontologo.index');
             } else {
                 return redirect()->route('inicio');
             }
+
         } else {
             $this->emit('mensajeError', "Verifique los datos ingresados.");
         }
@@ -67,8 +67,22 @@ class AdministradorIngresarLivewire extends Component
             $credentials['username'] = $this->email;
         }
         if (Auth::attempt($credentials, $this->remember)) {
+            $usuario = Auth::user();
+
+            if ($usuario->rol == "administrador") {
+                return redirect()->route('administrador.encargado.index');
+            } elseif ($usuario->rol == "encargado") {
+                return redirect()->route('encargado.especialidad.sede.index');
+            } elseif ($usuario->rol == "odontologo") {
+                return redirect()->route('odontologo.paciente.odontologo.index');
+            } elseif ($usuario->rol == "paciente") {
+                return redirect()->route('encargado.odontologo.index');
+            } else {
+                return redirect()->route('inicio');
+            }
+
             //return redirect()->intended('/');
-            return redirect()->route('administrador.encargado.index');
+            //return redirect()->route('administrador.encargado.index');
         }
         $this->addError('email', 'Credenciales inválidas');
     }

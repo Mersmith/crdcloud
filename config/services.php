@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'crd' => [
+        'puntos_equivale' => env('CRD_PUNTOS_EQUIVALE'),
+        'puntos_ingreso' => env('CRD_PUNTOS_INGRESO'),
+    ]
+
 ];
