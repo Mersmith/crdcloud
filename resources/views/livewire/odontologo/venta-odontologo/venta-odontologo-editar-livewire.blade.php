@@ -177,6 +177,9 @@
                         @endif
                     </div>
 
+                    <p>{{$venta->descargas}}</p>
+                    <p wire:click="descargar()">Descargar</p>
+
                     <!--INFORME-->
                     <div class="formulario contenedor_panel_producto_admin">
                         <!--INFORME-->

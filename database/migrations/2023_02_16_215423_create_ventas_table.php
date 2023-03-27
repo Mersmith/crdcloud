@@ -24,7 +24,9 @@ return new class extends Migration
             $table->string('puntos_ganados')->nullable();
             $table->string('link')->nullable();
             $table->text('observacion')->nullable();
-            $table->integer('descargas')->default(0);
+            $table->integer('descargas_imagen')->default(0);
+            $table->integer('descargas_link')->default(0);
+            $table->integer('descargas_informe')->default(0);
 
             $table->foreign('sede_id')->references('id')->on('sedes');
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');

@@ -168,7 +168,7 @@ class VentaCrearLivewire extends Component
         $rules = [];
 
         if ($this->informe) {
-            $rules['informe'] = 'required|file|mimes:pdf';
+            $rules['informe'] = 'required|file|mimes:zip';
         }
 
         $rules['sede_id'] = 'required';

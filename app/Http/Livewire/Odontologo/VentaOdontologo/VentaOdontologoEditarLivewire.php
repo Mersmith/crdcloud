@@ -9,6 +9,7 @@ use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class VentaOdontologoEditarLivewire extends Component
 {
@@ -46,6 +47,8 @@ class VentaOdontologoEditarLivewire extends Component
     public $informe;
     public $editarInforme = null;
 
+    public $archivo;
+
     protected $rules = [
         'venta.estado' => 'required',
     ];
@@ -68,6 +71,34 @@ class VentaOdontologoEditarLivewire extends Component
         $this->total = $venta->total;
 
         $this->informe = $venta->informes->count() ? Storage::url($venta->informes->first()->informe_ruta) : null;
+    }
+
+    public function descargar()
+    {
+        $rutasImagenes = $this->venta->imagenes->pluck('imagen_ruta')->toArray();
+
+        $zip = new ZipArchive();
+        $nombreArchivo =  'imagenes-' . $this->venta->id . '.zip';
+
+        $rutaArchivo = storage_path('app/temp/' . $nombreArchivo);
+
+        if ($zip->open($rutaArchivo, ZipArchive::CREATE) !== true) {
+            return false;
+        }
+
+        foreach ($rutasImagenes as $rutaImagen) {
+            if (file_exists(storage_path('app/public/' . $rutaImagen))) {
+                $zip->addFile(storage_path('app/public/' . $rutaImagen), basename($rutaImagen));
+            }
+        }
+
+        $zip->close();
+
+        $this->venta->descargas = $this->venta->descargas + 1;
+
+        $this->venta->update();
+
+        return response()->download($rutaArchivo, $nombreArchivo);
     }
 
     public function render()

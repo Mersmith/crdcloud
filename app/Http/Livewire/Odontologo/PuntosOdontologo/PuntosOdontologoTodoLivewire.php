@@ -30,8 +30,6 @@ class PuntosOdontologoTodoLivewire extends Component
         }
 
         $this->imagenesTodos = $imagenesVentas;
-
-        //dd($imagenesVentas);
     }
 
     public function render()

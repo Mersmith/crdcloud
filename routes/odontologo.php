@@ -5,6 +5,7 @@ use App\Http\Controllers\Administrador\VentaController;
 use App\Http\Livewire\Administrador\Canjeo\CanjeoCrearLivewire;
 use App\Http\Livewire\Administrador\Canjeo\CanjeoEditarLivewire;
 use App\Http\Livewire\Administrador\Canjeo\CanjeoTodoLivewire;
+use App\Http\Livewire\Odontologo\ImagenesOdontologo\ImagenesOdontologoTodoLivewire;
 use App\Http\Livewire\Odontologo\PacienteOdontologo\PacienteOdontologoInformacionPagina;
 use App\Http\Livewire\Odontologo\PacienteOdontologo\PacienteOdontologoTodoPagina;
 use App\Http\Livewire\Odontologo\PerfilOdontologo\PerfilOdontologoInformacionPagina;
@@ -32,3 +33,5 @@ Route::get('canjeo/{canjeo}/editar', CanjeoEditarLivewire::class)->name('canjeo.
 Route::post('canjeo/{canjeo}/dropzone', [CanjeoController::class, 'dropzone'])->name('canjeo.dropzone');
 
 Route::get('puntos', PuntosOdontologoTodoLivewire::class)->name('puntos.odontologo.index');
+
+Route::get('imagenes', ImagenesOdontologoTodoLivewire::class)->name('imagenes.odontologo.index');
