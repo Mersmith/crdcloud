@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Paciente - Información')
+    @section('tituloPagina', 'Odontólogo - Paciente')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Tu paciente: {{ $paciente->nombre }}</h2>
+            <h2>Paciente: {{ $paciente->nombre . ' ' . $paciente->apellido }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -39,12 +39,13 @@
         </div>
 
         <!--DIRECCIÓN-->
-        <div class="contenedor_panel_producto_admin">
-            <!--CONTENEDOR SUBTITULO-->
-            <div class="contenedor_subtitulo_admin">
-                <h3>Dirección de tu paciente:</h3>
-            </div>
-            @if ($direccion)
+        @if ($direccion)
+            <div class="contenedor_panel_producto_admin">
+                <!--CONTENEDOR SUBTITULO-->
+                <div class="contenedor_subtitulo_admin">
+                    <h3>Dirección de tu paciente:</h3>
+                </div>
+
                 <div>
                     <p><strong>Departamento: </strong>{{ $direccion->departamento_nombre }} </p>
                     <p><strong>Provincia: </strong>{{ $direccion->provincia_nombre }} </p>
@@ -53,22 +54,16 @@
                     <p><strong>Referencia: </strong>{{ $direccion->referencia }} </p>
                     <p><strong>Código postal: </strong>{{ $direccion->codigo_postal }} </p>
                 </div>
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No tiene dirección.</p>
-                    <i class="fa-solid fa-spinner"></i>
-                </div>
-            @endif
-        </div>
+            </div>
+        @endif
 
         <!--LISTA ODONTÓLOGOS-->
-        <div class="contenedor_panel_producto_admin">
-            <!--CONTENEDOR SUBTITULO-->
-            <div class="contenedor_subtitulo_admin">
-                <h3>Sus odontólogos</h3>
-            </div>
-
-            @if ($odontologos->count())
+        @if ($odontologos->count())
+            <div class="contenedor_panel_producto_admin">
+                <!--CONTENEDOR SUBTITULO-->
+                <div class="contenedor_subtitulo_admin">
+                    <h3>Odontólogo:</h3>
+                </div>
 
                 <!--CONTENEDOR BOTONES-->
                 <div class="contenedor_botones_admin">
@@ -141,22 +136,17 @@
                         </table>
                     </div>
                 </div>
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No tiene odontólogos.</p>
-                    <i class="fa-solid fa-spinner"></i>
-                </div>
-            @endif
-        </div>
+            </div>
+        @endif
 
         <!--LISTA CLÍNICAS-->
-        <div class="contenedor_panel_producto_admin">
-            <!--CONTENEDOR SUBTITULO-->
-            <div class="contenedor_subtitulo_admin">
-                <h3>Sus clínicas</h3>
-            </div>
+        @if ($clinicas->count())
+            <div class="contenedor_panel_producto_admin">
+                <!--CONTENEDOR SUBTITULO-->
+                <div class="contenedor_subtitulo_admin">
+                    <h3>Clínica:</h3>
+                </div>
 
-            @if ($clinicas->count())
                 <!--CONTENEDOR BOTONES-->
                 <div class="contenedor_botones_admin">
                     <button>
@@ -227,19 +217,14 @@
                         </table>
                     </div>
                 </div>
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No tiene clínicas.</p>
-                    <i class="fa-solid fa-spinner"></i>
-                </div>
-            @endif
-        </div>
+            </div>
+        @endif
 
         <!--LISTA VENTAS-->
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Sus informes</h3>
+                <h3>Radiografía:</h3>
             </div>
             @if ($ventas->count())
                 <!--CONTENEDOR BOTONES-->
@@ -258,27 +243,34 @@
                 <!--TABLA-->
                 <div class="tabla_administrador py-4 overflow-x-auto">
                     <div class="inline-block min-w-full overflow-hidden">
+
                         <table class="min-w-full leading-normal">
                             <thead>
                                 <tr>
-
                                     <th>
                                         N° Orden</th>
                                     <th>
+                                        Exámen</th>
+                                    <th>
                                         Estado</th>
                                     <th>
-                                        Total</th>
+                                        Link</th>
+                                    <th>
+                                        Descarga</th>
                                     <th>
                                         Registro</th>
                                     <th>
-                                        Acción</th>
+                                        Ver</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $ventaItem)
                                     <tr style="text-align: center;">
                                         <td>
-                                            N° 00000-{{ $ventaItem->id }}
+                                            {{ $ventaItem->id }}
+                                        </td>
+                                        <td>
+                                            {{ $ventaItem->nombre }}
                                         </td>
                                         <td>
                                             @switch($ventaItem->estado)
@@ -307,20 +299,26 @@
                                             @endswitch
                                         </td>
                                         <td>
-                                            S/. {{ $ventaItem->total }}
+                                            <a href="{{ $ventaItem->link }}" target="_blank"><i
+                                                    class="fa-brands fa-google-drive"></i></a>
+                                        </td>
+                                        <td>
+                                            {{ $ventaItem->descargas_imagen }}
                                         </td>
                                         <td>
                                             {{ $ventaItem->created_at }}
                                         </td>
                                         <td>
-                                            <a class="tabla_editar"
-                                                href="{{ route('odontologo.venta.odontologo.editar', $ventaItem) }}">
-                                                <i class="fa-solid fa-pencil"></i></a>
+                                            <a style="color: #009eff;"
+                                                href="{{ route('odontologo.venta.odontologo.editar', $ventaItem->id) }}">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             @else
@@ -331,6 +329,44 @@
             @endif
         </div>
 
+        <!--LISTA IMÁGENES-->
+        {{-- <div class="contenedor_panel_producto_admin">
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Imágenes:</h3>
+            </div>
+            @if ($imagenes->count())
+                <!--CONTENEDOR BOTONES-->
+                <div class="contenedor_botones_admin">
+                    <button>
+                        Descargar ZIP <i class="fa-solid fa-file-zipper"></i>
+                    </button>
+                </div>
+                <div class="contenedor_1_elementos_imagen">
+                    <div class="contenedor_imagenes_subidas_dropzone" id="sortableimagenes">
+                        @foreach ($imagenes as $key => $imagen)
+                            <div>
+                                <a href="{{ Storage::url($imagen->imagen_ruta) }}" data-lightbox="gallery">
+                                    <img src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        </div> --}}
+
     </div>
 
 </div>
+
+@push('script')
+    <script>
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'showImageNumberLabel': true,
+            'alwaysShowNavOnTouchDevices': true,
+        })
+    </script>
+@endpush

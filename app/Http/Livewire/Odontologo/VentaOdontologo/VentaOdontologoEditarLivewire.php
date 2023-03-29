@@ -73,7 +73,7 @@ class VentaOdontologoEditarLivewire extends Component
         $this->informe = $venta->informes->count() ? Storage::url($venta->informes->first()->informe_ruta) : null;
     }
 
-    public function descargar()
+    public function descargarImagenes()
     {
         $rutasImagenes = $this->venta->imagenes->pluck('imagen_ruta')->toArray();
 
@@ -94,7 +94,7 @@ class VentaOdontologoEditarLivewire extends Component
 
         $zip->close();
 
-        $this->venta->descargas = $this->venta->descargas + 1;
+        $this->venta->descargas_imagen = $this->venta->descargas_imagen + 1;
 
         $this->venta->update();
 

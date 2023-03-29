@@ -162,6 +162,10 @@ miraflores@centroradiologico.com.pe / crdmiraflores
 //Odontologo
 TECHICERRO@GMAIL.COM / AURA
 DAURA
+
+DAVID
+11885
+
 //Paciente
 MARIA872SC@GMAIL.COM / 110008
 27966191
@@ -179,3 +183,5 @@ SET o.puntos_bienvenida = p.puntos_bienvenida;
 UPDATE odontologos
 SET puntos = 0
 WHERE puntos IS NULL;
+
+php artisan make:controller Odontologo/DescargarProgramaController

@@ -1,20 +1,20 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Pacientes')
+    @section('tituloPagina', 'Odontólogo - Pacientes')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Pacientes de: {{$odontologo->nombre .' '. $odontologo->apellido}}</h2>
+            <h2>Mis pacientes</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.odontologo.index') }}">
-                <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
-            <a href="{{ route('administrador.odontologo.paciente.crear', $odontologo) }}">
-                Nuevo Paciente <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('odontologo.venta.odontologo.index') }}">
+                Mis radiografías <i class="fa-solid fa-images"></i></a>
+            <a href="{{ route('odontologo.puntos.odontologo.index') }}">
+                Mis puntos <i class="fa-solid fa-arrows-to-circle"></i></a>
         </div>
     </div>
 
@@ -63,22 +63,16 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Email</th>
-                                    <th>
-                                        DNI</th>
-                                    <th>
-                                        Celular</th>
-                                    <th>
                                         Género</th>
                                     <th>
                                         Registro</th>
                                     <th>
-                                        Acción</th>
+                                        Radiografía</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($pacientes as $paciente)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -89,15 +83,6 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{ $paciente->email }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->dni }}
-                                        </td>
-                                        <td>
-                                            {{ $paciente->celular }}
-                                        </td>
-                                        <td>
                                             {{ $paciente->genero }}
                                         </td>
                                         <td>
@@ -106,7 +91,7 @@
                                         <td>
                                             <a style="color: #009eff;"
                                                 href="{{ route('odontologo.paciente.odontologo.informacion', $paciente) }}">
-                                                <i class="fa-solid fa-eye"></i>
+                                                <i class="fa-solid fa-images"></i>
                                             </a>
                                         </td>
                                     </tr>

@@ -48,7 +48,10 @@
             'resizeDuration': 200,
             'wrapAround': true,
             'showImageNumberLabel': true,
-            'alwaysShowNavOnTouchDevices': true
+            'alwaysShowNavOnTouchDevices': true,
+            'disableScrolling': false,
+            'maxWidth': '80%',
+            'maxHeight': '80%'
         })
     </script>
 @endpush

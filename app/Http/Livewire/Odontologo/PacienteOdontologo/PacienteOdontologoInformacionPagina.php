@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Odontologo\PacienteOdontologo;
 
 use App\Models\Paciente;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class PacienteOdontologoInformacionPagina extends Component
@@ -14,6 +15,7 @@ class PacienteOdontologoInformacionPagina extends Component
     public $direccion;
     public $sedes;
     public $ventas;
+    public $imagenes;
 
     public function mount(Paciente $paciente)
     {
@@ -29,7 +31,22 @@ class PacienteOdontologoInformacionPagina extends Component
 
         $this->sedes = $paciente->sedes->pluck('nombre')->toArray();
 
-        $this->ventas = $paciente->ventas;
+        $this->ventas = DB::table('ventas')
+            ->leftJoin('venta_detalles', 'ventas.id', '=', 'venta_detalles.venta_id')
+            ->leftJoin('servicios', 'venta_detalles.servicio_id', '=', 'servicios.id')
+            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'))
+            ->where('ventas.paciente_id', $paciente->id)
+            ->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at')
+            ->orderBy('ventas.id')
+            ->get();
+
+        $ventas = $paciente->ventas;
+
+        $imagenesVentas = collect();
+        foreach ($ventas as $venta) {
+            $imagenesVentas = $imagenesVentas->merge($venta->imagenes);
+        }
+        $this->imagenes = $imagenesVentas;
     }
 
     public function render()

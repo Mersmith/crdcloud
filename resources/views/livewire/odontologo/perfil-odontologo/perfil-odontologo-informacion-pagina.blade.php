@@ -1,17 +1,21 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Odontólogo - Editar')
+    @section('tituloPagina', 'Odontólogo - Perfil')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Editar odontólogo</h2>
+            <h2>Mi perfil</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.odontologo.crear') }}">
-                Puntos <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('odontologo.paciente.odontologo.index') }}">
+                Mis pacientes <i class="fa-solid fa-user-injured"></i></a>
+            <a href="{{ route('odontologo.venta.odontologo.index') }}">
+                Mis radiografías <i class="fa-solid fa-images"></i></a>
+            <a href="{{ route('odontologo.puntos.odontologo.index') }}">
+                Mis puntos <i class="fa-solid fa-arrows-to-circle"></i></a>
         </div>
     </div>
 
@@ -23,7 +27,7 @@
 
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos personales</h3>
+                <h3>Datos personales:</h3>
             </div>
 
             <!--FORMULARIO-->
@@ -180,7 +184,7 @@
                         <p class="estilo_nombre_input">RUC: <span class="campo_opcional">(Opcional)</span>
                         </p>
                         <input type="number" wire:model="ruc" x-ref="digitosRucRef"
-                        x-on:keydown="limitarEntrada($refs.digitosRucRef, 11, $event)" x-init="digitosRuc = $refs.digitosRucRef.value">
+                            x-on:keydown="limitarEntrada($refs.digitosRucRef, 11, $event)" x-init="digitosRuc = $refs.digitosRucRef.value">
                         @error('ruc')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -214,7 +218,7 @@
 
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Actualizar acceso</h3>
+                <h3>Actualizar acceso:</h3>
             </div>
 
             <!--FORMULARIO-->
@@ -271,7 +275,7 @@
 
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Actualizar foto</h3>
+                <h3>Actualizar foto:</h3>
             </div>
 
             <!--FORMULARIO-->

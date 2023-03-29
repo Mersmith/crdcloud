@@ -40,8 +40,8 @@
                 </div>
 
                 <div class="contenedor_1_elementos_100">
-                    <p><strong>Puntos acumulados: </strong> {{ $odontologo->puntos }} puntos = S/.
-                        {{ $odontologo->puntos * config('services.crd.puntos_equivale') }}</p>
+                    <p><strong>Puntos acumulados: </strong> {{ $this->ventasPagadas + $odontologo->puntos_bienvenida  }} puntos = S/.
+                        {{ ($this->ventasPagadas + $odontologo->puntos_bienvenida ) * config('services.crd.puntos_equivale') }}</p>
                 </div>
 
                 <br>
@@ -49,8 +49,6 @@
                 <div class="contenedor_1_elementos_100">
                     <p>Recuerda que 1 punto equivale a {{ config('services.crd.puntos_equivale') }} sol.</p>
                 </div>
-
-                <p>{{ $this->ventasPagadas + $odontologo->puntos_bienvenida }} </p>
 
             </div>
         </div>
@@ -156,26 +154,6 @@
                 <div class="contenedor_no_existe_elementos">
                     <p>No tiene informes.</p>
                     <i class="fa-solid fa-spinner"></i>
-                </div>
-            @endif
-        </div>
-
-        <!--LISTA IMAGENES-->
-        <div class="contenedor_panel_producto_admin">
-            <!--CONTENEDOR SUBTITULO-->
-            <div class="contenedor_subtitulo_admin">
-                <h3>Imagenes en total</h3>
-            </div>
-            @if ($imagenesTodos->count())
-                <div class="contenedor_1_elementos_imagen">
-                    <div class="contenedor_imagenes_subidas_dropzone" id="sortableimagenes">
-                        @foreach ($imagenesTodos as $key => $imagen)
-                            <div wire:key="imagen-{{ $imagen->id }}" data-id="{{ $imagen->id }}">
-                                <img class="handle2 cursor-grab" src="{{ Storage::url($imagen->imagen_ruta) }}"
-                                    alt="">
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
             @endif
         </div>
