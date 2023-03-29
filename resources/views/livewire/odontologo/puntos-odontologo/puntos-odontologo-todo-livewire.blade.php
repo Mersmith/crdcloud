@@ -40,8 +40,10 @@
                 </div>
 
                 <div class="contenedor_1_elementos_100">
-                    <p><strong>Puntos acumulados: </strong> {{ $this->ventasPagadas + $odontologo->puntos_bienvenida  }} puntos = S/.
-                        {{ ($this->ventasPagadas + $odontologo->puntos_bienvenida ) * config('services.crd.puntos_equivale') }}</p>
+                    <p><strong>Puntos acumulados: </strong> {{ $this->ventasPagadas + $odontologo->puntos_bienvenida }}
+                        puntos = S/.
+                        {{ ($this->ventasPagadas + $odontologo->puntos_bienvenida) * config('services.crd.puntos_equivale') }}
+                    </p>
                 </div>
 
                 <br>
@@ -57,7 +59,7 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Sus informes</h3>
+                <h3>Sus radiografías: ({{ $ventas->count() }})</h3>
             </div>
             @if ($ventas->count())
                 <!--CONTENEDOR BOTONES-->
@@ -88,14 +90,14 @@
                                     <th>
                                         Registro</th>
                                     <th>
-                                        Acción</th>
+                                        Ver</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $ventaItem)
                                     <tr style="text-align: center;">
                                         <td>
-                                            N° 00000-{{ $ventaItem->id }}
+                                            {{ $ventaItem->id }}
                                         </td>
                                         <td>
                                             @switch($ventaItem->estado)
@@ -131,7 +133,7 @@
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('odontologo.venta.odontologo.editar', $ventaItem) }}">
+                                                href="{{ route('odontologo.venta.odontologo.informacion', $ventaItem) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>

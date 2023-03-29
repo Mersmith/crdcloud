@@ -15,20 +15,27 @@
     },
     {
         "id": 7,
+        "nombrePrincipal": "Mi dirección",
+        "nombrePrincipalUrl": "odontologo.direccion.odontologo.informacion",
+        "iconoPrincipal": "fa-solid fa-map-location-dot",
+        "subMenu1": []
+    },
+    {
+        "id": 8,
         "nombrePrincipal": "Mis pacientes",
         "nombrePrincipalUrl": "odontologo.paciente.odontologo.index",
         "iconoPrincipal": "fa-solid fa-user-injured",
         "subMenu1": []
     },
     {
-        "id": 8,
+        "id": 9,
         "nombrePrincipal": "Mis radiografías",
         "nombrePrincipalUrl": "odontologo.venta.odontologo.index",
         "iconoPrincipal": "fa-solid fa-images",
         "subMenu1": []
     },
     {
-        "id": 9,
+        "id": 10,
         "nombrePrincipal": "Mis canjeos",
         "nombrePrincipalUrl": "#",
         "iconoPrincipal": "fa-solid fa-file-invoice-dollar",
@@ -36,31 +43,24 @@
             {
                 "id": 1,
                 "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "administrador.canjeo.index",
+                "nombreSubMenu1Url": "odontologo.canjeo.odontologo.index",
                 "iconoSubMenu1": "fa-solid fa-table-list",
                 "subMenu2": []
             },
             {
                 "id": 2,
                 "nombreSubMenu1": "Nueva",
-                "nombreSubMenu1Url": "administrador.canjeo.crear",
+                "nombreSubMenu1Url": "odontologo.canjeo.odontologo.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []
             }
         ]
     },
     {
-        "id": 10,
+        "id": 11,
         "nombrePrincipal": "Mis puntos",
         "nombrePrincipalUrl": "odontologo.puntos.odontologo.index",
         "iconoPrincipal": "fa-solid fa-arrows-to-circle",
-        "subMenu1": []
-    },
-    {
-        "id": 11,
-        "nombrePrincipal": "Mis imagenes",
-        "nombrePrincipalUrl": "odontologo.imagenes.odontologo.index",
-        "iconoPrincipal": "fa-solid fa-panorama",
         "subMenu1": []
     }
 ]

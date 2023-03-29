@@ -1,12 +1,21 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Ventas')
+    @section('tituloPagina', 'Odontólogo - Radiografías')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Ventas</h2>
+            <h2>Mis radiografías</h2>
+        </div>
+        <!--CONTENEDOR BOTONES-->
+        <div class="contenedor_botones_admin">
+            <a href="{{ route('odontologo.paciente.odontologo.index') }}">
+                Mis pacientes <i class="fa-solid fa-user-injured"></i></a>
+            <a href="{{ route('odontologo.venta.odontologo.index') }}">
+                Mis radiografías <i class="fa-solid fa-images"></i></a>
+            <a href="{{ route('odontologo.puntos.odontologo.index') }}">
+                Mis puntos <i class="fa-solid fa-arrows-to-circle"></i></a>
         </div>
     </div>
 
@@ -16,7 +25,7 @@
         <!--GRID VENTAS-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="grid_estado_orden">
-                <div class="grid_estado_0 estilo_estado_orden" style="background-color: rgb(35, 32, 226);">
+                <div class="grid_estado_0 estilo_estado_orden" style="background-color: #189bb6;">
                     <a href="{{ route('odontologo.venta.odontologo.index') }}">
                         <p class="text-center text-2xl">
                             {{ $todos }}
@@ -77,7 +86,7 @@
 
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista</h3>
+                    <h3>Lista ({{ $todos }})</h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -96,29 +105,36 @@
                 <!--TABLA-->
                 <div class="tabla_administrador py-4 overflow-x-auto">
                     <div class="inline-block min-w-full overflow-hidden">
+
                         <table class="min-w-full leading-normal">
                             <thead>
                                 <tr>
-
                                     <th>
                                         N° Orden</th>
                                     <th>
+                                        Exámen</th>
+                                    <th>
                                         Estado</th>
                                     <th>
-                                        Total</th>
+                                        Link</th>
+                                    <th>
+                                        Descarga</th>
                                     <th>
                                         Registro</th>
                                     <th>
-                                        Acción</th>
+                                        Ver</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $ventaItem)
-                                    <tr style="text-align: center;">
-                                        <td>
-                                            N° 00000-{{ $ventaItem->id }}
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            {{ $ventaItem->id }}
                                         </td>
                                         <td>
+                                            {{ $ventaItem->nombre }}
+                                        </td>
+                                        <td style="text-align: center;">
                                             @switch($ventaItem->estado)
                                                 @case(1)
                                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
@@ -144,21 +160,27 @@
                                                 @default
                                             @endswitch
                                         </td>
-                                        <td>
-                                            S/. {{ $ventaItem->total }}
+                                        <td style="text-align: center;">
+                                            <a href="{{ $ventaItem->link }}" target="_blank"><i
+                                                    class="fa-brands fa-google-drive"></i></a>
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
+                                            {{ $ventaItem->descargas_imagen }}
+                                        </td>
+                                        <td style="text-align: center;">
                                             {{ $ventaItem->created_at }}
                                         </td>
-                                        <td>
-                                            <a class="tabla_editar"
-                                                href="{{ route('odontologo.venta.odontologo.editar', $ventaItem) }}">
-                                                <i class="fa-solid fa-pencil"></i></a>
+                                        <td style="text-align: center;">
+                                            <a style="color: #009eff;"
+                                                href="{{ route('odontologo.venta.odontologo.informacion', $ventaItem->id) }}">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
 

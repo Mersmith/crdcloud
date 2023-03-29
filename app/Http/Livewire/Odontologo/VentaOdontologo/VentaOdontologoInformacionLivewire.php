@@ -4,14 +4,13 @@ namespace App\Http\Livewire\Odontologo\VentaOdontologo;
 
 use App\Models\Venta;
 use Livewire\Component;
-use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
-class VentaOdontologoEditarLivewire extends Component
+class VentaOdontologoInformacionLivewire extends Component
 {
     public $venta;
     public $venta_id;
@@ -60,7 +59,7 @@ class VentaOdontologoEditarLivewire extends Component
         $this->venta_detalles = $this->venta->ventaDetalle->toArray();
 
         $this->sedes = Sede::all();
-        $this->servicios = Servicio::select('id', 'nombre')->get();
+        $this->servicios = Servicio::pluck('nombre', 'id');
         $this->sede_id = $venta->sede_id;
         $this->sede = Sede::find($venta->sede_id);
         $this->paciente = Paciente::find($venta->paciente_id);
@@ -101,8 +100,41 @@ class VentaOdontologoEditarLivewire extends Component
         return response()->download($rutaArchivo, $nombreArchivo);
     }
 
+    public function descargarInforme()
+    {
+        $informe = $this->venta->informes->first();
+
+        $archivo_ruta = storage_path('app/public/' . $informe->informe_ruta);
+
+        if (!Storage::exists($informe->informe_ruta)) {
+            abort(404);
+        }
+
+        $archivo_nombre = 'informe-' . $this->venta->id . '-' . basename($archivo_ruta);
+
+        $headers = [
+            'Content-Type' => 'application/zip',
+            'Content-Disposition' => 'attachment; filename="' . $archivo_nombre . '"',
+        ];
+
+        $this->venta->descargas_informe = $this->venta->descargas_informe + 1;
+
+        $this->venta->update();
+
+        return response()->download($archivo_ruta, $archivo_nombre, $headers);
+    }
+
+    public function abrirLink()
+    {
+        $this->emit('abrirLink', ['link' => $this->link]);
+
+        $this->venta->descargas_link = $this->venta->descargas_link + 1;
+
+        $this->venta->update();
+    }
+
     public function render()
     {
-        return view('livewire.odontologo.venta-odontologo.venta-odontologo-editar-livewire')->layout('layouts.administrador.index');
+        return view('livewire.odontologo.venta-odontologo.venta-odontologo-informacion-livewire')->layout('layouts.administrador.index');
     }
 }

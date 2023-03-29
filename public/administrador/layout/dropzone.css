@@ -1,7 +1,7 @@
 /*CONTENEDOR IMAGENES SUBIDAS*/
 .contenedor_imagenes_subidas_dropzone {
     width: 100%;
-    padding: 40px 100px;
+    padding: 40px 50px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
@@ -62,7 +62,13 @@
     color: #a1a5b7;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1700px) {
+    .contenedor_imagenes_subidas_dropzone {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1600px) {
     .contenedor_imagenes_subidas_dropzone {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -73,8 +79,13 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 1200px) {
     .contenedor_imagenes_subidas_dropzone {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contenedor_imagenes_subidas_dropzone div {
+        width: 130px;
+        height: 130px;
     }
 }
