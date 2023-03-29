@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Editar venta')
+    @section('tituloPagina', 'Odontólogo - Información del Exámen')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Exámen</h2>
+            <h2>Información del exámen</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
@@ -35,37 +35,6 @@
                         </div>
                     </div>
 
-                    <!--SEDES-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Sede:</p>
-                            <input type="text" value="{{ $sede->nombre }}" disabled>
-                        </div>
-                    </div>
-
-                    <!--PACIENTES-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Pacientes:</p>
-                            <input type="text" value="{{ $paciente->nombre . ' ' . $paciente->apellido }}" disabled>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--DATOS-->
-                <div class="formulario contenedor_panel_producto_admin">
-
-                    <!--LINK-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Link:</p>
-                            <a href="{{ $link }}" target="_blank"
-                                style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
-                                    class="fa-brands fa-google-drive"></i> {{ $link }}</a>
-                        </div>
-                    </div>
-
                     <!--ESTADOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -88,6 +57,52 @@
                         </div>
                     </div>
 
+                    <!--SEDES-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Sede CRD:</p>
+                            <input type="text" value="{{ $sede->nombre }}" disabled>
+                        </div>
+                    </div>
+
+                    <!--PACIENTES-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Paciente:</p>
+                            <a href="{{ route('odontologo.paciente.odontologo.informacion', $paciente->id) }}"
+                                target="_blank"
+                                style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
+                                    class="fa-solid fa-user-injured"></i>
+                                {{ $paciente->nombre . ' ' . $paciente->apellido }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--DESCARGAS-->
+                <div class="formulario contenedor_panel_producto_admin">
+                    <!--IMAGEN-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad descarga de imagenes:</p>
+                            <input type="text" value="{{ $venta->descargas_imagen }}" disabled>
+                        </div>
+                    </div>
+
+                    <!--INFORME-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad descarga de informes:</p>
+                            <input type="text" value="{{ $venta->descargas_informe }}" disabled>
+                        </div>
+                    </div>
+
+                    <!--LINK-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad descarga de drive:</p>
+                            <input type="text" value="{{ $venta->descargas_link }}" disabled>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -105,7 +120,7 @@
                                     <th>
                                         N°</th>
                                     <th>
-                                        Servicio</th>
+                                        Exámen</th>
                                     <th>
                                         Precio</th>
                                     <th>
@@ -121,7 +136,7 @@
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td>
-                                                {{ $servicios[$venta_detalle['servicio_id']]->nombre }}
+                                                {{ $servicios[$venta_detalle['servicio_id']] }}
                                             </td>
                                             <td style="text-align: center;">
                                                 S/. {{ $venta_detalle['precio'] }}
@@ -167,62 +182,84 @@
                     </div>
 
                     <!--IMAGENES-->
-                    <div class="contenedor_panel_producto_admin">
-                        <!--CONTENEDOR SUBTITULO-->
-                        <p class="estilo_nombre_input">Imágenes:
-                        </p>
-                        @if ($venta->imagenes->count())
+                    @if ($venta->imagenes->count())
+                        <div class="contenedor_panel_producto_admin">
+                            <!--CONTENEDOR SUBTITULO-->
+                            <p class="estilo_nombre_input">Imágenes:
+                            </p>
                             <div class="contenedor_1_elementos_imagen">
                                 <div class="contenedor_imagenes_subidas_dropzone" id="sortableimagenes">
                                     @foreach ($venta->imagenes as $key => $imagen)
-                                    <div>
-                                        <a href="{{ Storage::url($imagen->imagen_ruta) }}" data-lightbox="gallery">
-                                            <img src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
-                                        </a>
-                                    </div>
+                                        <div>
+                                            <a href="{{ Storage::url($imagen->imagen_ruta) }}" data-lightbox="gallery">
+                                                <img src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
+                                            </a>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <!--CONTENEDOR BOTONES-->
                                 <div class="contenedor_botones_admin">
                                     <button wire:click="descargarImagenes()">
-                                        Descargar imagenes en ZIP <i class="fa-solid fa-file-zipper"></i>
+                                        <i class="fa-solid fa-file-zipper"></i> Descargar imagenes en ZIP
                                     </button>
                                 </div>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
 
                     <!--INFORME-->
-                    <div class="formulario contenedor_panel_producto_admin">
-                        <!--INFORME-->
-                        <div class="contenedor_1_elementos_100">
-                            <div class="contenedor_elemento_item">
-                                <p class="estilo_nombre_input">Informe:
-                                </p>
-                                <div class="contenedor_subir_imagen_sola">
-                                    @if ($editarInforme)
+                    @if ($informe)
+                        <div class="formulario contenedor_panel_producto_admin">
+                            <!--INFORME-->
+                            <div class="contenedor_1_elementos_100">
+                                <div class="contenedor_elemento_item">
+                                    <p class="estilo_nombre_input">Informe:
+                                    </p>
+                                    <div class="contenedor_subir_imagen_sola">
                                         <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
-                                    @elseif($informe)
-                                        <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
-                                    @else
-                                        <img src="{{ asset('imagenes/informe/sin_foto_pdf.png') }}">
-                                    @endif
-                                </div>
-                                @if ($informe)
+                                    </div>
                                     <!--CONTENEDOR BOTONES-->
                                     <div class="contenedor_botones_admin">
-                                        <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
-                                            target="_blank">
-                                            Descargar informe en ZIP <i class="fa-solid fa-file-zipper"></i>
+                                        <a wire:click="descargarInforme()">
+                                            <i class="fa-solid fa-file-zipper"></i> Descargar informe en ZIP
                                         </a>
+                                        {{-- <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
+                                            target="_blank">
+                                            <i class="fa-solid fa-file-zipper"></i> Descargar informe en ZIP
+                                        </a> --}}
                                     </div>
-                                @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
+                    <!--LINK-->
+                    @if ($link)
+                        <div class="formulario contenedor_panel_producto_admin">
+                            <!--LINK-->
+                            <div class="contenedor_1_elementos_100">
+                                <div class="contenedor_elemento_item">
+                                    <p class="estilo_nombre_input">Link:</p>
+                                    {{-- <a href="{{ $link }}" target="_blank"
+                                        style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
+                                            class="fa-brands fa-google-drive"></i> {{ $link }}</a> --}}
+                                </div>
+                            </div>
+                            <!--CONTENEDOR BOTONES-->
+                            <div class="contenedor_botones_admin">
+                                <a wire:click="abrirLink()">
+                                    <i class="fa-brands fa-google-drive"></i> Abrir link en DRIVE
+                                </a>
+                                {{-- <a href="{{ $link }}" target="_blank">
+                                    <i class="fa-brands fa-google-drive"></i> Descargar informe en DRIVE
+                                </a> --}}
+                            </div>
+
+                        </div>
+                    @endif
+
+                    <!--OBSERVACIÓN-->
                     @if ($observacion)
-                        <!--OBSERVACIÓN-->
                         <div class="formulario contenedor_panel_producto_admin">
                             <!--OBSERVACIÓN-->
                             <div class="contenedor_1_elementos_100">
@@ -239,7 +276,9 @@
                         <i class="fa-solid fa-spinner"></i>
                     </div>
                 @endif
+
             </div>
+
         </div>
     </div>
 
@@ -255,6 +294,10 @@
             'disableScrolling': false,
             'maxWidth': '80%',
             'maxHeight': '80%'
-        })
+        });
+
+        Livewire.on('abrirLink', function (data) {
+            window.open(data.link, '_blank');
+        });
     </script>
 @endpush

@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Odontologo\VentaOdontologo;
 
 use App\Models\Venta;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,24 +25,22 @@ class VentaOdontologoTodoLivewire extends Component
     public function render()
     {
         $odontologoId = $this->odontologo_id;
-        $ventas = DB::table('ventas')
-            ->leftJoin('venta_detalles', 'ventas.id', '=', 'venta_detalles.venta_id')
-            ->leftJoin('servicios', 'venta_detalles.servicio_id', '=', 'servicios.id')
-            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'))
-            ->where('ventas.odontologo_id', $odontologoId);
+        $ventas = Venta::query()->orderBy('created_at', 'desc');
+
+        $ventas->where('odontologo_id', $odontologoId);
 
         if ($this->estado) {
-            $ventas->where('ventas.estado', $this->estado);
+            $ventas->where('estado', $this->estado);
+            if ($this->buscarNumeroDeVenta) {
+                $ventas->where('id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
+            }
+        } else {
+            if ($this->buscarNumeroDeVenta) {
+                $ventas->where('id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
+            }
         }
 
-        if ($this->buscarNumeroDeVenta) {
-            $ventas->where('ventas.id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
-        }
-
-        $ventas = $ventas->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at')
-            ->orderBy('ventas.created_at', 'desc')
-            ->paginate($this->paginate)
-            ->withQueryString();
+        $ventas = $ventas->paginate(30)->withQueryString();
 
         $pendiente = Venta::where('odontologo_id', $odontologoId)->where('estado', 1)->count();
         $pagado = Venta::where('odontologo_id', $odontologoId)->where('estado', 2)->count();

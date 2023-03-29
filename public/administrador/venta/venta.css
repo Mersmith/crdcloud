@@ -39,13 +39,20 @@
     grid-area: grid_contenedor_venta_enviar;
 }
 
-
-
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .grid_estado_orden {
         grid-template-areas:
             "grid_estado_0 grid_estado_1"
             "grid_estado_2 grid_estado_3";
         grid-gap: 10px;
     }
+
+    .grid_contenedor_venta {
+        grid-template-areas:
+            "grid_contenedor_venta_formulario"
+            "grid_contenedor_venta_tabla";
+        grid-template-columns: 100%;
+
+    }
+
 }

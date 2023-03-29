@@ -310,7 +310,7 @@
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('odontologo.venta.odontologo.editar', $ventaItem->id) }}">
+                                                href="{{ route('odontologo.venta.odontologo.informacion', $ventaItem->id) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
