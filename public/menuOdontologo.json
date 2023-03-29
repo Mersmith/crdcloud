@@ -1,5 +1,12 @@
 [
     {
+        "id": 5,
+        "nombrePrincipal": "Inicio",
+        "nombrePrincipalUrl": "odontologo.inicio.odontologo",
+        "iconoPrincipal": "fa-solid fa-house-chimney-user",
+        "subMenu1": []
+    },
+    {
         "id": 6,
         "nombrePrincipal": "Mi perfil",
         "nombrePrincipalUrl": "odontologo.perfil.odontologo.informacion",
@@ -15,7 +22,7 @@
     },
     {
         "id": 8,
-        "nombrePrincipal": "Mis ordenes",
+        "nombrePrincipal": "Mis radiografías",
         "nombrePrincipalUrl": "odontologo.venta.odontologo.index",
         "iconoPrincipal": "fa-solid fa-images",
         "subMenu1": []

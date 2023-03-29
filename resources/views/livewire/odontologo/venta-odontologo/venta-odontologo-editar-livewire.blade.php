@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Editar venta</h2>
+            <h2>Exámen</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
@@ -27,6 +27,14 @@
 
                 <!--FORMULARIO-->
                 <div class="formulario contenedor_panel_producto_admin">
+                    <!--ID VENTA-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Id venta:</p>
+                            <input type="text" value="{{ $venta->id }}" disabled>
+                        </div>
+                    </div>
+
                     <!--SEDES-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -52,7 +60,9 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Link:</p>
-                            <input type="text" value="{{ $link }}" disabled>
+                            <a href="{{ $link }}" target="_blank"
+                                style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
+                                    class="fa-brands fa-google-drive"></i> {{ $link }}</a>
                         </div>
                     </div>
 
@@ -117,7 +127,7 @@
                                                 S/. {{ $venta_detalle['precio'] }}
                                             </td>
                                             <td style="text-align: center;">
-                                                {{$venta_detalles[$index]["cantidad"]}}
+                                                {{ $venta_detalles[$index]['cantidad'] }}
                                             </td>
                                             <td style="text-align: center;">
                                                 S/.
@@ -143,6 +153,12 @@
                                             S/. {{ number_format($total) }}
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td style="text-align: right;" colspan="4">PUNTOS GANADOS:</td>
+                                        <td style="text-align: center;">
+                                            {{ $venta->puntos_ganados }}
+                                        </td>
+                                    </tr>
                                 </tfoot>
 
                             </table>
@@ -152,89 +168,71 @@
 
                     <!--IMAGENES-->
                     <div class="contenedor_panel_producto_admin">
+                        <!--CONTENEDOR SUBTITULO-->
+                        <p class="estilo_nombre_input">Imágenes:
+                        </p>
                         @if ($venta->imagenes->count())
                             <div class="contenedor_1_elementos_imagen">
                                 <div class="contenedor_imagenes_subidas_dropzone" id="sortableimagenes">
-                                    @foreach ($venta->imagenes->sortBy('posicion') as $key => $imagen)
-                                        <div wire:key="imagen-{{ $imagen->id }}" data-id="{{ $imagen->id }}">
-                                            <img class="handle2 cursor-grab"
-                                                src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
-                                            <span class="imagen_dropzone_eliminar"
-                                                wire:click="eliminarImagen({{ $imagen->id }})"
-                                                wire:loading.attr="disabled"
-                                                wire:target="eliminarImagen({{ $imagen->id }})">
-                                                <i class="fa-solid fa-trash" style="color: white;"></i>
-                                            </span>
-                                            @if ($loop->first)
-                                                <span class="imagen_dropzone_primero">
-                                                    <i class="fa-solid fa-1" style="color: white;"></i>
-                                                </span>
-                                            @endif
-                                        </div>
+                                    @foreach ($venta->imagenes as $key => $imagen)
+                                    <div>
+                                        <a href="{{ Storage::url($imagen->imagen_ruta) }}" data-lightbox="gallery">
+                                            <img src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
+                                        </a>
+                                    </div>
                                     @endforeach
+                                </div>
+                                <!--CONTENEDOR BOTONES-->
+                                <div class="contenedor_botones_admin">
+                                    <button wire:click="descargarImagenes()">
+                                        Descargar imagenes en ZIP <i class="fa-solid fa-file-zipper"></i>
+                                    </button>
                                 </div>
                             </div>
                         @endif
                     </div>
-
-                    <p>{{$venta->descargas}}</p>
-                    <p wire:click="descargar()">Descargar</p>
 
                     <!--INFORME-->
                     <div class="formulario contenedor_panel_producto_admin">
                         <!--INFORME-->
                         <div class="contenedor_1_elementos_100">
                             <div class="contenedor_elemento_item">
-                                <p class="estilo_nombre_input">Informe: <span class="campo_opcional">(Opcional)</span>
+                                <p class="estilo_nombre_input">Informe:
                                 </p>
                                 <div class="contenedor_subir_imagen_sola">
                                     @if ($editarInforme)
                                         <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
-                                        <span class="boton_imagen_eliminar" wire:click="$set('editarInforme', null)">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </span>
                                     @elseif($informe)
                                         <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
-                                        <span class="boton_imagen_borrar" wire:click="$set('informe', null)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </span>
                                     @else
                                         <img src="{{ asset('imagenes/informe/sin_foto_pdf.png') }}">
                                     @endif
-                                    <div class="opcion_cambiar_imagen">
-                                        <label for="informeSubir">
-                                            <div style="cursor: pointer;">
-                                                Editar <i class="fa-solid fa-file-pdf"></i>
-                                            </div>
-                                        </label>
-                                    </div>
                                 </div>
                                 @if ($informe)
-                                    <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
-                                        target="_blank">
-                                        <i class="fa-solid fa-file"></i>
-                                        Ver informe
-                                    </a>
+                                    <!--CONTENEDOR BOTONES-->
+                                    <div class="contenedor_botones_admin">
+                                        <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
+                                            target="_blank">
+                                            Descargar informe en ZIP <i class="fa-solid fa-file-zipper"></i>
+                                        </a>
+                                    </div>
                                 @endif
-                                <input type="file" wire:model="editarInforme" style="display: none"
-                                    id="informeSubir">
-                                @error('editarInforme')
-                                    <span>{{ $message }}</span>
-                                @enderror
                             </div>
                         </div>
                     </div>
 
-                    <!--OBSERVACIÓN-->
-                    <div class="formulario contenedor_panel_producto_admin">
+                    @if ($observacion)
                         <!--OBSERVACIÓN-->
-                        <div class="contenedor_1_elementos_100">
-                            <div class="contenedor_elemento_item">
-                                <p class="estilo_nombre_input">Observación:</p>
-                                <textarea rows="3" value="{{ $observacion }}" disabled></textarea>
+                        <div class="formulario contenedor_panel_producto_admin">
+                            <!--OBSERVACIÓN-->
+                            <div class="contenedor_1_elementos_100">
+                                <div class="contenedor_elemento_item">
+                                    <p class="estilo_nombre_input">Observación:</p>
+                                    <textarea rows="3" value="{{ $observacion }}" disabled></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @else
                     <div class="contenedor_panel_producto_admin contenedor_no_existe_elementos">
                         <p>No hay servicios agregados</p>
@@ -246,3 +244,17 @@
     </div>
 
 </div>
+
+@push('script')
+    <script>
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'showImageNumberLabel': true,
+            'alwaysShowNavOnTouchDevices': true,
+            'disableScrolling': false,
+            'maxWidth': '80%',
+            'maxHeight': '80%'
+        })
+    </script>
+@endpush

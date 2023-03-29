@@ -1,3 +1,6 @@
+->CRUD Inicio
+php artisan make:livewire Odontologo/InicioOdontologo/InicioOdontologoPagina
+
 ->CRUD Perfil
 php artisan make:livewire Odontologo/PerfilOdontologo/PerfilOdontologoInformacionPagina
 

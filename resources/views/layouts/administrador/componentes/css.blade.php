@@ -45,3 +45,6 @@
 <link rel="stylesheet" href="{{ asset('administrador/venta/venta.css') }}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+
+<!----------------------ODONTOLOGO---------------------->
+<link rel="stylesheet" href="{{ asset('odontologo/inicio/inicio.css') }}">
