@@ -33,6 +33,16 @@
             <!--FORMULARIO-->
             <div x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '', digitosRuc: '' }" class="formulario">
 
+                <!--SEDES-->
+                <div class="contenedor_1_elementos_100">
+                    <!--SEDES-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Sede CRD:
+                        </p>
+                        <input type="text" value="{{ implode(',', $sedes) }}" disabled>
+                    </div>
+                </div>
+
                 <!--ESPECIALIDADES Y NOMBRE-->
                 <div class="contenedor_2_elementos">
                     <!--ESPECIALIDADES-->

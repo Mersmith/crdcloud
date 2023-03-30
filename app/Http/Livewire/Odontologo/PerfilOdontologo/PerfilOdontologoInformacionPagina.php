@@ -16,6 +16,7 @@ class PerfilOdontologoInformacionPagina extends Component
     public $usuario_odontologo;
     public $odontologo;
     public $especialidades;
+    public $sedes;
 
     public
         $especialidad_id = "",
@@ -125,6 +126,7 @@ class PerfilOdontologoInformacionPagina extends Component
         } else {
             $this->tiene_clinica = true;
         }
+        $this->sedes = $odontologo->sedes->pluck('nombre')->toArray();
     }
 
     public function editarOdontologo()

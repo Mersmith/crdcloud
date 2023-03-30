@@ -15,14 +15,17 @@ return new class extends Migration
         Schema::create('canjeos', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('sede_id');
-            $table->unsignedBigInteger('paciente_id');
-            $table->unsignedBigInteger('odontologo_id')->nullable();
+            $table->unsignedBigInteger('sede_id')->nullable();
+            $table->unsignedBigInteger('paciente_id')->nullable();
+            $table->unsignedBigInteger('odontologo_id');
 
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('dni');
             $table->enum('estado', [Canjeo::PENDIENTE, Canjeo::APLICADO, Canjeo::ANULADO])->default(Canjeo::PENDIENTE);
             $table->float('total_puntos');
             $table->string('puntos_usados')->nullable();
-            $table->string('link')->unique();
+            $table->string('link')->unique()->nullable();
             $table->text('observacion')->nullable();
             $table->integer('descargas_imagen')->default(0);
             $table->integer('descargas_link')->default(0);
