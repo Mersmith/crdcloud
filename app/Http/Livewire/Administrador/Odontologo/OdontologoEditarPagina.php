@@ -7,6 +7,7 @@ use App\Models\Odontologo;
 use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class OdontologoEditarPagina extends Component
@@ -196,11 +197,21 @@ class OdontologoEditarPagina extends Component
 
     public function eliminarOdontologo()
     {
+        if ($this->usuario_odontologo->direccion) {
+            $this->usuario_odontologo->direccion->delete();
+        }
+
+        if ($this->odontologo->imagenPerfil) {
+            $imagenEliminar = $this->odontologo->imagenPerfil;
+            Storage::delete([$this->odontologo->imagenPerfil->imagen_perfil_ruta]);
+
+            $imagenEliminar->delete();
+        }
+
         $this->odontologo->sedes()->detach();
 
         $this->odontologo->delete();
 
-        //$usuario = User::find($this->usuario_odontologo->id);
         $this->usuario_odontologo->delete();
 
         return redirect()->route('administrador.odontologo.index');

@@ -155,7 +155,7 @@
             {
                 "id": 2,
                 "nombreSubMenu1": "Nuevo",
-                "nombreSubMenu1Url": "administrador.paciente.crear",
+                "nombreSubMenu1Url": "encargado.paciente.sede.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []
             }

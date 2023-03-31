@@ -19,7 +19,6 @@
         </div>
     </div>
 
-
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
@@ -31,10 +30,13 @@
             </div>
             <div>
                 <div>
+                    <p><strong>ID: </strong>{{ $paciente->id }} </p>
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
                     <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
                     <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
+                    <p><strong>Sede CRD: </strong>{{ implode(',', $sedes) }} </p>
+
                 </div>
             </div>
         </div>
@@ -59,7 +61,8 @@
                 </div>
             @else
                 <div>
-                    <a href="{{ route('administrador.paciente.direccion.crear', $paciente) }}" class="boton_suelto">Crear
+                    <a href="{{ route('administrador.paciente.direccion.crear', $paciente) }}"
+                        class="boton_suelto">Crear
                         Dirección</a>
                 </div>
             @endif

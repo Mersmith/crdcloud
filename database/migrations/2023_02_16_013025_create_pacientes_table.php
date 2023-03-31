@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('nombre')->nullable();
             $table->string('apellido')->nullable();
             $table->string('dni')->nullable();
+            $table->string('carnet_extranjeria')->nullable()->default(NULL);
+            $table->integer('edad')->nullable()->default(NULL);
             $table->string('email');
             $table->string('celular')->nullable();
             $table->enum('genero', ['hombre', 'mujer']);

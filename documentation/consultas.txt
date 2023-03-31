@@ -239,3 +239,115 @@ $usuarios = User::whereHas('direcciones', function($query) use ($provincia_id) {
 
 //Concatenar correo
 =L7886&""&A7886&""&M7886
+
+//Los dni repetidos de pacientes
+SELECT dni, COUNT(*) AS cantidad
+FROM pacientes
+GROUP BY dni
+HAVING COUNT(*) > 1;
+
+//Los dni repetidos de pacientes en registros
+SELECT *
+FROM pacientes
+WHERE dni IN (
+    SELECT dni
+    FROM pacientes
+    GROUP BY dni
+    HAVING COUNT(*) > 1
+);
+
+//Mostrar todos los pacientes que no tienen ventas
+SELECT *
+FROM pacientes
+LEFT JOIN ventas ON pacientes.id = ventas.paciente_id
+WHERE ventas.paciente_id IS NULL;
+
+//Eliminar todos los pacientes que no tienen ventas
+DELETE pacientes
+FROM pacientes
+LEFT JOIN ventas ON pacientes.id = ventas.paciente_id
+WHERE ventas.paciente_id IS NULL;
+
+//Contador todos los pacientes que no tienen ventas
+SELECT COUNT(*) as total_pacientes_sin_ventas
+FROM pacientes
+LEFT JOIN ventas ON pacientes.id = ventas.paciente_id
+WHERE ventas.paciente_id IS NULL;
+
+//Muestra las direcciones de los pacientes que no tienen ventas relacionado user
+SELECT d.*
+FROM pacientes p
+LEFT JOIN ventas v ON p.id = v.paciente_id
+LEFT JOIN users u ON p.user_id = u.id
+LEFT JOIN direccions d ON u.id = d.user_id
+WHERE v.paciente_id IS NULL;
+
+//Eliminar las direcciones de los pacientes que no tienen ventas relacionado user
+DELETE d
+FROM pacientes p
+LEFT JOIN ventas v ON p.id = v.paciente_id
+LEFT JOIN users u ON p.user_id = u.id
+LEFT JOIN direccions d ON u.id = d.user_id
+WHERE v.paciente_id IS NULL;
+
+//Eliminar las direcciones que tienen el user_id null
+DELETE FROM direccions
+WHERE user_id IS NULL;
+
+//Muestra las sedes de los pacientes que no tienen ventas de la tabla paciente_sede
+SELECT ps.*
+FROM paciente_sede ps
+JOIN (
+  SELECT pacientes.id
+  FROM pacientes
+  LEFT JOIN ventas ON pacientes.id = ventas.paciente_id
+  WHERE ventas.paciente_id IS NULL
+) p ON ps.paciente_id = p.id;
+
+SELECT ps.*
+FROM paciente_sede ps
+INNER JOIN (
+  SELECT p.id
+  FROM pacientes p
+  LEFT JOIN ventas v ON p.id = v.paciente_id
+  WHERE v.paciente_id IS NULL
+) p ON ps.paciente_id = p.id LIMIT 0, 25
+
+//Elimine los registros de las sedes de los pacientes que no tienen ventas de la tabla paciente_sede
+DELETE ps
+FROM paciente_sede ps
+JOIN (
+  SELECT pacientes.id
+  FROM pacientes
+  LEFT JOIN ventas ON pacientes.id = ventas.paciente_id
+  WHERE ventas.paciente_id IS NULL
+) p ON ps.paciente_id = p.id;
+
+
+//Muestra los registros de los pacientes que no tienen ventas de la tabla odontologo_paciente
+SELECT ps.*
+FROM odontologo_paciente ps
+JOIN (
+  SELECT pacientes.id
+  FROM pacientes
+  LEFT JOIN ventas ON pacientes.id = ventas.paciente_id
+  WHERE ventas.paciente_id IS NULL
+) p ON ps.paciente_id = p.id;
+
+
+SELECT * FROM `ventas` WHERE `paciente_id` = 451
+
+
+//Pacientes que no tienen ventas relacionadas con USERS
+SELECT u.*
+FROM pacientes p
+LEFT JOIN ventas v ON p.id = v.paciente_id
+LEFT JOIN users u ON p.user_id = u.id
+WHERE v.paciente_id IS NULL;
+
+//Eliminar los usurios de los Pacientes que no tienen ventas relacionadas con USERS
+DELETE u
+FROM pacientes p
+LEFT JOIN ventas v ON p.id = v.paciente_id
+LEFT JOIN users u ON p.user_id = u.id
+WHERE v.paciente_id IS NULL;
