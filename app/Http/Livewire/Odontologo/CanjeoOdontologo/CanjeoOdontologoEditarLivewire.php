@@ -3,12 +3,15 @@
 namespace App\Http\Livewire\Odontologo\CanjeoOdontologo;
 
 use App\Models\Canjeo;
+use App\Models\CanjeoDetalle;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CanjeoOdontologoEditarLivewire extends Component
 {
+    protected $listeners = ['eliminarCanjeo'];
+
     public $odontologo, $puntos;
 
     public $servicios;
@@ -51,11 +54,12 @@ class CanjeoOdontologoEditarLivewire extends Component
 
         $this->servicios = Servicio::pluck('nombre', 'id');
 
+        $this->nombre = $canjeo->nombre;
+        $this->apellido = $canjeo->apellido;
+        $this->dni = $canjeo->dni;
+
         $this->observacion = $canjeo->observacion;
         $this->total = $canjeo->total_puntos;
-
-        //dd($this->servicios);
-
     }
 
     public function agregarCarrito()
@@ -96,46 +100,104 @@ class CanjeoOdontologoEditarLivewire extends Component
         array_splice($this->carrito, $index, 1);
     }
 
-    public function crearVenta()
+    public function obtenerTotal()
+    {
+        return array_reduce($this->canjeo_detalles, function ($carry, $item) {
+            return $carry + ($item['cantidad'] * $item['puntos']);
+        }, 0);
+    }
+
+    public function actualizarCanjeo()
     {
         $rules = [];
 
-        $rules['servicio'] = 'required';
-        $rules['nombre'] = 'required';
-        $rules['apellido'] = 'required';
-        $rules['dni'] = 'required';
-        $rules['carrito'] = 'required';
+        $rules['canjeo_detalles'] = 'required';
 
         $this->validate($rules);
 
-        $estado = 1;
-
-        $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
+        $subTotalPuntos = $this->obtenerTotal();
         $totalPuntos = $subTotalPuntos;
 
         $puntosOdontologo = Auth::user()->odontologo->puntos;
 
         if ($totalPuntos <= $puntosOdontologo) {
 
-            //Tabla Canjeo
-            $nuevaCanjeo = new Canjeo();
-            $nuevaCanjeo->odontologo_id = $this->odontologo->id;
-            $nuevaCanjeo->nombre = $this->nombre;
-            $nuevaCanjeo->apellido = $this->apellido;
-            $nuevaCanjeo->dni = $this->dni;
-            $nuevaCanjeo->estado = $estado;
-            $nuevaCanjeo->total_puntos = $totalPuntos;
-            $nuevaCanjeo->puntos_usados = $totalPuntos;
-            $nuevaCanjeo->observacion = $this->observacion;
-            $nuevaCanjeo->save();
+            $this->canjeo->nombre = $this->nombre;
+            $this->canjeo->apellido = $this->apellido;
+            $this->canjeo->dni = $this->dni;
+            $this->canjeo->total_puntos = $totalPuntos;
+            $this->canjeo->puntos_usados = $totalPuntos;
+            $this->canjeo->observacion = $this->observacion;
+            $this->canjeo->update();
 
-            //Tabla CanjeoDetalle
-            $nuevaCanjeo->canjeoDetalle()->createMany($this->carrito);
-
-            $this->emit('mensajeCreado', "Creado.");
+            $this->emit('mensajeCreado', "Actualizado.");
         } else {
             $this->emit('mensajeError', "Puntos insuficientes.");
         }
+    }
+
+    public function actualizarCantidad($canjeo_detalle_id, $nueva_cantidad)
+    {
+        $detalle_canjeo = CanjeoDetalle::find($canjeo_detalle_id);
+        $detalle_canjeo->cantidad = $nueva_cantidad;
+        $detalle_canjeo->save();
+
+        $this->total = $this->obtenerTotal();
+        $this->canjeo->total_puntos = $this->total;
+        $this->canjeo->update();
+    }
+
+    public function agregarServicioAlDetalleCanjeo()
+    {
+        $rules = [];
+
+        $rules['servicio'] = 'required';
+
+        $this->validate($rules);
+
+        $servicio = Servicio::findOrFail($this->servicio);
+
+        foreach ($this->canjeo_detalles as $detalle) {
+            if ($detalle['servicio_id'] == $this->servicio) {
+                $this->emit('mensajeError', "Ya existe el servicio.");
+                return;
+            }
+        }
+
+        $canjeo_detalle = new CanjeoDetalle();
+        $canjeo_detalle->canjeo_id = $this->canjeo_id;
+        $canjeo_detalle->servicio_id = $servicio->id;
+        $canjeo_detalle->cantidad = $this->cantidad;
+        $canjeo_detalle->puntos =  $servicio->puntos_canjeo;
+        $canjeo_detalle->save();
+
+        $this->canjeo_detalles[] = $canjeo_detalle->toArray();
+
+        $this->total = $this->obtenerTotal();
+        $this->canjeo->total_puntos = $this->total;
+        $this->canjeo->update();
+    }
+
+    public function eliminarUnDetalleCanjeo($canjeo_detalle_id, $index)
+    {
+        $canjeo_detalle = CanjeoDetalle::findOrFail($canjeo_detalle_id);
+        $canjeo_detalle->delete();
+
+        array_splice($this->canjeo_detalles, $index, 1);
+
+        $this->total = $this->obtenerTotal();
+        $this->canjeo->total_puntos = $this->total;
+        $this->canjeo->update();
+    }
+
+    public function eliminarCanjeo()
+    {
+        if ($this->canjeo) {
+            $this->canjeo->canjeoDetalle()->delete();
+            $this->canjeo->delete();
+        } else {
+        }
+        return redirect()->route('odontologo.canjeo.odontologo.index');
     }
 
     public function render()
