@@ -11,8 +11,11 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.canjeo.index') }}">
+            <a href="{{ route('odontologo.canjeo.odontologo.index') }}">
                 <i class="fa-solid fa-arrow-left"></i> Regresar</a>
+            <button wire:click="$emit('eliminarCanjeoModal')">
+                Eliminar canjeo <i class="fa-solid fa-trash-can"></i>
+            </button>
         </div>
     </div>
 
@@ -74,7 +77,8 @@
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_1_elementos">
-                            <button wire:target="agregarCarrito" wire:click="agregarCarrito">
+                            <button wire:target="agregarServicioAlDetalleCanjeo"
+                                wire:click="agregarServicioAlDetalleCanjeo">
                                 Agregar servicio
                             </button>
                         </div>
@@ -178,13 +182,13 @@
                                 </tbody>
 
                                 @php
-                                     $total = array_reduce(
-                                            $canjeo_detalles,
-                                            function ($carry, $item) {
-                                                return $carry + $item['cantidad'] * $item['puntos'];
-                                            },
-                                            0,
-                                        );
+                                    $total = array_reduce(
+                                        $canjeo_detalles,
+                                        function ($carry, $item) {
+                                            return $carry + $item['cantidad'] * $item['puntos'];
+                                        },
+                                        0,
+                                    );
                                 @endphp
                                 <!--PIE-->
                                 <tfoot>
@@ -200,7 +204,7 @@
                     </div>
 
                 </div>
-                @if (count($carrito) > 0)
+                @if (count($canjeo_detalles) > 0)
                     <!--OBSERVACIÓN-->
                     <div class="formulario contenedor_panel_producto_admin">
                         <!--OBSERVACIÓN-->
@@ -219,9 +223,9 @@
 
                     <!--ENVIAR-->
                     <div style="display: flex; justify-content: flex-end;">
-                        <button class="boton_suelto" wire:loading.attr="disabled" wire:target="crearVenta"
-                            wire:click="crearVenta">
-                            Canjear
+                        <button class="boton_suelto" wire:loading.attr="disabled" wire:target="actualizarCanjeo"
+                            wire:click="actualizarCanjeo">
+                            Actualizar canjeo
                         </button>
                     </div>
                 @else
@@ -236,3 +240,31 @@
         </div>
 
     </div>
+</div>
+
+@push('script')
+    <script>
+        Livewire.on('eliminarCanjeoModal', () => {
+            Swal.fire({
+                title: '¿Quieres eliminar?',
+                text: "No podrás recuparlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('odontologo.canjeo-odontologo.canjeo-odontologo-editar-livewire',
+                        'eliminarCanjeo');
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'Eliminaste correctamente.',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+@endpush

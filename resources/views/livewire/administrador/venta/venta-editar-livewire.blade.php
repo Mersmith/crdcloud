@@ -138,7 +138,7 @@
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_1_elementos">
-                            <button wire:target="agregarCarrito" wire:click="agregarServicioAlDetalleVenta">
+                            <button wire:target="agregarServicioAlDetalleVenta" wire:click="agregarServicioAlDetalleVenta">
                                 Agregar servicio
                             </button>
                         </div>
