@@ -113,6 +113,10 @@ class PacienteEditarPagina extends Component
 
     public function eliminarPaciente()
     {
+        if ($this->usuario_paciente->direccion) {
+            $this->usuario_paciente->direccion->delete();
+        }
+
         $this->paciente->sedes()->detach();
 
         $this->paciente->odontologos()->detach();

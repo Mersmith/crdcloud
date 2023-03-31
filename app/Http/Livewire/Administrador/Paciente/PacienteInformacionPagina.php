@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Administrador\Paciente;
 
 use App\Models\Paciente;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class PacienteInformacionPagina extends Component
@@ -12,6 +13,7 @@ class PacienteInformacionPagina extends Component
     public $odontologos;
     public $clinicas;
     public $direccion;
+    public $sedes;
 
     public function mount(Paciente $paciente)
     {
@@ -22,6 +24,8 @@ class PacienteInformacionPagina extends Component
         $this->clinicas = $paciente->odontologos()->where('rol', '=', 'clinica')->limit(10)->get();
 
         $this->direccion = $paciente->user->direccion;
+
+        $this->sedes = $paciente->sedes->pluck('nombre')->toArray();
     }
 
     public function render()
