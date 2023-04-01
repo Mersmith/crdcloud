@@ -97,6 +97,7 @@ class OdontologoSedeCrearPagina extends Component
     {
         $this->especialidades = Especialidad::all();
         $this->sede = Auth::user()->encargado->sede;
+        $this->puntos = config('services.crd.puntos_ingreso');
     }
 
     public function generarUsername($nombre, $apellido)

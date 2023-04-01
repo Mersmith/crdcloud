@@ -112,11 +112,11 @@ Route::get('paciente/{paciente}/direccion/crear', PacienteSedeDireccionCrearPagi
 Route::get('paciente/{paciente}/direccion/editar', PacienteSedeDireccionEditarPagina::class)->name('paciente.sede.direccion.editar');
 
 Route::get('ventas', VentaSedeTodoLivewire::class)->name('venta.sede.index');
-Route::get('venta/crear', VentaCrearLivewire::class)->name('venta.crear');
+Route::get('venta/crear', VentaCrearLivewire::class)->name('venta.sede.crear');
 Route::get('venta/{venta}/editar', VentaEditarLivewire::class)->name('venta.editar');
 Route::post('venta/{venta}/dropzone', [VentaController::class, 'dropzone'])->name('venta.dropzone');
 
-Route::get('canjeos', CanjeoTodoLivewire::class)->name('canjeo.index');
-Route::get('canjeo/crear', CanjeoCrearLivewire::class)->name('canjeo.crear');
-Route::get('canjeo/{canjeo}/editar', CanjeoEditarLivewire::class)->name('canjeo.editar');
+Route::get('canjeos', CanjeoTodoLivewire::class)->name('canjeo.sede.index');
+Route::get('canjeo/crear', CanjeoCrearLivewire::class)->name('canjeo.sede.crear');
+Route::get('canjeo/{canjeo}/editar', CanjeoEditarLivewire::class)->name('canjeo.sede.editar');
 Route::post('canjeo/{canjeo}/dropzone', [CanjeoController::class, 'dropzone'])->name('canjeo.dropzone');

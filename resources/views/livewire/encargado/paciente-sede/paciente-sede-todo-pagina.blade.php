@@ -119,11 +119,11 @@
                                         </td>
                                         <td>
                                             <a style="color: #009eff;"
-                                                href="{{ route('administrador.paciente.informacion', $paciente) }}">
+                                                href="{{ route('encargado.paciente.sede.informacion', $paciente) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                             <a style="color: green;"
-                                                href="{{ route('administrador.paciente.editar', $paciente) }}">
+                                                href="{{ route('encargado.paciente.sede.editar', $paciente) }}">
                                                 <span><i class="fa-solid fa-pencil"></i></span>
                                             </a>
                                         </td>
