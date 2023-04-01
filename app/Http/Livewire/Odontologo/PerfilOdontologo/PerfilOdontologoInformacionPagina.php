@@ -40,7 +40,6 @@ class PerfilOdontologoInformacionPagina extends Component
     public $imagen;
     public $editarImagen = null;
 
-
     protected $rules = [
         'especialidad_id' => 'required',
         'nombre' => 'required',

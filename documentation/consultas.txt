@@ -351,3 +351,15 @@ FROM pacientes p
 LEFT JOIN ventas v ON p.id = v.paciente_id
 LEFT JOIN users u ON p.user_id = u.id
 WHERE v.paciente_id IS NULL;
+
+//Mostrar todos los odontologos que no tienen ventas
+SELECT *
+FROM odontologos
+LEFT JOIN ventas ON odontologos.id = ventas.odontologo_id
+WHERE ventas.odontologo_id IS NULL;
+
+//Contador todos los odontologos que no tienen ventas
+SELECT COUNT(*) as total_odontologos_sin_ventas
+FROM odontologos
+LEFT JOIN ventas ON odontologos.id = ventas.odontologo_id
+WHERE ventas.odontologo_id IS NULL;

@@ -153,8 +153,8 @@
 
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="puntos">
+                        <p class="estilo_nombre_input">Puntos de bienvenida: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="number" value="{{$puntos}}" disabled>
                         @error('puntos')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
