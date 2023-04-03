@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Encargado\VentaSede;
 
 use App\Models\Venta;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,23 +26,25 @@ class VentaSedeTodoLivewire extends Component
     public function render()
     {
         $sedeId = $this->sede_id;
-        //$ventas = Venta::query()->orderBy('created_at', 'desc');
-        $ventas = Venta::query();
 
-        $ventas->where('sede_id', $sedeId);
+        $ventas = DB::table('ventas')
+            ->leftJoin('venta_detalles', 'ventas.id', '=', 'venta_detalles.venta_id')
+            ->leftJoin('servicios', 'venta_detalles.servicio_id', '=', 'servicios.id')
+            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'))
+            ->where('ventas.sede_id', $sedeId);
 
         if ($this->estado) {
-            $ventas->where('estado', $this->estado);
-            if ($this->buscarNumeroDeVenta) {
-                $ventas->where('id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
-            }
-        } else {
-            if ($this->buscarNumeroDeVenta) {
-                $ventas->where('id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
-            }
+            $ventas->where('ventas.estado', $this->estado);
         }
 
-        $ventas = $ventas->paginate(30)->withQueryString();
+        if ($this->buscarNumeroDeVenta) {
+            $ventas->where('ventas.id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
+        }
+
+        $ventas = $ventas->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at')
+            ->orderBy('ventas.created_at', 'desc')
+            ->paginate($this->paginate)
+            ->withQueryString();
 
         $pendiente = Venta::where('sede_id', $sedeId)->where('estado', 1)->count();
         $pagado = Venta::where('sede_id', $sedeId)->where('estado', 2)->count();

@@ -68,3 +68,5 @@ php artisan make:livewire Encargado/VentaSede/VentaSedeEstadisticaVentaAnosCanti
 php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeTodoLivewire
 php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeCrearLivewire
 php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeEditarLivewire
+
+php artisan make:controller Encargado/VentaController
