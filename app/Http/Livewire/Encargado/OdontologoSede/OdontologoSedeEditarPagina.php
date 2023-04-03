@@ -6,7 +6,10 @@ use App\Models\Especialidad;
 use App\Models\Odontologo;
 use App\Models\Sede;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use DOMDocument;
+use DOMXPath;
 
 class OdontologoSedeEditarPagina extends Component
 {
@@ -51,6 +54,7 @@ class OdontologoSedeEditarPagina extends Component
     ];
 
     protected $validationAttributes = [
+        'sedesSeleccionadas' => 'sedes',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
         'username.required' => 'El :attribute es requerido.',
@@ -68,6 +72,7 @@ class OdontologoSedeEditarPagina extends Component
     ];
 
     protected $messages = [
+        'sedesSeleccionadas.required' => 'La :attribute es requerido.',
         'email.required' => 'El :attribute es requerido.',
         'email.unique' => 'El :attribute ya existe.',
         'editar_password.required' => 'La :attribute es requerido.',
@@ -125,10 +130,8 @@ class OdontologoSedeEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['username'] = 'required|unique:users,username,' . $this->usuario_odontologo->id;
         $rules['dni'] = 'required|digits:8|unique:odontologos,dni,' . $this->odontologo->id;
-        $rules['cop'] = 'required|max:6|unique:odontologos,cop,' . $this->odontologo->id;
-        $rules['email'] = 'required|unique:users,email,' . $this->usuario_odontologo->id;
+        $rules['cop'] = 'required|unique:odontologos,cop,' . $this->odontologo->id;
 
         if ($this->tiene_clinica) {
             $rules['ruc'] = 'required|digits:11';
@@ -139,6 +142,44 @@ class OdontologoSedeEditarPagina extends Component
             $this->nombre_clinica = null;
             $rol = "odontologo";
         }
+
+        $this->validate($rules);
+
+        $respuesta_cop = $this->validarCop();
+
+        if ($respuesta_cop->length == 0) {
+            $this->emit('mensajeError', "COP no existe.");
+            return;
+        }
+
+        $this->odontologo->update(
+            [
+                'especialidad_id' => $this->especialidad_id,
+                'nombre' => $this->nombre,
+                'apellido' => $this->apellido,
+                'email' => $this->email,
+                'dni' => $this->dni,
+                'cop' => $this->cop,
+                'celular' => $this->celular,
+                'fecha_nacimiento' => $this->fecha_nacimiento,
+                'genero' => $this->genero,
+                'rol' => $rol,
+                'ruc' => $this->ruc,
+                'nombre_clinica' => $this->nombre_clinica,
+            ]
+        );
+
+        $this->odontologo->sedes()->sync($this->sedesSeleccionadas);
+
+        $this->emit('mensajeActualizado', "Editado.");
+    }
+
+    public function editarAcceso()
+    {
+        $rules = [];
+
+        //$rules['username'] = 'required|unique:users,username,' . $this->usuario_odontologo->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_odontologo->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -156,39 +197,51 @@ class OdontologoSedeEditarPagina extends Component
 
         $this->odontologo->update(
             [
-                'especialidad_id' => $this->especialidad_id,
-                'nombre' => $this->nombre,
-                'apellido' => $this->apellido,
                 'email' => $this->email,
-                'dni' => $this->dni,
-                'cop' => $this->cop,
-                'celular' => $this->celular,
-                'fecha_nacimiento' => $this->fecha_nacimiento,
-                'genero' => $this->genero,
-                'puntos' => $this->puntos,
-                'rol' => $rol,
-                'ruc' => $this->ruc,
-                'nombre_clinica' => $this->nombre_clinica,
             ]
         );
 
-        $this->odontologo->sedes()->sync($this->sedesSeleccionadas);
-
         if ($this->editar_password) {
-            //$usuario = User::find($this->odontologo->user_id);
-
-            //$contrasenaAntiguaHash = $usuario->password;
             $contrasenaNueva = $this->editar_password;
 
             $this->usuario_odontologo->password = Hash::make($contrasenaNueva);
             $this->usuario_odontologo->save();
         }
 
-        $this->emit('mensajeActualizado', "Editado.");
+        $this->emit('mensajeActualizado', "Acceso actualizado.");
+    }
+
+    public function validarCop()
+    {
+        $theFile = file_get_contents('https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp?TxtBusqueda=' . $this->cop);
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($theFile);
+        $body = "";
+        foreach ($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
+            $body .= $dom->saveHTML($child);
+        }
+
+        $finder = new DOMXPath($dom);
+        $nodes = $finder->query("/html/body/form/table");
+
+        return $nodes;
     }
 
     public function eliminarOdontologo()
     {
+        if ($this->usuario_odontologo->direccion) {
+            $this->usuario_odontologo->direccion->delete();
+        }
+
+        if ($this->odontologo->imagenPerfil) {
+            $imagenEliminar = $this->odontologo->imagenPerfil;
+            Storage::delete([$this->odontologo->imagenPerfil->imagen_perfil_ruta]);
+
+            $imagenEliminar->delete();
+        }
+
         $this->odontologo->sedes()->detach();
 
         $this->odontologo->delete();

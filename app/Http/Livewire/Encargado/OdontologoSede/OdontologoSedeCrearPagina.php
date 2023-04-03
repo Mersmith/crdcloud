@@ -3,12 +3,13 @@
 namespace App\Http\Livewire\Encargado\OdontologoSede;
 
 use App\Models\Especialidad;
-use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use DOMDocument;
+use DOMXPath;
 
 class OdontologoSedeCrearPagina extends Component
 {
@@ -42,7 +43,7 @@ class OdontologoSedeCrearPagina extends Component
         'username' => 'required|unique:users',
         'password' => 'required',
         'dni' => 'required|digits:8|unique:odontologos',
-        'cop' => 'required|max:6|unique:odontologos',
+        'cop' => 'required|unique:odontologos',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
@@ -53,8 +54,8 @@ class OdontologoSedeCrearPagina extends Component
         'especialidad_id' => 'especialidad',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
-        'email' => 'email',
         'username' => 'nombre de usuario',
+        'email' => 'email',
         'password' => 'contraseña',
         'dni' => 'DNI',
         'cop' => 'COP',
@@ -70,10 +71,10 @@ class OdontologoSedeCrearPagina extends Component
         'especialidad_id.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
-        'email.required' => 'El :attribute es requerido.',
-        'email.unique' => 'El :attribute ya existe.',
         'username.required' => 'El :attribute es requerido.',
         'username.unique' => 'El :attribute ya existe.',
+        'email.required' => 'El :attribute es requerido.',
+        'email.unique' => 'El :attribute ya existe.',        
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
@@ -127,7 +128,7 @@ class OdontologoSedeCrearPagina extends Component
     {
 
         $this->username = $this->generarUsername($this->nombre, $this->apellido);
-    }
+    }    
 
     public function crearOdontologo()
     {
@@ -144,6 +145,13 @@ class OdontologoSedeCrearPagina extends Component
         }
 
         $this->validate($rules);
+
+        $respuesta_cop = $this->validarCop();
+
+        if ($respuesta_cop->length == 0) {
+            $this->emit('mensajeError', "COP no existe.");
+            return;
+        }
 
         $usuario = new User();
         $usuario->email = $this->email;
@@ -175,6 +183,24 @@ class OdontologoSedeCrearPagina extends Component
         $this->emit('mensajeCreado', "Creado.");
 
         return redirect()->route('encargado.odontologo.sede.editar', $usuario->odontologo->id);
+    }
+
+    public function validarCop()
+    {
+        $theFile = file_get_contents('https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp?TxtBusqueda=' . $this->cop);
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($theFile);
+        $body = "";
+        foreach ($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
+            $body .= $dom->saveHTML($child);
+        }
+
+        $finder = new DOMXPath($dom);
+        $nodes = $finder->query("/html/body/form/table");
+
+        return $nodes;
     }
 
     public function render()

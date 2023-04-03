@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Administrador\Odontologo;
 
 use App\Models\Departamento;
-use App\Models\Direccion;
 use App\Models\Distrito;
 use App\Models\Odontologo;
 use App\Models\Provincia;

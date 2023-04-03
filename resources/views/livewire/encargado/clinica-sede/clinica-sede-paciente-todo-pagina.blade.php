@@ -11,7 +11,7 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('encargado.clinica.sede.index') }}">
+            <a href="{{ route('encargado.clinica.sede.informacion', $clinica) }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <a href="{{ route('encargado.clinica.sede.paciente.crear', $clinica) }}">
                 Nuevo Paciente <i class="fa-solid fa-square-plus"></i></a>

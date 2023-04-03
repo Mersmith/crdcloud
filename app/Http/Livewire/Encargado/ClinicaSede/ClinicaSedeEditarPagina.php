@@ -6,7 +6,10 @@ use App\Models\Especialidad;
 use App\Models\Odontologo;
 use App\Models\Sede;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use DOMDocument;
+use DOMXPath;
 
 class ClinicaSedeEditarPagina extends Component
 {
@@ -48,6 +51,7 @@ class ClinicaSedeEditarPagina extends Component
     ];
 
     protected $validationAttributes = [
+        'sedesSeleccionadas' => 'sedes',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
         'username.required' => 'El :attribute es requerido.',
@@ -65,6 +69,7 @@ class ClinicaSedeEditarPagina extends Component
     ];
 
     protected $messages = [
+        'sedesSeleccionadas.required' => 'La :attribute es requerido.',
         'email.required' => 'El :attribute es requerido.',
         'email.unique' => 'El :attribute ya existe.',
         'editar_password.required' => 'La :attribute es requerido.',
@@ -115,26 +120,19 @@ class ClinicaSedeEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['username'] = 'required|unique:users,username,' . $this->usuario_clinica->id;
         $rules['dni'] = 'required|digits:8|unique:odontologos,dni,' . $this->clinica->id;
-        $rules['cop'] = 'required|digits:6|unique:odontologos,cop,' . $this->clinica->id;
-        $rules['email'] = 'required|unique:users,email,' . $this->usuario_clinica->id;
+        $rules['cop'] = 'required|unique:odontologos,cop,' . $this->clinica->id;
         $rules['ruc'] = 'required|digits:11|unique:odontologos,ruc,' . $this->clinica->id;
         $rules['nombre_clinica'] = 'required|unique:odontologos,nombre_clinica,' . $this->clinica->id;
 
-        if ($this->editar_password) {
-            $rules['editar_password'] = 'required';
-        } else {
-            $this->editar_password = null;
-        }
-
         $this->validate($rules);
 
-        $this->usuario_clinica->update(
-            [
-                'email' => $this->email,
-            ]
-        );
+        $respuesta_cop = $this->validarCop();
+
+        if ($respuesta_cop->length == 0) {
+            $this->emit('mensajeError', "COP no existe.");
+            return;
+        }
 
         $this->clinica->update(
             [
@@ -155,6 +153,35 @@ class ClinicaSedeEditarPagina extends Component
 
         $this->clinica->sedes()->sync($this->sedesSeleccionadas);
 
+        $this->emit('mensajeActualizado', "Editado.");
+    }
+
+    public function editarAcceso()
+    {
+        $rules = [];
+        //$rules['username'] = 'required|unique:users,username,' . $this->usuario_clinica->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_clinica->id;
+
+        if ($this->editar_password) {
+            $rules['editar_password'] = 'required';
+        } else {
+            $this->editar_password = null;
+        }
+
+        $this->validate($rules);
+
+        $this->usuario_clinica->update(
+            [
+                'email' => $this->email,
+            ]
+        );
+
+        $this->clinica->update(
+            [
+                'email' => $this->email,
+            ]
+        );
+
         if ($this->editar_password) {
             $contrasenaNueva = $this->editar_password;
 
@@ -162,11 +189,40 @@ class ClinicaSedeEditarPagina extends Component
             $this->usuario_clinica->save();
         }
 
-        $this->emit('mensajeActualizado', "Editado.");
+        $this->emit('mensajeActualizado', "Acceso actualizado.");
+    }
+
+    public function validarCop()
+    {
+        $theFile = file_get_contents('https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp?TxtBusqueda=' . $this->cop);
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($theFile);
+        $body = "";
+        foreach ($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
+            $body .= $dom->saveHTML($child);
+        }
+
+        $finder = new DOMXPath($dom);
+        $nodes = $finder->query("/html/body/form/table");
+
+        return $nodes;
     }
 
     public function eliminarClinica()
     {
+        if ($this->usuario_clinica->direccion) {
+            $this->usuario_clinica->direccion->delete();
+        }
+
+        if ($this->clinica->imagenPerfil) {
+            $imagenEliminar = $this->clinica->imagenPerfil;
+            Storage::delete([$this->clinica->imagenPerfil->imagen_perfil_ruta]);
+
+            $imagenEliminar->delete();
+        }
+
         $this->clinica->sedes()->detach();
 
         $this->clinica->delete();

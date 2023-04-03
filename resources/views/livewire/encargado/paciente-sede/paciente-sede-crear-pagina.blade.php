@@ -10,7 +10,7 @@
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.paciente.index') }}">
+            <a href="{{ route('encargado.paciente.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
         </div>
     </div>

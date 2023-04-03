@@ -2,12 +2,8 @@
 
 namespace App\Http\Livewire\Encargado\PacienteSede;
 
-use App\Models\Clinica;
-use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\Sede;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class PacienteSedeEditarPagina extends Component
@@ -138,7 +134,6 @@ class PacienteSedeEditarPagina extends Component
         $this->paciente->sedes()->sync($this->sedesSeleccionadas);
 
         $this->emit('mensajeActualizado', "Editado.");
-        //return redirect()->route('administrador.paciente.index');
     }
 
     public function eliminarPaciente()
@@ -155,7 +150,7 @@ class PacienteSedeEditarPagina extends Component
 
         $this->usuario_paciente->delete();
 
-        //return redirect()->route('administrador.paciente.index');
+        return redirect()->route('encargado.paciente.sede.index');
     }
 
     public function render()

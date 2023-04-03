@@ -11,18 +11,17 @@
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.paciente.index') }}">
+            <a href="{{ route('encargado.paciente.sede.index') }}">
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <button wire:click="$emit('eliminarPacienteModal')">
                 Eliminar paciente <i class="fa-solid fa-trash-can"></i>
             </button>
-            <a href="{{ route('administrador.paciente.crear') }}">
+            <a href="{{ route('encargado.paciente.sede.crear') }}">
                 Nuevo paciente <i class="fa-solid fa-square-plus"></i></a>
-            <a href="{{ route('administrador.paciente.informacion', $paciente) }}">
+            <a href="{{ route('encargado.paciente.sede.informacion', $paciente) }}">
                 Información del paciente <i class="fa-solid fa-eye"></i></a>
         </div>
     </div>
-
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
@@ -105,10 +104,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--GÉNERO-->
-                <div class="contenedor_2_elementos">
                     <!--GÉNERO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Género: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -210,7 +206,7 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('administrador.paciente.paciente-editar-pagina',
+                    Livewire.emitTo('encargado.paciente-sede.paciente-sede-editar-pagina',
                         'eliminarPaciente');
                     Swal.fire(
                         '¡Eliminado!',
