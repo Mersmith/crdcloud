@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Livewire\Administrador\Venta;
+namespace App\Http\Livewire\Encargado\VentaSede;
 
-use App\Models\Clinica;
 use App\Models\Odontologo;
 use App\Models\Sede;
 use App\Models\Servicio;
 use App\Models\Venta;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class VentaCrearLivewire extends Component
+class VentaSedeCrearLivewire extends Component
 {
     use WithFileUploads;
 
@@ -61,7 +61,12 @@ class VentaCrearLivewire extends Component
     public function mount()
     {
         $this->sedes = Sede::all();
+
+        $this->sede = Auth::user()->encargado->sede;
+        $this->sede_id = $this->sede->id;
         $this->servicios = Servicio::select('id', 'nombre')->get();
+        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
     }
 
     public function updatedSedeId($value)
@@ -174,7 +179,6 @@ class VentaCrearLivewire extends Component
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
         $rules['imagenes'] = 'required';
-        //$rules['link'] = 'required';
         $rules['carrito'] = 'required';
 
         if ($this->odontologo_id || $this->clinica_id) {
@@ -228,7 +232,7 @@ class VentaCrearLivewire extends Component
             }
 
             //Pagado
-            if($this->estado == 2){
+            if ($this->estado == 2) {
                 if ($this->odontologo_id) {
                     $this->odontologo->update(
                         [
@@ -245,6 +249,9 @@ class VentaCrearLivewire extends Component
             }
 
             $this->emit('mensajeCreado', "Creado.");
+
+            return redirect()->route('encargado.venta.sede.editar', $nuevaVenta->id);
+
         } else {
             $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
         }
@@ -252,6 +259,6 @@ class VentaCrearLivewire extends Component
 
     public function render()
     {
-        return view('livewire.administrador.venta.venta-crear-livewire')->layout('layouts.administrador.index');
+        return view('livewire.encargado.venta-sede.venta-sede-crear-livewire')->layout('layouts.administrador.index');
     }
 }

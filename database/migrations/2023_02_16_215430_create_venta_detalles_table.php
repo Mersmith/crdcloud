@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->integer('cantidad');
             $table->float('precio');
+            $table->integer('puntos');
             //$table->json('contenido')->nullable();
 
             $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');

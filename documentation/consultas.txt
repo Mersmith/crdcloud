@@ -363,3 +363,17 @@ SELECT COUNT(*) as total_odontologos_sin_ventas
 FROM odontologos
 LEFT JOIN ventas ON odontologos.id = ventas.odontologo_id
 WHERE ventas.odontologo_id IS NULL;
+
+//Actualizar estado de ventas
+UPDATE ventas SET estado = 2 WHERE estado = '';
+
+//Actualizar la tabla pacientes con otra tabla pacient
+UPDATE paciente p
+INNER JOIN pacient pt ON p.id = pt.id
+SET p.edad = pt.edad
+WHERE p.edad IS NULL;
+
+//Actualizar la tabla pacientes con otra tabla pacient
+UPDATE venta_detalles vd
+INNER JOIN hoja1 h ON vd.venta_id = h.venta_id
+SET vd.puntos = h.punto;
