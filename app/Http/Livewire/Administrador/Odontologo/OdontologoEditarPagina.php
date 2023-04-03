@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Administrador\Odontologo;
 use App\Models\Especialidad;
 use App\Models\Odontologo;
 use App\Models\Sede;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;

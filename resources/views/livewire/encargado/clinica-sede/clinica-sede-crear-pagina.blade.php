@@ -27,7 +27,7 @@
             <!--FORMULARIO-->
             <form wire:submit.prevent="crearClinica" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '', digitosRuc: '' }" class="formulario">
 
-                <!--SEDES Y ESPECIALIDADES-->
+                <!--ESPECIALIDADES-->
                 <div class="contenedor_2_elementos">
                     <!--ESPECIALIDADES-->
                     <div class="contenedor_elemento_item">
@@ -90,10 +90,10 @@
                     </div>
                 </div>
 
-                <!--DNI Y COP-->
+                <!--USERNAME Y DNI-->
                 <div class="contenedor_2_elementos">
-                     <!--USERNAME-->
-                     <div class="contenedor_elemento_item">
+                    <!--USERNAME-->
+                    <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
                         <input type="text" wire:model="username">
@@ -113,13 +113,12 @@
                     </div>
                 </div>
 
-                <!--CELULAR Y FECHA DE NACIMIENTO-->
+                <!--COP Y CELULAR-->
                 <div class="contenedor_2_elementos">
-                      <!--COP-->
-                      <div class="contenedor_elemento_item">
+                    <!--COP-->
+                    <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
-                        <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
-                            x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
+                        <input type="number" wire:model="cop">
                         @error('cop')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -136,7 +135,7 @@
                     </div>
                 </div>
 
-                <!--PUNTOS Y GÉNERO-->
+                <!--FECHA DE NACIMIENTO Y PUNTOS-->
                 <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
@@ -150,8 +149,9 @@
 
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Puntos de bienvenida: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" value="{{$puntos}}" disabled>
+                        <p class="estilo_nombre_input">Puntos de bienvenida: <span
+                                class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="number" value="{{ $puntos }}" disabled>
                         @error('puntos')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror

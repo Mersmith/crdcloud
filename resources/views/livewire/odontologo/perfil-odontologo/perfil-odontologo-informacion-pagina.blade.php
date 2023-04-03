@@ -130,7 +130,7 @@
 
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">PUNTOS:
+                        <p class="estilo_nombre_input">Puntos:
                         </p>
                         <input type="text" value="{{ $puntos }}" disabled>
                     </div>

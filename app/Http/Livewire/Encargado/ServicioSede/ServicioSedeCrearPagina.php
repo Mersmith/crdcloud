@@ -53,7 +53,7 @@ class ServicioSedeCrearPagina extends Component
 
         $this->emit('mensajeCreado', "Creado.");
         $this->reset('crearFormulario');
-        return redirect()->route('administrador.servicio.index');
+        return redirect()->route('encargado.servicio.sede.index');
     }
 
     public function render()

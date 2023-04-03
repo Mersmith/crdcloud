@@ -72,7 +72,7 @@ class ServicioSedeEditarPagina extends Component
     {
         $this->servicio->delete();
 
-        return redirect()->route('administrador.servicio.index');
+        return redirect()->route('encargado.servicio.sede.index');
     }
 
     public function render()

@@ -10,16 +10,10 @@
         </div>
 
         <!--CONTENEDOR BOTONES-->
-        {{--<div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.sede.informacion', $sede) }}">
-                <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
-            <a href="{{ route('administrador.sede.odontologo.todo', $sede) }}">
-                Odontólogos <i class="fa-solid fa-user-doctor"></i></a>
-            <a href="{{ route('administrador.sede.clinica.todo', $sede) }}">
-                Clínicas <i class="fa-solid fa-house-medical-flag"></i></a>
-            <a href="{{ route('administrador.sede.paciente.todo', $sede) }}">
-                Pacientes <i class="fa-solid fa-user-injured"></i></a>
-        </div>--}}
+        <div class="contenedor_botones_admin">
+            <a href="{{ route('encargado.paciente.sede.crear') }}">
+                Nuevo paciente <i class="fa-solid fa-square-plus"></i></a>
+        </div>
     </div>
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->

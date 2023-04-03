@@ -3,12 +3,13 @@
 namespace App\Http\Livewire\Encargado\ClinicaSede;
 
 use App\Models\Especialidad;
-use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use DOMDocument;
+use DOMXPath;
 
 class ClinicaSedeCrearPagina extends Component
 {
@@ -40,7 +41,7 @@ class ClinicaSedeCrearPagina extends Component
         'username' => 'required|unique:users',
         'password' => 'required',
         'dni' => 'required|digits:8|unique:odontologos',
-        'cop' => 'required|max:6|unique:odontologos',
+        'cop' => 'required|unique:odontologos',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
@@ -133,6 +134,13 @@ class ClinicaSedeCrearPagina extends Component
     {
         $this->validate();
 
+        $respuesta_cop = $this->validarCop();
+
+        if ($respuesta_cop->length == 0) {
+            $this->emit('mensajeError', "COP no existe.");
+            return;
+        }
+
         $usuario = new User();
         $usuario->email = $this->email;
         $usuario->username = $this->username;
@@ -163,6 +171,24 @@ class ClinicaSedeCrearPagina extends Component
         $this->emit('mensajeCreado', "Creado.");
 
         return redirect()->route('encargado.clinica.sede.editar', $usuario->odontologo->id);
+    }
+
+    public function validarCop()
+    {
+        $theFile = file_get_contents('https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp?TxtBusqueda=' . $this->cop);
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($theFile);
+        $body = "";
+        foreach ($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
+            $body .= $dom->saveHTML($child);
+        }
+
+        $finder = new DOMXPath($dom);
+        $nodes = $finder->query("/html/body/form/table");
+
+        return $nodes;
     }
 
     public function render()

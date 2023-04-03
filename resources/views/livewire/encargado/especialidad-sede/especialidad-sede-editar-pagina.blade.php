@@ -16,10 +16,10 @@
             <button wire:click="$emit('eliminarEspecialidadModal')">
                 Eliminar especialidad <i class="fa-solid fa-trash-can"></i>
             </button>
-            <a href="{{ route('encargado.especialidad.sede.crear') }}">
-                Nueva especialidad <i class="fa-solid fa-square-plus"></i></a>
             <a href="{{ route('encargado.especialidad.sede.informacion', $especialidad) }}">
                 Información de la especialidad <i class="fa-solid fa-eye"></i></a>
+            <a href="{{ route('encargado.especialidad.sede.crear') }}">
+                Nueva especialidad <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 

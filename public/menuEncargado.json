@@ -72,7 +72,7 @@
                     {
                         "id": 1,
                         "nombreSubMenu2": "Departamentos",
-                        "nombreSubMenu2Url": "administrador.odontologo.estadistica.departamento.cantidad",
+                        "nombreSubMenu2Url": "encargado.odontologo.sede.estadistica.departamento.cantidad",
                         "iconoSubMenu2": "fa-solid fa-mountain-sun",
                         "subMenu3": []
                     }
@@ -109,7 +109,7 @@
                     {
                         "id": 1,
                         "nombreSubMenu2": "Departamentos",
-                        "nombreSubMenu2Url": "administrador.clinica.estadistica.departamento.cantidad",
+                        "nombreSubMenu2Url": "encargado.clinica.sede.estadistica.departamento.cantidad",
                         "iconoSubMenu2": "fa-solid fa-mountain-sun",
                         "subMenu3": []
                     }
