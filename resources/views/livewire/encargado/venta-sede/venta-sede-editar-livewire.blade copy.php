@@ -233,6 +233,11 @@
                                                 S/.
                                                 {{ number_format($venta_detalle['cantidad'] * $venta_detalle['precio']) }}
                                             </td>
+                                            {{-- <td>
+                                                <button class="btn btn-primary"
+                                                    wire:click="actualizarCantidad({{ $venta_detalle['id'] }}, {{ $venta_detalle['cantidad'] }})">Actualizar
+                                                </button>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
