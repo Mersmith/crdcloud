@@ -309,3 +309,11 @@ git add .
 git commit -m "41_Modificacion"
 git push origin 41_Modificacion
 ->Click en boton Merge pull request
+
+git checkout -b 42_Modificacion
+git branch
+git status
+git add .
+git commit -m "42_Modificacion"
+git push origin 42_Modificacion
+->Click en boton Merge pull request
