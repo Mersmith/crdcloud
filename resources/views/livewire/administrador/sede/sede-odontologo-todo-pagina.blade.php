@@ -133,6 +133,10 @@
                                                 href="{{ route('administrador.odontologo.informacion', $odontologo) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
+                                            <a style="color: green;"
+                                                href="{{ route('administrador.odontologo.editar', $odontologo) }}">
+                                                <span><i class="fa-solid fa-pencil"></i></span>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

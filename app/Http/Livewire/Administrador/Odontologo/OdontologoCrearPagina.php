@@ -5,10 +5,11 @@ namespace App\Http\Livewire\Administrador\Odontologo;
 use App\Models\Especialidad;
 use App\Models\Sede;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use DOMDocument;
+use DOMXPath;
 
 class OdontologoCrearPagina extends Component
 {
@@ -17,7 +18,6 @@ class OdontologoCrearPagina extends Component
 
     public
         $especialidad_id = "",
-        //$sede_id = "",
         $sedesArray = [],
         $nombre = null,
         $apellido = null,
@@ -39,30 +39,26 @@ class OdontologoCrearPagina extends Component
         'especialidad_id' => 'required',
         'sedesArray' => 'required|array|min:1',
         'sedesArray.*' => 'exists:sedes,id',
-        //'sede_id' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'email' => 'required|unique:users',
         'username' => 'required|unique:users',
         'password' => 'required',
         'dni' => 'required|digits:8|unique:odontologos',
-        'cop' => 'required|max:6|unique:odontologos',
+        'cop' => 'required|unique:odontologos',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
-        //'ruc' => 'required|digits:11',
-        //'nombre_clinica' => 'required|unique:odontologos',
     ];
 
     protected $validationAttributes = [
         'especialidad_id' => 'especialidad',
-        //'sede_id' => 'sede',
         'sedesArray' => 'sede',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
-        'email' => 'email',
         'username' => 'nombre de usuario',
+        'email' => 'email',
         'password' => 'contraseña',
         'dni' => 'DNI',
         'cop' => 'COP',
@@ -76,7 +72,6 @@ class OdontologoCrearPagina extends Component
 
     protected $messages = [
         'especialidad_id.required' => 'La :attribute es requerido.',
-        //'sede_id.required' => 'La :attribute es requerido.',
         'sedesArray.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
@@ -107,6 +102,7 @@ class OdontologoCrearPagina extends Component
     {
         $this->especialidades = Especialidad::all();
         $this->sedes = Sede::all();
+        $this->puntos = config('services.crd.puntos_ingreso');
     }
 
     public function generarUsername($nombre, $apellido)
@@ -154,6 +150,13 @@ class OdontologoCrearPagina extends Component
 
         $this->validate($rules);
 
+        $respuesta_cop = $this->validarCop();
+
+        if ($respuesta_cop->length == 0) {
+            $this->emit('mensajeError', "COP no existe.");
+            return;
+        }
+
         $usuario = new User();
         $usuario->email = $this->email;
         $usuario->username = $this->username;
@@ -164,7 +167,6 @@ class OdontologoCrearPagina extends Component
         $usuario->odontologo()->create(
             [
                 'especialidad_id' => $this->especialidad_id,
-                //'sede_id' => $this->sede_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
                 'email' => $this->email,
@@ -185,6 +187,24 @@ class OdontologoCrearPagina extends Component
         $this->emit('mensajeCreado', "Creado.");
 
         return redirect()->route('administrador.odontologo.editar', $usuario->odontologo->id);
+    }
+
+    public function validarCop()
+    {
+        $theFile = file_get_contents('https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp?TxtBusqueda=' . $this->cop);
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($theFile);
+        $body = "";
+        foreach ($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
+            $body .= $dom->saveHTML($child);
+        }
+
+        $finder = new DOMXPath($dom);
+        $nodes = $finder->query("/html/body/form/table");
+
+        return $nodes;
     }
 
     public function render()

@@ -105,7 +105,6 @@ class OdontologoSedeEditarPagina extends Component
 
         $this->especialidad_id = $odontologo->especialidad_id;
         $this->sedesSeleccionadas = $odontologo->sedes->pluck('id')->toArray();
-        //$this->sede_id = $odontologo->sede_id;
         $this->email = $odontologo->email;
         $this->nombre = $odontologo->nombre;
         $this->apellido = $odontologo->apellido;
@@ -178,7 +177,6 @@ class OdontologoSedeEditarPagina extends Component
     {
         $rules = [];
 
-        //$rules['username'] = 'required|unique:users,username,' . $this->usuario_odontologo->id;
         $rules['email'] = 'required|unique:users,email,' . $this->usuario_odontologo->id;
 
         if ($this->editar_password) {

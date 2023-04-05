@@ -72,9 +72,28 @@ class EncargadoEditarPagina extends Component
     {
         $rules = $this->rules;
 
-        $rules['username'] = 'required|unique:users,username,' . $this->usuario_encargado->id;
-        $rules['email'] = 'required|unique:users,email,' . $this->usuario_encargado->id;
         $rules['sede_id'] = 'required|unique:encargados,sede_id,' . $this->encargado->id;
+
+        $this->validate($rules);
+
+        $this->encargado->update(
+            [
+                'sede_id' => $this->sede_id,
+                'nombre' => $this->nombre,
+                'apellido' => $this->apellido,
+                'celular' => $this->celular,
+            ]
+        );
+
+        $this->emit('mensajeActualizado', "Datos actualizado.");
+    }
+
+    public function editarAcceso()
+    {
+        $rules = $this->rules;
+
+        //$rules['username'] = 'required|unique:users,username,' . $this->usuario_encargado->id;
+        $rules['email'] = 'required|unique:users,email,' . $this->usuario_encargado->id;
 
         if ($this->editar_password) {
             $rules['editar_password'] = 'required';
@@ -86,34 +105,24 @@ class EncargadoEditarPagina extends Component
 
         $this->usuario_encargado->update(
             [
-                //'username' => $this->username,
                 'email' => $this->email,
             ]
         );
 
         $this->encargado->update(
             [
-                'sede_id' => $this->sede_id,
-                'nombre' => $this->nombre,
-                'apellido' => $this->apellido,
                 'email' => $this->email,
-                'celular' => $this->celular,
             ]
         );
 
         if ($this->editar_password) {
-            //$usuario = User::find($this->encargado->user_id);
-
-            //$contrasenaAntiguaHash = $usuario->password;
             $contrasenaNueva = $this->editar_password;
 
             $this->usuario_encargado->password = Hash::make($contrasenaNueva);
             $this->usuario_encargado->save();
         }
 
-        $this->emit('mensajeActualizado', "Editado.");
-
-        //return redirect()->route('administrador.encargado.index');
+        $this->emit('mensajeActualizado', "Accesos actualizado.");
     }
 
     public function eliminarEncargado()

@@ -9,11 +9,16 @@ use Livewire\Component;
 
 class OdontologoInformacionPagina extends Component
 {
+    protected $listeners = ['desasignarPaciente'];
+
     public $odontologo;
     public $usuario_odontologo;
     public $especialidad;
     public $direccion;
     public $paciente;
+    public $sedes;
+    public $imagen;
+    public $sede;
 
     public function mount(Odontologo $odontologo)
     {
@@ -23,6 +28,10 @@ class OdontologoInformacionPagina extends Component
         $this->direccion = $odontologo->user->direccion;
 
         $this->paciente = Paciente::where('user_id', $odontologo->user->id)->get()->first();
+
+        $this->sedes = $odontologo->sedes->pluck('id', 'nombre')->toArray();
+
+        $this->imagen = $this->odontologo->imagenPerfil ? $this->odontologo->imagenPerfil->imagen_perfil_ruta : null;
     }
 
     public function asignarPaciente()
@@ -39,7 +48,7 @@ class OdontologoInformacionPagina extends Component
             ]
         );
 
-        $this->usuario_odontologo->paciente->sedes()->attach(1);
+        $this->usuario_odontologo->paciente->sedes()->attach($this->sedes);
 
         $this->usuario_odontologo = $this->usuario_odontologo->fresh();
 
@@ -55,6 +64,10 @@ class OdontologoInformacionPagina extends Component
     public function desasignarPaciente()
     {
         if ($this->paciente) {
+
+            if ($this->paciente->direccion) {
+                $this->paciente->direccion->delete();
+            }
 
             $this->paciente->sedes()->detach();
 

@@ -16,7 +16,7 @@ class VentaSedeEditarLivewire extends Component
 {
     use WithFileUploads;
 
-    protected $listeners = ['cambiarPosicionImagenes', 'dropImagenes', 'eliminarVenta'];
+    protected $listeners = ['dropImagenes', 'dropZip', 'eliminarVenta'];
 
     public $venta;
     public $venta_id;
@@ -59,6 +59,10 @@ class VentaSedeEditarLivewire extends Component
         'venta.estado' => 'required',
     ];
 
+    protected $messages = [
+        'paciente_id.required' => 'El paciente es requerido.',
+    ];
+
     public function mount(Venta $venta)
     {
         $this->venta = $venta;
@@ -69,31 +73,29 @@ class VentaSedeEditarLivewire extends Component
         $this->servicios = Servicio::pluck('nombre', 'id');
         $this->sede_id = $venta->sede_id;
         $this->sede = Sede::find($venta->sede_id);
-        $this->paciente_id = $venta->paciente_id;
         $odontologo = Odontologo::find($venta->odontologo_id);
+        $this->odontologo = $odontologo;
+        $this->odontologo_id = $odontologo->id;
         $this->odontologo_inicial = $odontologo;
         $this->estado_inicial = $venta->estado;
-
-        if ($odontologo->rol = "odontologo") {
-            $this->odontologo_id = $odontologo->id;
-            $this->odontologo = $odontologo;
-            $this->clinica_id = "";
-        } else {
-            $this->clinica_id = $odontologo->id;
-            $this->clinica = $odontologo;
-            $this->odontologo_id = "";
-        }
 
         $this->link = $venta->link;
         $this->estado = $venta->estado;
         $this->observacion = $venta->observacion;
         $this->total = $venta->total;
 
-        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
-        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+        $this->odontologos = $this->sede->odontologos()->get();
 
         $this->pacientes = $odontologo->pacientes()
             ->orderBy('created_at', 'desc')->get();
+
+        $this->paciente_id = $venta->paciente_id;
+
+        if ($this->pacientes->contains('id', $this->paciente_id)) {
+            $this->paciente_id = $venta->paciente_id;
+        } else {
+            $this->paciente_id = "";
+        }
 
         $this->informe = $venta->informes->count() ? Storage::url($venta->informes->first()->informe_ruta) : null;
     }
@@ -147,50 +149,79 @@ class VentaSedeEditarLivewire extends Component
 
     public function aumentaPuntosOdontologo($puntos_actualizado)
     {
-        if ($this->odontologo_id) {
-            $this->odontologo->update(
-                [
-                    'puntos' => $this->odontologo->puntos + $puntos_actualizado
-                ]
-            );
-        } else {
-            $this->clinica->update(
-                [
-                    'puntos' => $this->clinica->puntos + $puntos_actualizado
-                ]
-            );
-        }
+        $this->odontologo->update(
+            [
+                'puntos' => $this->odontologo->puntos + $puntos_actualizado
+            ]
+        );
     }
 
     public function disminuyePuntosOdontologo($puntos_actualizado)
     {
-        if ($this->odontologo_id) {
-            $this->odontologo->update(
+        $this->odontologo->update(
+            [
+                'puntos' => $this->odontologo->puntos - $puntos_actualizado
+            ]
+        );
+    }
+
+    public function actualizarPaciente()
+    {
+        $this->venta->paciente_id = $this->paciente_id;
+        $this->venta->update();
+    }
+
+    public function actualizarEstado()
+    {
+        $puntos_anterior = $this->venta->puntos_ganados;
+        $estado_venta_anterior = $this->venta->estado;
+
+        $this->venta->estado = $this->estado;
+        $this->venta->update();
+
+        if ($estado_venta_anterior == 1 && $this->estado == 2) {
+            $this->aumentaPuntosOdontologo($puntos_anterior);
+        } elseif ($estado_venta_anterior == 1 && $this->estado == 3) {
+        } elseif ($estado_venta_anterior == 2 && $this->estado == 3) {
+            $this->disminuyePuntosOdontologo($puntos_anterior);
+        } elseif ($estado_venta_anterior == 2 && $this->estado == 1) {
+            $this->disminuyePuntosOdontologo($puntos_anterior);
+        } elseif ($estado_venta_anterior == 3 && $this->estado == 2) {
+            $this->aumentaPuntosOdontologo($puntos_anterior);
+        } elseif ($estado_venta_anterior == 3 && $this->estado == 1) {
+        }
+    }
+
+    public function actualizarOdontologo()
+    {
+        if ($this->venta->odontologo_id != $this->odontologo_id) {
+
+            $odontologo_anterior = Odontologo::find($this->venta->odontologo_id);
+            $odontologo_nuevo = Odontologo::find($this->odontologo_id);
+
+            $puntos_venta = (int)$this->venta->puntos_ganados;
+
+            //dd($odontologo_anterior, $odontologo_nuevo, (int)$this->venta->puntos_ganados);
+
+            $odontologo_anterior->update(
                 [
-                    'puntos' => $this->odontologo->puntos - $puntos_actualizado
+                    'puntos' => $odontologo_anterior->puntos - $puntos_venta
                 ]
             );
-        } else {
-            $this->clinica->update(
+
+            $odontologo_nuevo->update(
                 [
-                    'puntos' => $this->clinica->puntos - $puntos_actualizado
+                    'puntos' => $odontologo_nuevo->puntos + $puntos_venta
                 ]
             );
+
+            $this->venta->odontologo_id = $odontologo_nuevo->id;
+            $this->venta->update();
         }
     }
 
     public function actualizarVenta()
     {
-        $puntos_actualizado = $this->venta->puntos_ganados;
-        $estado_venta_actualizado = $this->venta->estado;
-
-        /*
-        if ($this->odontologo_inicial->id == $this->odontologo_id || $this->odontologo_inicial->id == $this->clinica_id) {
-            dd("son iguales", $hola); }
-            }
-        } else {
-            dd("diferentes", $hola);
-        }*/
 
         $rules = [];
 
@@ -201,89 +232,16 @@ class VentaSedeEditarLivewire extends Component
         if ($this->venta->imagenes->count()) {
             $this->validate($rules);
 
-            if ($this->odontologo_id) {
-                $this->clinica_id = null;
-            } else {
-                $this->odontologo_id = null;
-            }
 
-            $this->total = $this->obtenerTotal();
-            $this->puntos_ganados = $this->obtenerTotalPuntos();
-
-            $this->venta->sede_id = $this->sede_id;
-            $this->venta->paciente_id = $this->paciente_id;
-
-            if ($this->odontologo_id) {
-                $this->venta->odontologo_id = $this->odontologo_id;
-            } else {
-                $this->venta->odontologo_id = $this->clinica_id;
-            }
-
-            $this->venta->total = $this->total;
-            $this->venta->puntos_ganados = $this->puntos_ganados;
-            $this->venta->estado = $this->estado;
             $this->venta->observacion = $this->observacion;
             $this->venta->link = $this->link;
 
             $this->venta->update();
 
-            if (!$this->informe) {
-                if ($this->venta->informes->count()) {
-                    $informes = $this->venta->informes;
-                    foreach ($informes as $informeItem) {
-                        Storage::delete($informeItem->informe_ruta);
-                        $informeItem->delete();
-                    }
-                }
-            }
-
-            if ($this->editarInforme) {
-                $informeSubir = $this->editarInforme->store('informes');
-                $this->venta->informes()->create([
-                    'informe_ruta' => $informeSubir
-                ]);
-            }
-
-            if ($this->odontologo_id) {
-                $this->clinica_id = "";
-            } else {
-                $this->odontologo_id = "";
-            }
-
-            if ($estado_venta_actualizado == 1 && $this->estado == 2) {
-                $this->aumentaPuntosOdontologo($puntos_actualizado);
-            } elseif ($estado_venta_actualizado == 1 && $this->estado == 3) {
-            } elseif ($estado_venta_actualizado == 2 && $this->estado == 3) {
-                $this->disminuyePuntosOdontologo($puntos_actualizado);
-            } elseif ($estado_venta_actualizado == 2 && $this->estado == 1) {
-                $this->disminuyePuntosOdontologo($puntos_actualizado);
-            } elseif ($estado_venta_actualizado == 3 && $this->estado == 2) {
-                $this->aumentaPuntosOdontologo($puntos_actualizado);
-            } elseif ($estado_venta_actualizado == 3 && $this->estado == 1) {
-            }
             $this->emit('mensajeActualizado', "Actualizado.");
         } else {
             $this->emit('mensajeError', "Falta subir imagen.");
         }
-    }
-
-    public function actualizarCantidad($venta_detalle_id, $nueva_cantidad)
-    {
-        $detalle_venta = VentaDetalle::find($venta_detalle_id);
-        $nueva_cantidad = (int)$nueva_cantidad;
-
-        $cantidad_anterior = $detalle_venta->cantidad;
-        $detalle_venta->cantidad = $nueva_cantidad;
-        $detalle_venta->save();
-
-        if ($nueva_cantidad > $cantidad_anterior) {
-            $this->aumentaPuntosOdontologo($detalle_venta->puntos);
-        } elseif ($nueva_cantidad == $cantidad_anterior) {
-        } else {
-            $this->disminuyePuntosOdontologo($detalle_venta->puntos);
-        }
-
-        $this->actualizarPuntosYTotalVenta();
     }
 
     public function actualizarPuntosYTotalVenta()
@@ -326,6 +284,8 @@ class VentaSedeEditarLivewire extends Component
 
             $this->venta_detalles[] = $venta_detalle->toArray();
 
+            $this->aumentaPuntosOdontologo($servicio->puntos_ganar);
+
             $this->actualizarPuntosYTotalVenta();
         } else {
             $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
@@ -339,6 +299,8 @@ class VentaSedeEditarLivewire extends Component
 
         array_splice($this->venta_detalles, $index, 1);
 
+        $this->disminuyePuntosOdontologo($venta_detalle->puntos);
+
         $this->actualizarPuntosYTotalVenta();
     }
 
@@ -347,20 +309,9 @@ class VentaSedeEditarLivewire extends Component
         $this->venta = $this->venta->fresh();
     }
 
-    public function cambiarPosicionImagenes($sorts)
+    public function dropZip()
     {
-        $posicion = 1;
-
-        foreach ($sorts as $sort) {
-
-            $slider = Imagen::find($sort);
-            $slider->posicion = $posicion;
-            $slider->save();
-
-            $posicion++;
-        }
-
-        $this->dropImagenes();
+        $this->venta = $this->venta->fresh();
     }
 
     public function eliminarImagen(Imagen $imagen)

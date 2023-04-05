@@ -30,19 +30,6 @@
                 <!--SEDES Y ESPECIALIDADES-->
                 <div class="contenedor_2_elementos">
                     <!--SEDES-->
-                    {{-- <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <select wire:model="sede_id">
-                            <option value="" selected disabled>Seleccione una sede</option>
-                            @foreach ($sedes as $sede)
-                                <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
-                            @endforeach
-                        </select>
-                        @error('sede_id')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div> --}}
-
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
                         <select wire:model="sedesArray" multiple id="sedesArray" name="sedesArray[]">
@@ -70,6 +57,7 @@
                         @enderror
                     </div>
                 </div>
+
                 <!--EMAIL Y PASSWORD-->
                 <div class="contenedor_2_elementos">
                     <!--EMAIL-->
@@ -115,7 +103,7 @@
                     </div>
                 </div>
 
-                <!--DNI Y COP-->
+                <!--USERNAME Y DNI-->
                 <div class="contenedor_2_elementos">
                     <!--USERNAME-->
                     <div class="contenedor_elemento_item">
@@ -136,17 +124,14 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-
-
                 </div>
 
-                <!--CELULAR Y FECHA DE NACIMIENTO-->
+                <!--COP Y CELULAR-->
                 <div class="contenedor_2_elementos">
                     <!--COP-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
-                        <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
-                            x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
+                        <input type="number" wire:model="cop">
                         @error('cop')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -163,7 +148,7 @@
                     </div>
                 </div>
 
-                <!--PUNTOS Y GÉNERO-->
+                <!--FECHA DE NACIMIENTO- Y PUNTOS-->
                 <div class="contenedor_2_elementos">
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
@@ -178,8 +163,8 @@
 
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="puntos">
+                        <p class="estilo_nombre_input">Puntos de bienvenida:</p>
+                        <input type="number" value="{{ $puntos }}" disabled>
                         @error('puntos')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -207,50 +192,6 @@
                     </div>
                 </div>
 
-                <!--TIENE CLÍNICA-->
-                {{-- <div class="contenedor_1_elementos_100">
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">¿Tiénes una clínica?</p>
-                        <div>
-                            <label>
-                                <input type="radio" value="1" name="tiene_clinica"
-                                    wire:model.defer="tiene_clinica" x-on:click="$wire.tiene_clinica = true">
-                                Sí
-                            </label>
-                            <label>
-                                <input type="radio" value="0" name="tiene_clinica"
-                                    wire:model.defer="tiene_clinica" x-on:click="$wire.tiene_clinica = false">
-                                No
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!--RUC Y NOMBRE CLÍNICA-->
-                 <div class="contenedor_2_elementos" x-show="$wire.tiene_clinica">
-                    <!--RUC-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">RUC: <span class="campo_obligatorio">(Obligatorio)</span>
-                        </p>
-                        <input type="number" wire:model="ruc" x-ref="digitosRucRef" x-model="digitosRuc"
-                            x-on:keydown="limitarEntrada($refs.digitosRucRef, 11, $event)">
-                        @error('ruc')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!--NOMBRE CLÍNICA-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Nombre de la clínica: <span
-                                class="campo_obligatorio">(Obligatorio)</span>
-                        </p>
-                        <input type="text" wire:model="nombre_clinica">
-                        @error('nombre_clinica')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                --}}
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">
                     <input type="submit" value="Crear">
