@@ -78,7 +78,7 @@ class OdontologoSedeInformacionPagina extends Component
 
             $this->paciente->delete();
 
-            //$this->emit('mensajeEliminado', "Desasignado.");
+            $this->emit('mensajeEliminado', "Desasignado.");
 
             $this->reset('paciente');
         }

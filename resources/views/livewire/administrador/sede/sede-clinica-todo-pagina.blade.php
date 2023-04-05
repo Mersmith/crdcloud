@@ -132,6 +132,10 @@
                                             <a style="color: #009eff;" href="{{ route('administrador.clinica.informacion', $clinica) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
+                                            <a style="color: green;"
+                                                href="{{ route('administrador.clinica.editar', $clinica) }}">
+                                                <span><i class="fa-solid fa-pencil"></i></span>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

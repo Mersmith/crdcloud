@@ -16,6 +16,7 @@
                 Mis radiografías <i class="fa-solid fa-images"></i></a>
             <a href="{{ route('odontologo.puntos.odontologo.index') }}">
                 Mis puntos <i class="fa-solid fa-arrows-to-circle"></i></a>
+            <a href="{{ route('odontologo.descargar.cdx.view') }}">Descargar software CDX VIEW <i class="fa-brands fa-uncharted"></i></a>
         </div>
     </div>
 

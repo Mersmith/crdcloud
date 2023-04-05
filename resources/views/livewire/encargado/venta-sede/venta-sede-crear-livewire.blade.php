@@ -120,18 +120,17 @@
                         </div>
                     </div>
 
-                    <!--CANTIDAD-->
+                    {{--<!--CANTIDAD-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
+                            <p class="estilo_nombre_input">Cantidad:
                             </p>
-                            <input type="number" wire:model="cantidad">
+                            <input type="number" value="{{$cantidad}}" disabled>
                             @error('cantidad')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div>--}}
 
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">

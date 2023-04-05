@@ -38,6 +38,7 @@
                     @error('sedesArray')
                         <span class="campo_obligatorio">{{ $message }}</span>
                     @enderror
+
                 </div>
 
                 <!--ODONTOLOGOS Y CLINICAS-->

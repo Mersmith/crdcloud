@@ -22,13 +22,10 @@ use App\Http\Livewire\Encargado\OdontologoSede\OdontologoSedePacienteEditarPagin
 use App\Http\Livewire\Encargado\OdontologoSede\OdontologoSedePacienteTodoPagina;
 use App\Http\Livewire\Encargado\OdontologoSede\OdontologoSedeTodoPagina;
 use App\Http\Controllers\Administrador\CanjeoController;
-use App\Http\Controllers\Administrador\VentaController;
 use App\Http\Controllers\Encargado\VentaController as EncargadoVentaController;
 use App\Http\Livewire\Administrador\Canjeo\CanjeoCrearLivewire;
 use App\Http\Livewire\Administrador\Canjeo\CanjeoEditarLivewire;
 use App\Http\Livewire\Administrador\Canjeo\CanjeoTodoLivewire;
-use App\Http\Livewire\Administrador\Venta\VentaCrearLivewire;
-use App\Http\Livewire\Administrador\Venta\VentaEditarLivewire;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeCrearPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeDireccionCrearPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeDireccionEditarPagina;
@@ -112,8 +109,9 @@ Route::get('paciente/{paciente}/direccion/editar', PacienteSedeDireccionEditarPa
 
 Route::get('ventas', VentaSedeTodoLivewire::class)->name('venta.sede.index');//ok
 Route::get('venta/crear', VentaSedeCrearLivewire::class)->name('venta.sede.crear');//ok
-Route::get('venta/{venta}/editar', VentaSedeEditarLivewire::class)->name('venta.sede.editar');
+Route::get('venta/{venta}/editar', VentaSedeEditarLivewire::class)->name('venta.sede.editar');//OK
 Route::post('venta/{venta}/dropzone', [EncargadoVentaController::class, 'dropzone'])->name('venta.sede.dropzone');//ok
+Route::post('venta/{venta}/dropzone-zip', [EncargadoVentaController::class, 'dropzoneInforme'])->name('venta.sede.dropzone.zip');//ok
 
 Route::get('canjeos', CanjeoTodoLivewire::class)->name('canjeo.sede.index');
 Route::get('canjeo/crear', CanjeoCrearLivewire::class)->name('canjeo.sede.crear');

@@ -25,8 +25,8 @@
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
 
+        <!--ACTUALIZAR FORMULARIO-->
         <div class="contenedor_panel_producto_admin">
-
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
                 <h3>Formulario</h3>
@@ -35,7 +35,7 @@
             <!--FORMULARIO-->
             <div x-data="{ digitosDni: '', digitosCelular: '' }" class="formulario">
 
-                <!--ESPECIALIDADES Y EMAIL-->
+                <!--ESPECIALIDADES Y NOMBRE-->
                 <div class="contenedor_2_elementos">
                     <!--ESPECIALIDADES-->
                     <div class="contenedor_elemento_item">
@@ -51,41 +51,6 @@
                         @enderror
                     </div>
 
-                    <!--EMAIL-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Correo: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="email" wire:model="email">
-                        @error('email')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <!--PASSWORD Y NUEVO PASSWORD-->
-                <div class="contenedor_2_elementos">
-                    <!--PASSWORD-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Contraseña actual: <span
-                                class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="password" wire:model="password" disabled>
-                        @error('password')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!--NUEVO PASSWORD-->
-                    <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Nueva contraseña: <span class="campo_opcional">(Opcional)</span>
-                        </p>
-                        <input type="password" wire:model="editar_password" autocomplete="off">
-                        @error('editar_password')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <!--NOMBRE Y APELLIDO-->
-                <div class="contenedor_2_elementos">
                     <!--NOMBRE-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Nombres: <span class="campo_obligatorio">(Obligatorio)</span>
@@ -95,26 +60,16 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
 
+                <!--APELLIDO Y CELULAR-->
+                <div class="contenedor_2_elementos">
                     <!--APELLIDO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Apellidos: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
                         <input type="text" wire:model="apellido">
                         @error('apellido')
-                            <span class="campo_obligatorio">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <!--DNI Y CELULAR-->
-                <div class="contenedor_2_elementos">
-                     <!--USERNAME-->
-                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Username: <span class="campo_obligatorio">(Obligatorio)</span>
-                        </p>
-                        <input type="text" wire:model="username" disabled>
-                        @error('username')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
@@ -132,13 +87,74 @@
 
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">
-                    <button wire:loading.attr="disabled" wire:target="editarEncargado"
-                        wire:click="editarEncargado">
+                    <button wire:loading.attr="disabled" wire:target="editarEncargado" wire:click="editarEncargado">
                         Actualizar
                     </button>
                 </div>
             </div>
+        </div>
 
+        <!--ACTUALIZAR ACCESO-->
+        <div class="contenedor_panel_producto_admin">
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Actualizar acceso:</h3>
+            </div>
+
+            <!--FORMULARIO-->
+            <div class="formulario">
+                <!--EMAIL Y USERNAME-->
+                <div class="contenedor_2_elementos">
+                    <!--EMAIL-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Correo: <span class="campo_obligatorio">(Obligatorio)</span>
+                        </p>
+                        <input type="email" wire:model="email">
+                        @error('email')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!--USERNAME-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Username:
+                        </p>
+                        <input type="text" wire:model="username" disabled>
+                        @error('username')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!--PASSWORD Y NUEVO PASSWORD-->
+                <div class="contenedor_2_elementos">
+                    <!--PASSWORD-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Contraseña actual:</p>
+                        <input type="password" wire:model="password" disabled>
+                        @error('password')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!--NUEVO PASSWORD-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Nueva contraseña: <span class="campo_opcional">(Opcional)</span>
+                        </p>
+                        <input type="password" wire:model="editar_password" autocomplete="off">
+                        @error('editar_password')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!--ENVIAR-->
+                <div class="contenedor_1_elementos">
+                    <button wire:loading.attr="disabled" wire:target="editarAcceso" wire:click="editarAcceso">
+                        Actualizar acceso
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>
