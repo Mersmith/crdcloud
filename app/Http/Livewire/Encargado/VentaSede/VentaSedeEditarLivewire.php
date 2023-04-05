@@ -201,8 +201,6 @@ class VentaSedeEditarLivewire extends Component
 
             $puntos_venta = (int)$this->venta->puntos_ganados;
 
-            //dd($odontologo_anterior, $odontologo_nuevo, (int)$this->venta->puntos_ganados);
-
             $odontologo_anterior->update(
                 [
                     'puntos' => $odontologo_anterior->puntos - $puntos_venta
@@ -341,6 +339,14 @@ class VentaSedeEditarLivewire extends Component
 
     public function eliminarVenta()
     {
+        $puntos_venta = (int)$this->venta->puntos_ganados;
+
+        $this->odontologo->update(
+            [
+                'puntos' => $this->odontologo->puntos - $puntos_venta
+            ]
+        );
+
         if ($this->venta->imagenes->count()) {
             $imagenes = $this->venta->imagenes;
             foreach ($imagenes as $imagen) {

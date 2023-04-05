@@ -98,7 +98,7 @@ class AdministradorIngresarLivewire extends Component
                 ->update(['password' => bcrypt($user->password)]);
         }*/
 
-        $users = DB::table('users')->where('id', '>=', 8330)->get();
+        $users = DB::table('users')->where('id', '>=', 8824)->get();
 
         foreach ($users as $user) {
             DB::table('users')

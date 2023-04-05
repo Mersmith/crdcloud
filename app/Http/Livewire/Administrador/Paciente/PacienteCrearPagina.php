@@ -27,20 +27,23 @@ class PacienteCrearPagina extends Component
         $email = null,
         $password = null,
         $dni = null,
+        $carnet_extranjeria = null,
+        $edad = null,
         $celular = null,
         $genero = "hombre";
+
+    public $es_extranjero = false;
 
     protected $rules = [
         'sedesArray' => 'required|array|min:1',
         'sedesArray.*' => 'exists:sedes,id',
         'nombre' => 'required',
         'apellido' => 'required',
-        'email' => 'required|unique:users',
+        'email' => 'unique:users',
         'username' => 'required|unique:users',
-        //'password' => 'required',
-        'dni' => 'required|digits:8|unique:pacientes',
-        'celular' => 'required|digits:9',
+        'edad' => 'required',
         'genero' => 'required',
+        'password' => 'required',
     ];
 
     protected $validationAttributes = [
@@ -51,6 +54,8 @@ class PacienteCrearPagina extends Component
         'email' => 'email',
         'password' => 'contraseña',
         'dni' => 'DNI',
+        'carnet_extranjeria' => 'carnet de extranjería',
+        'edad' => 'edad',
         'celular' => 'celular',
         'genero' => 'genero',
     ];
@@ -63,16 +68,16 @@ class PacienteCrearPagina extends Component
         'username.unique' => 'El :attribute ya existe.',
         'email.required' => 'El :attribute es requerido.',
         'email.unique' => 'El :attribute ya existe.',
-       'password.required' => 'La :attribute es requerido.',
+        'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
         'dni.digits' => 'El :attribute acepta 8 dígitos.',
-        'celular.required' => 'El :attribute es requerido.',
-        'celular.digits' => 'El :attribute acepta 9 dígitos.',
+        'carnet_extranjeria.unique' => 'El :attribute ya existe.',
+        'edad.required' => 'La :attribute es requerido.',
         'genero.required' => 'El :attribute es requerido.',
     ];
 
-    public function generarUsername($nombre, $apellido)
+    /*public function generarUsername($nombre, $apellido)
     {
         $nombre_sin_espacios = preg_replace('/[^A-Za-z0-9\-]/', '', $nombre);
         $apellido_sin_espacios = preg_replace('/[^A-Za-z0-9\-]/', '', $apellido);
@@ -99,7 +104,7 @@ class PacienteCrearPagina extends Component
     {
 
         $this->username = $this->generarUsername($this->nombre, $this->apellido);
-    }
+    }*/
 
     public function mount()
     {
@@ -131,12 +136,31 @@ class PacienteCrearPagina extends Component
                 $this->reset('odontologo_id');
             }
 
+            if ($this->es_extranjero) {
+                $rules['carnet_extranjeria'] = 'unique:pacientes';
+                $this->reset('dni');
+                $documentoIdentidad = $this->carnet_extranjeria;
+            } else {
+                $rules['dni'] = 'digits:8|unique:pacientes';
+                $this->reset('carnet_extranjeria');
+                $documentoIdentidad = $this->dni;
+            }
+
+            if ($this->email) {
+                $email = $this->email;
+            } else {
+                $email = $documentoIdentidad . '@crd.com';
+            }
+
+            $this->username = $documentoIdentidad;
+            $this->password = $documentoIdentidad;
+
             $this->validate($rules);
 
             $usuario = new User();
-            $usuario->email = $this->email;
+            $usuario->email = $email;
             $usuario->username = $this->username;
-            $usuario->password = Hash::make($this->dni);
+            $usuario->password = Hash::make($this->password);
             $usuario->rol = "paciente";
             $usuario->save();
 
@@ -144,8 +168,10 @@ class PacienteCrearPagina extends Component
                 [
                     'nombre' => $this->nombre,
                     'apellido' => $this->apellido,
-                    'email' => $this->email,
                     'dni' => $this->dni,
+                    'carnet_extranjeria' => $this->carnet_extranjeria,
+                    'edad' => $this->edad,
+                    'email' => $email,
                     'celular' => $this->celular,
                     'genero' => $this->genero,
                     'rol' => "paciente",

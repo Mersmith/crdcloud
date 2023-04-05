@@ -2,12 +2,8 @@
 
 namespace App\Http\Livewire\Administrador\Paciente;
 
-use App\Models\Clinica;
-use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\Sede;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class PacienteEditarPagina extends Component
@@ -22,18 +18,21 @@ class PacienteEditarPagina extends Component
         $sedesSeleccionadas  = [],
         $nombre,
         $apellido,
-        $username,
         $email,
         $dni,
+        $carnet_extranjeria,
+        $edad,
         $celular,
         $genero;
+
+    public $es_extranjero;
 
     protected $rules = [
         'sedesSeleccionadas' => 'required|array|min:1',
         'sedesSeleccionadas.*' => 'exists:sedes,id',
         'nombre' => 'required',
         'apellido' => 'required',
-        'celular' => 'required|digits:9',
+        'edad' => 'required',
         'genero' => 'required',
     ];
 
@@ -42,11 +41,14 @@ class PacienteEditarPagina extends Component
         'apellido' => 'apellido',
         'email' => 'email',
         'dni' => 'DNI',
+        'carnet_extranjeria' => 'carnet de extranjería',
+        'edad' => 'edad',
         'celular' => 'celular',
         'genero' => 'genero',
     ];
 
     protected $messages = [
+        'sedesSeleccionadas.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
         'email.required' => 'El :attribute es requerido.',
@@ -54,8 +56,8 @@ class PacienteEditarPagina extends Component
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
         'dni.digits' => 'El :attribute acepta 8 dígitos.',
-        'celular.required' => 'El :attribute es requerido.',
-        'celular.digits' => 'El :attribute acepta 9 dígitos.',
+        'carnet_extranjeria.unique' => 'El :attribute ya existe.',
+        'edad.required' => 'La :attribute es requerido.',
         'genero.required' => 'El :attribute es requerido.',
     ];
 
@@ -70,27 +72,49 @@ class PacienteEditarPagina extends Component
 
         $this->nombre = $paciente->nombre;
         $this->apellido = $paciente->apellido;
-        $this->username = $this->usuario_paciente->username;
         $this->email = $paciente->email;
+
         $this->dni = $paciente->dni;
+        $this->carnet_extranjeria = $paciente->carnet_extranjeria;
+
+        if ($this->dni) {
+            $this->es_extranjero = false;
+        } else {
+            $this->es_extranjero = true;
+        }
+
+        $this->edad = $paciente->edad;
         $this->celular = $paciente->celular;
         $this->genero = $paciente->genero;
+
+        $odontologos = $paciente->odontologos->pluck('nombre')->toArray();
     }
 
     public function editarPaciente()
     {
         $rules = $this->rules;
 
-        $rules['username'] = 'required|unique:users,username,' . $this->usuario_paciente->id;
-        $rules['email'] = 'required|unique:users,email,' . $this->usuario_paciente->id;
-        $rules['dni'] = 'required|digits:8|unique:pacientes,dni,' . $this->paciente->id;
+        if ($this->es_extranjero) {
+            $rules['carnet_extranjeria'] = 'unique:pacientes,carnet_extranjeria,' . $this->paciente->id;
+            $this->reset('dni');
+            $documentoIdentidad = $this->carnet_extranjeria;
+        } else {
+            $rules['dni'] = 'digits:8|unique:pacientes,dni,' . $this->paciente->id;
+            $this->reset('carnet_extranjeria');
+            $documentoIdentidad = $this->dni;
+        }
+
+        if ($this->email) {
+            $email = $this->email;
+        } else {
+            $email = $documentoIdentidad . '@crd.com';
+        }
 
         $this->validate($rules);
 
         $this->usuario_paciente->update(
             [
-                //'username' => $this->username,
-                'email' => $this->email,
+                'email' => $email,
             ]
         );
 
@@ -98,8 +122,10 @@ class PacienteEditarPagina extends Component
             [
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
-                'email' => $this->email,
                 'dni' => $this->dni,
+                'carnet_extranjeria' => $this->carnet_extranjeria,
+                'edad' => $this->edad,
+                'email' => $this->email,
                 'celular' => $this->celular,
                 'genero' => $this->genero,
             ]
@@ -108,7 +134,6 @@ class PacienteEditarPagina extends Component
         $this->paciente->sedes()->sync($this->sedesSeleccionadas);
 
         $this->emit('mensajeActualizado', "Editado.");
-        //return redirect()->route('administrador.paciente.index');
     }
 
     public function eliminarPaciente()

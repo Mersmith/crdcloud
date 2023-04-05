@@ -13,7 +13,7 @@
                 <h2>"Canjea tus puntos por radiografías."</h2>
                 <h3>Nickol Sinchi </h3>
                 <p>Odontóloga</p>
-                <a wire:click="contra">Cambiar</a>
+                <a wire:click="contra">Cambiar contraseña</a>
             </div>
         </div>
         <!--GRID LOGIN FORMULARIO-->
