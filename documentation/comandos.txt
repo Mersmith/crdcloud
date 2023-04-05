@@ -140,6 +140,12 @@ FROM odontologos
 JOIN ventas ON odontologos.id = ventas.odontologo_id
 JOIN pacientes ON ventas.paciente_id = pacientes.id;
 
+//Relacionar odontologos con sus pacientes
+SELECT DISTINCT odontologo.DNI as odontologo_id, paciente.Id_documento as paciente_id
+FROM odontologo
+JOIN detalle_venta ON odontologo.DNI = detalle_venta.Id_doctor
+JOIN paciente ON detalle_venta.Id_paciente = paciente.Id_documento;
+
 //Buscar registros repetidos en la tabla paciente_sede
 SELECT paciente_id, sede_id, COUNT(*) as count
 FROM paciente_sede

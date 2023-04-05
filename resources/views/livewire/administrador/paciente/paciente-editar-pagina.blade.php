@@ -36,6 +36,7 @@
             <!--FORMULARIO-->
             <form wire:submit.prevent="editarPaciente" x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '' }" class="formulario">
 
+                <!--SEDES-->
                 <div class="contenedor_elemento_item">
                     <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span></p>
                     <select wire:model="sedesSeleccionadas" id="sedesSeleccionadas" name="sedesSeleccionadas[]"
@@ -49,7 +50,7 @@
                     @enderror
                 </div>
 
-                <!--EMAIL Y PASSWORD-->
+                <!--EMAIL Y NOMBRE-->
                 <div class="contenedor_2_elementos">
                     <!--EMAIL-->
                     <div class="contenedor_elemento_item">
@@ -71,7 +72,7 @@
                     </div>
                 </div>
 
-                <!--APELLIDO Y DNI-->
+                <!--APELLIDO Y EDAD-->
                 <div class="contenedor_2_elementos">
                     <!--APELLIDO-->
                     <div class="contenedor_elemento_item">
@@ -83,18 +84,17 @@
                         @enderror
                     </div>
 
-                    <!--DNI-->
+                    <!--EDAD-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="dni" x-ref="digitosDniRef"
-                            x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)" x-init="digitosDni = $refs.digitosDniRef.value">
-                        @error('dni')
+                        <p class="estilo_nombre_input">Edad: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <input type="number" wire:model="edad">
+                        @error('edad')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <!--CELULAR Y FECHA DE NACIMIENTO-->
+                <!--CELULAR Y GÉNERO-->
                 <div class="contenedor_2_elementos">
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
@@ -105,10 +105,7 @@
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <!--GÉNERO-->
-                <div class="contenedor_2_elementos">
                     <!--GÉNERO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Género: <span class="campo_obligatorio">(Obligatorio)</span></p>
@@ -128,12 +125,60 @@
                     </div>
                 </div>
 
+                <!--TIENE CLÍNICA-->
+                <div class="contenedor_1_elementos_100">
+                    <!--TIENE CLÍNICA-->
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">¿Es extranjero?</p>
+                        <div>
+                            <label>
+                                <input type="radio" value="1" name="es_extranjero"
+                                    wire:model.defer="es_extranjero" x-on:click="$wire.es_extranjero = true">
+                                Sí
+                            </label>
+                            <label>
+                                <input type="radio" value="0" name="es_extranjero"
+                                    wire:model.defer="es_extranjero" x-on:click="$wire.es_extranjero = false">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--CARNET EXTRANJERIA Y DNI-->
+                @if ($es_extranjero)
+                    <!--CARNET EXTRANJERIA-->
+                    <div class="contenedor_2_elementos">
+                        <!--CARNET EXTRANJERIA-->
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Carnet extranjería: <span
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <input type="number" wire:model="carnet_extranjeria">
+                            @error('carnet_extranjeria')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!--DNI-->
+                @else
+                    <div class="contenedor_2_elementos">
+                        <!--DNI-->
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                            <input type="number" wire:model="dni" x-ref="digitosDniRef"
+                                x-on:keydown="limitarEntrada($refs.digitosDniRef, 8, $event)" x-init="digitosDni = $refs.digitosDniRef.value">
+                            @error('dni')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                @endif
+
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">
                     <input type="submit" value="Editar">
                 </div>
             </form>
-
         </div>
     </div>
 </div>

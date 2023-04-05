@@ -377,3 +377,9 @@ WHERE p.edad IS NULL;
 UPDATE venta_detalles vd
 INNER JOIN hoja1 h ON vd.venta_id = h.venta_id
 SET vd.puntos = h.punto;
+
+//Verificar si el paciente de odontologo_paciente existe en la tabla pacientes
+SELECT op.paciente_id, p.id
+FROM odontologo_paciente op
+LEFT JOIN pacientes p ON op.paciente_id = p.id
+WHERE p.id IS NULL

@@ -31,7 +31,7 @@
                     <!--DIRECCIÓN-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Dirección:
-                            <span class="campo_obligatorio">(Obligatorio)</span>
+                            <span class="campo_opcional">(Opcional)</span>
                         </p>
                         <textarea rows="3" wire:model="direccion"></textarea>
                         @error('direccion')
@@ -42,7 +42,7 @@
                     <!--REFERENCIA-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Referencia:
-                            <span class="campo_obligatorio">(Obligatorio)</span>
+                            <span class="campo_opcional">(Opcional)</span>
                         </p>
                         <textarea rows="3" wire:model="referencia"></textarea>
                         @error('referencia')
@@ -56,7 +56,7 @@
                     <!--CÓDIGO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Código postal:
-                            <span class="campo_obligatorio">(Obligatorio)</span>
+                            <span class="campo_opcional">(Opcional)</span>
                         </p>
                         <input type="text" wire:model="codigo_postal">
                         @error('codigo_postal')

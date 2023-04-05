@@ -126,12 +126,12 @@ Route::get('odontologo/{odontologo}/informacion', OdontologoInformacionPagina::c
 Route::get('odontologo/{odontologo}/pacientes', OdontologoPacienteTodoPagina::class)->name('odontologo.paciente.todo');//ok
 Route::get('odontologo/{odontologo}/paciente/crear', OdontologoPacienteCrearPagina::class)->name('odontologo.paciente.crear');//ok
 Route::get('odontologo/{odontologo}/paciente/{paciente}/editar', OdontologoPacienteEditarPagina::class)->name('odontologo.paciente.editar');//ok
-Route::get('odontologo/{odontologo}/direccion/crear', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');//
-Route::get('odontologo/{odontologo}/direccion/editar', OdontologoDireccionEditarPagina::class)->name('odontologo.direccion.editar');//
-Route::get('odontologos/departamentos', OdontologoEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.estadistica.departamento.cantidad');//
-Route::get('odontologos/departamento/{departamento}', OdontologoEstadisticaDepartamentoListaPagina::class)->name('odontologo.estadistica.departamento.lista');//
-Route::get('odontologos/provincia/{provincia}', OdontologoEstadisticaProvinciaListaPagina::class)->name('odontologo.estadistica.provincia.lista');//
-Route::get('odontologos/distrito/{distrito}', OdontologoEstadisticaDistritoListaPagina::class)->name('odontologo.estadistica.distrito.lista');//
+Route::get('odontologo/{odontologo}/direccion/crear', OdontologoDireccionCrearPagina::class)->name('odontologo.direccion.crear');//ok
+Route::get('odontologo/{odontologo}/direccion/editar', OdontologoDireccionEditarPagina::class)->name('odontologo.direccion.editar');//ok
+Route::get('odontologos/departamentos', OdontologoEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.estadistica.departamento.cantidad');//ok
+Route::get('odontologos/departamento/{departamento}', OdontologoEstadisticaDepartamentoListaPagina::class)->name('odontologo.estadistica.departamento.lista');//ok
+Route::get('odontologos/provincia/{provincia}', OdontologoEstadisticaProvinciaListaPagina::class)->name('odontologo.estadistica.provincia.lista');//ok
+Route::get('odontologos/distrito/{distrito}', OdontologoEstadisticaDistritoListaPagina::class)->name('odontologo.estadistica.distrito.lista');//ok
 
 Route::get('clinicas', ClinicaTodoPagina::class)->name('clinica.index');//
 Route::get('clinica/crear', ClinicaCrearPagina::class)->name('clinica.crear');//
@@ -147,14 +147,14 @@ Route::get('clinicas/departamento/{departamento}', ClinicaEstadisticaDepartament
 Route::get('clinicas/provincia/{provincia}', ClinicaEstadisticaProvinciaListaPagina::class)->name('clinica.estadistica.provincia.lista');
 Route::get('clinicas/distrito/{distrito}', ClinicaEstadisticaDistritoListaPagina::class)->name('clinica.estadistica.distrito.lista');
 
-Route::get('servicios', ServicioTodoPagina::class)->name('servicio.index');//
-Route::get('servicio/crear', ServicioCrearPagina::class)->name('servicio.crear');//
-Route::get('servicio/{servicio}/editar', ServicioEditarPagina::class)->name('servicio.editar');//
-Route::get('servicio/{servicio}/informacion', ServicioInformacionPagina::class)->name('servicio.informacion');//
+Route::get('servicios', ServicioTodoPagina::class)->name('servicio.index');//ok
+Route::get('servicio/crear', ServicioCrearPagina::class)->name('servicio.crear');//ok
+Route::get('servicio/{servicio}/editar', ServicioEditarPagina::class)->name('servicio.editar');//ok
+Route::get('servicio/{servicio}/informacion', ServicioInformacionPagina::class)->name('servicio.informacion');//ok
 
-Route::get('pacientes', PacienteTodoPagina::class)->name('paciente.index');//
-Route::get('paciente/crear', PacienteCrearPagina::class)->name('paciente.crear');//
-Route::get('paciente/{paciente}/editar', PacienteEditarPagina::class)->name('paciente.editar');//
+Route::get('pacientes', PacienteTodoPagina::class)->name('paciente.index');//ok
+Route::get('paciente/crear', PacienteCrearPagina::class)->name('paciente.crear');//ok
+Route::get('paciente/{paciente}/editar', PacienteEditarPagina::class)->name('paciente.editar');//ok
 Route::get('paciente/{paciente}/informacion', PacienteInformacionPagina::class)->name('paciente.informacion');//
 Route::get('paciente/{paciente}/odontologos', PacienteOdontogoTodoPagina::class)->name('paciente.odontologo.todo');
 Route::get('paciente/{paciente}/clinicas', PacienteClinicaTodoPagina::class)->name('paciente.clinica.todo');

@@ -35,15 +35,16 @@ class OdontologoEstadisticaDistritoListaPagina extends Component
     public function render()
     {
         $odontologos_distritos = DB::table('odontologos')
-        ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
-        ->where('direccions.distrito_id', '=', $this->distrito_id)
-        ->where(function ($query) {
-             $query->where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
-                   ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%');
-        })
-        ->where('odontologos.rol', '=', 'odontologo') 
-        ->orderBy('odontologos.created_at', 'desc')
-        ->paginate(10);
+    ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
+    ->where('direccions.distrito_id', '=', $this->distrito_id)
+    ->where(function ($query) {
+         $query->where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
+               ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%');
+    })
+    ->where('odontologos.rol', '=', 'odontologo')
+    ->orderBy('odontologos.created_at', 'desc')
+    ->select('odontologos.*', 'odontologos.id as odontologo_id') // agregar el nuevo campo
+    ->paginate(10);
         /*$odontologos_distritos = DB::table('odontologos')
             ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
             ->where('direccions.distrito_id', '=', $this->distrito_id)
