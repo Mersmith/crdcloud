@@ -6,6 +6,7 @@ use App\Models\Canjeo;
 use App\Models\CanjeoDetalle;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class CanjeoOdontologoEditarLivewire extends Component
@@ -62,39 +63,6 @@ class CanjeoOdontologoEditarLivewire extends Component
         $this->total = $canjeo->total_puntos;
     }
 
-    public function agregarCarrito()
-    {
-        $rules = [];
-
-        $rules['servicio'] = 'required';
-
-        $this->validate($rules);
-
-        $servicioCarrito = json_decode($this->servicio, true);
-
-        foreach ($this->carrito as $value) {
-            if ($value["id"] == $servicioCarrito["id"]) {
-                $this->emit('mensajeError', "Ya existe el servicio.");
-                return;
-            }
-        }
-
-        $extraerKeys = ['id', 'nombre'];
-        $servicioFiltrado = array_intersect_key($servicioCarrito, array_flip($extraerKeys));
-
-        $puntosCanjeo = $servicioCarrito["puntos_canjeo"];
-        $cantidadCanjeo = $this->cantidad;
-
-        $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
-        $servicioFiltrado["cantidad"] = $cantidadCanjeo;
-        $servicioFiltrado["puntos"] = $puntosCanjeo;
-        $servicioFiltrado["subtotal_canjeo"] = $cantidadCanjeo * $puntosCanjeo;
-
-        array_push($this->carrito, $servicioFiltrado);
-
-        $this->emit('mensajeCreado', "Agregado.");
-    }
-
     public function eliminarServicioCarrito($index)
     {
         array_splice($this->carrito, $index, 1);
@@ -136,19 +104,10 @@ class CanjeoOdontologoEditarLivewire extends Component
         }
     }
 
-    public function actualizarCantidad($canjeo_detalle_id, $nueva_cantidad)
-    {
-        $detalle_canjeo = CanjeoDetalle::find($canjeo_detalle_id);
-        $detalle_canjeo->cantidad = $nueva_cantidad;
-        $detalle_canjeo->save();
-
-        $this->total = $this->obtenerTotal();
-        $this->canjeo->total_puntos = $this->total;
-        $this->canjeo->update();
-    }
-
     public function agregarServicioAlDetalleCanjeo()
     {
+        $puntosOdontologo = Auth::user()->odontologo->puntos;
+
         $rules = [];
 
         $rules['servicio'] = 'required';
@@ -157,25 +116,34 @@ class CanjeoOdontologoEditarLivewire extends Component
 
         $servicio = Servicio::findOrFail($this->servicio);
 
-        foreach ($this->canjeo_detalles as $detalle) {
-            if ($detalle['servicio_id'] == $this->servicio) {
-                $this->emit('mensajeError', "Ya existe el servicio.");
-                return;
+        $subTotalPuntos = $this->obtenerTotal();
+        $totalPuntos = $subTotalPuntos + $servicio->puntos_canjeo;
+
+        if ($totalPuntos <= $puntosOdontologo) {
+            foreach ($this->canjeo_detalles as $detalle) {
+                if ($detalle['servicio_id'] == $this->servicio) {
+                    $this->emit('mensajeError', "Ya existe el servicio.");
+                    return;
+                }
             }
+
+            $canjeo_detalle = new CanjeoDetalle();
+            $canjeo_detalle->canjeo_id = $this->canjeo_id;
+            $canjeo_detalle->servicio_id = $servicio->id;
+            $canjeo_detalle->cantidad = $this->cantidad;
+            $canjeo_detalle->puntos =  $servicio->puntos_canjeo;
+            $canjeo_detalle->save();
+
+            $this->canjeo_detalles[] = $canjeo_detalle->toArray();
+
+            $this->total = $this->obtenerTotal();
+            $this->canjeo->total_puntos = $this->total;
+            $this->canjeo->update();
+
+            $this->emit('mensajeCreado', "Agregado.");
+        } else {
+            $this->emit('mensajeError', "Puntos insuficientes.");
         }
-
-        $canjeo_detalle = new CanjeoDetalle();
-        $canjeo_detalle->canjeo_id = $this->canjeo_id;
-        $canjeo_detalle->servicio_id = $servicio->id;
-        $canjeo_detalle->cantidad = $this->cantidad;
-        $canjeo_detalle->puntos =  $servicio->puntos_canjeo;
-        $canjeo_detalle->save();
-
-        $this->canjeo_detalles[] = $canjeo_detalle->toArray();
-
-        $this->total = $this->obtenerTotal();
-        $this->canjeo->total_puntos = $this->total;
-        $this->canjeo->update();
     }
 
     public function eliminarUnDetalleCanjeo($canjeo_detalle_id, $index)
@@ -192,11 +160,38 @@ class CanjeoOdontologoEditarLivewire extends Component
 
     public function eliminarCanjeo()
     {
+        $puntos_canjeo = (int)$this->canjeo->puntos_usados;
+
+        if ($this->canjeo->estado == 2) {
+
+            $this->odontologo->update(
+                [
+                    'puntos' => $this->odontologo->puntos + $puntos_canjeo
+                ]
+            );
+        }
+
+        if ($this->canjeo->imagenesCanjeo->count()) {
+            $imagenes = $this->canjeo->imagenesCanjeo;
+            foreach ($imagenes as $imagen) {
+                Storage::delete($imagen->imagen_canjeo_ruta);
+                $imagen->delete();
+            }
+        }
+
+        if ($this->canjeo->informesCanjeo->count()) {
+            $informes = $this->canjeo->informesCanjeo;
+            foreach ($informes as $informeItem) {
+                Storage::delete($informeItem->informe_canjeo_ruta);
+                $informeItem->delete();
+            }
+        }
+
         if ($this->canjeo) {
             $this->canjeo->canjeoDetalle()->delete();
             $this->canjeo->delete();
-        } else {
         }
+
         return redirect()->route('odontologo.canjeo.odontologo.index');
     }
 

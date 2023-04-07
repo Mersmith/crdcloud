@@ -27,14 +27,16 @@ class ClinicaEstadisticaDistritoListaPagina extends Component
 
     public function render()
     {
-        $clinicas_distritos = DB::table('clinicas')
-            ->join('direccions', 'clinicas.user_id', '=', 'direccions.user_id')
+        $clinicas_distritos = DB::table('odontologos')
+            ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
             ->where('direccions.distrito_id', '=', $this->distrito_id)
             ->where(function ($query) {
                 $query->where('nombre', 'like', '%' . $this->buscarClinica . '%')
                     ->orWhere('email', 'LIKE', '%' . $this->buscarClinica . '%');
             })
-            ->orderBy('clinicas.created_at', 'desc')
+            ->where('odontologos.rol', '=', 'clinica')
+            ->orderBy('odontologos.created_at', 'desc')
+            ->select('odontologos.*', 'odontologos.id as odontologo_id') // agregar el nuevo campo
             ->paginate(10);
 
         return view('livewire.administrador.clinica.clinica-estadistica-distrito-lista-pagina', compact('clinicas_distritos'))->layout('layouts.administrador.index');

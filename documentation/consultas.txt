@@ -383,3 +383,6 @@ SELECT op.paciente_id, p.id
 FROM odontologo_paciente op
 LEFT JOIN pacientes p ON op.paciente_id = p.id
 WHERE p.id IS NULL
+
+//Eliminar los usuarios desde el id 10
+DELETE FROM users WHERE id >= 10;

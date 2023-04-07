@@ -20,6 +20,7 @@ class VentaEstadisticaVentaMesActualListaPagina extends Component
         $ventas = Venta::query()->orderBy('created_at', 'desc');
 
         $ventas->whereMonth('created_at', '=', date('m'));
+        $ventas->whereYear('created_at', '=', date('Y'));
 
         if ($this->estado) {
             $ventas->where('estado', $this->estado);
@@ -34,9 +35,9 @@ class VentaEstadisticaVentaMesActualListaPagina extends Component
 
         $ventas = $ventas->paginate(30)->withQueryString();
 
-        $pendiente = Venta::where('estado', 1)->whereMonth('created_at', '=', date('m'))->count();
-        $pagado = Venta::where('estado', 2)->whereMonth('created_at', '=', date('m'))->count();
-        $anulado = Venta::where('estado', 3)->whereMonth('created_at', '=', date('m'))->count();
+        $pendiente = Venta::where('estado', 1)->whereMonth('created_at', '=', date('m'))->whereYear('created_at', '=', date('Y'))->count();
+        $pagado = Venta::where('estado', 2)->whereMonth('created_at', '=', date('m'))->whereYear('created_at', '=', date('Y'))->count();
+        $anulado = Venta::where('estado', 3)->whereMonth('created_at', '=', date('m'))->whereYear('created_at', '=', date('Y'))->count();
         $todos = $pendiente + $pagado + $anulado;
 
         return view('livewire.administrador.venta.venta-estadistica-venta-mes-actual-lista-pagina', compact('ventas', 'pendiente', 'pagado', 'anulado', 'todos'))->layout('layouts.administrador.index');

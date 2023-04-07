@@ -24,21 +24,15 @@ class OdontologoDireccionCrearPagina extends Component
         'departamento_id' => 'required',
         'provincia_id' => 'required',
         'distrito_id' => 'required',
-        //'direccion' => 'required',
-        //'referencia' => 'required',
         'departamento_nombre' => 'required',
         'provincia_nombre' => 'required',
         'distrito_nombre' => 'required',
-        //'codigo_postal' => 'required',
     ];
 
     protected $messages = [
         'departamento_id' => 'El departamento es requerido.',
         'provincia_id' => 'La provincia es requerida.',
         'distrito_id' => 'El distrito es requerido.',
-        'direccion' => 'La direccion es requerida.',
-        'referencia' => 'La referencia es requerida.',
-        'codigo_postal' => 'El código postal es requerido.',
     ];
 
     public function mount(Odontologo $odontologo)

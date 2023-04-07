@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::redirect('/login', '/');
 
 Route::get('/', AdministradorIngresarLivewire::class)->name('inicio');
 
-Route::get('registrar', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
+//Route::get('registrar', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
 
-
+/*
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -30,4 +31,4 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
+*/

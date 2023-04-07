@@ -16,9 +16,10 @@ class ClinicaEstadisticaProvinciaListaPagina extends Component
 
         $this->clinicas_distritos_cantidad = DB::table('distritos')
             ->leftJoin('direccions', 'distritos.id', '=', 'direccions.distrito_id')
-            ->leftJoin('clinicas', 'direccions.user_id', '=', 'clinicas.user_id')
-            ->select('distritos.id', 'distritos.nombre', DB::raw('count(clinicas.user_id) as cantidad'))
+            ->leftJoin('odontologos', 'direccions.user_id', '=', 'odontologos.user_id')
+            ->where('odontologos.rol', '=', 'clinica')
             ->where('distritos.provincia_id', '=', $provincia_id)
+            ->select('distritos.id', 'distritos.nombre', DB::raw('count(odontologos.user_id) as cantidad'))
             ->groupBy('distritos.id', 'distritos.nombre')
             ->get();
     }

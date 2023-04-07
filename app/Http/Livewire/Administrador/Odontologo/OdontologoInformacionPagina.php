@@ -29,7 +29,7 @@ class OdontologoInformacionPagina extends Component
 
         $this->paciente = Paciente::where('user_id', $odontologo->user->id)->get()->first();
 
-        $this->sedes = $odontologo->sedes->pluck('id', 'nombre')->toArray();
+        $this->sedes = $odontologo->sedes->pluck('nombre', 'id')->toArray();
 
         $this->imagen = $this->odontologo->imagenPerfil ? $this->odontologo->imagenPerfil->imagen_perfil_ruta : null;
     }
@@ -48,7 +48,7 @@ class OdontologoInformacionPagina extends Component
             ]
         );
 
-        $this->usuario_odontologo->paciente->sedes()->attach($this->sedes);
+        $this->usuario_odontologo->paciente->sedes()->attach(array_flip($this->sedes));
 
         $this->usuario_odontologo = $this->usuario_odontologo->fresh();
 

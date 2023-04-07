@@ -160,7 +160,6 @@
                         @enderror
                     </div>
 
-
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Puntos de bienvenida:</p>

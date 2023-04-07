@@ -119,19 +119,7 @@
                             @enderror
                         </div>
                     </div>
-
-                    {{--<!--CANTIDAD-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad:
-                            </p>
-                            <input type="number" value="{{$cantidad}}" disabled>
-                            @error('cantidad')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>--}}
-
+                
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_1_elementos">

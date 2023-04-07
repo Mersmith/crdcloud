@@ -131,8 +131,7 @@
                       <!--COP-->
                       <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">COP: <span class="campo_obligatorio">(Obligatorio)</span> </p>
-                        <input type="number" wire:model="cop" x-ref="digitosCopRef" x-model="digitosCop"
-                            x-on:keydown="limitarEntrada($refs.digitosCopRef, 6, $event)">
+                        <input type="number" wire:model="cop">
                         @error('cop')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -164,7 +163,7 @@
                     <!--PUNTOS-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">PUNTOS: <span class="campo_obligatorio">(Obligatorio)</span></p>
-                        <input type="number" wire:model="puntos">
+                        <input type="number" value="{{ $puntos }}" disabled>
                         @error('puntos')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Odontologo\CanjeoOdontologo;
 
 use App\Models\Canjeo;
+use App\Models\Sede;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -12,9 +13,11 @@ class CanjeoOdontologoCrearLivewire extends Component
     public $odontologo, $puntos;
 
     public $servicios;
+    public $sedes;
 
     public
         $servicio = "",
+        $sede_id = "",
         $cantidad = 1;
 
     public
@@ -27,6 +30,7 @@ class CanjeoOdontologoCrearLivewire extends Component
         $observacion = "";
 
     protected $messages = [
+        'sede_id.required' => 'La sede es requerido.',
         'servicio.required' => 'El servicio es requerido.',
         'nombre.required' => 'El nombre es requerido.',
         'apellido.required' => 'El apellido es requerido.',
@@ -41,39 +45,50 @@ class CanjeoOdontologoCrearLivewire extends Component
         $this->puntos = $odontologo->puntos;
 
         $this->servicios = Servicio::all();
+        $this->sedes = Sede::all();
     }
 
     public function agregarCarrito()
-    {
+    {       
+       $puntosOdontologo = Auth::user()->odontologo->puntos;
+
         $rules = [];
 
         $rules['servicio'] = 'required';
+        $rules['sede_id'] = 'required';
 
         $this->validate($rules);
 
         $servicioCarrito = json_decode($this->servicio, true);
 
-        foreach ($this->carrito as $value) {
-            if ($value["id"] == $servicioCarrito["id"]) {
-                $this->emit('mensajeError', "Ya existe el servicio.");
-                return;
+        $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
+        $totalPuntos = $subTotalPuntos + $servicioCarrito["puntos_canjeo"];
+
+        if ($totalPuntos <= $puntosOdontologo) {
+            foreach ($this->carrito as $value) {
+                if ($value["id"] == $servicioCarrito["id"]) {
+                    $this->emit('mensajeError', "Ya existe el servicio.");
+                    return;
+                }
             }
+
+            $extraerKeys = ['id', 'nombre'];
+            $servicioFiltrado = array_intersect_key($servicioCarrito, array_flip($extraerKeys));
+
+            $puntosCanjeo = $servicioCarrito["puntos_canjeo"];
+            $cantidadCanjeo = $this->cantidad;
+
+            $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
+            $servicioFiltrado["cantidad"] = $cantidadCanjeo;
+            $servicioFiltrado["puntos"] = $puntosCanjeo;
+            $servicioFiltrado["subtotal_canjeo"] = $cantidadCanjeo * $puntosCanjeo;
+
+            array_push($this->carrito, $servicioFiltrado);
+
+            $this->emit('mensajeCreado', "Agregado.");
+        } else {
+            $this->emit('mensajeError', "Puntos insuficientes.");
         }
-
-        $extraerKeys = ['id', 'nombre'];
-        $servicioFiltrado = array_intersect_key($servicioCarrito, array_flip($extraerKeys));
-
-        $puntosCanjeo = $servicioCarrito["puntos_canjeo"];
-        $cantidadCanjeo = $this->cantidad;
-
-        $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
-        $servicioFiltrado["cantidad"] = $cantidadCanjeo;
-        $servicioFiltrado["puntos"] = $puntosCanjeo;
-        $servicioFiltrado["subtotal_canjeo"] = $cantidadCanjeo * $puntosCanjeo;
-
-        array_push($this->carrito, $servicioFiltrado);
-
-        $this->emit('mensajeCreado', "Agregado.");
     }
 
     public function eliminarServicioCarrito($index)
@@ -90,6 +105,7 @@ class CanjeoOdontologoCrearLivewire extends Component
         $rules['apellido'] = 'required';
         $rules['dni'] = 'required';
         $rules['carrito'] = 'required';
+        $rules['sede_id'] = 'required';
 
         $this->validate($rules);
 
@@ -104,6 +120,7 @@ class CanjeoOdontologoCrearLivewire extends Component
 
             //Tabla Canjeo
             $nuevaCanjeo = new Canjeo();
+            $nuevaCanjeo->sede_id = $this->sede_id;
             $nuevaCanjeo->odontologo_id = $this->odontologo->id;
             $nuevaCanjeo->nombre = $this->nombre;
             $nuevaCanjeo->apellido = $this->apellido;
@@ -118,6 +135,8 @@ class CanjeoOdontologoCrearLivewire extends Component
             $nuevaCanjeo->canjeoDetalle()->createMany($this->carrito);
 
             $this->emit('mensajeCreado', "Creado.");
+
+            return redirect()->route('odontologo.canjeo.odontologo.index', $nuevaCanjeo->id);
         } else {
             $this->emit('mensajeError', "Puntos insuficientes.");
         }

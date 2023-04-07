@@ -61,19 +61,6 @@
                         </div>
                     </div>
 
-                    <!--CANTIDAD-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <input type="number" wire:model="cantidad">
-                            @error('cantidad')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_1_elementos">
@@ -169,10 +156,7 @@
                                                 {{ $canjeo_detalle['puntos'] }}
                                             </td>
                                             <td style="text-align: center;">
-                                                <input type="number" style="width: 75px;"
-                                                    wire:model="canjeo_detalles.{{ $index }}.cantidad"
-                                                    wire:change="actualizarCantidad({{ $canjeo_detalle['id'] }}, $event.target.value)">
-
+                                                1
                                             </td>
                                             <td style="text-align: center;">
                                                 {{ $canjeo_detalle['cantidad'] * $canjeo_detalle['puntos'] }}

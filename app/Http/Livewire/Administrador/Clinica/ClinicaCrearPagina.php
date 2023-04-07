@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use DOMDocument;
+use DOMXPath;
 
 class ClinicaCrearPagina extends Component
 {
@@ -41,7 +43,7 @@ class ClinicaCrearPagina extends Component
         'username' => 'required|unique:users',
         'password' => 'required',
         'dni' => 'required|digits:8|unique:odontologos',
-        'cop' => 'required|max:6|unique:odontologos',
+        'cop' => 'required|unique:odontologos',
         'celular' => 'required|digits:9',
         'fecha_nacimiento' => 'required',
         'genero' => 'required',
@@ -80,7 +82,7 @@ class ClinicaCrearPagina extends Component
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
-        'dni.digits' => 'El :attribute acepta 7 dígitos.',
+        'dni.digits' => 'El :attribute acepta 8 dígitos.',
         'cop.unique' => 'El :attribute ya existe.',
         'cop.required' => 'El :attribute es requerido.',
         'cop.digits' => 'El :attribute acepta 6 dígitos.',
@@ -100,6 +102,7 @@ class ClinicaCrearPagina extends Component
     {
         $this->especialidades = Especialidad::all();
         $this->sedes = Sede::all();
+        $this->puntos = config('services.crd.puntos_ingreso');
     }
 
     public function generarUsername($nombre, $apellido)
@@ -131,10 +134,16 @@ class ClinicaCrearPagina extends Component
         $this->username = $this->generarUsername($this->nombre, $this->apellido);
     }
 
-
     public function crearClinica()
     {
         $this->validate();
+
+        $respuesta_cop = $this->validarCop();
+
+        if ($respuesta_cop->length == 0) {
+            $this->emit('mensajeError', "COP no existe.");
+            return;
+        }
 
         $usuario = new User();
         $usuario->email = $this->email;
@@ -166,6 +175,24 @@ class ClinicaCrearPagina extends Component
         $this->emit('mensajeCreado', "Creado.");
 
         return redirect()->route('administrador.clinica.editar', $usuario->odontologo->id);
+    }
+
+    public function validarCop()
+    {
+        $theFile = file_get_contents('https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp?TxtBusqueda=' . $this->cop);
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($theFile);
+        $body = "";
+        foreach ($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
+            $body .= $dom->saveHTML($child);
+        }
+
+        $finder = new DOMXPath($dom);
+        $nodes = $finder->query("/html/body/form/table");
+
+        return $nodes;
     }
 
     public function render()

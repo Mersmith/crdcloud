@@ -33,12 +33,13 @@
                     <!--SEDES-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span>
+                            <p class="estilo_nombre_input">Sede: <span class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <select wire:model="sede_id">
-                                <option value="" selected>Seleccione una sede</option>
+                            <select wire:model="sede_id" wire:change="actualizarSede">
+                                <option value="" selected disabled>Seleccione una sede</option>
                                 @foreach ($sedes as $sedeItem)
-                                    <option value="{{ $sedeItem->id }}">{{ $sedeItem->nombre }}</option>
+                                    <option value="{{ $sedeItem->id }}">
+                                        {{ $sedeItem->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('sede_id')
@@ -53,33 +54,19 @@
                             <p class="estilo_nombre_input">Odontólogos: <span
                                     class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <select wire:model="odontologo_id">
+                            <select wire:model="odontologo_id" wire:change="actualizarOdontologo">
                                 <option value="" selected disabled>Seleccione un odontólogo</option>
                                 @foreach ($odontologos as $odontologoItem)
                                     <option value="{{ $odontologoItem->id }}">
-                                        {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}</option>
-                                @endforeach
-                            </select>
-                            @error('odontologo_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <!--CLINICAS-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Clínicas: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="clinica_id">
-                                <option value="" selected disabled>Seleccione una clínica</option>
-                                @foreach ($clinicas as $clinicaItem)
-                                    <option value="{{ $clinicaItem->id }}">
-                                        {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
+                                        @if ($odontologoItem->ruc)
+                                            {{ $odontologoItem->nombre_clinica . ' - ' . $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}
+                                        @else
+                                            {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}
+                                        @endif
                                     </option>
                                 @endforeach
                             </select>
-                            @error('clinica_id')
+                            @error('odontologo_id')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
@@ -91,7 +78,7 @@
                             <p class="estilo_nombre_input">Pacientes: <span
                                     class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <select wire:model="paciente_id">
+                            <select wire:model="paciente_id" wire:change="actualizarPaciente">
                                 <option value="" selected disabled>Seleccione un paciente</option>
                                 @foreach ($pacientes as $pacienteItem)
                                     <option value="{{ $pacienteItem->id }}">
@@ -103,17 +90,19 @@
                             @enderror
                         </div>
                     </div>
+                </div>
 
+                <!--SERVICIO-->
+                <div class="formulario contenedor_panel_producto_admin">
                     <!--SERVICIOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Servicios: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
+                            <p class="estilo_nombre_input">Servicios: <span class="campo_opcional">(Opcional)</span>
                             </p>
                             <select wire:model="servicio_id">
                                 <option value="" selected disabled>Seleccione un servicio</option>
-                                @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem->id }}">{{ $servicioItem->nombre }}</option>
+                                @foreach ($servicios as $id => $nombre)
+                                    <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>
                             @error('servicio_id')
@@ -122,28 +111,15 @@
                         </div>
                     </div>
 
-                    <!--CANTIDAD-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <input type="number" wire:model="cantidad">
-                            @error('cantidad')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_1_elementos">
-                            <button wire:target="agregarServicioAlDetalleVenta" wire:click="agregarServicioAlDetalleVenta">
+                            <button wire:target="agregarServicioAlDetalleVenta"
+                                wire:click="agregarServicioAlDetalleVenta">
                                 Agregar servicio
                             </button>
                         </div>
                     </div>
-
                 </div>
 
                 <!--DATOS-->
@@ -152,7 +128,7 @@
                     <!--LINK-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Link: <span class="campo_obligatorio">(Obligatorio)</span>
+                            <p class="estilo_nombre_input">Link: <span class="campo_opcional">(Opcional)</span>
                             </p>
                             <input type="text" wire:model="link">
                             @error('link')
@@ -167,7 +143,7 @@
                             <p class="estilo_nombre_input">Estado de venta: <span
                                     class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <select wire:model="estado">
+                            <select wire:model="estado" wire:change="actualizarEstado">
                                 <option value="" selected disabled>Seleccione un estado</option>
                                 <option value="1">Pendiente</option>
                                 <option value="2">Pagado</option>
@@ -212,7 +188,7 @@
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td>
-                                                {{ $servicios[$venta_detalle['servicio_id']]->nombre }}
+                                                {{ $servicios[$venta_detalle['servicio_id']] }}
                                                 <br>
                                                 <a
                                                     wire:click="eliminarUnDetalleVenta({{ $venta_detalle['id'] }}, {{ $index }})">
@@ -223,55 +199,57 @@
                                                 S/. {{ $venta_detalle['precio'] }}
                                             </td>
                                             <td style="text-align: center;">
-                                                <input type="number" style="width: 75px;"
-                                                    wire:model="venta_detalles.{{ $index }}.cantidad"
-                                                    wire:change="actualizarCantidad({{ $venta_detalle['id'] }}, $event.target.value)">
-
+                                                1
                                             </td>
                                             <td style="text-align: center;">
                                                 S/.
                                                 {{ number_format($venta_detalle['cantidad'] * $venta_detalle['precio']) }}
                                             </td>
-                                            {{-- <td>
-                                                <button class="btn btn-primary"
-                                                    wire:click="actualizarCantidad({{ $venta_detalle['id'] }}, {{ $venta_detalle['cantidad'] }})">Actualizar
-                                                </button>
-                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
-
+                                @php
+                                    $total = array_reduce(
+                                        $venta_detalles,
+                                        function ($carry, $item) {
+                                            return $carry + $item['cantidad'] * $item['precio'];
+                                        },
+                                        0,
+                                    );
+                                    $puntos = array_reduce(
+                                        $venta_detalles,
+                                        function ($carry, $item) {
+                                            return $carry + $item['cantidad'] * $item['puntos'];
+                                        },
+                                        0,
+                                    );
+                                @endphp
                                 <tfoot>
-                                    @php
-                                        $total = array_reduce(
-                                            $venta_detalles,
-                                            function ($carry, $item) {
-                                                return $carry + $item['cantidad'] * $item['precio'];
-                                            },
-                                            0,
-                                        );
-                                    @endphp
                                     <tr>
                                         <td style="text-align: right;" colspan="4">TOTAL:</td>
                                         <td style="text-align: center;">
                                             S/. {{ number_format($total) }}
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td style="text-align: right;" colspan="4">PUNTOS A GANAR:</td>
+                                        <td style="text-align: center;">
+                                            {{ $puntos }}
+                                        </td>
+                                    </tr>
                                 </tfoot>
 
                             </table>
-
                         </div>
                     </div>
 
-                    <!--Dropzone-->
+                    <!--DROPZONE IMAGEN-->
                     <div class="contenedor_panel_producto_admin">
                         <div class="contenedor_elemento_formulario" wire:ignore>
                             <form action="{{ route('administrador.venta.dropzone', $venta) }}" method="POST"
                                 class="dropzone" id="my-awesome-dropzone"></form>
                         </div>
                     </div>
-
                     <!--IMAGENES-->
                     <div class="contenedor_panel_producto_admin">
                         @if ($venta->imagenes->count())
@@ -299,49 +277,42 @@
                         @endif
                     </div>
 
+                    <!--DROPZONE INFORME-->
+                    <div class="contenedor_panel_producto_admin">
+                        <div class="contenedor_elemento_formulario" wire:ignore>
+                            <form action="{{ route('administrador.venta.dropzone.zip', $venta) }}" method="POST"
+                                class="dropzone" id="my-zip-dropzone"></form>
+                        </div>
+                    </div>
                     <!--INFORME-->
-                    <div class="formulario contenedor_panel_producto_admin">
-                        <!--INFORME-->
-                        <div class="contenedor_1_elementos_100">
-                            <div class="contenedor_elemento_item">
-                                <p class="estilo_nombre_input">Informe: <span class="campo_opcional">(Opcional)</span>
-                                </p>
-                                <div class="contenedor_subir_imagen_sola">
-                                    @if ($editarInforme)
-                                        <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
-                                        <span class="boton_imagen_eliminar" wire:click="$set('editarInforme', null)">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </span>
-                                    @elseif($informe)
-                                        <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
-                                        <span class="boton_imagen_borrar" wire:click="$set('informe', null)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </span>
-                                    @else
-                                        <img src="{{ asset('imagenes/informe/sin_foto_pdf.png') }}">
-                                    @endif
-                                    <div class="opcion_cambiar_imagen">
-                                        <label for="informeSubir">
-                                            <div style="cursor: pointer;">
-                                                Editar <i class="fa-solid fa-file-pdf"></i>
-                                            </div>
-                                        </label>
+                    <div class="contenedor_panel_producto_admin">
+                        @if ($venta->informes->count())
+                            <div class="formulario">
+                                <!--INFORME-->
+                                <div class="contenedor_1_elementos_100">
+                                    <div class="contenedor_elemento_item">
+                                        <p class="estilo_nombre_input">Informe: <span
+                                                class="campo_opcional">(Opcional)</span>
+                                        </p>
+                                        <div class="contenedor_subir_imagen_sola">
+                                            <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
+                                            <span class="boton_imagen_borrar" wire:click="eliminarInforme()"
+                                                wire:loading.attr="disabled" wire:target="eliminarInforme()">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </span>
+                                        </div>
+                                        <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
+                                            target="_blank">
+                                            <i class="fa-solid fa-file"></i>
+                                            Ver informe
+                                        </a>
+                                        @error('editarInforme')
+                                            <span>{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
-                                @if ($informe)
-                                    <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
-                                        target="_blank">
-                                        <i class="fa-solid fa-file"></i>
-                                        Ver informe
-                                    </a>
-                                @endif
-                                <input type="file" wire:model="editarInforme" style="display: none"
-                                    id="informeSubir">
-                                @error('editarInforme')
-                                    <span>{{ $message }}</span>
-                                @enderror
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                     <!--OBSERVACIÓN-->
@@ -350,7 +321,7 @@
                         <div class="contenedor_1_elementos_100">
                             <div class="contenedor_elemento_item">
                                 <p class="estilo_nombre_input">Observación: <span
-                                        class="campo_obligatorio">(Obligatorio)</span>
+                                        class="campo_opcional">(Opcional)</span>
                                 </p>
                                 <textarea rows="3" wire:model="observacion"></textarea>
                                 @error('observacion')
@@ -379,26 +350,8 @@
 
 </div>
 
-
 @push('script')
     <script>
-        /*new Sortable(sortableimagenes, {
-            handle: '.handle2',
-            animation: 150,
-            ghostClass: 'bg-blue-100',
-            store: {
-                set: function(sortable) {
-                    const sorts = sortable.toArray();
-                    //console.log(sorts);
-                    Livewire.emitTo('administrador.venta.venta-editar-livewire',
-                        'cambiarPosicionImagenes', sorts);
-                },
-                onStart: function(evt) {
-                    console.log(evt.oldIndex);
-                },
-            }
-        });*/
-
         let mensajeDropZone =
             "<div class='mensaje_dropzone'><i class='fa-solid fa-cloud-arrow-up'></i><span>Suelte las imagenes aquí o haga clic para subir.</span></div>";
 
@@ -408,13 +361,32 @@
             },
             dictDefaultMessage: mensajeDropZone,
             acceptedFiles: 'image/*',
-            paramName: "file",
+            paramName: "nuevaImagen",
             maxFilesize: 2,
-            complete: function(file) {
-                this.removeFile(file);
+            complete: function(nuevaImagen) {
+                this.removeFile(nuevaImagen);
             },
             queuecomplete: function() {
                 Livewire.emit('dropImagenes');
+            }
+        };
+
+        let mensajeZipDropZone =
+            "<div class='mensaje_dropzone'><i class='fa-solid fa-cloud-arrow-up'></i><span>Suelte el informe en zip aquí o haga clic para subir.</span></div>";
+
+        Dropzone.options.myZipDropzone = {
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            dictDefaultMessage: mensajeZipDropZone,
+            acceptedFiles: '.zip',
+            paramName: "nuevoZip",
+            maxFilesize: 10,
+            complete: function(nuevoZip) {
+                this.removeFile(nuevoZip);
+            },
+            queuecomplete: function() {
+                Livewire.emit('dropZip');
             }
         };
 

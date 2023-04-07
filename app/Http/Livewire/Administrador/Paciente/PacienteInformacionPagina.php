@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Administrador\Paciente;
 
 use App\Models\Paciente;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class PacienteInformacionPagina extends Component

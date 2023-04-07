@@ -2,37 +2,39 @@
 
 namespace App\Http\Livewire\Administrador\Clinica;
 
-use App\Models\Clinica;
+use App\Models\Odontologo;
 use App\Models\Paciente;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Sede;
 use Livewire\Component;
 
 class ClinicaPacienteEditarPagina extends Component
 {
     protected $listeners = ['eliminarPaciente'];
 
-    public $clinica;
+    public $odontologo;
     public $paciente;
+    public $sedes;
     public $usuario_paciente;
 
     public
+        $sedesSeleccionadas  = [],
         $nombre,
         $apellido,
         $email,
-        $password = "contrasenaejemplo",
-        $editar_password = null,
         $dni,
+        $carnet_extranjeria,
+        $edad,
         $celular,
-        $fecha_nacimiento,
         $genero;
 
+    public $es_extranjero;
+
     protected $rules = [
+        'sedesSeleccionadas' => 'required|array|min:1',
+        'sedesSeleccionadas.*' => 'exists:sedes,id',
         'nombre' => 'required',
         'apellido' => 'required',
-        'password' => 'required',
-        'celular' => 'required|digits:9',
-        'fecha_nacimiento' => 'required',
+        'edad' => 'required',
         'genero' => 'required',
     ];
 
@@ -40,62 +42,82 @@ class ClinicaPacienteEditarPagina extends Component
         'nombre' => 'nombre',
         'apellido' => 'apellido',
         'email' => 'email',
-        'password' => 'contraseña',
         'dni' => 'DNI',
+        'carnet_extranjeria' => 'carnet de extranjería',
+        'edad' => 'edad',
         'celular' => 'celular',
-        'fecha_nacimiento' => 'fecha de nacimiento',
         'genero' => 'genero',
     ];
 
     protected $messages = [
+        'sedesSeleccionadas.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
         'email.required' => 'El :attribute es requerido.',
         'email.unique' => 'El :attribute ya existe.',
-        'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
         'dni.digits' => 'El :attribute acepta 8 dígitos.',
-        'celular.required' => 'El :attribute es requerido.',
-        'celular.digits' => 'El :attribute acepta 9 dígitos.',
-        'fecha_nacimiento.required' => 'La :attribute es requerido.',
+        'carnet_extranjeria.unique' => 'El :attribute ya existe.',
+        'edad.required' => 'La :attribute es requerido.',
         'genero.required' => 'El :attribute es requerido.',
     ];
 
-    public function mount(Clinica $clinica, Paciente $paciente)
+    public function mount(Odontologo $clinica, Paciente $paciente)
     {
-        $this->clinica = $clinica;
+        $this->sedes = Sede::all();
+
+        $this->odontologo = $clinica;
         $this->paciente = $paciente;
         $this->usuario_paciente = $paciente->user;
+
+        $this->sedesSeleccionadas = $paciente->sedes->pluck('id')->toArray();
 
         $this->nombre = $paciente->nombre;
         $this->apellido = $paciente->apellido;
         $this->email = $paciente->email;
-        $this->dni = $paciente->user->dni;
+
+        $this->dni = $paciente->dni;
+        $this->carnet_extranjeria = $paciente->carnet_extranjeria;
+
+        if ($this->dni) {
+            $this->es_extranjero = false;
+        } else {
+            $this->es_extranjero = true;
+        }
+
+        $this->edad = $paciente->edad;
         $this->celular = $paciente->celular;
-        $this->fecha_nacimiento = $paciente->fecha_nacimiento;
         $this->genero = $paciente->genero;
+
+        $odontologos = $paciente->odontologos->pluck('nombre')->toArray();
     }
 
     public function editarPaciente()
     {
         $rules = $this->rules;
 
-        $rules['dni'] = 'required|digits:8|unique:users,dni,' . $this->usuario_paciente->id;
-        $rules['email'] = 'required|unique:users,email,' . $this->usuario_paciente->id;
-
-        if ($this->editar_password) {
-            $rules['editar_password'] = 'required';
+        if ($this->es_extranjero) {
+            $rules['carnet_extranjeria'] = 'unique:pacientes,carnet_extranjeria,' . $this->paciente->id;
+            $this->reset('dni');
+            $documentoIdentidad = $this->carnet_extranjeria;
         } else {
-            $this->editar_password = null;
+            $rules['dni'] = 'digits:8|unique:pacientes,dni,' . $this->paciente->id;
+            $this->reset('carnet_extranjeria');
+            $documentoIdentidad = $this->dni;
+        }
+
+        if ($this->email) {
+            $email = $this->email;
+        } else {
+            $email = $documentoIdentidad . '@crd.com';
         }
 
         $this->validate($rules);
 
         $this->usuario_paciente->update(
             [
-                'dni' => $this->dni,
-                'email' => $this->email,
+                'email' => $email,
             ]
         );
 
@@ -103,35 +125,35 @@ class ClinicaPacienteEditarPagina extends Component
             [
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
+                'dni' => $this->dni,
+                'carnet_extranjeria' => $this->carnet_extranjeria,
+                'edad' => $this->edad,
                 'email' => $this->email,
                 'celular' => $this->celular,
-                'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
             ]
         );
 
-        if ($this->editar_password) {
-            $usuario = User::find($this->paciente->user_id);
-
-            //$contrasenaAntiguaHash = $usuario->password;
-            $contrasenaNueva = $this->editar_password;
-
-            $usuario->password = Hash::make($contrasenaNueva);
-            $usuario->save();
-        }
+        $this->paciente->sedes()->sync($this->sedesSeleccionadas);
 
         $this->emit('mensajeActualizado', "Editado.");
-        //return redirect()->route('administrador.clinica.paciente.todo');
     }
 
     public function eliminarPaciente()
     {
+        if ($this->usuario_paciente->direccion) {
+            $this->usuario_paciente->direccion->delete();
+        }
+
+        $this->paciente->sedes()->detach();
+
+        $this->paciente->odontologos()->detach();
+
         $this->paciente->delete();
 
-        //$usuario = User::find($this->usuario_odontologo->id);
         $this->usuario_paciente->delete();
 
-        return redirect()->route('administrador.clinica.paciente.todo', $clinica);
+        return redirect()->route('administrador.clinica.paciente.todo', ['clinica' => $this->odontologo->id]);
     }
 
     public function render()

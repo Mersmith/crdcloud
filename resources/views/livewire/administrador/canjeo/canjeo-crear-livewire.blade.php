@@ -11,7 +11,7 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.canjeo.index') }}">
+            <a href="{{ route('odontologo.canjeo.odontologo.index') }}">
                 <i class="fa-solid fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
@@ -27,6 +27,19 @@
 
                 <!--FORMULARIO-->
                 <div class="formulario contenedor_panel_producto_admin">
+
+                    <!--MIS PUNTOS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Puntos:</p>
+                            <div style="display: flex; align-items: center;">
+                                <span style="color: #189bb6; font-size: 26px;">{{ $puntos }}</span>
+                                <img style="height: 24px;" src="{{ asset('imagenes/empresa/crd-puntos.png') }}"
+                                    alt="" />
+                            </div>
+                        </div>
+                    </div>
+
                     <!--SEDES-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -63,26 +76,6 @@
                         </div>
                     </div>
 
-                    <!--CLINICAS-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Clínicas: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="clinica_id">
-                                <option value="" selected disabled>Seleccione una clínica</option>
-                                @foreach ($clinicas as $clinicaItem)
-                                    <option value="{{ $clinicaItem->id }}">
-                                        {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('clinica_id')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
                     <!--PACIENTES-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -109,25 +102,14 @@
                                     class="campo_obligatorio">(Obligatorio)</span>
                             </p>
                             <select wire:model="servicio">
-                                <option value="" selected disabled>Seleccione una clínica</option>
+                                <option value="" selected disabled>Seleccione un servicio</option>
                                 @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem }}">{{ $servicioItem->nombre }}</option>
+                                    <option value="{{ $servicioItem }}">
+                                        {{ $servicioItem->nombre . ' - Puntos: ' . $servicioItem->puntos_canjeo }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('servicio')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!--CANTIDAD-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <input type="number" wire:model="cantidad">
-                            @error('cantidad')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
@@ -146,14 +128,36 @@
 
                 <!--DATOS-->
                 <div class="formulario contenedor_panel_producto_admin">
-
-                    <!--LINK-->
+                    <!--NOMBRE-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Link: <span class="campo_obligatorio">(Obligatorio)</span>
+                            <p class="estilo_nombre_input">Nombre: <span class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <input type="text" wire:model="link">
-                            @error('link')
+                            <input type="text" wire:model="nombre">
+                            @error('nombre')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!--APELLIDO-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Apellido: <span
+                                    class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <input type="text" wire:model="apellido">
+                            @error('apellido')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!--DNI-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <input type="number" wire:model="dni">
+                            @error('dni')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
@@ -168,14 +172,13 @@
                             <select wire:model="estado">
                                 <option value="" selected disabled>Seleccione un estado</option>
                                 <option value="1">Pendiente</option>
-                                <option value="2">Aplicado</option>
+                                <option value="2">Pagado</option>
                             </select>
                             @error('estado')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -183,25 +186,28 @@
             <!--GRID DETALLE-->
             <div class="grid_contenedor_venta_tabla">
 
-                @if (count($carrito) > 0)
-                    <!--TABLA-->
-                    <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
+                <!--TABLA-->
+                <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
 
-                        <div class="inline-block min-w-full overflow-hidden">
-                            <table class="min-w-full leading-normal tabla_administrador_bordes">
+                    <div class="inline-block min-w-full overflow-hidden">
+                        <table class="min-w-full leading-normal tabla_administrador_bordes">
+                            <!--CABEZA-->
+                            <thead>
                                 <tr>
                                     <th>
                                         N°</th>
                                     <th>
-                                        Servicio</th>
+                                        Exámen</th>
                                     <th>
                                         Puntos</th>
                                     <th>
                                         Cantidad</th>
                                     <th>
-                                        SubTotal</th>
+                                        SubTotal Puntos</th>
                                 </tr>
-                                </thead>
+                            </thead>
+                            @if (count($carrito) > 0)
+                                <!--CUERPO-->
                                 <tbody>
                                     @foreach ($carrito as $carritoItem)
                                         <tr>
@@ -223,28 +229,32 @@
                                             </td>
                                             <td style="text-align: center;">
 
-                                                {{ $carritoItem['subtotal_compra'] }}
+                                                {{ $carritoItem['subtotal_canjeo'] }}
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+
                                 @php
-                                    $array_columna = 'subtotal_compra';
+                                    $array_columna = 'subtotal_canjeo';
                                     $total = array_sum(array_column($carrito, $array_columna));
                                 @endphp
+                                <!--PIE-->
                                 <tfoot>
                                     <tr>
-                                        <td style="text-align: right;" colspan="4">TOTAL:</td>
-                                        <td style="text-align: end;">
+                                        <td style="text-align: right;" colspan="4">TOTAL PUNTOS:</td>
+                                        <td style="text-align: center;">
                                             {{ $total }}
                                         </td>
                                     </tr>
                                 </tfoot>
-
-                            </table>
-
-                        </div>
+                            @endif
+                        </table>
                     </div>
+
+                </div>
+                @if (count($carrito) > 0)
+
 
                     <!--IMAGENES-->
                     <div class="formulario contenedor_panel_producto_admin">
@@ -294,8 +304,8 @@
                     <div class="formulario contenedor_panel_producto_admin">
                         <div class="contenedor_1_elementos_100">
                             <div class="contenedor_elemento_item">
-                                <p class="estilo_nombre_input">Informe: <span
-                                        class="campo_obligatorio">(Obligatorio)</span></p>
+                                <p class="estilo_nombre_input">Informe: <span class="campo_opcional">(Opcional)</span>
+                                </p>
                                 <div class="contenedor_subir_imagen_sola">
                                     @if ($informe)
                                         <img src="{{ asset('imagenes/informe/con_foto_pdf.png') }}">
@@ -327,7 +337,7 @@
                         <div class="contenedor_1_elementos_100">
                             <div class="contenedor_elemento_item">
                                 <p class="estilo_nombre_input">Observación: <span
-                                        class="campo_obligatorio">(Obligatorio)</span>
+                                        class="campo_opcional">(Opcional)</span>
                                 </p>
                                 <textarea rows="3" wire:model="observacion"></textarea>
                                 @error('observacion')
@@ -341,12 +351,12 @@
                     <div style="display: flex; justify-content: flex-end;">
                         <button class="boton_suelto" wire:loading.attr="disabled" wire:target="crearVenta"
                             wire:click="crearVenta">
-                            Crear venta
+                            Canjear
                         </button>
                     </div>
                 @else
                     <div class="contenedor_panel_producto_admin contenedor_no_existe_elementos">
-                        <p>No hay servicios agregados</p>
+                        <p>No hay exámenes agregados.</p>
                         <i class="fa-solid fa-spinner"></i>
                     </div>
                 @endif
@@ -356,3 +366,4 @@
         </div>
 
     </div>
+</div>

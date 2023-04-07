@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Administrador\Administrador;
 
-use App\Models\Administrador;
 use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;

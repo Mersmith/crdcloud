@@ -21,10 +21,10 @@
             <!--FORMULARIO CENTRAR-->
             <div class="login_formulario_centrar">
 
-                <div class="login_formulario_arriba">
+                {{--<div class="login_formulario_arriba">
                     <span>¿No tienes una cuenta?</span>
                     <a href="{{ route('regitrar.odontologo') }}">Regístrarte</a>
-                </div>
+                </div>--}}
 
                 <div class="login_formulario_logo">
                     <a href="{{ route('inicio') }}">

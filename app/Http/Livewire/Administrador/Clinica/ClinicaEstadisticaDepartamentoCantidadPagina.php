@@ -11,11 +11,11 @@ class ClinicaEstadisticaDepartamentoCantidadPagina extends Component
 
     public function mount()
     {
-        //dd("HOLA");
         $this->departamentos_clinicas_cantidad = DB::table('departamentos')
             ->leftJoin('direccions', 'departamentos.id', '=', 'direccions.departamento_id')
-            ->leftJoin('clinicas', 'direccions.user_id', '=', 'clinicas.user_id')
-            ->select('departamentos.id', 'departamentos.nombre', DB::raw('count(clinicas.user_id) as cantidad'))
+            ->leftJoin('odontologos', 'direccions.user_id', '=', 'odontologos.user_id')
+            ->select('departamentos.id', 'departamentos.nombre', DB::raw('count(odontologos.user_id) as cantidad'))
+            ->where('odontologos.rol', '=', 'clinica')
             ->groupBy('departamentos.id', 'departamentos.nombre')
             ->get();
     }

@@ -24,7 +24,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="grid_estado_orden">
                 <div class="grid_estado_0 estilo_estado_orden" style="background-color: rgb(35, 32, 226);">
-                    <a href="{{ route('administrador.venta.index') }}">
+                    <a href="{{ route('administrador.venta.estadistica.venta.mes.actual.lista') }}">
                         <p class="text-center text-2xl">
                             {{ $todos }}
                         </p>
@@ -35,7 +35,7 @@
                     </a>
                 </div>
                 <div class="grid_estado_1 estilo_estado_orden" style="background-color: rgb(245, 171, 11);">
-                    <a href="{{ route('administrador.venta.index') . '?estado=1' }}">
+                    <a href="{{ route('administrador.venta.estadistica.venta.mes.actual.lista') . '?estado=1' }}">
                         <p class="text-center text-2xl">
                             {{ $pendiente }}
                         </p>
@@ -46,7 +46,7 @@
                     </a>
                 </div>
                 <div class="grid_estado_2 estilo_estado_orden" style="background-color: rgb(13, 235, 87);">
-                    <a href="{{ route('administrador.venta.index') . '?estado=2' }}">
+                    <a href="{{ route('administrador.venta.estadistica.venta.mes.actual.lista') . '?estado=2' }}">
                         <p class="text-center text-2xl">
                             {{ $pagado }}
                         </p>
@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div class="grid_estado_3 estilo_estado_orden" style="background-color: rgb(243, 57, 10);">
-                    <a href="{{ route('administrador.venta.index') . '?estado=3' }}">
+                    <a href="{{ route('administrador.venta.estadistica.venta.mes.actual.lista') . '?estado=3' }}">
                         <p class="text-center text-2xl">
                             {{ $anulado }}
                         </p>

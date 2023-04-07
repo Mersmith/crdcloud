@@ -2,14 +2,11 @@
 
 namespace App\Http\Livewire\Administrador\Paciente;
 
-use App\Models\Clinica;
 use App\Models\Odontologo;
-use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use Illuminate\Support\Str;
 
 class PacienteCrearPagina extends Component
 {
