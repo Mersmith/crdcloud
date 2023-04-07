@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Administrador\Venta;
 
-use App\Models\Clinica;
 use App\Models\Odontologo;
 use App\Models\Sede;
 use App\Models\Servicio;
@@ -174,7 +173,6 @@ class VentaCrearLivewire extends Component
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
         $rules['imagenes'] = 'required';
-        //$rules['link'] = 'required';
         $rules['carrito'] = 'required';
 
         if ($this->odontologo_id || $this->clinica_id) {
@@ -245,6 +243,9 @@ class VentaCrearLivewire extends Component
             }
 
             $this->emit('mensajeCreado', "Creado.");
+
+            return redirect()->route('administrador.venta.editar', $nuevaVenta->id);
+
         } else {
             $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
         }

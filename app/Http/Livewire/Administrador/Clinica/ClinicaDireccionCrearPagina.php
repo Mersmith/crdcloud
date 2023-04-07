@@ -6,6 +6,7 @@ use App\Models\Departamento;
 use App\Models\Direccion;
 use App\Models\Distrito;
 use App\Models\Clinica;
+use App\Models\Odontologo;
 use App\Models\Provincia;
 use Livewire\Component;
 
@@ -24,24 +25,18 @@ class ClinicaDireccionCrearPagina extends Component
         'departamento_id' => 'required',
         'provincia_id' => 'required',
         'distrito_id' => 'required',
-        'direccion' => 'required',
-        'referencia' => 'required',
         'departamento_nombre' => 'required',
         'provincia_nombre' => 'required',
         'distrito_nombre' => 'required',
-        'codigo_postal' => 'required',
     ];
 
     protected $messages = [
         'departamento_id' => 'El departamento es requerido.',
         'provincia_id' => 'La provincia es requerida.',
         'distrito_id' => 'El distrito es requerido.',
-        'direccion' => 'La direccion es requerida.',
-        'referencia' => 'La referencia es requerida.',
-        'codigo_postal' => 'El código postal es requerido.',
     ];
 
-    public function mount(Clinica $clinica)
+    public function mount(Odontologo $clinica)
     {
         $this->clinica = $clinica;
         $this->usuario_clinica = $clinica->user;

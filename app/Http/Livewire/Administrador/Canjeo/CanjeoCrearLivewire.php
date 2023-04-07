@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Administrador\Canjeo;
 
 use App\Models\Canjeo;
-use App\Models\Clinica;
 use App\Models\Odontologo;
 use App\Models\Sede;
 use App\Models\Servicio;
@@ -15,13 +14,10 @@ class CanjeoCrearLivewire extends Component
 {
     use WithFileUploads;
 
-    protected $listeners = ['cambiarPosicionImagenes'];
-
     public $imagenes = [];
 
     public $sedes;
     public $odontologos = [];
-    public $clinicas = [];
     public $pacientes = [];
     public $servicios;
 
@@ -32,36 +28,41 @@ class CanjeoCrearLivewire extends Component
     public
         $odontologo,
         $odontologo_id = "",
-        $usuario_odontologo;
-
-    public
-        $clinica,
-        $clinica_id = "",
-        $usuario_clinica;
+        $usuario_odontologo,
+        $puntos = 0;
 
     public
         $paciente_id = "",
         $servicio = "",
         $cantidad = 1,
-        $link = "",
+        $link = null,
         $estado = 1,
-        $observacion = "";
+        $observacion = null;
 
-    public $carrito = [];
+    public
+        $nombre = "",
+        $apellido = "",
+        $dni = "";
+
+    public
+        $carrito = [];
 
     public $informe;
 
     protected $messages = [
-        'paciente_id.required' => 'El paciente es requerido.',
+        'sede_id.required' => 'La sede es requerido.',
         'servicio.required' => 'El servicio es requerido.',
-        'imagenes.required' => 'Las imagenes son requerido.',
-        'link.required' => 'El link es requerido.',
+        'nombre.required' => 'El nombre es requerido.',
+        'apellido.required' => 'El apellido es requerido.',
+        'dni.required' => 'El DNI es requerido.',
+        'carrito.required' => 'El exámen es requerido.',
+        'odontologo_id.required' => 'El odontólogo es requerido.',
     ];
 
     public function mount()
     {
         $this->sedes = Sede::all();
-        $this->servicios = Servicio::select('id', 'nombre')->get();
+        $this->servicios = Servicio::all();
     }
 
     public function updatedSedeId($value)
@@ -69,10 +70,9 @@ class CanjeoCrearLivewire extends Component
         $this->sede = Sede::find($value);
         $this->sede_id = $this->sede->id;
 
-        $this->odontologos = Odontologo::where('sede_id', $this->sede_id)->get();
-        $this->clinicas = Clinica::where('sede_id', $this->sede_id)->get();
+        $this->odontologos = $this->sede->odontologos;
 
-        $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
+        $this->reset(['odontologo_id', 'paciente_id']);
     }
 
     public function updatedOdontologoId($value)
@@ -80,38 +80,32 @@ class CanjeoCrearLivewire extends Component
         $this->odontologo = Odontologo::find($value);
         $this->odontologo_id = $this->odontologo->id;
         $this->usuario_odontologo = $this->odontologo->user;
+        $this->puntos = $this->odontologo->puntos;
 
         $this->pacientes = $this->odontologo->pacientes()
             ->orderBy('created_at', 'desc')->get();
 
-        $this->reset('clinica_id', 'paciente_id');
-    }
-
-    public function updatedClinicaId($value)
-    {
-        $this->clinica = Clinica::find($value);
-        $this->clinica_id = $this->clinica->id;
-        $this->usuario_clinica = $this->clinica->user;
-
-        $this->pacientes = $this->clinica->pacientes()
-            ->orderBy('created_at', 'desc')->get();
-
-        $this->reset('odontologo_id', 'paciente_id');
+        $this->reset('paciente_id');
     }
 
     public function agregarCarrito()
     {
+        $puntosOdontologo = $this->puntos;
+
         $rules = [];
 
-        $rules['sede_id'] = 'required';
-        $rules['paciente_id'] = 'required';
         $rules['servicio'] = 'required';
+        $rules['sede_id'] = 'required';
+        $rules['odontologo_id'] = 'required';
 
-        if ($this->odontologo_id || $this->clinica_id) {
-            $this->validate($rules);
+        $this->validate($rules);
 
-            $servicioCarrito = json_decode($this->servicio, true);
+        $servicioCarrito = json_decode($this->servicio, true);
 
+        $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
+        $totalPuntos = $subTotalPuntos + $servicioCarrito["puntos_canjeo"];
+
+        if ($totalPuntos <= $puntosOdontologo) {
             foreach ($this->carrito as $value) {
                 if ($value["id"] == $servicioCarrito["id"]) {
                     $this->emit('mensajeError', "Ya existe el servicio.");
@@ -122,19 +116,19 @@ class CanjeoCrearLivewire extends Component
             $extraerKeys = ['id', 'nombre'];
             $servicioFiltrado = array_intersect_key($servicioCarrito, array_flip($extraerKeys));
 
-            $precioCompra = $servicioCarrito["puntos_canjeo"];
-            $cantidadCompra = $this->cantidad;
+            $puntosCanjeo = $servicioCarrito["puntos_canjeo"];
+            $cantidadCanjeo = $this->cantidad;
 
             $servicioFiltrado["servicio_id"] = $servicioFiltrado['id'];
-            $servicioFiltrado["cantidad"] = $cantidadCompra;
-            $servicioFiltrado["puntos"] = $precioCompra;
-            $servicioFiltrado["subtotal_compra"] = $cantidadCompra * $precioCompra;
+            $servicioFiltrado["cantidad"] = $cantidadCanjeo;
+            $servicioFiltrado["puntos"] = $puntosCanjeo;
+            $servicioFiltrado["subtotal_canjeo"] = $cantidadCanjeo * $puntosCanjeo;
 
             array_push($this->carrito, $servicioFiltrado);
 
             $this->emit('mensajeCreado', "Agregado.");
         } else {
-            $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
+            $this->emit('mensajeError', "Puntos insuficientes.");
         }
     }
 
@@ -148,111 +142,85 @@ class CanjeoCrearLivewire extends Component
         array_splice($this->imagenes, $index, 1);
     }
 
-    public function cambiarPosicionImagenes($sorts)
-    {
-        $sorted = [];
-
-        foreach ($sorts as  $position) {
-            $existe = $this->imagenes[$position];
-            array_push($sorted, $existe);
-        }
-
-        $this->imagenes = $sorted;
-    }
-
     public function crearVenta()
     {
         $rules = [];
 
         if ($this->informe) {
-            $rules['informe'] = 'required|file|mimes:pdf';
-        }
+            $rules['informe'] = 'required|file|mimes:zip';
+        }       
 
         $rules['sede_id'] = 'required';
-        $rules['paciente_id'] = 'required';
-        $rules['imagenes'] = 'required';
-        $rules['link'] = 'required';
+        $rules['nombre'] = 'required';
+        $rules['apellido'] = 'required';
+        $rules['dni'] = 'required';
         $rules['carrito'] = 'required';
+        $rules['odontologo_id'] = 'required';
 
-        $array_columna = 'subtotal_compra';
-        $subTotal = array_sum(array_column($this->carrito, $array_columna));
-        $totalPagar = $subTotal;
+        $this->validate($rules);
 
-        if ($this->odontologo_id || $this->clinica_id) {
-            $this->validate($rules);
+        if (!$this->paciente_id) {
+            $this->paciente_id == null;
+        }
 
-            if ($this->odontologo_id) {
-                $this->clinica_id = null;
+        $estado = 1;
 
-                if ($this->odontologo->puntos < $totalPagar) {
-                    $this->emit('mensajeError', "No tienes puntos suficientes.");
-                    return;
-                }
-            } else {
-                $this->odontologo_id = null;
+        $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
+        $totalPuntos = $subTotalPuntos;
 
-                if ($this->clinica->puntos < $totalPagar) {
-                    $this->emit('mensajeError', "No tienes puntos suficientes.");
-                    return;
-                }
-            }
+        $puntosOdontologo = $this->puntos;
+
+        if ($totalPuntos <= $puntosOdontologo) {
 
             //Tabla Canjeo
-            $nuevaVenta = new Canjeo();
-            $nuevaVenta->sede_id = $this->sede_id;
-            $nuevaVenta->paciente_id = $this->paciente_id;
-            $nuevaVenta->odontologo_id = $this->odontologo_id;
-            $nuevaVenta->clinica_id = $this->clinica_id;
-            $nuevaVenta->estado = $this->estado;
-            $nuevaVenta->total_puntos = $totalPagar;
-            $nuevaVenta->puntos_usados = $totalPagar;
-            $nuevaVenta->link = $this->link;
-            $nuevaVenta->observacion = $this->observacion;
-            $nuevaVenta->save();
+            $nuevaCanjeo = new Canjeo();
+            $nuevaCanjeo->sede_id = $this->sede_id;
+            $nuevaCanjeo->odontologo_id = $this->odontologo->id;
+            $nuevaCanjeo->paciente_id = $this->paciente_id;
+            $nuevaCanjeo->nombre = $this->nombre;
+            $nuevaCanjeo->apellido = $this->apellido;
+            $nuevaCanjeo->dni = $this->dni;
+            $nuevaCanjeo->estado = $estado;
+            $nuevaCanjeo->total_puntos = $totalPuntos;
+            $nuevaCanjeo->puntos_usados = $totalPuntos;
+            $nuevaCanjeo->observacion = $this->observacion;
+            $nuevaCanjeo->save();
 
             //Tabla CanjeoDetalle
-            $nuevaVenta->canjeoDetalle()->createMany($this->carrito);
+            $nuevaCanjeo->canjeoDetalle()->createMany($this->carrito);
 
-            //Tabla Imagen
             foreach ($this->imagenes as $key => $imagen) {
                 $urlImagen = Storage::put('radiografias-canjeo', $imagen);
 
-                $nuevaVenta->imagenesCanjeo()->create([
+                $nuevaCanjeo->imagenesCanjeo()->create([
                     'imagen_canjeo_ruta' => $urlImagen,
                     'posicion' => $key + 1,
                 ]);
             }
 
-            //Tabla Informe
             if ($this->informe) {
                 $informeSubir = $this->informe->store('informes-canjeo');
-                $nuevaVenta->informesCanjeo()->create([
+                $nuevaCanjeo->informesCanjeo()->create([
                     'informe_canjeo_ruta' => $informeSubir
                 ]);
             }
 
+            //Pagado
             if ($this->estado == 2) {
-                //Tabla Odontologo
                 if ($this->odontologo_id) {
                     $this->odontologo->update(
                         [
-                            'puntos' => $this->odontologo->puntos - $totalPagar,
-                        ]
-                    );
-                }
-                //Tabla Clinica
-                else {
-                    $this->clinica->update(
-                        [
-                            'puntos' => $this->clinica->puntos - $totalPagar,
+                            'puntos' => $this->odontologo->puntos - $totalPuntos
                         ]
                     );
                 }
             }
 
             $this->emit('mensajeCreado', "Creado.");
+
+            return redirect()->route('administrador.canjeo.editar', $nuevaCanjeo->id);
         } else {
-            $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
+            $this->emit('mensajeError', "Puntos insuficientes.");
         }
     }
 

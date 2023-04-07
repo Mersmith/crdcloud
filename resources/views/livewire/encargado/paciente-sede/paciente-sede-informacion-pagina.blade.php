@@ -40,7 +40,6 @@
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
                     <p><strong>Fecha registro: </strong>{{ $paciente->created_at }} </p>
                     <p><strong>Sede CRD: </strong>{{ implode(',', $sedes) }} </p>
-
                 </div>
             </div>
 
@@ -121,7 +120,6 @@
                                         Email</th>
                                     <th>
                                         DNI</th>
-
                                     <th>
                                         Celular</th>
                                     <th>
@@ -251,7 +249,7 @@
                                             {{ $clinica->email }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->dni }}
+                                            {{ $clinica->dni }}
                                         </td>
                                         <td>
                                             {{ $clinica->celular }}

@@ -35,7 +35,7 @@
             <!--FORMULARIO-->
             <div x-data="{ digitosDni: '', digitosCelular: '', digitosCop: '', digitosRuc: '' }" class="formulario">
 
-                <!--SEDES Y ESPECIALIDADES-->
+                <!--SEDES-->
                 <div class="contenedor_2_elementos">
                     <!--SEDES-->
                     <div class="contenedor_elemento_item">
@@ -214,7 +214,6 @@
                         @enderror
                     </div>
                 </div>
-
 
                 <!--ENVIAR-->
                 <div class="contenedor_1_elementos">

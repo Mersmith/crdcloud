@@ -130,7 +130,7 @@ class OdontologoEditarPagina extends Component
         $rules = $this->rules;
 
         $rules['dni'] = 'required|digits:8|unique:odontologos,dni,' . $this->odontologo->id;
-        $rules['cop'] = 'required|max:6|unique:odontologos,cop,' . $this->odontologo->id;
+        $rules['cop'] = 'required|unique:odontologos,cop,' . $this->odontologo->id;
 
         if ($this->tiene_clinica) {
             $rules['ruc'] = 'required|digits:11';

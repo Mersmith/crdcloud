@@ -2,101 +2,139 @@
 
 namespace App\Http\Livewire\Administrador\Clinica;
 
-use App\Models\Clinica;
+use App\Models\Odontologo;
+use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class ClinicaPacienteCrearPagina extends Component
 {
-    public $clinica;
+    public $odontologo;
+    public $sedes;
+    public $sede;
 
     public
-        $sede_id = "",
-        $clinica_id = "",
+        $sedesArray = [],
+        $odontologo_id = "",
         $nombre = null,
         $apellido = null,
+        $username = null,
         $email = null,
         $password = null,
         $dni = null,
+        $carnet_extranjeria = null,
+        $edad = null,
         $celular = null,
-        $fecha_nacimiento = null,
         $genero = "hombre";
 
+    public $es_extranjero = false;
+
     protected $rules = [
-        'sede_id' => 'required',
+        'sedesArray' => 'required|array|min:1',
         'nombre' => 'required',
         'apellido' => 'required',
-        'email' => 'required|unique:users',
-        'password' => 'required',
-        'dni' => 'required|digits:8|unique:users',
-        'celular' => 'required|digits:9',
-        'fecha_nacimiento' => 'required',
+        'email' => 'unique:users',
+        'username' => 'required|unique:users',
+        'edad' => 'required',
         'genero' => 'required',
+        'password' => 'required',
     ];
 
     protected $validationAttributes = [
-        'sede_id' => 'sede',
+        'sedesArray' => 'sede',
         'nombre' => 'nombre',
         'apellido' => 'apellido',
+        'username' => 'nombre de usuario',
         'email' => 'email',
         'password' => 'contraseña',
         'dni' => 'DNI',
+        'carnet_extranjeria' => 'carnet de extranjería',
+        'edad' => 'edad',
         'celular' => 'celular',
-        'fecha_nacimiento' => 'fecha de nacimiento',
         'genero' => 'genero',
     ];
 
     protected $messages = [
-        'sede_id.required' => 'La :attribute es requerido.',
+        'sedesArray.required' => 'La :attribute es requerido.',
         'nombre.required' => 'El :attribute es requerido.',
         'apellido.required' => 'El :attribute es requerido.',
+        'username.required' => 'El :attribute es requerido.',
+        'username.unique' => 'El :attribute ya existe.',
         'email.required' => 'El :attribute es requerido.',
         'email.unique' => 'El :attribute ya existe.',
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
         'dni.digits' => 'El :attribute acepta 8 dígitos.',
-        'celular.required' => 'El :attribute es requerido.',
-        'celular.digits' => 'El :attribute acepta 9 dígitos.',
-        'fecha_nacimiento.required' => 'La :attribute es requerido.',
+        'carnet_extranjeria.unique' => 'El :attribute ya existe.',
+        'edad.required' => 'La :attribute es requerido.',
         'genero.required' => 'El :attribute es requerido.',
     ];
 
-    public function mount(Clinica $clinica)
+    public function mount(Odontologo $clinica)
     {
-        $this->clinica = $clinica;
-        $this->sede_id = $clinica->sede->id;
-        $this->clinica_id = $clinica->id;
+        $this->sedesArray = $clinica->sedes->pluck('id')->toArray();
+
+        $this->odontologo = $clinica;
+        $this->odontologo_id = $clinica->id;
+
+        $this->sedes = Sede::all();
     }
 
     public function crearPaciente()
     {
-        $this->validate();
+        $rules = $this->rules;
+
+        if ($this->es_extranjero) {
+            $rules['carnet_extranjeria'] = 'unique:pacientes';
+            $this->reset('dni');
+            $documentoIdentidad = $this->carnet_extranjeria;
+        } else {
+            $rules['dni'] = 'digits:8|unique:pacientes';
+            $this->reset('carnet_extranjeria');
+            $documentoIdentidad = $this->dni;
+        }
+
+        if ($this->email) {
+            $email = $this->email;
+        } else {
+            $email = $documentoIdentidad . '@crd.com';
+        }
+
+        $this->username = $documentoIdentidad;
+        $this->password = $documentoIdentidad;
+
+        $this->validate($rules);
 
         $usuario = new User();
-        $usuario->email = $this->email;
+        $usuario->email = $email;
+        $usuario->username = $this->username;
         $usuario->password = Hash::make($this->password);
-        $usuario->dni = $this->dni;
+        $usuario->rol = "paciente";
         $usuario->save();
 
         $usuario->paciente()->create(
             [
-                'sede_id' => $this->sede_id,
                 'nombre' => $this->nombre,
                 'apellido' => $this->apellido,
-                'email' => $this->email,
+                'dni' => $this->dni,
+                'carnet_extranjeria' => $this->carnet_extranjeria,
+                'edad' => $this->edad,
+                'email' => $email,
                 'celular' => $this->celular,
-                'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
+                'rol' => "paciente",
             ]
         );
 
-        $usuario->paciente->clinicas()->attach($this->clinica_id);
+        $usuario->paciente->sedes()->attach($this->sedesArray);
+
+        $usuario->paciente->odontologos()->attach($this->odontologo_id);
 
         $this->emit('mensajeCreado', "Creado.");
 
-        return redirect()->route('administrador.clinica.paciente.editar', ['clinica' => $this->clinica_id, 'paciente' => $usuario->paciente->id]);
+        return redirect()->route('administrador.clinica.paciente.editar', ['clinica' => $this->odontologo_id, 'paciente' => $usuario->paciente->id]);
     }
 
     public function render()

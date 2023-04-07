@@ -60,10 +60,10 @@ class VentaSedeCrearLivewire extends Component
 
     public function mount()
     {
-        $this->sedes = Sede::all();
-
         $this->sede = Auth::user()->encargado->sede;
         $this->sede_id = $this->sede->id;
+        $this->sedes = Sede::all();
+
         $this->servicios = Servicio::select('id', 'nombre')->get();
         $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
         $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();

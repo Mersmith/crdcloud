@@ -24,20 +24,34 @@
 
         <!--DATOS-->
         <div class="contenedor_panel_producto_admin">
+            <!--DATOS-->
+
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Datos del paciente:</h3>
+                <h3>Datos:</h3>
             </div>
             <div>
                 <div>
                     <p><strong>ID: </strong>{{ $paciente->id }} </p>
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
+                    <p><strong>Apellido: </strong>{{ $paciente->apellido }} </p>
+                    <p><strong>Edad: </strong>{{ $paciente->edad }} </p>
                     <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
                     <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
+                    <p><strong>Fecha registro: </strong>{{ $paciente->created_at }} </p>
                     <p><strong>Sede CRD: </strong>{{ implode(',', $sedes) }} </p>
-
                 </div>
+            </div>
+
+            <!--ACCESOS-->
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Accesos:</h3>
+            </div>
+            <div>
+                <p><strong>Username: </strong>{{ $usuario_paciente->username }} </p>
+                <p><strong>Correo: </strong>{{ $usuario_paciente->email }} </p>
             </div>
         </div>
 
@@ -56,13 +70,13 @@
                     <p><strong>Referencia: </strong>{{ $direccion->referencia }} </p>
                     <p><strong>Código postal: </strong>{{ $direccion->codigo_postal }} </p>
                     <a href="{{ route('administrador.paciente.direccion.editar', $paciente) }}"
-                        class="boton_suelto">Editar
+                        class="boton_suelto"><i class="fa-solid fa-pencil"></i> Editar
                         Dirección</a>
                 </div>
             @else
                 <div>
                     <a href="{{ route('administrador.paciente.direccion.crear', $paciente) }}"
-                        class="boton_suelto">Crear
+                        class="boton_suelto"><i class="fa-solid fa-square-plus"></i> Crear
                         Dirección</a>
                 </div>
             @endif
@@ -107,7 +121,6 @@
                                         Email</th>
                                     <th>
                                         DNI</th>
-
                                     <th>
                                         Celular</th>
                                     <th>
@@ -137,7 +150,7 @@
                                             {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->dni }}
+                                            {{ $odontologo->dni }}
                                         </td>
                                         <td>
                                             {{ $odontologo->celular }}
@@ -237,7 +250,7 @@
                                             {{ $clinica->email }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->dni }}
+                                            {{ $clinica->dni }}
                                         </td>
                                         <td>
                                             {{ $clinica->celular }}

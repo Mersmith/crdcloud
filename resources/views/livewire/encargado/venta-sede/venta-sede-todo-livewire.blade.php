@@ -16,7 +16,7 @@
         <!--GRID VENTAS-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="grid_estado_orden">
-                <div class="grid_estado_0 estilo_estado_orden" style="background-color: rgb(35, 32, 226);">
+                <div class="grid_estado_0 estilo_estado_orden" style="background-color: #189bb6;">
                     <a href="{{ route('encargado.venta.sede.index') }}">
                         <p class="text-center text-2xl">
                             {{ $todos }}

@@ -16,7 +16,7 @@
         <!--GRID VENTAS-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="grid_estado_orden">
-                <div class="grid_estado_0 estilo_estado_orden" style="background-color: rgb(35, 32, 226);">
+                <div class="grid_estado_0 estilo_estado_orden" style="background-color: #189bb6;">
                     <a href="{{ route('administrador.venta.index') }}">
                         <p class="text-center text-2xl">
                             {{ $todos }}
@@ -71,8 +71,8 @@
             </div>
         </div>
 
-        <!--TABLA-->
-        <div class="contenedor_panel_producto_admin">
+         <!--TABLA-->
+         <div class="contenedor_panel_producto_admin">
             @if ($ventas->count())
 
                 <!--CONTENEDOR SUBTITULO-->
@@ -103,9 +103,13 @@
                                     <th>
                                         N° Orden</th>
                                     <th>
+                                        Exámen</th>
+                                    <th>
                                         Estado</th>
                                     <th>
-                                        Total</th>
+                                        Link</th>
+                                    <th>
+                                        Descarga</th>
                                     <th>
                                         Registro</th>
                                     <th>
@@ -114,16 +118,19 @@
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $ventaItem)
-                                    <tr style="text-align: center;">
+                                    <tr>
                                         <td>
-                                            N° 00000-{{ $ventaItem->id }}
+                                            {{ $ventaItem->id }}
                                         </td>
                                         <td>
+                                            {{ $ventaItem->nombre }}
+                                        </td>
+                                        <td style="text-align: center;">
                                             @switch($ventaItem->estado)
                                                 @case(1)
                                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                                                         style="background-color: rgb(245, 171, 11);">
-                                                        Falta Pagar
+                                                        Pendiente
                                                     </span>
                                                 @break
 
@@ -144,15 +151,23 @@
                                                 @default
                                             @endswitch
                                         </td>
-                                        <td>
-                                            S/. {{ $ventaItem->total }}
+                                        <td style="text-align: center;">
+                                            @if ($ventaItem->link)
+                                                <a href="{{ $ventaItem->link }}" target="_blank"><i
+                                                        class="fa-brands fa-google-drive"></i></a>
+                                            @endif
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
+                                            @if ($ventaItem->link)
+                                                {{ $ventaItem->descargas_imagen }}
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center;">
                                             {{ $ventaItem->created_at }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <a class="tabla_editar"
-                                                href="{{ route('administrador.venta.editar', $ventaItem) }}">
+                                                href="{{ route('administrador.venta.editar', $ventaItem->id) }}">
                                                 <i class="fa-solid fa-pencil"></i></a>
                                         </td>
                                     </tr>

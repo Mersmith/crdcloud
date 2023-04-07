@@ -70,3 +70,4 @@ php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeCrearLivewire
 php artisan make:livewire Encargado/CanjeoSede/CanjeoSedeEditarLivewire
 
 php artisan make:controller Encargado/VentaController
+php artisan make:controller Encargado/CanjeoController

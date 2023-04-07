@@ -11,7 +11,7 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.canjeo.index') }}">
+            <a href="{{ route('odontologo.canjeo.odontologo.index') }}">
                 <i class="fa-solid fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
@@ -40,6 +40,23 @@
                         </div>
                     </div>
 
+                    <!--SEDES-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Sedes: <span class="campo_obligatorio">(Obligatorio)</span>
+                            </p>
+                            <select wire:model="sede_id">
+                                <option value="" selected>Seleccione una sede</option>
+                                @foreach ($sedes as $sedeItem)
+                                    <option value="{{ $sedeItem->id }}">{{ $sedeItem->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('sede_id')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <!--SERVICIOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -49,23 +66,12 @@
                             <select wire:model="servicio">
                                 <option value="" selected disabled>Seleccione un servicio</option>
                                 @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem }}">{{ $servicioItem->nombre }}</option>
+                                    <option value="{{ $servicioItem }}">
+                                        {{ $servicioItem->nombre . ' - Puntos: ' . $servicioItem->puntos_canjeo }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('servicio')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!--CANTIDAD-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Cantidad: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <input type="number" wire:model="cantidad">
-                            @error('cantidad')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
@@ -112,7 +118,7 @@
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">DNI: <span class="campo_obligatorio">(Obligatorio)</span>
                             </p>
-                            <input type="text" wire:model="dni">
+                            <input type="number" wire:model="dni">
                             @error('dni')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
