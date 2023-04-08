@@ -23,7 +23,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
+                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar por nombre.">
             </div>
         </div>
 
@@ -83,7 +83,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($odontologos as $odontologo)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -100,10 +100,10 @@
                                             {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->dni }}
+                                            {{ $odontologo->dni }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->cop }}
+                                            {{ $odontologo->cop }}
                                         </td>
                                         <td>
                                             {{ $odontologo->celular }}

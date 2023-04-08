@@ -54,7 +54,7 @@
                 <div class="contenedor_2_elementos">
                     <!--EMAIL-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Correo: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Correo: <span class="campo_opcional">(Opcional)</span></p>
                         <input type="email" wire:model="email">
                         @error('email')
                             <span class="campo_obligatorio">{{ $message }}</span>
@@ -98,7 +98,7 @@
                 <div class="contenedor_2_elementos">
                     <!--CELULAR-->
                     <div class="contenedor_elemento_item">
-                        <p class="estilo_nombre_input">Celular: <span class="campo_obligatorio">(Obligatorio)</span></p>
+                        <p class="estilo_nombre_input">Celular: <span class="campo_opcional">(Opcional)</span></p>
                         <input type="number" wire:model="celular" x-ref="digitosCelularRef"
                             x-on:keydown="limitarEntrada($refs.digitosCelularRef, 9, $event)" x-init="digitosCelular = $refs.digitosCelularRef.value">
                         @error('celular')

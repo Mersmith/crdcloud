@@ -2,15 +2,16 @@
 
 namespace App\Http\Livewire\Sesion\Administrador;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 class AdministradorIngresarLivewire extends Component
 {
     public $email;
     public $password;
-    public $remember;
+    public $recordarme;
 
     protected $rules = [
         'email' => 'required',
@@ -18,7 +19,7 @@ class AdministradorIngresarLivewire extends Component
     ];
 
     protected $validationAttributes = [
-        'email' => 'email',
+        'email' => 'email o usuario',
         'password' => 'contraseña',
     ];
 
@@ -32,33 +33,6 @@ class AdministradorIngresarLivewire extends Component
         $this->validate();
 
         $credentials = [
-            'email' => $this->email,
-            'password' => $this->password,
-        ];
-
-        if (Auth::attempt($credentials)) {
-            $usuario = Auth::user();
-
-            if ($usuario->rol == "administrador") {
-                return redirect()->route('administrador.encargado.index');
-            } elseif ($usuario->rol == "encargado") {
-                return redirect()->route('encargado.especialidad.sede.index');
-            } elseif ($usuario->rol == "odontologo") {
-                return redirect()->route('odontologo.paciente.odontologo.index');
-            } elseif ($usuario->rol == "paciente") {
-                return redirect()->route('encargado.odontologo.index');
-            } else {
-                return redirect()->route('inicio');
-            }
-
-        } else {
-            $this->emit('mensajeError', "Verifique los datos ingresados.");
-        }
-    }
-
-    public function authenticate()
-    {
-        $credentials = [
             'password' => $this->password,
         ];
         if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
@@ -66,7 +40,7 @@ class AdministradorIngresarLivewire extends Component
         } else {
             $credentials['username'] = $this->email;
         }
-        if (Auth::attempt($credentials, $this->remember)) {
+        if (Auth::attempt($credentials, $this->recordarme)) {
             $usuario = Auth::user();
 
             if ($usuario->rol == "administrador") {
@@ -80,30 +54,12 @@ class AdministradorIngresarLivewire extends Component
             } else {
                 return redirect()->route('inicio');
             }
-
-            //return redirect()->intended('/');
-            //return redirect()->route('administrador.encargado.index');
-        }
-        $this->addError('email', 'Credenciales inválidas');
-    }
-
-    public function contra()
-    {
-        /*$users = DB::table('users')->get();
-
-        // Actualizar la contraseña de cada usuario
-        foreach ($users as $user) {
-            DB::table('users')
-                ->where('id', $user->id)
-                ->update(['password' => bcrypt($user->password)]);
-        }*/
-
-        $users = DB::table('users')->where('id', '>=', 8824)->get();
-
-        foreach ($users as $user) {
-            DB::table('users')
-                ->where('id', $user->id)
-                ->update(['password' => bcrypt($user->password)]);
+        } else {
+            $errors = ['email' => 'Email o usuario incorrecto.'];
+            if (User::where('email', $this->email)->count() > 0) {
+                $errors = ['password' => 'La contraseña es incorrecta.'];
+            }
+            throw ValidationException::withMessages($errors);
         }
     }
 

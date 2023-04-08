@@ -23,7 +23,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
+                <input type="text" wire:model="buscarClinica" placeholder="Buscar por nombre o email.">
             </div>
         </div>
 
@@ -65,8 +65,6 @@
                                     <th>
                                         Especialidad</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
                                     <th>
                                         DNI</th>
@@ -88,8 +86,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas as $clinica)
-                                    <tr  style="text-align: center;">
-                                        <td>
+                                    <tr >
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
@@ -105,33 +103,30 @@
                                             {{ $clinica->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{-- $clinica->sede->nombre --}}
-                                        </td>
-                                        <td>
                                             {{ $clinica->email }}
                                         </td>
-                                        <td>
-                                            {{ $clinica->user->dni }}
+                                        <td style="text-align: center;">
+                                            {{ $clinica->dni }}
                                         </td>
-                                        <td>
-                                            {{ $clinica->user->cop }}
+                                        <td style="text-align: center;">
+                                            {{ $clinica->cop }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $clinica->celular }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $clinica->fecha_nacimiento }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $clinica->genero }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $clinica->puntos }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $clinica->created_at }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <a style="color: #009eff;"
                                                 href="{{ route('administrador.clinica.informacion', $clinica) }}">
                                                 <i class="fa-solid fa-eye"></i>

@@ -36,7 +36,7 @@ class ClinicaEstadisticaDistritoListaPagina extends Component
             })
             ->where('odontologos.rol', '=', 'clinica')
             ->orderBy('odontologos.created_at', 'desc')
-            ->select('odontologos.*', 'odontologos.id as odontologo_id') // agregar el nuevo campo
+            ->select('odontologos.*', 'odontologos.id as odontologo_id')
             ->paginate(10);
 
         return view('livewire.administrador.clinica.clinica-estadistica-distrito-lista-pagina', compact('clinicas_distritos'))->layout('layouts.administrador.index');

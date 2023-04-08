@@ -36,7 +36,11 @@
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
                     <p><strong>Apellido: </strong>{{ $paciente->apellido }} </p>
                     <p><strong>Edad: </strong>{{ $paciente->edad }} </p>
-                    <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
+                    @if ($paciente->dni)
+                        <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
+                    @else
+                        <p><strong>Carnet Extranjería: </strong>{{ $paciente->carnet_extranjeria }} </p>
+                    @endif
                     <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
                     <p><strong>Fecha registro: </strong>{{ $paciente->created_at }} </p>
@@ -69,14 +73,14 @@
                     <p><strong>Dirección: </strong>{{ $direccion->direccion }} </p>
                     <p><strong>Referencia: </strong>{{ $direccion->referencia }} </p>
                     <p><strong>Código postal: </strong>{{ $direccion->codigo_postal }} </p>
-                    <a href="{{ route('administrador.paciente.direccion.editar', $paciente) }}"
-                        class="boton_suelto"><i class="fa-solid fa-pencil"></i> Editar
+                    <a href="{{ route('administrador.paciente.direccion.editar', $paciente) }}" class="boton_suelto"><i
+                            class="fa-solid fa-pencil"></i> Editar
                         Dirección</a>
                 </div>
             @else
                 <div>
-                    <a href="{{ route('administrador.paciente.direccion.crear', $paciente) }}"
-                        class="boton_suelto"><i class="fa-solid fa-square-plus"></i> Crear
+                    <a href="{{ route('administrador.paciente.direccion.crear', $paciente) }}" class="boton_suelto"><i
+                            class="fa-solid fa-square-plus"></i> Crear
                         Dirección</a>
                 </div>
             @endif

@@ -20,7 +20,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar odontólogo: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
+                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar por nombre o email.">
             </div>
         </div>
 
@@ -63,10 +63,9 @@
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Fecha Nacimiento</th>
+                                        Nacimiento</th>
                                     <th>
                                         Género</th>
-
                                     <th>
                                         Puntos</th>
                                     <th>
@@ -75,7 +74,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($odontologos_distritos as $odontologo)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>

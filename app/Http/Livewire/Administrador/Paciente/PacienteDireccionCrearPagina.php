@@ -24,12 +24,9 @@ class PacienteDireccionCrearPagina extends Component
         'departamento_id' => 'required',
         'provincia_id' => 'required',
         'distrito_id' => 'required',
-        //'direccion' => 'required',
-        //'referencia' => 'required',
         'departamento_nombre' => 'required',
         'provincia_nombre' => 'required',
         'distrito_nombre' => 'required',
-        //'codigo_postal' => 'required',
     ];
 
     protected $messages = [

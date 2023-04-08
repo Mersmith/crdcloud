@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Administrador\Clinica;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Clinica;
 use App\Models\Odontologo;
 
 class ClinicaTodoPagina extends Component

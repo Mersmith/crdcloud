@@ -147,7 +147,7 @@
                                 <option value="" selected disabled>Seleccione un estado</option>
                                 <option value="1">Pendiente</option>
                                 <option value="2">Pagado</option>
-                                <option value="3">Cancelado</option>
+                                <option value="3">Anulado</option>
                             </select>
                             @error('estado')
                                 <span class="campo_obligatorio">{{ $message }}</span>

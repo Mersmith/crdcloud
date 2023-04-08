@@ -35,7 +35,11 @@
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
                     <p><strong>Apellido: </strong>{{ $paciente->apellido }} </p>
                     <p><strong>Edad: </strong>{{ $paciente->edad }} </p>
-                    <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
+                    @if ($paciente->dni)
+                        <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
+                    @else
+                        <p><strong>Carnet Extranjería: </strong>{{ $paciente->carnet_extranjeria }} </p>
+                    @endif
                     <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
                     <p><strong>Fecha registro: </strong>{{ $paciente->created_at }} </p>
@@ -74,8 +78,8 @@
                 </div>
             @else
                 <div>
-                    <a href="{{ route('encargado.paciente.sede.direccion.crear', $paciente) }}"
-                        class="boton_suelto"><i class="fa-solid fa-square-plus"></i> Crear
+                    <a href="{{ route('encargado.paciente.sede.direccion.crear', $paciente) }}" class="boton_suelto"><i
+                            class="fa-solid fa-square-plus"></i> Crear
                         Dirección</a>
                 </div>
             @endif
@@ -115,8 +119,6 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
                                     <th>
                                         DNI</th>
@@ -132,7 +134,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($odontologos as $odontologo)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -143,13 +145,10 @@
                                             {{ $odontologo->apellido }}
                                         </td>
                                         <td>
-                                            {{-- $odontologo->sede->nombre --}}
-                                        </td>
-                                        <td>
                                             {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->dni }}
+                                            {{ $odontologo->dni }}
                                         </td>
                                         <td>
                                             {{ $odontologo->celular }}
@@ -206,7 +205,7 @@
                 <div class="tabla_administrador py-4 overflow-x-auto">
                     <div class="inline-block min-w-full overflow-hidden">
                         <table class="min-w-full leading-normal">
-                            <thead>
+                            <thead  style="text-align: center;">
                                 <tr>
                                     <th>
                                         Nº</th>
@@ -214,8 +213,6 @@
                                         Nombres</th>
                                     <th>
                                         Apellidos</th>
-                                    <th>
-                                        Sede</th>
                                     <th>
                                         Email</th>
                                     <th>
@@ -232,7 +229,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas as $clinica)
-                                    <tr>
+                                    <tr  style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -241,9 +238,6 @@
                                         </td>
                                         <td>
                                             {{ $clinica->apellido }}
-                                        </td>
-                                        <td>
-                                            {{-- $clinica->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $clinica->email }}

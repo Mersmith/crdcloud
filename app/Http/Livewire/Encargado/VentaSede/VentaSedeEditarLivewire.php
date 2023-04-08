@@ -201,18 +201,19 @@ class VentaSedeEditarLivewire extends Component
 
             $puntos_venta = (int)$this->venta->puntos_ganados;
 
-            $odontologo_anterior->update(
-                [
-                    'puntos' => $odontologo_anterior->puntos - $puntos_venta
-                ]
-            );
+            if ($this->venta->estado == 2) {
+                $odontologo_anterior->update(
+                    [
+                        'puntos' => $odontologo_anterior->puntos - $puntos_venta
+                    ]
+                );
 
-            $odontologo_nuevo->update(
-                [
-                    'puntos' => $odontologo_nuevo->puntos + $puntos_venta
-                ]
-            );
-
+                $odontologo_nuevo->update(
+                    [
+                        'puntos' => $odontologo_nuevo->puntos + $puntos_venta
+                    ]
+                );
+            }
             $this->venta->odontologo_id = $odontologo_nuevo->id;
             $this->venta->update();
         }
@@ -220,7 +221,6 @@ class VentaSedeEditarLivewire extends Component
 
     public function actualizarVenta()
     {
-
         $rules = [];
 
         $rules['sede_id'] = 'required';
@@ -282,7 +282,9 @@ class VentaSedeEditarLivewire extends Component
 
             $this->venta_detalles[] = $venta_detalle->toArray();
 
-            $this->aumentaPuntosOdontologo($servicio->puntos_ganar);
+            if ($this->venta->estado == 2) {
+                $this->aumentaPuntosOdontologo($servicio->puntos_ganar);
+            }
 
             $this->actualizarPuntosYTotalVenta();
         } else {
@@ -297,7 +299,9 @@ class VentaSedeEditarLivewire extends Component
 
         array_splice($this->venta_detalles, $index, 1);
 
-        $this->disminuyePuntosOdontologo($venta_detalle->puntos);
+        if ($this->venta->estado == 2) {
+            $this->disminuyePuntosOdontologo($venta_detalle->puntos);
+        }
 
         $this->actualizarPuntosYTotalVenta();
     }
@@ -341,11 +345,13 @@ class VentaSedeEditarLivewire extends Component
     {
         $puntos_venta = (int)$this->venta->puntos_ganados;
 
-        $this->odontologo->update(
-            [
-                'puntos' => $this->odontologo->puntos - $puntos_venta
-            ]
-        );
+        if ($this->venta->estado == 2) {
+            $this->odontologo->update(
+                [
+                    'puntos' => $this->odontologo->puntos - $puntos_venta
+                ]
+            );
+        }
 
         if ($this->venta->imagenes->count()) {
             $imagenes = $this->venta->imagenes;

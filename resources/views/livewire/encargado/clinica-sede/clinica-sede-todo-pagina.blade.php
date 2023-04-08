@@ -23,7 +23,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
+                <input type="text" wire:model="buscarClinica" placeholder="Buscar por nombre.">
             </div>
         </div>
 
@@ -58,6 +58,8 @@
                                     <th>
                                         Nº</th>
                                     <th>
+                                        Clínica</th>
+                                    <th>
                                         Nombres</th>
                                     <th>
                                         Apellidos</th>
@@ -88,6 +90,9 @@
                                     <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
+                                        </td>
+                                        <td>
+                                            {{ $clinica->nombre_clinica }}
                                         </td>
                                         <td>
                                             {{ $clinica->nombre }}
@@ -123,7 +128,8 @@
                                             {{ $clinica->puntos }}
                                         </td>
                                         <td>
-                                            <a style="color: #009eff;" href="{{ route('encargado.clinica.sede.informacion', $clinica) }}">
+                                            <a style="color: #009eff;"
+                                                href="{{ route('encargado.clinica.sede.informacion', $clinica) }}">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
 

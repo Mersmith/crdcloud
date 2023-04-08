@@ -28,6 +28,7 @@ class PacienteOdontogoTodoPagina extends Component
     {
         $odontologos = $this->paciente->odontologos()
             ->where('nombre', 'LIKE', '%' . $this->buscarOdontologo . '%')
+            ->where('rol', '=', 'odontologo')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

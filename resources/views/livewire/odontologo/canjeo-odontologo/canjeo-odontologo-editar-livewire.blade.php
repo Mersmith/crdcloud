@@ -31,6 +31,14 @@
                 <!--FORMULARIO-->
                 <div class="formulario contenedor_panel_producto_admin">
 
+                    <!--SEDES-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Sede CRD:</p>
+                            <input type="text" value="{{ $sede->nombre }}" disabled>
+                        </div>
+                    </div>
+
                     <!--MIS PUNTOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">

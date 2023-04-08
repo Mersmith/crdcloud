@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Odontologo\CanjeoOdontologo;
 
 use App\Models\Canjeo;
 use App\Models\CanjeoDetalle;
+use App\Models\Sede;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -35,6 +36,10 @@ class CanjeoOdontologoEditarLivewire extends Component
     public $canjeo_id;
     public $canjeo_detalles = [];
 
+    public
+        $sede_id,
+        $sede;
+
     protected $messages = [
         'servicio.required' => 'El servicio es requerido.',
         'nombre.required' => 'El nombre es requerido.',
@@ -61,6 +66,9 @@ class CanjeoOdontologoEditarLivewire extends Component
 
         $this->observacion = $canjeo->observacion;
         $this->total = $canjeo->total_puntos;
+
+        $this->sede_id = $canjeo->sede_id;
+        $this->sede = Sede::find($canjeo->sede_id);
     }
 
     public function eliminarServicioCarrito($index)

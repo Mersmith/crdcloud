@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Distritos</h2>
+            <h2>Distrito</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -63,10 +63,9 @@
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Fecha Nacimiento</th>
+                                        Nacimiento</th>
                                     <th>
                                         Género</th>
-
                                     <th>
                                         Puntos</th>
                                     <th>
@@ -76,7 +75,7 @@
                             <tbody>
                                 @foreach ($odontologos_distritos as $odontologo)
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
@@ -85,24 +84,22 @@
                                         <td>
                                             {{ $odontologo->apellido }}
                                         </td>
-
                                         <td>
                                             {{ $odontologo->email }}
                                         </td>
-
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->celular }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->fecha_nacimiento }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->genero }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->puntos }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <a style="color: #009eff;"
                                                 href="{{ route('encargado.odontologo.sede.informacion', $odontologo->odontologo_id) }}">
                                                 <i class="fa-solid fa-eye"></i>

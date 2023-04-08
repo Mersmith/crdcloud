@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Web\InicioController;
 use App\Http\Livewire\Sesion\Administrador\AdministradorIngresarLivewire;
 use App\Http\Livewire\Sesion\Odontologo\OdontologoRegistrarLivewire;
 use Illuminate\Support\Facades\Route;

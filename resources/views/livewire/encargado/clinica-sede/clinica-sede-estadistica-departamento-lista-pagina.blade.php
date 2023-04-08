@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Odontologos - Departamento')
+    @section('tituloPagina', 'Odontologos - Provincias')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Departamento</h2>
+            <h2>Provincias</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -58,7 +58,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($odontologos_provincias_cantidad as $provincia)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>

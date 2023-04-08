@@ -99,7 +99,6 @@
                         <table class="min-w-full leading-normal">
                             <thead>
                                 <tr>
-
                                     <th>
                                         N° Orden</th>
                                     <th>
@@ -119,7 +118,7 @@
                             <tbody>
                                 @foreach ($ventas as $ventaItem)
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $ventaItem->id }}
                                         </td>
                                         <td>
