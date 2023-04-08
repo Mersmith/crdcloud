@@ -1,10 +1,29 @@
 npm run build
 
-APP_URL=http://htdentshop.digident.com.pe
-DB_DATABASE=htdentshopdb
-DB_USERNAME=htdentshopdb
-DB_PASSWORD=htdentshopdb
+Subdominio: crd.centroradiologico.com.pe
+Carpeta Raíz: /public_html/crd.centroradiologico.com.pe
+
+Carpeta Storage: public_html/crd.centroradiologico.com.pe/storage
+
+Acceso a la carpeta: cd public_html/crd.centroradiologico.com.pe
+
+php -v
+
+git clone https://github.com/Mersmith/crd.git
+
+composer install
+
+npm install
+
+APP_URL=http://crd.centroradiologico.com.pe
+DB_DATABASE=crddb
+DB_USERNAME=tae
+DB_PASSWORD=%*!!rWLE=p3
 FILESYSTEM_DISK=local
+
+php artisan key:generate
+
+mkdir -p storage/app/temp
 
 ->Solo subir al storage todo del public y listo, cambiar el local
 /home/digidentcom/htdentprueba.digident.com.pe/config/filesystems.php
@@ -22,12 +41,11 @@ htdentprueba.digident.com.pe/storage/app/public
     'engine' => 'InnoDB',
 ]
 
-->Eliminar el storage del public
-
-composer install
-npm install
-
 php artisan storage:link
+
+php artisan livewire:publish --config
+
+'asset_url' => url('/'),
 
 ->Dar permisos a la carpeta storage
 chmod -R 777 storage/
