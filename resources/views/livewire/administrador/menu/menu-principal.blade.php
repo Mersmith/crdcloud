@@ -31,6 +31,10 @@
                     <img src="{{ asset('imagenes/perfil/sin_foto_perfil.png') }}">
                 @endif
 
+                @if ($unreadCount > 0)
+                    <span  style="color: #5ad7f7;"><i class="fa-solid fa-bell"></i>{{ $unreadCount }}</span>
+                @endif
+
                 <p>{{ $usuario->nombre }}</p>
 
                 @can('rol', 'administrador')

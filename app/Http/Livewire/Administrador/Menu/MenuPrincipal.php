@@ -11,6 +11,8 @@ class MenuPrincipal extends Component
 
     public $usuario;
 
+    public $unreadCount;
+
     public function mount()
     {
         $usuario = Auth::user();
@@ -25,6 +27,8 @@ class MenuPrincipal extends Component
         } elseif ($usuario->rol == 'paciente') {
             $this->usuario = $usuario->paciente;
         }
+
+        $this->unreadCount = auth()->user()->unreadNotifications->count();
     }
 
     public function render()

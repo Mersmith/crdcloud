@@ -194,3 +194,7 @@ SET puntos = 0
 WHERE puntos IS NULL;
 
 php artisan make:controller Odontologo/DescargarProgramaController
+
+php artisan make:notification CanjeoRealizadoNotification
+
+php artisan notifications:table
