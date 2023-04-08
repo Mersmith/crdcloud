@@ -1,0 +1,43 @@
+npm run build
+
+APP_URL=http://htdentshop.digident.com.pe
+DB_DATABASE=htdentshopdb
+DB_USERNAME=htdentshopdb
+DB_PASSWORD=htdentshopdb
+FILESYSTEM_DISK=local
+
+->Solo subir al storage todo del public y listo, cambiar el local
+/home/digidentcom/htdentprueba.digident.com.pe/config/filesystems.php
+'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'throw' => false,
+        ],
+htdentprueba.digident.com.pe/storage/app/public
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/home/digidentcom/htdentprueba.digident.com.pe/config/database.php
+
+'mysql' => [
+    ...
+    'engine' => 'InnoDB',
+]
+
+->Eliminar el storage del public
+
+composer install
+npm install
+
+php artisan storage:link
+
+->Dar permisos a la carpeta storage
+chmod -R 777 storage/
+chmod -R 777 public/
+
+MAIL_MAILER=sendmail
+MAIL_HOST=smtp.googlemail.com
+MAIL_PORT=587
+MAIL_USERNAME=mersmith14@gmail.com
+MAIL_PASSWORD=zwqanrymqfzrloji
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="mersmith14@gmail.com"
+MAIL_FROM_NAME="${APP_NAME}"
