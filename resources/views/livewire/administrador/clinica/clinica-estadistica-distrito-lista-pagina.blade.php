@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Clínica - Distritos')
+    @section('tituloPagina', 'Clínica - Distrito')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Distritos</h2>
+            <h2>Distrito</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -20,7 +20,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
+                <input type="text" wire:model="buscarClinica" placeholder="Buscar por nombre o email.">
             </div>
         </div>
 
@@ -75,7 +75,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas_distritos as $clinica)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>

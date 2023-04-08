@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Odontologo\PuntosOdontologo;
 
 use App\Models\Venta;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Bus;
 use Livewire\Component;
 
 class PuntosOdontologoTodoLivewire extends Component
@@ -12,6 +13,11 @@ class PuntosOdontologoTodoLivewire extends Component
     public $ventas;
     public $ventasPagadas;
     public $imagenesTodos;
+
+    public $canjeos;
+    public $canjeosPagadas;
+
+    public $ventasYCanjeos;
 
     public function mount()
     {
@@ -23,6 +29,12 @@ class PuntosOdontologoTodoLivewire extends Component
         $this->ventasPagadas = $this->ventas->filter(function ($venta) {
             return $venta->estado == Venta::PAGADO;
         })->sum('puntos_ganados');
+
+        $this->canjeos = $odontologo->canjeos()->orderBy('created_at', 'desc')->get();
+
+        $this->canjeosPagadas = $this->canjeos->filter(function ($canjeo) {
+            return $canjeo->estado == Venta::PAGADO;
+        })->sum('total_puntos');
 
         $imagenesVentas = collect();
         foreach ($this->ventas as $venta) {

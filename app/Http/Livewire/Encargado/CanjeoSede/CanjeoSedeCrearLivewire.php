@@ -185,7 +185,7 @@ class CanjeoSedeCrearLivewire extends Component
             $nuevaCanjeo->nombre = $this->nombre;
             $nuevaCanjeo->apellido = $this->apellido;
             $nuevaCanjeo->dni = $this->dni;
-            $nuevaCanjeo->estado = $estado;
+            $nuevaCanjeo->estado = $this->estado;
             $nuevaCanjeo->total_puntos = $totalPuntos;
             $nuevaCanjeo->puntos_usados = $totalPuntos;
             $nuevaCanjeo->observacion = $this->observacion;

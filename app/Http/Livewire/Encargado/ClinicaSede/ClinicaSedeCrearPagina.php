@@ -160,6 +160,7 @@ class ClinicaSedeCrearPagina extends Component
                 'fecha_nacimiento' => $this->fecha_nacimiento,
                 'genero' => $this->genero,
                 'puntos' => $this->puntos,
+                'puntos_bienvenida' => $this->puntos,
                 'rol' => "clinica",
                 'ruc' => $this->ruc,
                 'nombre_clinica' => $this->nombre_clinica,

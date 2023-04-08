@@ -63,7 +63,7 @@
                         <h2>¿Cómo canjear radiografías con puntos?</h2>
                         <iframe src="https://www.youtube.com/embed/6l9VT8yJI9E?autoplay=1&rel=0"
                             title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div>
 

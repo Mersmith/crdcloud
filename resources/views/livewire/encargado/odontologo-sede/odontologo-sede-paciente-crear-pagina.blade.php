@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Nuevo paciente</h2>
+            <h2>Nuevo paciente del odontólogo: {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -150,7 +150,7 @@
                             @enderror
                         </div>
                     </div>
-                <!--DNI-->
+                    <!--DNI-->
                 @else
                     <div class="contenedor_2_elementos">
                         <!--DNI-->

@@ -63,8 +63,6 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
                                     <th>
                                         DNI</th>
@@ -89,9 +87,6 @@
                                         </td>
                                         <td>
                                             {{ $paciente->apellido }}
-                                        </td>
-                                        <td>
-                                            {{-- $paciente->sede->nombre --}}
                                         </td>
                                         <td>
                                             {{ $paciente->email }}

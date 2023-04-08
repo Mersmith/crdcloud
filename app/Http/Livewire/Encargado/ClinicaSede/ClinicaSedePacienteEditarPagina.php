@@ -97,6 +97,8 @@ class ClinicaSedePacienteEditarPagina extends Component
     {
         $rules = $this->rules;
 
+        $rules['email'] = 'unique:users,email,' . $this->usuario_paciente->id;
+
         if ($this->es_extranjero) {
             $rules['carnet_extranjeria'] = 'unique:pacientes,carnet_extranjeria,' . $this->paciente->id;
             $this->reset('dni');
@@ -128,7 +130,7 @@ class ClinicaSedePacienteEditarPagina extends Component
                 'dni' => $this->dni,
                 'carnet_extranjeria' => $this->carnet_extranjeria,
                 'edad' => $this->edad,
-                'email' => $this->email,
+                'email' => $email,
                 'celular' => $this->celular,
                 'genero' => $this->genero,
             ]

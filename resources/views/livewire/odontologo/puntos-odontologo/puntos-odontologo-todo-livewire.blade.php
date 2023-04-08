@@ -40,9 +40,9 @@
                 </div>
 
                 <div class="contenedor_1_elementos_100">
-                    <p><strong>Puntos acumulados: </strong> {{ $this->ventasPagadas + $odontologo->puntos_bienvenida }}
+                    <p><strong>Puntos acumulados: </strong> {{ $this->ventasPagadas + $odontologo->puntos_bienvenida - $this->canjeosPagadas}}
                         puntos = S/.
-                        {{ ($this->ventasPagadas + $odontologo->puntos_bienvenida) * config('services.crd.puntos_equivale') }}
+                        {{ ($this->ventasPagadas + $odontologo->puntos_bienvenida - $this->canjeosPagadas) * config('services.crd.puntos_equivale') }}
                     </p>
                 </div>
 
@@ -61,39 +61,39 @@
             <div class="contenedor_subtitulo_admin">
                 <h3>Sus radiografías: ({{ $ventas->count() }})</h3>
             </div>
-            @if ($ventas->count())
-                <!--CONTENEDOR BOTONES-->
-                <div class="contenedor_botones_admin">
-                    <button>
-                        PDF <i class="fa-solid fa-file-pdf"></i>
-                    </button>
-                    <button>
-                        EXCEL <i class="fa-regular fa-file-excel"></i>
-                    </button>
-                    <button onClick="window.scrollTo(0, document.body.scrollHeight);">
-                        Abajo <i class="fa-solid fa-arrow-down"></i>
-                    </button>
-                </div>
+            <!--CONTENEDOR BOTONES-->
+            <div class="contenedor_botones_admin">
+                <button>
+                    PDF <i class="fa-solid fa-file-pdf"></i>
+                </button>
+                <button>
+                    EXCEL <i class="fa-regular fa-file-excel"></i>
+                </button>
+                <button onClick="window.scrollTo(0, document.body.scrollHeight);">
+                    Abajo <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div>
 
-                <!--TABLA-->
-                <div class="tabla_administrador py-4 overflow-x-auto">
-                    <div class="inline-block min-w-full overflow-hidden">
-                        <table class="min-w-full leading-normal">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        N° Orden</th>
-                                    <th>
-                                        Estado</th>
-                                    <th>
-                                        Puntos</th>
-                                    <th>
-                                        Registro</th>
-                                    <th>
-                                        Ver</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            <!--TABLA-->
+            <div class="tabla_administrador py-4 overflow-x-auto">
+                <div class="inline-block min-w-full overflow-hidden">
+                    <table class="min-w-full leading-normal">
+                        <thead>
+                            <tr>
+                                <th>
+                                    N° Orden</th>
+                                <th>
+                                    Estado</th>
+                                <th>
+                                    Puntos</th>
+                                <th>
+                                    Registro</th>
+                                <th>
+                                    Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($ventas->count())
                                 @foreach ($ventas as $ventaItem)
                                     <tr style="text-align: center;">
                                         <td>
@@ -139,25 +139,20 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr style="text-align: center;">
-                                    <td>Puntos de bienvenida</td>
-                                    <td>-</td>
-                                    <td>50</td>
-                                    <td>{{ $odontologo->created_at->format('d/m/Y') }}</td>
-                                    <td>-</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+                            @endif
+                        </tbody>
+                        <tfoot>
+                            <tr style="text-align: center;">
+                                <td>Puntos de bienvenida</td>
+                                <td>-</td>
+                                <td>{{$odontologo->puntos_bienvenida}}</td>
+                                <td>{{ $odontologo->created_at->format('d/m/Y') }}</td>
+                                <td>-</td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-            @else
-                <div class="contenedor_no_existe_elementos">
-                    <p>No tiene informes.</p>
-                    <i class="fa-solid fa-spinner"></i>
-                </div>
-            @endif
+            </div>
         </div>
 
     </div>

@@ -53,7 +53,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($departamentos_odontologos_cantidad as $departamento)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>

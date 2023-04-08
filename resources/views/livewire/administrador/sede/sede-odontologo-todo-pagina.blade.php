@@ -29,7 +29,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar odontólogo: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
+                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar por nombre.">
             </div>
         </div>
 

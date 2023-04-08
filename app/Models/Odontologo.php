@@ -36,6 +36,11 @@ class Odontologo extends Model
         return $this->hasMany(Venta::class);
     }
 
+    public function canjeos()
+    {
+        return $this->hasMany(Canjeo::class);
+    }
+
     public function imagenPerfil()
     {
         return $this->morphOne(ImagenPerfil::class, "imagen_perfilable");

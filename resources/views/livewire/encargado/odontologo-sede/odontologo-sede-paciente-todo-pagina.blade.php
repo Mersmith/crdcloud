@@ -6,7 +6,7 @@
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Pacientes de: {{$odontologo->nombre .' '. $odontologo->apellido}}</h2>
+            <h2>Pacientes del odontólogo:  {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</h2>
         </div>
 
         <!--CONTENEDOR BOTONES-->
@@ -25,7 +25,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar paciente: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarPaciente" placeholder="Buscar...">
+                <input type="text" wire:model="buscarPaciente" placeholder="Buscar por nombre.">
             </div>
         </div>
 
@@ -63,13 +63,13 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
                                     <th>
-                                        DNI</th>
+                                        Identificación</th>
                                     <th>
                                         Celular</th>
+                                    <th>
+                                        Edad</th>
                                     <th>
                                         Género</th>
                                     <th>
@@ -80,7 +80,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($pacientes as $paciente)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -91,16 +91,20 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{-- $paciente->sede->nombre --}}
-                                        </td>
-                                        <td>
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->dni }}
+                                            @if ($paciente->dni)
+                                                DNI: {{ $paciente->dni }}
+                                            @else
+                                                Carnet: {{ $paciente->carnet_extranjeria }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $paciente->celular }}
+                                        </td>
+                                        <td>
+                                            {{ $paciente->edad }}
                                         </td>
                                         <td>
                                             {{ $paciente->genero }}

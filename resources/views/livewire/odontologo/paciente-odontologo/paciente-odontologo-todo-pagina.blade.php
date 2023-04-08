@@ -25,7 +25,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar paciente: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarPaciente" placeholder="Buscar...">
+                <input type="text" wire:model="buscarPaciente" placeholder="Buscar por nombre.">
             </div>
         </div>
 
@@ -63,7 +63,11 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
+                                        Identificación</th>
+                                    <th>
                                         Género</th>
+                                    <th>
+                                        Edad</th>
                                     <th>
                                         Registro</th>
                                     <th>
@@ -83,7 +87,17 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
+                                            @if ($paciente->dni)
+                                                DNI: {{ $paciente->dni }}
+                                            @else
+                                                Carnet: {{ $paciente->carnet_extranjeria }}
+                                            @endif
+                                        </td>
+                                        <td>
                                             {{ $paciente->genero }}
+                                        </td>
+                                        <td>
+                                            {{ $paciente->edad }}
                                         </td>
                                         <td>
                                             {{ $paciente->created_at }}

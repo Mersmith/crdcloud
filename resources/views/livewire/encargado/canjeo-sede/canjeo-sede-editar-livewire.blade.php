@@ -48,11 +48,21 @@
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Odontólogo:
                             </p>
-                            <a href="{{ route('administrador.odontologo.informacion', $odontologo->id) }}"
-                                target="_blank"
-                                style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
-                                    class="fa-solid fa-user-injured"></i>
-                                {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</a>
+
+                            @if ($odontologo->ruc)
+                                <a href="{{ route('encargado.clinica.sede.informacion', $odontologo->id) }}"
+                                    target="_blank"
+                                    style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
+                                        class="fa-solid fa-user-injured"></i>
+                                    {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</a>
+                            @else
+                                <a href="{{ route('encargado.odontologo.sede.informacion', $odontologo->id) }}"
+                                    target="_blank"
+                                    style="max-width: 100%; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i
+                                        class="fa-solid fa-user-injured"></i>
+                                    {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</a>
+                            @endif
+
                         </div>
                     </div>
 
@@ -87,8 +97,8 @@
                     </div>
                 </div>
 
-                   <!--DATOS-->
-                   <div class="formulario contenedor_panel_producto_admin">
+                <!--DATOS-->
+                <div class="formulario contenedor_panel_producto_admin">
                     <!--NOMBRE-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -199,7 +209,7 @@
                                     <th>
                                         Servicio</th>
                                     <th>
-                                        Precio</th>
+                                        Puntos</th>
                                     <th>
                                         Cantidad</th>
                                     <th>
@@ -243,7 +253,7 @@
                                 @endphp
                                 <tfoot>
                                     <tr>
-                                        <td style="text-align: right;" colspan="4">TOTAL PUNTOS:</td>
+                                        <td style="text-align: right;" colspan="4">PUNTOS UTILIZADOS:</td>
                                         <td style="text-align: center;">
                                             {{ $total }}
                                         </td>

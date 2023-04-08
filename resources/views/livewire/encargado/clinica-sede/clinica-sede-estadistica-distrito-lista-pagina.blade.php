@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Odontólogo - Distritos')
+    @section('tituloPagina', 'Odontólogo - Distrito')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Distritos</h2>
+            <h2>Distrito</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -20,7 +20,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar odontólogo: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar...">
+                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar por nombre o email.">
             </div>
         </div>
 
@@ -63,10 +63,9 @@
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Fecha Nacimiento</th>
+                                        Nacimiento</th>
                                     <th>
                                         Género</th>
-
                                     <th>
                                         Puntos</th>
                                     <th>
@@ -76,7 +75,7 @@
                             <tbody>
                                 @foreach ($odontologos_distritos as $odontologo)
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
                                         <td>
@@ -90,19 +89,19 @@
                                             {{ $odontologo->email }}
                                         </td>
 
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->celular }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->fecha_nacimiento }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->genero }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             {{ $odontologo->puntos }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <a style="color: #009eff;"
                                                 href="{{ route('encargado.clinica.sede.informacion', $odontologo->odontologo_id) }}">
                                                 <i class="fa-solid fa-eye"></i>

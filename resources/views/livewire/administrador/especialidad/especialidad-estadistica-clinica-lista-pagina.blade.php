@@ -23,7 +23,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar clínica: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarClinica" placeholder="Buscar...">
+                <input type="text" wire:model="buscarClinica" placeholder="Buscar por nombre.">
             </div>
         </div>
 
@@ -64,9 +64,7 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Especialidad</th>
-                                    <th>
-                                        Sede</th>
+                                        Especialidad</th>                                    
                                     <th>
                                         Email</th>
                                     <th>
@@ -87,9 +85,9 @@
                                         Acción</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 @foreach ($clinicas as $clinica)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <td>
                                             {{ $loop->iteration }}
                                         </td>
@@ -106,16 +104,13 @@
                                             {{ $clinica->especialidad->nombre }}
                                         </td>
                                         <td>
-                                            {{-- $clinica->sede->nombre --}}
-                                        </td>
-                                        <td>
                                             {{ $clinica->email }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->dni }}
+                                            {{ $clinica->dni }}
                                         </td>
                                         <td>
-                                            {{ $clinica->user->cop }}
+                                            {{ $clinica->cop }}
                                         </td>
                                         <td>
                                             {{ $clinica->celular }}

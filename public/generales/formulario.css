@@ -17,6 +17,19 @@
     line-height: 1.5;
 }
 
+.formulario input[type="checkbox"] {
+    background-color: rgb(245, 245, 245);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #189bb6;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.formulario input[type=checkbox]:checked {
+    background-color: #189bb6;
+}
+
 .formulario *:disabled {
     background-color: #e9ecef !important;
     opacity: 1;
@@ -141,15 +154,15 @@
     width: 150px;
 }
 
-.contenedor_subir_imagen_sola_estilo_1{
+.contenedor_subir_imagen_sola_estilo_1 {
     box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
 }
 
-.contenedor_subir_imagen_sola_estilo_2{
+.contenedor_subir_imagen_sola_estilo_2 {
     border-radius: 50%;
 }
 
-.contenedor_subir_imagen_sola_estilo_2 img{
+.contenedor_subir_imagen_sola_estilo_2 img {
     border-radius: 50%;
 }
 

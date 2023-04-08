@@ -13,7 +13,6 @@ class OdontologoEstadisticaDistritoListaPagina extends Component
     public $buscarOdontologo;
     protected $paginate = 10;
 
-    //public $odontologos_distritos;
     public $distrito_id;
 
     public function updatingBuscarOdontologo()
@@ -24,12 +23,6 @@ class OdontologoEstadisticaDistritoListaPagina extends Component
     public function mount(Distrito $distrito)
     {
         $this->distrito_id = $distrito->id;
-
-        /*$this->odontologos_distritos = DB::table('odontologos')
-            ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
-            ->where('direccions.distrito_id', '=', $distrito_id)
-            ->select('odontologos.*')
-            ->get();*/
     }
 
     public function render()
@@ -43,13 +36,8 @@ class OdontologoEstadisticaDistritoListaPagina extends Component
             })
             ->where('odontologos.rol', '=', 'odontologo')
             ->orderBy('odontologos.created_at', 'desc')
-            ->select('odontologos.*', 'odontologos.id as odontologo_id') // agregar el nuevo campo
+            ->select('odontologos.*', 'odontologos.id as odontologo_id')
             ->paginate(10);
-        /*$odontologos_distritos = DB::table('odontologos')
-            ->join('direccions', 'odontologos.user_id', '=', 'direccions.user_id')
-            ->where('direccions.distrito_id', '=', $this->distrito_id)
-            ->select('odontologos.*')
-            ->get();*/
 
         return view('livewire.administrador.odontologo.odontologo-estadistica-distrito-lista-pagina', compact('odontologos_distritos'))->layout('layouts.administrador.index');
     }

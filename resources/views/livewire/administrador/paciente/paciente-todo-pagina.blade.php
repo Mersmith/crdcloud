@@ -23,7 +23,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar paciente: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarPaciente" placeholder="Buscar...">
+                <input type="text" wire:model="buscarPaciente" placeholder="Buscar por nombre.">
             </div>
         </div>
 
@@ -61,15 +61,13 @@
                                     <th>
                                         Apellidos</th>
                                     <th>
-                                        Sede</th>
-                                    <th>
                                         Email</th>
                                     <th>
-                                        DNI</th>
+                                        Identificación</th>
                                     <th>
                                         Celular</th>
                                     <th>
-                                        Nacimiento</th>
+                                        Edad</th>
                                     <th>
                                         Género</th>
                                     <th>
@@ -91,19 +89,20 @@
                                             {{ $paciente->apellido }}
                                         </td>
                                         <td>
-                                            {{-- $paciente->sede->nombre --}}
-                                        </td>
-                                        <td>
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->dni }}
+                                            @if ($paciente->dni)
+                                                DNI: {{ $paciente->dni }}
+                                            @else
+                                                Carnet: {{ $paciente->carnet_extranjeria }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $paciente->celular }}
                                         </td>
                                         <td>
-                                            {{ $paciente->fecha_nacimiento }}
+                                            {{ $paciente->edad }}
                                         </td>
                                         <td>
                                             {{ $paciente->genero }}
@@ -133,7 +132,6 @@
                         {{ $pacientes->links('pagination::tailwind') }}
                     </div>
                 @endif
-
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No hay pacientes.</p>

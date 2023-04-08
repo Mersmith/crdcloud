@@ -163,7 +163,7 @@ class CanjeoCrearLivewire extends Component
             $this->paciente_id == null;
         }
 
-        $estado = 1;
+        //$estado = 1;
 
         $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
         $totalPuntos = $subTotalPuntos;
@@ -180,7 +180,7 @@ class CanjeoCrearLivewire extends Component
             $nuevaCanjeo->nombre = $this->nombre;
             $nuevaCanjeo->apellido = $this->apellido;
             $nuevaCanjeo->dni = $this->dni;
-            $nuevaCanjeo->estado = $estado;
+            $nuevaCanjeo->estado = $this->estado;
             $nuevaCanjeo->total_puntos = $totalPuntos;
             $nuevaCanjeo->puntos_usados = $totalPuntos;
             $nuevaCanjeo->observacion = $this->observacion;

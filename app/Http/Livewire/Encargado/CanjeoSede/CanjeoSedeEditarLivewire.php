@@ -112,7 +112,7 @@ class CanjeoSedeEditarLivewire extends Component
         $rules['paciente_id'] = 'required';
         $rules['canjeo_detalles'] = 'required';
 
-        if ($this->canjeo->imagenesCanjeo->count()) {
+        //if ($this->canjeo->imagenesCanjeo->count()) {
             $this->validate($rules);
 
             $this->canjeo->observacion = $this->observacion;
@@ -121,9 +121,9 @@ class CanjeoSedeEditarLivewire extends Component
             $this->canjeo->update();
 
             $this->emit('mensajeActualizado', "Actualizado.");
-        } else {
+        /*} else {
             $this->emit('mensajeError', "Falta subir imagen.");
-        }
+        }*/
     }
 
     public function aumentaPuntosOdontologo($puntos_actualizado)
@@ -179,6 +179,10 @@ class CanjeoSedeEditarLivewire extends Component
 
         array_splice($this->canjeo_detalles, $index, 1);
 
+        if ($this->canjeo->estado == 2) {
+            $this->aumentaPuntosOdontologo($canjeo_detalle->puntos);
+        }
+
         $this->total = $this->obtenerTotal();
         $this->canjeo->total_puntos = $this->total;
         $this->canjeo->update();
@@ -215,6 +219,10 @@ class CanjeoSedeEditarLivewire extends Component
             $canjeo_detalle->save();
 
             $this->canjeo_detalles[] = $canjeo_detalle->toArray();
+
+            if ($this->canjeo->estado == 2) {
+                $this->disminuyePuntosOdontologo($canjeo_detalle->puntos);
+            }
 
             $this->total = $this->obtenerTotal();
             $this->canjeo->total_puntos = $this->total;

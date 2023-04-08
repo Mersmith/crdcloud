@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Clínica - Provincia')
+    @section('tituloPagina', 'Clínica - Distritos')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Provincia</h2>
+            <h2>Distritos</h2>
         </div>
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
@@ -57,7 +57,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas_distritos_cantidad as $distrito)
-                                    <tr>
+                                    <tr style="text-align: center;">
                                        <td>
                                            {{ $loop->iteration }}
                                        </td>

@@ -137,7 +137,7 @@ class PerfilOdontologoInformacionPagina extends Component
         $rules['cop'] = 'required|max:6|unique:odontologos,cop,' . $this->odontologo->id;
 
         if ($this->tiene_clinica) {
-            $rules['ruc'] = 'required|digits:11';
+            $rules['ruc'] = 'required|digits:11|unique:odontologos,ruc,' . $this->odontologo->id;
             $rules['nombre_clinica'] = 'required|unique:odontologos,nombre_clinica,' . $this->odontologo->id;
             $rol = "clinica";
         } else {

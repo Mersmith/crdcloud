@@ -61,6 +61,7 @@ class CanjeoEditarLivewire extends Component
 
     protected $messages = [
         'paciente_id.required' => 'El paciente es requerido.',
+        'link.unique' => 'Este link es repetido.',
     ];
 
     public function actualizarSede()
@@ -121,8 +122,9 @@ class CanjeoEditarLivewire extends Component
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
         $rules['canjeo_detalles'] = 'required';
+        $rules['link'] = 'unique:canjeos,link,' . $this->canjeo->id;
 
-        if ($this->canjeo->imagenesCanjeo->count()) {
+        //if ($this->canjeo->imagenesCanjeo->count()) {
             $this->validate($rules);
 
             $this->canjeo->observacion = $this->observacion;
@@ -131,9 +133,9 @@ class CanjeoEditarLivewire extends Component
             $this->canjeo->update();
 
             $this->emit('mensajeActualizado', "Actualizado.");
-        } else {
+        /*} else {
             $this->emit('mensajeError', "Falta subir imagen.");
-        }
+        }*/
     }
 
     public function aumentaPuntosOdontologo($puntos_actualizado)
@@ -189,6 +191,10 @@ class CanjeoEditarLivewire extends Component
 
         array_splice($this->canjeo_detalles, $index, 1);
 
+        if ($this->canjeo->estado == 2) {
+            $this->aumentaPuntosOdontologo($canjeo_detalle->puntos);
+        }
+
         $this->total = $this->obtenerTotal();
         $this->canjeo->total_puntos = $this->total;
         $this->canjeo->update();
@@ -225,6 +231,10 @@ class CanjeoEditarLivewire extends Component
             $canjeo_detalle->save();
 
             $this->canjeo_detalles[] = $canjeo_detalle->toArray();
+
+            if ($this->canjeo->estado == 2) {
+                $this->disminuyePuntosOdontologo($canjeo_detalle->puntos);
+            }
 
             $this->total = $this->obtenerTotal();
             $this->canjeo->total_puntos = $this->total;

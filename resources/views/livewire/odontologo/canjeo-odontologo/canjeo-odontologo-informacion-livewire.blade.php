@@ -124,7 +124,7 @@
                                     <th>
                                         Exámen</th>
                                     <th>
-                                        Precio</th>
+                                        Puntos</th>
                                     <th>
                                         Cantidad</th>
                                     <th>
@@ -164,15 +164,9 @@
                                         );
                                     @endphp
                                     <tr>
-                                        <td style="text-align: right;" colspan="4">TOTAL:</td>
+                                        <td style="text-align: right;" colspan="4">PUNTOS UTILIZADOS:</td>
                                         <td style="text-align: center;">
                                             {{ $total }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: right;" colspan="4">PUNTOS GANADOS:</td>
-                                        <td style="text-align: center;">
-                                            {{ $canjeo->puntos_ganados }}
                                         </td>
                                     </tr>
                                 </tfoot>

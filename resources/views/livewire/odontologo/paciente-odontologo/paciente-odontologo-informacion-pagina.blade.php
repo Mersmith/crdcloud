@@ -94,7 +94,6 @@
                                         Email</th>
                                     <th>
                                         DNI</th>
-
                                     <th>
                                         Celular</th>
                                     <th>
@@ -119,7 +118,7 @@
                                             {{ $odontologo->email }}
                                         </td>
                                         <td>
-                                            {{ $odontologo->user->dni }}
+                                            {{ $odontologo->dni }}
                                         </td>
                                         <td>
                                             {{ $odontologo->celular }}
