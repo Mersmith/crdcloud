@@ -3,8 +3,11 @@
 namespace App\Http\Livewire\Odontologo\CanjeoOdontologo;
 
 use App\Models\Canjeo;
+use App\Models\Encargado;
 use App\Models\Sede;
 use App\Models\Servicio;
+use App\Models\User;
+use App\Notifications\CanjeoRealizadoNotification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -49,8 +52,8 @@ class CanjeoOdontologoCrearLivewire extends Component
     }
 
     public function agregarCarrito()
-    {       
-       $puntosOdontologo = Auth::user()->odontologo->puntos;
+    {
+        $puntosOdontologo = Auth::user()->odontologo->puntos;
 
         $rules = [];
 
@@ -114,7 +117,8 @@ class CanjeoOdontologoCrearLivewire extends Component
         $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
         $totalPuntos = $subTotalPuntos;
 
-        $puntosOdontologo = Auth::user()->odontologo->puntos;
+        $odontologo = Auth::user()->odontologo;
+        $puntosOdontologo = $odontologo->puntos;
 
         if ($totalPuntos <= $puntosOdontologo) {
 
@@ -135,6 +139,10 @@ class CanjeoOdontologoCrearLivewire extends Component
             $nuevaCanjeo->canjeoDetalle()->createMany($this->carrito);
 
             $this->emit('mensajeCreado', "Creado.");
+
+            $encargado_sede = Encargado::find($this->sede_id);
+            $usuario_encargado = User::find($encargado_sede->user_id);
+            $usuario_encargado->notify(new CanjeoRealizadoNotification($nuevaCanjeo));
 
             return redirect()->route('odontologo.canjeo.odontologo.index', $nuevaCanjeo->id);
         } else {
