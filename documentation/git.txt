@@ -365,3 +365,11 @@ git add .
 git commit -m "48_Cpanel_1"
 git push origin 48_Cpanel_1
 ->Click en boton Merge pull request
+
+git checkout -b 48_Cpanel_2
+git branch
+git status
+git add .
+git commit -m "48_Cpanel_2"
+git push origin 48_Cpanel_2
+->Click en boton Merge pull request
