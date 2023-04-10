@@ -129,14 +129,22 @@ class PacienteSedeCrearPagina extends Component
         $this->reset(['odontologo_id', 'clinica_id', 'buscarOdontologo', 'buscarClinica']);
     }
 
-    public function updatedOdontologoId()
+    public function updatedOdontologoId($value)
     {
+        $odontologo = Odontologo::find($value);
+
         $this->reset('clinica_id', 'buscarClinica');
+
+        $this->buscarOdontologo = $odontologo->nombre . ' ' . $odontologo->apellido;
     }
 
-    public function updatedClinicaId()
+    public function updatedClinicaId($value)
     {
+        $clinica = Odontologo::find($value);
+
         $this->reset('odontologo_id', 'buscarOdontologo');
+
+        $this->buscarClinica = $clinica->nombre . ' ' . $clinica->apellido;
     }
 
     public function crearPaciente()

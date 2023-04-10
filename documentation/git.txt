@@ -389,3 +389,11 @@ git add .
 git commit -m "50_Cpanel_4"
 git push origin 50_Cpanel_4
 ->Click en boton Merge pull request
+
+git checkout -b 51_Cpanel_5
+git branch
+git status
+git add .
+git commit -m "51_Cpanel_5"
+git push origin 51_Cpanel_5
+->Click en boton Merge pull request

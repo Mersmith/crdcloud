@@ -1,11 +1,11 @@
 npm run build
 
-Subdominio: crd.centroradiologico.com.pe
-Carpeta Raíz: /public_html/crd.centroradiologico.com.pe
+Subdominio: crdcloud.centroradiologico.com.pe
+Carpeta Raíz: /public_html/crdcloud.centroradiologico.com.pe
 
-Carpeta Storage: public_html/crd.centroradiologico.com.pe/storage
+Carpeta Storage: public_html/crdcloud.centroradiologico.com.pe/storage
 
-Acceso a la carpeta: cd public_html/crd.centroradiologico.com.pe
+Acceso a la carpeta: cd public_html/crdcloud.centroradiologico.com.pe
 
 php -v
 

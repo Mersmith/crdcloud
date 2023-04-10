@@ -19,6 +19,8 @@ class PuntosOdontologoTodoLivewire extends Component
 
     public $ventasYCanjeos;
 
+    public $ventas_canjeos;
+
     public function mount()
     {
         $odontologo = Auth::user()->odontologo;
@@ -42,6 +44,10 @@ class PuntosOdontologoTodoLivewire extends Component
         }
 
         $this->imagenesTodos = $imagenesVentas;
+
+        $this->ventas_canjeos = $this->ventas->merge($this->canjeos)->sortByDesc('created_at')->toJson() ;
+
+        //dd($this->ventas_canjeos->toJson() );
     }
 
     public function render()
