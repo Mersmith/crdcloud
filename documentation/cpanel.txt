@@ -11,9 +11,9 @@ php -v
 
 git clone https://github.com/Mersmith/crd.git
 
-composer install
+cd crd
 
-npm install
+composer install
 
 APP_URL=http://crd.centroradiologico.com.pe
 DB_DATABASE=crddb
