@@ -1,0 +1,61 @@
+npm run build
+
+Subdominio: crdcloud.centroradiologico.com.pe
+Carpeta Raíz: /public_html/crdcloud.centroradiologico.com.pe
+
+Carpeta Storage: public_html/crd.centroradiologico.com.pe/storage
+
+Acceso a la carpeta: cd public_html/crdcloud.centroradiologico.com.pe
+
+php -v
+
+git clone https://github.com/M*********************
+
+composer install
+
+npm install
+
+APP_URL=http://crd.centroradiologico.com.pe
+DB_DATABASE=*********
+DB_USERNAME=*****
+DB_PASSWORD=********
+FILESYSTEM_DISK=local
+
+php artisan key:generate
+
+mkdir -p storage/app/temp
+
+->Solo subir al storage todo del public y listo, cambiar el local
+/home/digidentcom/htdentprueba.digident.com.pe/config/filesystems.php
+'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'throw' => false,
+        ],
+htdentprueba.digident.com.pe/storage/app/public
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/home/digidentcom/htdentprueba.digident.com.pe/config/database.php
+
+'mysql' => [
+    ...
+    'engine' => 'InnoDB',
+]
+
+php artisan storage:link
+
+php artisan livewire:publish --config
+
+'asset_url' => url('/'),
+
+->Dar permisos a la carpeta storage
+chmod -R 777 storage/
+chmod -R 777 public/
+
+MAIL_MAILER=sendmail
+MAIL_HOST=smtp.googlemail.com
+MAIL_PORT=587
+MAIL_USERNAME=mersmith14@gmail.com
+MAIL_PASSWORD=zwqanrymqfzrloji
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="mersmith14@gmail.com"
+MAIL_FROM_NAME="${APP_NAME}"

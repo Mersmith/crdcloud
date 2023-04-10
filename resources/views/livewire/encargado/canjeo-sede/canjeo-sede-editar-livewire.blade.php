@@ -11,7 +11,7 @@
 
         <!--CONTENEDOR BOTONES-->
         <div class="contenedor_botones_admin">
-            <a href="{{ route('administrador.canjeo.index') }}">
+            <a href="{{ route('encargado.canjeo.sede.index') }}">
                 <i class="fa-solid fa-arrow-left"></i> Regresar</a>
             <button wire:click="$emit('eliminarCanjeoModal')">
                 Eliminar canjeo <i class="fa-solid fa-trash-can"></i>
@@ -380,7 +380,7 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             dictDefaultMessage: mensajeDropZone,
-            acceptedFiles: 'image/*',
+            acceptedFiles: 'image/jpeg',
             paramName: "nuevaImagen",
             maxFilesize: 2,
             complete: function(nuevaImagen) {

@@ -33,6 +33,12 @@ class PacienteSedeCrearPagina extends Component
 
     public $es_extranjero = false;
 
+    public
+        $buscarOdontologo,
+        $buscarClinica;
+
+    public $filtrar_sede = true;
+
     protected $rules = [
         'sedesArray' => 'required|array|min:1',
         'sedesArray.*' => 'exists:sedes,id',
@@ -84,19 +90,53 @@ class PacienteSedeCrearPagina extends Component
             '0' => $this->sede->id,
         ];
 
-        $this->odontologos = Odontologo::where('rol', 'odontologo')->get();
-        $this->clinicas = Odontologo::where('rol', 'clinica')->get();
         $this->sedes = Sede::all();
+
+        if ($this->filtrar_sede) {
+            $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+            $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+        } else {
+            $this->odontologos = Odontologo::where('rol', '=', 'odontologo')
+                ->orderBy('created_at', 'desc')
+                ->get();;
+            $this->clinicas = Odontologo::where('rol', '=', 'clinica')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+    }
+
+    public function updatedFiltrarSede($value)
+    {
+        $this->sede = Auth::user()->encargado->sede;
+
+        $this->sedesArray = [
+            '0' => $this->sede->id,
+        ];
+
+        if ($value) {
+            $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+            $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+        } else {
+            $this->odontologos = Odontologo::where('rol', '=', 'odontologo')
+                ->orderBy('created_at', 'desc')
+                ->get();;
+            $this->clinicas = Odontologo::where('rol', '=', 'clinica')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            $this->reset('sedesArray');
+        }
+
+        $this->reset(['odontologo_id', 'clinica_id', 'buscarOdontologo', 'buscarClinica']);
     }
 
     public function updatedOdontologoId()
     {
-        $this->reset('clinica_id');
+        $this->reset('clinica_id', 'buscarClinica');
     }
 
     public function updatedClinicaId()
     {
-        $this->reset('odontologo_id');
+        $this->reset('odontologo_id', 'buscarOdontologo');
     }
 
     public function crearPaciente()

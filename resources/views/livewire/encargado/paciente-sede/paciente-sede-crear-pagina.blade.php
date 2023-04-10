@@ -26,6 +26,13 @@
 
             <!--FORMULARIO-->
             <form wire:submit.prevent="crearPaciente" x-data="{ digitosDni: '', digitosCelular: '' }" class="formulario">
+                <!--FILTRAR POR SEDE-->
+                <div class="contenedor_1_elementos_100">
+                    <div class="contenedor_elemento_item">
+                        <label class="estilo_nombre_input">¿Filtrar por tu sede?: </label>
+                        <input type="checkbox" wire:model="filtrar_sede">
+                    </div>
+                </div>
 
                 <!--SEDES-->
                 <div class="contenedor_elemento_item">
@@ -47,13 +54,24 @@
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Odontólogos: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
-                        <select wire:model="odontologo_id">
-                            <option value="" selected disabled>Seleccione un odontólgo</option>
-                            @foreach ($odontologos as $odontologo)
-                                <option value="{{ $odontologo->id }}">
-                                    {{ $odontologo->nombre . ' ' . $odontologo->apellido }}</option>
-                            @endforeach
-                        </select>
+                        <div x-data="{ open: false }" class="relative">
+                            <input type="text" wire:model="buscarOdontologo" placeholder="Buscar odontólogo..."
+                                x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                            <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                <div class="select_buscador_item_no_seleccionado">Seleccione un odontólogo</div>
+                                @foreach ($odontologos as $key => $odontologoItem)
+                                    @if (strpos(strtolower($odontologoItem->nombre . ' ' . $odontologoItem->apellido), strtolower($buscarOdontologo)) !== false ||
+                                            strpos(strtolower($odontologoItem->nombre . ' ' . $odontologoItem->apellido), strtolower($buscarOdontologo)) !== false)
+                                        <div wire:click="$set('odontologo_id', {{ $odontologoItem->id }}); open = false;"
+                                            x-on:click="open = false"
+                                            class="select_buscador_item @if ($key == count($odontologos) - 1) border-b-0 @endif">
+                                            {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
                         @error('odontologo_id')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -63,14 +81,24 @@
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Clínicas: <span class="campo_obligatorio">(Obligatorio)</span>
                         </p>
-                        <select wire:model="clinica_id">
-                            <option value="" selected disabled>Seleccione una clínica</option>
-                            @foreach ($clinicas as $clinica)
-                                <option value="{{ $clinica->id }}">
-                                    {{ $clinica->nombre_clinica . ' - ' . $clinica->nombre . ' ' . $clinica->apellido }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div x-data="{ open: false }" class="relative">
+                            <input type="text" wire:model="buscarClinica" placeholder="Buscar clínica..."
+                                x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                            <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                <div class="select_buscador_item_no_seleccionado">Seleccione una clínica</div>
+                                @foreach ($clinicas as $key => $clinicaItem)
+                                    @if (strpos(strtolower($clinicaItem->nombre . ' ' . $clinicaItem->apellido), strtolower($buscarClinica)) !== false ||
+                                            strpos(strtolower($clinicaItem->nombre . ' ' . $clinicaItem->apellido), strtolower($buscarClinica)) !== false)
+                                        <div wire:click="$set('clinica_id', {{ $clinicaItem->id }}); open = false;"
+                                            x-on:click="open = false"
+                                            class="select_buscador_item @if ($key == count($clinicas) - 1) border-b-0 @endif">
+                                            {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
                         @error('clinica_id')
                             <span class="campo_obligatorio">{{ $message }}</span>
                         @enderror
@@ -187,7 +215,7 @@
                             @enderror
                         </div>
                     </div>
-                <!--DNI-->
+                    <!--DNI-->
                 @else
                     <div class="contenedor_2_elementos">
                         <!--DNI-->

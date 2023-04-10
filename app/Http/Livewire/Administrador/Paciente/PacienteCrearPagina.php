@@ -31,6 +31,10 @@ class PacienteCrearPagina extends Component
 
     public $es_extranjero = false;
 
+    public
+        $buscarOdontologo,
+        $buscarClinica;
+
     protected $rules = [
         'sedesArray' => 'required|array|min:1',
         'sedesArray.*' => 'exists:sedes,id',
@@ -112,12 +116,12 @@ class PacienteCrearPagina extends Component
 
     public function updatedOdontologoId()
     {
-        $this->reset('clinica_id');
+        $this->reset('clinica_id', 'buscarClinica');
     }
 
     public function updatedClinicaId()
     {
-        $this->reset('odontologo_id');
+        $this->reset('odontologo_id', 'buscarOdontologo');
     }
 
     public function crearPaciente()

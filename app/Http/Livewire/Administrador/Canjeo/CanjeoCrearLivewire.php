@@ -49,6 +49,11 @@ class CanjeoCrearLivewire extends Component
 
     public $informe;
 
+    public
+        $buscarOdontologo,
+        $buscarPaciente,
+        $buscarServicio;
+
     protected $messages = [
         'sede_id.required' => 'La sede es requerido.',
         'servicio.required' => 'El servicio es requerido.',
@@ -72,20 +77,24 @@ class CanjeoCrearLivewire extends Component
 
         $this->odontologos = $this->sede->odontologos;
 
-        $this->reset(['odontologo_id', 'paciente_id']);
+        $this->reset(['odontologo_id', 'paciente_id', 'buscarOdontologo', 'buscarPaciente', 'puntos']);
     }
 
     public function updatedOdontologoId($value)
     {
-        $this->odontologo = Odontologo::find($value);
-        $this->odontologo_id = $this->odontologo->id;
-        $this->usuario_odontologo = $this->odontologo->user;
-        $this->puntos = $this->odontologo->puntos;
+        if ($value) {
+            $this->odontologo = Odontologo::find($value);
+            $this->odontologo_id = $this->odontologo->id;
+            $this->usuario_odontologo = $this->odontologo->user;
+            $this->puntos = $this->odontologo->puntos;
 
-        $this->pacientes = $this->odontologo->pacientes()
-            ->orderBy('created_at', 'desc')->get();
+            $this->pacientes = $this->odontologo->pacientes()
+                ->orderBy('created_at', 'desc')->get();
 
-        $this->reset('paciente_id');
+            $this->reset('paciente_id', 'buscarPaciente');
+
+            $this->buscarOdontologo = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
+        }
     }
 
     public function agregarCarrito()
@@ -95,12 +104,12 @@ class CanjeoCrearLivewire extends Component
         $rules = [];
 
         $rules['servicio'] = 'required';
-        $rules['sede_id'] = 'required';
+        $rules['sede_id'] = 'required'; 
         $rules['odontologo_id'] = 'required';
 
         $this->validate($rules);
 
-        $servicioCarrito = json_decode($this->servicio, true);
+        $servicioCarrito = json_decode(json_encode($this->servicio), true);
 
         $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
         $totalPuntos = $subTotalPuntos + $servicioCarrito["puntos_canjeo"];
@@ -148,7 +157,7 @@ class CanjeoCrearLivewire extends Component
 
         if ($this->informe) {
             $rules['informe'] = 'required|file|mimes:zip';
-        }       
+        }
 
         $rules['sede_id'] = 'required';
         $rules['nombre'] = 'required';

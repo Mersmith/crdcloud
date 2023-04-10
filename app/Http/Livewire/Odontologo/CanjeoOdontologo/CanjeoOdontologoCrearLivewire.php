@@ -32,6 +32,8 @@ class CanjeoOdontologoCrearLivewire extends Component
         $carrito = [],
         $observacion = "";
 
+    public $buscarServicio;
+
     protected $messages = [
         'sede_id.required' => 'La sede es requerido.',
         'servicio.required' => 'El servicio es requerido.',
@@ -62,7 +64,7 @@ class CanjeoOdontologoCrearLivewire extends Component
 
         $this->validate($rules);
 
-        $servicioCarrito = json_decode($this->servicio, true);
+        $servicioCarrito = json_decode(json_encode($this->servicio), true);
 
         $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
         $totalPuntos = $subTotalPuntos + $servicioCarrito["puntos_canjeo"];

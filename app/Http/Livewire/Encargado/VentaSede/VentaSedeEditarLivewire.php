@@ -55,6 +55,9 @@ class VentaSedeEditarLivewire extends Component
         $odontologo_inicial,
         $estado_inicial;
 
+    public
+        $buscarOdontologo;
+
     protected $rules = [
         'venta.estado' => 'required',
     ];
@@ -77,6 +80,8 @@ class VentaSedeEditarLivewire extends Component
         $this->odontologo = $odontologo;
         $this->odontologo_id = $odontologo->id;
         $this->odontologo_inicial = $odontologo;
+        $this->buscarOdontologo = $odontologo->nombre . ' ' . $odontologo->apellido;
+
         $this->estado_inicial = $venta->estado;
 
         $this->link = $venta->link;
@@ -113,13 +118,19 @@ class VentaSedeEditarLivewire extends Component
 
     public function updatedOdontologoId($value)
     {
-        $this->odontologo = Odontologo::find($value);
-        $this->odontologo_id = $this->odontologo->id;
+        if ($value) {
+            $this->odontologo = Odontologo::find($value);
+            $this->odontologo_id = $this->odontologo->id;
 
-        $this->pacientes = $this->odontologo->pacientes()
-            ->orderBy('created_at', 'desc')->get();
+            $this->pacientes = $this->odontologo->pacientes()
+                ->orderBy('created_at', 'desc')->get();
 
-        $this->reset('clinica_id', 'paciente_id');
+            $this->reset('clinica_id', 'paciente_id');
+
+            $this->buscarOdontologo = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
+        }
+
+        $this->actualizarOdontologo();
     }
 
     public function updatedClinicaId($value)

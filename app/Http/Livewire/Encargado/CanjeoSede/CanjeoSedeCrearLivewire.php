@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Encargado\CanjeoSede;
 
 use App\Models\Canjeo;
 use App\Models\Odontologo;
+use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,13 @@ class CanjeoSedeCrearLivewire extends Component
 
     public $informe;
 
+    public
+        $buscarOdontologo,
+        $buscarPaciente,
+        $buscarServicio;
+
+    public $filtrar_sede = true;
+
     protected $messages = [
         'sede_id.required' => 'La sede es requerido.',
         'servicio.required' => 'El servicio es requerido.',
@@ -67,7 +75,27 @@ class CanjeoSedeCrearLivewire extends Component
         $this->sedes = Sede::all();
 
         $this->servicios = Servicio::all();
-        $this->odontologos = $this->sede->odontologos;
+
+        if ($this->filtrar_sede) {
+            $this->odontologos = $this->sede->odontologos;
+        } else {
+            $this->odontologos = Odontologo::all();
+        }
+    }
+
+    public function updatedFiltrarSede($value)
+    {
+        $this->sede = Auth::user()->encargado->sede;
+        $this->sede_id = $this->sede->id;
+
+        if ($value) {
+            $this->odontologos = $this->sede->odontologos;
+        } else {
+            $this->odontologos = Odontologo::all();
+            $this->reset('sede_id');
+        }
+
+        $this->reset(['odontologo_id', 'paciente_id', 'buscarOdontologo', 'buscarPaciente', 'puntos']);
     }
 
     public function updatedSedeId($value)
@@ -75,22 +103,35 @@ class CanjeoSedeCrearLivewire extends Component
         $this->sede = Sede::find($value);
         $this->sede_id = $this->sede->id;
 
-        $this->odontologos = $this->sede->odontologos;
+        if ($this->filtrar_sede) {
+            $this->odontologos = $this->sede->odontologos;
+        } else {
 
-        $this->reset(['odontologo_id', 'paciente_id']);
+            $this->odontologos = Odontologo::all();
+        }
+
+        $this->reset(['odontologo_id', 'paciente_id', 'buscarOdontologo', 'buscarPaciente', 'puntos']);
     }
 
     public function updatedOdontologoId($value)
     {
-        $this->odontologo = Odontologo::find($value);
-        $this->odontologo_id = $this->odontologo->id;
-        $this->usuario_odontologo = $this->odontologo->user;
-        $this->puntos = $this->odontologo->puntos;
+        if ($value) {
+            $this->odontologo = Odontologo::find($value);
+            $this->odontologo_id = $this->odontologo->id;
+            $this->usuario_odontologo = $this->odontologo->user;
+            $this->puntos = $this->odontologo->puntos;
 
-        $this->pacientes = $this->odontologo->pacientes()
-            ->orderBy('created_at', 'desc')->get();
+            if ($this->filtrar_sede) {
+                $this->pacientes = $this->odontologo->pacientes()
+                    ->orderBy('created_at', 'desc')->get();
+            } else {
+                $this->pacientes =  Paciente::orderBy('created_at', 'desc')->get();
+            }
+            
+            $this->reset('paciente_id', 'buscarPaciente');
 
-        $this->reset('paciente_id');
+            $this->buscarOdontologo = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
+        }
     }
 
     public function agregarCarrito()
@@ -105,7 +146,7 @@ class CanjeoSedeCrearLivewire extends Component
 
         $this->validate($rules);
 
-        $servicioCarrito = json_decode($this->servicio, true);
+        $servicioCarrito = json_decode(json_encode($this->servicio), true);
 
         $subTotalPuntos = array_sum(array_column($this->carrito, 'subtotal_canjeo'));
         $totalPuntos = $subTotalPuntos + $servicioCarrito["puntos_canjeo"];
@@ -153,7 +194,7 @@ class CanjeoSedeCrearLivewire extends Component
 
         if ($this->informe) {
             $rules['informe'] = 'required|file|mimes:zip';
-        }       
+        }
 
         $rules['sede_id'] = 'required';
         $rules['nombre'] = 'required';

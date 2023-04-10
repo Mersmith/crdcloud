@@ -348,7 +348,7 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             dictDefaultMessage: mensajeDropZone,
-            acceptedFiles: 'image/*',
+            acceptedFiles: 'image/jpeg',
             paramName: "nuevaImagen",
             maxFilesize: 2,
             complete: function(nuevaImagen) {

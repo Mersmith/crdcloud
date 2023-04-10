@@ -50,6 +50,12 @@ class VentaCrearLivewire extends Component
 
     public $informe;
 
+    public
+    $buscarOdontologo,
+    $buscarClinica,
+    $buscarPaciente,
+    $buscarServicio;
+
     protected $messages = [
         'paciente_id.required' => 'El paciente es requerido.',
         'servicio.required' => 'El servicio es requerido.',
@@ -71,7 +77,7 @@ class VentaCrearLivewire extends Component
         $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
         $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
 
-        $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
+        $this->reset(['odontologo_id', 'clinica_id', 'paciente_id', 'buscarOdontologo', 'buscarClinica', 'buscarPaciente']);
     }
 
     public function updatedOdontologoId($value)
@@ -83,7 +89,9 @@ class VentaCrearLivewire extends Component
         $this->pacientes = $this->odontologo->pacientes()
             ->orderBy('created_at', 'desc')->get();
 
-        $this->reset('clinica_id', 'paciente_id');
+        $this->reset('clinica_id', 'buscarClinica', 'paciente_id');
+
+        $this->buscarOdontologo = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
     }
 
     public function updatedClinicaId($value)
@@ -95,7 +103,9 @@ class VentaCrearLivewire extends Component
         $this->pacientes = $this->clinica->pacientes()
             ->orderBy('created_at', 'desc')->get();
 
-        $this->reset('odontologo_id', 'paciente_id');
+        $this->reset('odontologo_id', 'buscarOdontologo', 'paciente_id');
+
+        $this->buscarClinica = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
     }
 
     public function agregarCarrito()
@@ -109,7 +119,7 @@ class VentaCrearLivewire extends Component
         if ($this->odontologo_id || $this->clinica_id) {
             $this->validate($rules);
 
-            $servicioCarrito = json_decode($this->servicio, true);
+            $servicioCarrito = json_decode(json_encode($this->servicio), true);
 
             foreach ($this->carrito as $value) {
                 if ($value["id"] == $servicioCarrito["id"]) {
