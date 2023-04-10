@@ -160,7 +160,7 @@ class VentaSedeCrearLivewire extends Component
 
         $this->reset('odontologo_id', 'buscarOdontologo', 'paciente_id');
 
-        $this->buscarClinica = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
+        $this->buscarClinica = $this->clinica->nombre . ' ' . $this->clinica->apellido;
     }
 
     public function agregarCarrito()

@@ -142,9 +142,11 @@ class CanjeoOdontologoCrearLivewire extends Component
 
             $this->emit('mensajeCreado', "Creado.");
 
-            $encargado_sede = Encargado::find($this->sede_id);
-            $usuario_encargado = User::find($encargado_sede->user_id);
-            $usuario_encargado->notify(new CanjeoRealizadoNotification($nuevaCanjeo));
+            $encargado_sede = Encargado::where('sede_id', $this->sede_id)->first();
+            if ($encargado_sede) {
+                $usuario_encargado = $encargado_sede->user;
+                $usuario_encargado->notify(new CanjeoRealizadoNotification($nuevaCanjeo));
+            }
 
             return redirect()->route('odontologo.canjeo.odontologo.index', $nuevaCanjeo->id);
         } else {

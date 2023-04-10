@@ -9,6 +9,7 @@ use App\Models\ImagenCanjeo;
 use App\Models\Odontologo;
 use App\Models\Sede;
 use App\Models\Servicio;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
@@ -74,6 +75,15 @@ class CanjeoSedeEditarLivewire extends Component
         $this->canjeo = $canjeo;
         $this->canjeo_id = $canjeo->id;
         $this->canjeo_detalles = $this->canjeo->canjeoDetalle->toArray();
+
+        $user = auth()->user();
+        foreach ($user->unreadNotifications as $notification) {
+            $data = $notification->data;
+
+            if (isset($data['canjeo_id']) && $data['canjeo_id'] == $canjeo->id) {
+                $notification->markAsRead();
+            }
+        }
 
         $this->sedes = Sede::all();
         $this->servicios = Servicio::pluck('nombre', 'id');

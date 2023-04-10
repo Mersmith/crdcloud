@@ -22,7 +22,7 @@ class CanjeoSedeTodoLivewire extends Component
     {
         $this->sede_id = Auth::user()->encargado->sede->id;
 
-        auth()->user()->unreadNotifications->markAsRead();
+        //auth()->user()->unreadNotifications->markAsRead();
     }
 
     public function render()

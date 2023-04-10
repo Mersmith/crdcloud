@@ -49,7 +49,7 @@
                                 @break
 
                                 @case(3)
-                                    <input type="text" value="Cancelado" disabled>
+                                    <input type="text" value="Anulado" disabled>
                                 @break
 
                                 @default
