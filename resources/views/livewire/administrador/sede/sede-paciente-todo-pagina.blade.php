@@ -103,13 +103,17 @@
                                             {{ $paciente->email }}
                                         </td>
                                         <td>
-                                            {{ $paciente->dni }}
+                                            @if ($paciente->dni)
+                                                DNI: {{ $paciente->dni }}
+                                            @else
+                                                Carnet: {{ $paciente->carnet_extranjeria }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $paciente->celular }}
                                         </td>
                                         <td>
-                                            {{ $paciente->fecha_nacimiento }}
+                                            {{ $paciente->edad }}
                                         </td>
                                         <td>
                                             {{ $paciente->genero }}

@@ -41,24 +41,29 @@
                         </div>
                     </div>
 
-                    <!--ODONTOLOGOS-->
+                    <!--ODONTÓLOGOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Odontólogos: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="odontologo_id" wire:change="actualizarOdontologo">
-                                <option value="" selected disabled>Seleccione un odontólogo</option>
-                                @foreach ($odontologos as $odontologoItem)
-                                    <option value="{{ $odontologoItem->id }}">
-                                        @if ($odontologoItem->ruc)
-                                            {{ $odontologoItem->nombre_clinica . ' - ' . $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}
-                                        @else
-                                            {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <div x-data="{ open: false }" class="relative" >
+                                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar odontólogo..."
+                                    x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador" x-on:click.away="open = false"
+                                    x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                    <div class="select_buscador_item_no_seleccionado">Seleccione un odontólogo</div>
+                                    @foreach ($odontologos as $key => $odontologo)
+                                        @if (strpos(strtolower($odontologo->nombre . ' ' . $odontologo->apellido), strtolower($buscarOdontologo)) !== false ||
+                                                strpos(strtolower($odontologo->nombre . ' ' . $odontologo->apellido), strtolower($buscarOdontologo)) !== false)
+                                            <div wire:click="$set('odontologo_id', {{ $odontologo->id }}); open = false;"
+                                                x-on:click="open = false"
+                                                class="select_buscador_item @if ($key == count($odontologos) - 1) border-b-0 @endif">
+                                                {{ $odontologo->nombre . ' '.  $odontologo->apellido  }}
+                                            </div>
                                         @endif
-                                    </option>
-                                @endforeach
-                            </select>
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('odontologo_id')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
@@ -353,7 +358,7 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             dictDefaultMessage: mensajeDropZone,
-            acceptedFiles: 'image/*',
+            acceptedFiles: 'image/jpeg',
             paramName: "nuevaImagen",
             maxFilesize: 2,
             complete: function(nuevaImagen) {

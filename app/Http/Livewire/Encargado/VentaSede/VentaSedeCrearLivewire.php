@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Encargado\VentaSede;
 
 use App\Models\Odontologo;
+use App\Models\Paciente;
 use App\Models\Sede;
 use App\Models\Servicio;
 use App\Models\Venta;
@@ -51,6 +52,14 @@ class VentaSedeCrearLivewire extends Component
 
     public $informe;
 
+    public
+        $buscarOdontologo,
+        $buscarClinica,
+        $buscarPaciente,
+        $buscarServicio;
+
+    public $filtrar_sede = true;
+
     protected $messages = [
         'paciente_id.required' => 'El paciente es requerido.',
         'servicio.required' => 'El servicio es requerido.',
@@ -65,19 +74,57 @@ class VentaSedeCrearLivewire extends Component
         $this->sedes = Sede::all();
 
         $this->servicios = Servicio::select('id', 'nombre')->get();
-        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
-        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+
+        if ($this->filtrar_sede) {
+            $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+            $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+        } else {
+            $this->odontologos = Odontologo::where('rol', '=', 'odontologo')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            $this->clinicas = Odontologo::where('rol', '=', 'clinica')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+    }
+
+    public function updatedFiltrarSede($value)
+    {
+        $this->sede = Auth::user()->encargado->sede;
+        $this->sede_id = $this->sede->id;
+
+        if ($value) {
+            $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+            $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+        } else {
+            $this->odontologos = Odontologo::where('rol', '=', 'odontologo')
+                ->orderBy('created_at', 'desc')
+                ->get();;
+            $this->clinicas = Odontologo::where('rol', '=', 'clinica')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            $this->reset('sede_id');
+        }
+
+        $this->reset(['odontologo_id', 'paciente_id', 'buscarOdontologo', 'buscarClinica', 'buscarPaciente']);
     }
 
     public function updatedSedeId($value)
     {
         $this->sede = Sede::find($value);
         $this->sede_id = $this->sede->id;
-
-        $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
-        $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
-
-        $this->reset(['odontologo_id', 'clinica_id', 'paciente_id']);
+        if ($this->filtrar_sede) {
+            $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
+            $this->clinicas = $this->sede->odontologos()->where('rol', '=', 'clinica')->get();
+        } else {
+            $this->odontologos = Odontologo::where('rol', '=', 'odontologo')
+                ->orderBy('created_at', 'desc')
+                ->get();;
+            $this->clinicas = Odontologo::where('rol', '=', 'clinica')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+        $this->reset(['odontologo_id', 'clinica_id', 'paciente_id', 'buscarOdontologo', 'buscarClinica', 'buscarPaciente']);
     }
 
     public function updatedOdontologoId($value)
@@ -86,10 +133,16 @@ class VentaSedeCrearLivewire extends Component
         $this->odontologo_id = $this->odontologo->id;
         $this->usuario_odontologo = $this->odontologo->user;
 
-        $this->pacientes = $this->odontologo->pacientes()
-            ->orderBy('created_at', 'desc')->get();
+        if ($this->filtrar_sede) {
+            $this->pacientes = $this->odontologo->pacientes()
+                ->orderBy('created_at', 'desc')->get();
+        } else {
+            $this->pacientes =  Paciente::orderBy('created_at', 'desc')->get();
+        }
 
-        $this->reset('clinica_id', 'paciente_id');
+        $this->reset('clinica_id', 'buscarClinica', 'paciente_id');
+
+        $this->buscarOdontologo = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
     }
 
     public function updatedClinicaId($value)
@@ -98,10 +151,16 @@ class VentaSedeCrearLivewire extends Component
         $this->clinica_id = $this->clinica->id;
         $this->usuario_clinica = $this->clinica->user;
 
-        $this->pacientes = $this->clinica->pacientes()
-            ->orderBy('created_at', 'desc')->get();
+        if ($this->filtrar_sede) {
+            $this->pacientes = $this->clinica->pacientes()
+                ->orderBy('created_at', 'desc')->get();
+        } else {
+            $this->pacientes =  Paciente::orderBy('created_at', 'desc')->get();
+        }
 
-        $this->reset('odontologo_id', 'paciente_id');
+        $this->reset('odontologo_id', 'buscarOdontologo', 'paciente_id');
+
+        $this->buscarClinica = $this->odontologo->nombre . ' ' . $this->odontologo->apellido;
     }
 
     public function agregarCarrito()
@@ -115,7 +174,7 @@ class VentaSedeCrearLivewire extends Component
         if ($this->odontologo_id || $this->clinica_id) {
             $this->validate($rules);
 
-            $servicioCarrito = json_decode($this->servicio, true);
+            $servicioCarrito = json_decode(json_encode($this->servicio), true);
 
             foreach ($this->carrito as $value) {
                 if ($value["id"] == $servicioCarrito["id"]) {
@@ -251,7 +310,6 @@ class VentaSedeCrearLivewire extends Component
             $this->emit('mensajeCreado', "Creado.");
 
             return redirect()->route('encargado.venta.sede.editar', $nuevaVenta->id);
-
         } else {
             $this->emit('mensajeError', "Debe seleccionar un paciente o una clínica.");
         }

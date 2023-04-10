@@ -99,6 +99,10 @@ class CanjeoSedeEditarLivewire extends Component
             $this->paciente_id = $canjeo->paciente_id;
         } else {
             $this->paciente_id = "";
+            /*$paciente = Paciente::find($canjeo->paciente_id);
+
+            $this->pacientes->add($paciente);
+            $this->paciente_id = $paciente->id;*/
         }
 
         $this->informe = $canjeo->informesCanjeo->count() ? Storage::url($canjeo->informesCanjeo->first()->informe_canjeo_ruta) : null;
@@ -113,14 +117,14 @@ class CanjeoSedeEditarLivewire extends Component
         $rules['canjeo_detalles'] = 'required';
 
         //if ($this->canjeo->imagenesCanjeo->count()) {
-            $this->validate($rules);
+        $this->validate($rules);
 
-            $this->canjeo->observacion = $this->observacion;
-            $this->canjeo->link = $this->link;
+        $this->canjeo->observacion = $this->observacion;
+        $this->canjeo->link = $this->link;
 
-            $this->canjeo->update();
+        $this->canjeo->update();
 
-            $this->emit('mensajeActualizado', "Actualizado.");
+        $this->emit('mensajeActualizado', "Actualizado.");
         /*} else {
             $this->emit('mensajeError', "Falta subir imagen.");
         }*/

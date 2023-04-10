@@ -61,16 +61,26 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Servicios: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="servicio">
-                                <option value="" selected disabled>Seleccione un servicio</option>
-                                @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem }}">
-                                        {{ $servicioItem->nombre . ' - Puntos: ' . $servicioItem->puntos_canjeo }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <div x-data="{ open: false }" class="relative">
+                                <input type="text" wire:model="buscarServicio" placeholder="Buscar servicio..."
+                                    x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                    x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                    <div class="select_buscador_item_no_seleccionado">Seleccione un servicio</div>
+                                    @foreach ($servicios as $key => $servicioItem)
+                                        @if (strpos(strtolower($servicioItem->nombre), strtolower($buscarServicio)) !== false ||
+                                                strpos(strtolower($servicioItem->nombre), strtolower($buscarServicio)) !== false)
+                                            <div wire:click="$set('buscarServicio', '{{ $servicioItem->nombre }}');"
+                                                wire:click.defer="$set('servicio', {{ $servicioItem }}); open = false;"
+                                                x-on:click="open = false"
+                                                class="select_buscador_item @if ($key == count($servicios) - 1) border-b-0 @endif">
+                                                {{ $servicioItem->nombre . ' - Puntos: ' . $servicioItem->puntos_canjeo }}
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('servicio')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror

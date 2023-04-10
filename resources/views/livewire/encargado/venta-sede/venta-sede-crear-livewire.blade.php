@@ -27,6 +27,14 @@
 
                 <!--FORMULARIO-->
                 <div class="formulario contenedor_panel_producto_admin">
+                    <!--FILTRAR POR SEDE-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <label class="estilo_nombre_input">¿Filtrar por tu sede?: </label>
+                            <input type="checkbox" wire:model="filtrar_sede">
+                        </div>
+                    </div>
+
                     <!--SEDES-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
@@ -44,19 +52,29 @@
                         </div>
                     </div>
 
-                    <!--ODONTOLOGOS-->
+                    <!--ODONTÓLOGOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Odontólogos: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="odontologo_id">
-                                <option value="" selected disabled>Seleccione un odontólogo</option>
-                                @foreach ($odontologos as $odontologoItem)
-                                    <option value="{{ $odontologoItem->id }}">
-                                        {{ $odontologoItem->nombre . ' ' . $odontologoItem->apellido }}</option>
-                                @endforeach
-                            </select>
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <div x-data="{ open: false }" class="relative">
+                                <input type="text" wire:model="buscarOdontologo" placeholder="Buscar odontólogo..."
+                                    x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                    x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                    <div class="select_buscador_item_no_seleccionado">Seleccione un odontólogo</div>
+                                    @foreach ($odontologos as $key => $odontologo)
+                                        @if (strpos(strtolower($odontologo->nombre . ' ' . $odontologo->apellido), strtolower($buscarOdontologo)) !== false ||
+                                                strpos(strtolower($odontologo->nombre . ' ' . $odontologo->apellido), strtolower($buscarOdontologo)) !== false)
+                                            <div wire:click="$set('odontologo_id', {{ $odontologo->id }}); open = false;"
+                                                x-on:click="open = false"
+                                                class="select_buscador_item @if ($key == count($odontologos) - 1) border-b-0 @endif">
+                                                {{ $odontologo->nombre . ' ' . $odontologo->apellido }}
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('odontologo_id')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
@@ -67,16 +85,25 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Clínicas: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="clinica_id">
-                                <option value="" selected disabled>Seleccione una clínica</option>
-                                @foreach ($clinicas as $clinicaItem)
-                                    <option value="{{ $clinicaItem->id }}">
-                                        {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <div x-data="{ open: false }" class="relative">
+                                <input type="text" wire:model="buscarClinica" placeholder="Buscar clínica..."
+                                    x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                    x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                    <div class="select_buscador_item_no_seleccionado">Seleccione una clínica</div>
+                                    @foreach ($clinicas as $key => $clinicaItem)
+                                        @if (strpos(strtolower($clinicaItem->nombre . ' ' . $clinicaItem->apellido), strtolower($buscarClinica)) !== false ||
+                                                strpos(strtolower($clinicaItem->nombre . ' ' . $clinicaItem->apellido), strtolower($buscarClinica)) !== false)
+                                            <div wire:click="$set('clinica_id', {{ $clinicaItem->id }}); open = false;"
+                                                x-on:click="open = false"
+                                                class="select_buscador_item @if ($key == count($clinicas) - 1) border-b-0 @endif">
+                                                {{ $clinicaItem->nombre_clinica . ' - ' . $clinicaItem->nombre . ' ' . $clinicaItem->apellido }}
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('clinica_id')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
@@ -87,15 +114,27 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Pacientes: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="paciente_id">
-                                <option value="" selected disabled>Seleccione un paciente</option>
-                                @foreach ($pacientes as $pacienteItem)
-                                    <option value="{{ $pacienteItem->id }}">
-                                        {{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}</option>
-                                @endforeach
-                            </select>
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <div x-data="{ open: false }" class="relative">
+                                <input type="text" wire:model="buscarPaciente" placeholder="Buscar paciente..."
+                                    x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                    x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                    <div class="select_buscador_item_no_seleccionado">Seleccione un paciente</div>
+                                    @foreach ($pacientes as $key => $pacienteItem)
+                                        @if (strpos(strtolower($pacienteItem->nombre . ' ' . $pacienteItem->apellido), strtolower($buscarPaciente)) !== false ||
+                                                strpos(strtolower($pacienteItem->nombre . ' ' . $pacienteItem->apellido), strtolower($buscarPaciente)) !==
+                                                    false)
+                                            <div wire:click="$set('buscarPaciente', '{{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}');"
+                                                wire:click.defer="$set('paciente_id', {{ $pacienteItem->id }}); open = false;"
+                                                x-on:click="open = false"
+                                                class="select_buscador_item @if ($key == count($pacientes) - 1) border-b-0 @endif">
+                                                {{ $pacienteItem->nombre . ' ' . $pacienteItem->apellido }}
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('paciente_id')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
@@ -106,20 +145,32 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Servicios: <span
-                                    class="campo_obligatorio">(Obligatorio)</span>
-                            </p>
-                            <select wire:model="servicio">
-                                <option value="" selected disabled>Seleccione un servicio:</option>
-                                @foreach ($servicios as $servicioItem)
-                                    <option value="{{ $servicioItem }}">{{ $servicioItem->nombre }}</option>
-                                @endforeach
-                            </select>
+                                    class="campo_obligatorio">(Obligatorio)</span></p>
+                            <div x-data="{ open: false }" class="relative">
+                                <input type="text" wire:model="buscarServicio" placeholder="Buscar servicio..."
+                                    x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                    x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                    <div class="select_buscador_item_no_seleccionado">Seleccione un servicio</div>
+                                    @foreach ($servicios as $key => $servicioItem)
+                                        @if (strpos(strtolower($servicioItem->nombre), strtolower($buscarServicio)) !== false ||
+                                                strpos(strtolower($servicioItem->nombre), strtolower($buscarServicio)) !== false)
+                                            <div wire:click="$set('buscarServicio', '{{ $servicioItem->nombre }}');"
+                                                wire:click.defer="$set('servicio', {{ $servicioItem }}); open = false;"
+                                                x-on:click="open = false"
+                                                class="select_buscador_item @if ($key == count($servicios) - 1) border-b-0 @endif">
+                                                {{ $servicioItem->nombre }}
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('servicio')
                                 <span class="campo_obligatorio">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                
+
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_1_elementos">
@@ -169,7 +220,6 @@
 
             <!--GRID DETALLE-->
             <div class="grid_contenedor_venta_tabla">
-
 
                 <!--TABLA-->
                 <div class="contenedor_panel_producto_admin tabla_administrador py-4 overflow-x-auto">
@@ -264,7 +314,7 @@
                                     </div>
                                 </div>
                                 <input type="file" wire:model="imagenes" multiple style="display: none"
-                                    id="imagenes">
+                                    id="imagenes" accept="image/jpeg">
                                 @error('imagenes')
                                     <span class="campo_obligatorio">{{ $message }} </span>
                                 @enderror
@@ -312,7 +362,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <input type="file" wire:model="informe" style="display: none" id="informeSubir">
+                                <input type="file" wire:model="informe" style="display: none" id="informeSubir"
+                                    accept=".zip">
                                 @error('informe')
                                     <span>{{ $message }}</span>
                                 @enderror

@@ -49,6 +49,17 @@
                     </button>
                 </div>
 
+                <!--FORMULARIO-->
+                <div class="formulario">
+                    <!--FILTRAR POR SEDE-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <label class="estilo_nombre_input">¿Filtrar por tu sede?: </label>
+                            <input type="checkbox" wire:model="filtrar_sede">
+                        </div>
+                    </div>
+                </div>
+
                 <!--TABLA-->
                 <div class="tabla_administrador py-4 overflow-x-auto">
                     <div class="inline-block min-w-full overflow-hidden">
