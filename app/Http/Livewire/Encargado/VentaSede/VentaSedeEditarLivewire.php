@@ -238,7 +238,7 @@ class VentaSedeEditarLivewire extends Component
         $rules['paciente_id'] = 'required';
         $rules['venta_detalles'] = 'required';
 
-        if ($this->venta->imagenes->count()) {
+        //if ($this->venta->imagenes->count()) {
             $this->validate($rules);
 
 
@@ -248,9 +248,9 @@ class VentaSedeEditarLivewire extends Component
             $this->venta->update();
 
             $this->emit('mensajeActualizado', "Actualizado.");
-        } else {
-            $this->emit('mensajeError', "Falta subir imagen.");
-        }
+        //} else {
+        //    $this->emit('mensajeError', "Falta subir imagen.");
+        //}
     }
 
     public function actualizarPuntosYTotalVenta()

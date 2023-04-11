@@ -16,6 +16,8 @@
             <button wire:click="$emit('eliminarVentaModal')">
                 Eliminar venta <i class="fa-solid fa-trash-can"></i>
             </button>
+            <a href="{{ route('encargado.venta.sede.crear') }}">
+                Nueva venta <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 
@@ -46,11 +48,11 @@
                         <div class="contenedor_elemento_item">
                             <p class="estilo_nombre_input">Odontólogos: <span
                                     class="campo_obligatorio">(Obligatorio)</span></p>
-                            <div x-data="{ open: false }" class="relative" >
+                            <div x-data="{ open: false }" class="relative">
                                 <input type="text" wire:model="buscarOdontologo" placeholder="Buscar odontólogo..."
                                     x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
-                                <div x-cloak x-show="open" class="select_contenedor_buscador" x-on:click.away="open = false"
-                                    x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                    x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
                                     <div class="select_buscador_item_no_seleccionado">Seleccione un odontólogo</div>
                                     @foreach ($odontologos as $key => $odontologo)
                                         @if (strpos(strtolower($odontologo->nombre . ' ' . $odontologo->apellido), strtolower($buscarOdontologo)) !== false ||
@@ -58,7 +60,7 @@
                                             <div wire:click="$set('odontologo_id', {{ $odontologo->id }}); open = false;"
                                                 x-on:click="open = false"
                                                 class="select_buscador_item @if ($key == count($odontologos) - 1) border-b-0 @endif">
-                                                {{ $odontologo->nombre . ' '.  $odontologo->apellido  }}
+                                                {{ $odontologo->nombre . ' ' . $odontologo->apellido }}
                                             </div>
                                         @endif
                                     @endforeach
