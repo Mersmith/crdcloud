@@ -16,6 +16,8 @@
             <button wire:click="$emit('eliminarCanjeoModal')">
                 Eliminar canjeo <i class="fa-solid fa-trash-can"></i>
             </button>
+            <a href="{{ route('encargado.canjeo.sede.crear') }}">
+                Nuevo canjeo <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
 

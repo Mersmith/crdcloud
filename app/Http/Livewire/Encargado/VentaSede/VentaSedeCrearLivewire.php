@@ -237,7 +237,7 @@ class VentaSedeCrearLivewire extends Component
 
         $rules['sede_id'] = 'required';
         $rules['paciente_id'] = 'required';
-        $rules['imagenes'] = 'required';
+        //$rules['imagenes'] = 'required';
         $rules['carrito'] = 'required';
 
         if ($this->odontologo_id || $this->clinica_id) {
