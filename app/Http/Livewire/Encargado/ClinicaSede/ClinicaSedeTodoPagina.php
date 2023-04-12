@@ -18,6 +18,8 @@ class ClinicaSedeTodoPagina extends Component
 
     public $filtrar_sede = true;
 
+    public $top_puntos = false;
+
     public function updatingBuscarClinica()
     {
         $this->resetPage();
@@ -45,19 +47,32 @@ class ClinicaSedeTodoPagina extends Component
         }
     }
 
+    public function cambiarTopPuntos()
+    {
+        $this->top_puntos = !$this->top_puntos;
+    }
+
     public function render()
     {
         if ($this->filtrar_sede) {
-            $clinicas = $this->sede->odontologos()
-                ->where('nombre', 'LIKE', '%' . $this->buscarClinica . '%')
+            $query = $this->sede->odontologos()
                 ->where('rol', '=', 'clinica')
-                ->orderBy('created_at', 'desc')
-                ->paginate(30);
+                ->where(function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->buscarClinica . '%')
+                        ->orWhere('email', 'LIKE', '%' . $this->buscarClinica . '%');
+                });
         } else {
-            $clinicas = Odontologo::where('nombre', 'LIKE', '%' . $this->buscarClinica . '%')
-                ->where('rol', '=', 'clinica')
-                ->orderBy('created_at', 'desc')
-                ->paginate(30);
+            $query = Odontologo::where('rol', '=', 'clinica')
+                ->where(function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->buscarClinica . '%')
+                        ->orWhere('email', 'LIKE', '%' . $this->buscarClinica . '%');
+                });
+        }
+
+        if ($this->top_puntos) {
+            $clinicas = $query->orderByDesc('puntos')->paginate(30);
+        } else {
+            $clinicas = $query->orderBy('created_at', 'desc')->paginate(30);
         }
 
         return view('livewire.encargado.clinica-sede.clinica-sede-todo-pagina', compact('clinicas'))->layout('layouts.administrador.index');

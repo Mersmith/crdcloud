@@ -13,6 +13,9 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('encargado.odontologo.sede.crear') }}">
                 Nuevo odontólogo <i class="fa-solid fa-square-plus"></i></a>
+            <a wire:click="cambiarTopPuntos()" class="{{ $top_puntos ? 'active' : '' }}">
+                Top Puntos <i class="fa-solid fa-arrows-to-circle"></i>
+            </a>
         </div>
     </div>
 

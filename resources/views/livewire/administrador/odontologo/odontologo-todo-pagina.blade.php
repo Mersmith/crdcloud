@@ -13,6 +13,9 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.odontologo.crear') }}">
                 Nuevo odontólogo <i class="fa-solid fa-square-plus"></i></a>
+            <a wire:click="cambiarTopPuntos()" class="{{ $top_puntos ? 'active' : '' }}">
+                Top Puntos <i class="fa-solid fa-arrows-to-circle"></i>
+            </a>
         </div>
     </div>
 
@@ -144,7 +147,6 @@
                         {{ $odontologos->links('pagination::tailwind') }}
                     </div>
                 @endif
-
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No hay odontólogos.</p>
