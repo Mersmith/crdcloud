@@ -398,11 +398,18 @@ git commit -m "51_Cpanel_5"
 git push origin 51_Cpanel_5
 ->Click en boton Merge pull request
 
-
 git checkout -b 52_Modificacion
 git branch
 git status
 git add .
 git commit -m "Se agrego el historial de puntos, boton crear venta en editar venta, se oculto imagen requerido, se cambio imagen de zip."
 git push origin 52_Modificacion
+->Click en boton Merge pull request
+
+git checkout -b 53_Modificacion
+git branch
+git status
+git add .
+git commit -m "Funcionalidad de top puntos en administrador y encargado, de los odontologos y clinicas."
+git push origin 53_Modificacion
 ->Click en boton Merge pull request

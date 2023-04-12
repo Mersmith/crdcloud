@@ -18,6 +18,8 @@ class OdontologoSedeTodoPagina extends Component
 
     public $filtrar_sede = true;
 
+    public $top_puntos = false;
+
     public function updatingBuscarOdontologo()
     {
         $this->resetPage();
@@ -45,19 +47,32 @@ class OdontologoSedeTodoPagina extends Component
         }
     }
 
+    public function cambiarTopPuntos()
+    {
+        $this->top_puntos = !$this->top_puntos;
+    }
+
     public function render()
     {
         if ($this->filtrar_sede) {
-            $odontologos = $this->sede->odontologos()
-                ->where('nombre', 'LIKE', '%' . $this->buscarOdontologo . '%')
+            $query = $this->sede->odontologos()
                 ->where('rol', '=', 'odontologo')
-                ->orderBy('created_at', 'desc')
-                ->paginate(30);
+                ->where(function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
+                        ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%');
+                });
         } else {
-            $odontologos = Odontologo::where('nombre', 'LIKE', '%' . $this->buscarOdontologo . '%')
-                ->where('rol', '=', 'odontologo')
-                ->orderBy('created_at', 'desc')
-                ->paginate(30);
+            $query = Odontologo::where('rol', '=', 'odontologo')
+                ->where(function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->buscarOdontologo . '%')
+                        ->orWhere('email', 'LIKE', '%' . $this->buscarOdontologo . '%');
+                });
+        }
+
+        if ($this->top_puntos) {
+            $odontologos = $query->orderByDesc('puntos')->paginate(30);
+        } else {
+            $odontologos = $query->orderBy('created_at', 'desc')->paginate(30);
         }
 
         return view('livewire.encargado.odontologo-sede.odontologo-sede-todo-pagina', compact('odontologos'))->layout('layouts.administrador.index');

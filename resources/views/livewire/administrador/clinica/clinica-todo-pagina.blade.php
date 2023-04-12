@@ -13,6 +13,9 @@
         <div class="contenedor_botones_admin">
             <a href="{{ route('administrador.clinica.crear') }}">
                 Nueva clínica <i class="fa-solid fa-square-plus"></i></a>
+            <a wire:click="cambiarTopPuntos()" class="{{ $top_puntos ? 'active' : '' }}">
+                Top Puntos <i class="fa-solid fa-arrows-to-circle"></i>
+            </a>
         </div>
     </div>
 
@@ -32,7 +35,7 @@
             @if ($clinicas->count())
                 <!--CONTENEDOR SUBTITULO-->
                 <div class="contenedor_subtitulo_admin">
-                    <h3>Lista de clínicas  <span> Cantidad: {{ $cantidad_total_clinicas }}</span></h3>
+                    <h3>Lista de clínicas <span> Cantidad: {{ $cantidad_total_clinicas }}</span></h3>
                 </div>
 
                 <!--CONTENEDOR BOTONES-->
@@ -86,7 +89,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($clinicas as $clinica)
-                                    <tr >
+                                    <tr>
                                         <td style="text-align: center;">
                                             {{ $loop->iteration }}
                                         </td>
