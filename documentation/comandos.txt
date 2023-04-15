@@ -1,3 +1,18 @@
+PS C:\xampp\htdocs>composer create-project laravel/laravel crdcloud
+PS C:\xampp\htdocs>cd crdcloud
+PS C:\xampp\htdocs>code .
+
+php artisan serve
+composer require laravel/jetstream
+php artisan jetstream:install livewire
+npm install
+npm run dev
+
+->Configurar el .env con la base de datos mysql = puntodeventadb.
+->Crear la base de datos en phpmyadmin.
+
+php artisan migrate
+
 php artisan make:model Administrador -msf
 
 php artisan make:seeder UserAdministradorSeeder
