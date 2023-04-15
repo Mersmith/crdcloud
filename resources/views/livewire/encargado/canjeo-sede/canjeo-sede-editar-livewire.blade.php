@@ -412,7 +412,7 @@
             }
         };
 
-        Livewire.on('eliminarVentaModal', () => {
+        Livewire.on('eliminarCanjeoModal', () => {
             Swal.fire({
                 title: '¿Quieres eliminar?',
                 text: "No podrás recuparlo.",
@@ -425,7 +425,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emitTo('encargado.canjeo-sede.canjeo-sede-editar-livewire',
-                        'eliminarVenta');
+                        'eliminarCanjeo');
                     Swal.fire(
                         '¡Eliminado!',
                         'Eliminaste correctamente.',

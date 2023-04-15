@@ -1,3 +1,10 @@
+git init
+git add .
+git commit -m "1-Instalación Laravel"
+git log
+git remote add origin https://github.com/Mersmith/crdcloud.git
+git push origin master
+
 git checkout -b 3_Modificacion
 git branch
 git status
@@ -413,3 +420,12 @@ git add .
 git commit -m "Funcionalidad de top puntos en administrador y encargado, de los odontologos y clinicas."
 git push origin 53_Modificacion
 ->Click en boton Merge pull request
+
+git checkout -b 54_Modificacion
+git branch
+git status
+git add .
+git commit -m "Eliminar canjeo y favicon"
+git push origin 54_Modificacion
+->Click en boton Merge pull request
+

@@ -17,7 +17,7 @@ class CanjeoSedeEditarLivewire extends Component
 {
     use WithFileUploads;
 
-    protected $listeners = ['dropImagenes', 'dropZip', 'eliminarVenta'];
+    protected $listeners = ['dropImagenes', 'dropZip', 'eliminarCanjeo'];
 
     public $canjeo;
     public $canjeo_id;
