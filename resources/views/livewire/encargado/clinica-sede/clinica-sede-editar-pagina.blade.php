@@ -129,7 +129,7 @@
                     <!--FECHA DE NACIMIENTO-->
                     <div class="contenedor_elemento_item">
                         <p class="estilo_nombre_input">Fecha de Nacimiento: <span
-                                class="campo_obligatorio">(Obligatorio)</span></p>
+                                class="campo_opcional">(Opcional)</span></p>
                         <input type="date" wire:model="fecha_nacimiento">
                         @error('fecha_nacimiento')
                             <span class="campo_obligatorio">{{ $message }}</span>

@@ -49,7 +49,7 @@
             },
             {
                 "id": 2,
-                "nombreSubMenu1": "Nueva",
+                "nombreSubMenu1": "Nuevo",
                 "nombreSubMenu1Url": "odontologo.canjeo.odontologo.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []

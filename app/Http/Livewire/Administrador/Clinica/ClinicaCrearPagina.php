@@ -45,7 +45,7 @@ class ClinicaCrearPagina extends Component
         'dni' => 'required|digits:8|unique:odontologos',
         'cop' => 'required|unique:odontologos',
         'celular' => 'required|digits:9',
-        'fecha_nacimiento' => 'required',
+        //'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
         'ruc' => 'required|digits:11|unique:odontologos',

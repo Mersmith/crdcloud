@@ -73,7 +73,7 @@ class VentaSedeCrearLivewire extends Component
         $this->sede_id = $this->sede->id;
         $this->sedes = Sede::all();
 
-        $this->servicios = Servicio::select('id', 'nombre')->get();
+        $this->servicios = Servicio::select('id', 'nombre', 'precio_venta')->get();
 
         if ($this->filtrar_sede) {
             $this->odontologos = $this->sede->odontologos()->where('rol', '=', 'odontologo')->get();
