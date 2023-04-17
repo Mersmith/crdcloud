@@ -48,7 +48,7 @@ class OdontologoEditarPagina extends Component
         'apellido' => 'required',
         'username' => 'required',
         'celular' => 'required|digits:9',
-        'fecha_nacimiento' => 'required',
+        //'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
     ];

@@ -159,7 +159,7 @@
                                                 wire:click.defer="$set('servicio', {{ $servicioItem }}); open = false;"
                                                 x-on:click="open = false"
                                                 class="select_buscador_item @if ($key == count($servicios) - 1) border-b-0 @endif">
-                                                {{ $servicioItem->nombre }}
+                                                {{ $servicioItem->nombre }}<strong>: S/.{{ $servicioItem->precio_venta }} </strong>
                                             </div>
                                         @endif
                                     @endforeach

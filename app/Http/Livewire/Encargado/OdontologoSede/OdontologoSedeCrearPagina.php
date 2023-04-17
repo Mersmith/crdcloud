@@ -45,7 +45,7 @@ class OdontologoSedeCrearPagina extends Component
         'dni' => 'required|digits:8|unique:odontologos',
         'cop' => 'required|unique:odontologos',
         'celular' => 'required|digits:9',
-        'fecha_nacimiento' => 'required',
+        //'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
     ];
@@ -74,7 +74,7 @@ class OdontologoSedeCrearPagina extends Component
         'username.required' => 'El :attribute es requerido.',
         'username.unique' => 'El :attribute ya existe.',
         'email.required' => 'El :attribute es requerido.',
-        'email.unique' => 'El :attribute ya existe.',        
+        'email.unique' => 'El :attribute ya existe.',
         'password.required' => 'La :attribute es requerido.',
         'dni.required' => 'El :attribute es requerido.',
         'dni.unique' => 'El :attribute ya existe.',
@@ -128,7 +128,7 @@ class OdontologoSedeCrearPagina extends Component
     {
 
         $this->username = $this->generarUsername($this->nombre, $this->apellido);
-    }    
+    }
 
     public function crearOdontologo()
     {

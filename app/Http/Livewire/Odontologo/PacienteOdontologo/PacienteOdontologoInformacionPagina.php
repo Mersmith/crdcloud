@@ -15,6 +15,7 @@ class PacienteOdontologoInformacionPagina extends Component
     public $direccion;
     public $sedes;
     public $ventas;
+    public $canjeos;
     public $imagenes;
 
     public function mount(Paciente $paciente)
@@ -40,13 +41,22 @@ class PacienteOdontologoInformacionPagina extends Component
             ->orderBy('ventas.id')
             ->get();
 
-        $ventas = $paciente->ventas;
+        $this->canjeos = DB::table('canjeos')
+            ->leftJoin('canjeo_detalles', 'canjeos.id', '=', 'canjeo_detalles.canjeo_id')
+            ->leftJoin('servicios', 'canjeo_detalles.servicio_id', '=', 'servicios.id')
+            ->select('canjeos.id', 'canjeos.estado', 'canjeos.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'))
+            ->where('canjeos.paciente_id', $paciente->id)
+            ->groupBy('canjeos.id', 'canjeos.estado', 'canjeos.created_at')
+            ->orderBy('canjeos.id')
+            ->get();
+
+        /*$ventas = $paciente->ventas;
 
         $imagenesVentas = collect();
         foreach ($ventas as $venta) {
             $imagenesVentas = $imagenesVentas->merge($venta->imagenes);
         }
-        $this->imagenes = $imagenesVentas;
+        $this->imagenes = $imagenesVentas;*/
     }
 
     public function render()

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Odontologo\CanjeoOdontologo;
 
 use App\Models\Canjeo;
-use App\Models\Venta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -30,7 +29,8 @@ class CanjeoOdontologoTodoLivewire extends Component
         $canjeos = DB::table('canjeos')
             ->leftJoin('canjeo_detalles', 'canjeos.id', '=', 'canjeo_detalles.canjeo_id')
             ->leftJoin('servicios', 'canjeo_detalles.servicio_id', '=', 'servicios.id')
-            ->select('canjeos.id', 'canjeos.estado', 'canjeos.nombre', 'canjeos.apellido', 'canjeos.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre_servicio'))
+            ->leftJoin('pacientes', 'canjeos.paciente_id', '=', 'pacientes.id')
+            ->select('canjeos.id', 'canjeos.estado', 'canjeos.nombre', 'canjeos.apellido', 'canjeos.created_at', 'pacientes.nombre AS paciente_nombre', 'pacientes.apellido AS paciente_apellido', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre_servicio'))
             ->where('canjeos.odontologo_id', $odontologoId);
 
         if ($this->estado) {
@@ -38,10 +38,15 @@ class CanjeoOdontologoTodoLivewire extends Component
         }
 
         if ($this->buscarNumeroDeVenta) {
-            $canjeos->where('canjeos.id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
+            $canjeos->where(function ($query) use ($odontologoId) {
+                $query->where('canjeos.id', 'like', '%' . $this->buscarNumeroDeVenta . '%')
+                    ->orWhere('pacientes.nombre', 'like', '%' . $this->buscarNumeroDeVenta . '%')
+                    ->orWhere('pacientes.apellido', 'like', '%' . $this->buscarNumeroDeVenta . '%')
+                    ->where('canjeos.odontologo_id', $odontologoId);
+            });
         }
 
-        $canjeos = $canjeos->groupBy('canjeos.id', 'canjeos.estado', 'canjeos.nombre', 'canjeos.apellido', 'canjeos.created_at')
+        $canjeos = $canjeos->groupBy('canjeos.id', 'canjeos.estado', 'canjeos.nombre', 'canjeos.apellido', 'canjeos.created_at', 'pacientes.nombre', 'pacientes.apellido')
             ->orderBy('canjeos.created_at', 'desc')
             ->paginate($this->paginate)
             ->withQueryString();

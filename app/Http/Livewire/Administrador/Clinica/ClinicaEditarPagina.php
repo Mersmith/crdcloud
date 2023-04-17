@@ -45,7 +45,7 @@ class ClinicaEditarPagina extends Component
         'apellido' => 'required',
         'username' => 'required',
         'celular' => 'required|digits:9',
-        'fecha_nacimiento' => 'required',
+        //'fecha_nacimiento' => 'required',
         'genero' => 'required',
         'puntos' => 'required',
     ];
@@ -125,7 +125,7 @@ class ClinicaEditarPagina extends Component
         $rules['nombre_clinica'] = 'required|unique:odontologos,nombre_clinica,' . $this->clinica->id;
 
         $this->validate($rules);
-        
+
         $respuesta_cop = $this->validarCop();
 
         if ($respuesta_cop->length == 0) {

@@ -29,7 +29,8 @@ class VentaOdontologoTodoLivewire extends Component
         $ventas = DB::table('ventas')
             ->leftJoin('venta_detalles', 'ventas.id', '=', 'venta_detalles.venta_id')
             ->leftJoin('servicios', 'venta_detalles.servicio_id', '=', 'servicios.id')
-            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'))
+            ->leftJoin('pacientes', 'ventas.paciente_id', '=', 'pacientes.id')
+            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'), 'pacientes.nombre as nombre_paciente', 'pacientes.apellido as apellido_paciente')
             ->where('ventas.odontologo_id', $odontologoId);
 
         if ($this->estado) {
@@ -37,10 +38,15 @@ class VentaOdontologoTodoLivewire extends Component
         }
 
         if ($this->buscarNumeroDeVenta) {
-            $ventas->where('ventas.id', 'like', '%' . $this->buscarNumeroDeVenta . '%');
+            $ventas->where(function ($query) use ($odontologoId) {
+                $query->where('ventas.id', 'like', '%' . $this->buscarNumeroDeVenta . '%')
+                    ->orWhere('pacientes.nombre', 'like', '%' . $this->buscarNumeroDeVenta . '%')
+                    ->orWhere('pacientes.apellido', 'like', '%' . $this->buscarNumeroDeVenta . '%')
+                    ->where('ventas.odontologo_id', $odontologoId);
+            });
         }
 
-        $ventas = $ventas->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at')
+        $ventas = $ventas->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', 'pacientes.nombre', 'pacientes.apellido')
             ->orderBy('ventas.created_at', 'desc')
             ->paginate($this->paginate)
             ->withQueryString();

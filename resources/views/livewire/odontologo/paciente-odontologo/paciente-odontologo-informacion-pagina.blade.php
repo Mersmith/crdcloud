@@ -28,7 +28,14 @@
                 <div>
                     <p><strong>Nombre: </strong>{{ $paciente->nombre }} </p>
                     <p><strong>Apellido: </strong>{{ $paciente->apellido }} </p>
-                    <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
+
+                    @if ($paciente->dni)
+                        <p><strong>DNI: </strong>{{ $paciente->dni }} </p>
+                    @elseif ($paciente->carnet_extranjeria)
+                        <p><strong>Carnet: </strong>{{ $paciente->carnet_extranjeria }} </p>
+                    @else
+                    @endif
+
                     <p><strong>Celular: </strong>{{ $paciente->celular }} </p>
                     <p><strong>Género: </strong>{{ $paciente->genero }} </p>
                     <p><strong>Email: </strong>{{ $paciente->email }} </p>
@@ -223,7 +230,7 @@
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
             <div class="contenedor_subtitulo_admin">
-                <h3>Radiografía:</h3>
+                <h3>Radiografías:</h3>
             </div>
             @if ($ventas->count())
                 <!--CONTENEDOR BOTONES-->
@@ -323,6 +330,111 @@
             @else
                 <div class="contenedor_no_existe_elementos">
                     <p>No tiene informes.</p>
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+            @endif
+        </div>
+
+        <!--LISTA CANJEOS-->
+        <div class="contenedor_panel_producto_admin">
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Canjeos:</h3>
+            </div>
+            @if ($canjeos->count())
+                <!--CONTENEDOR BOTONES-->
+                <div class="contenedor_botones_admin">
+                    <button>
+                        PDF <i class="fa-solid fa-file-pdf"></i>
+                    </button>
+                    <button>
+                        EXCEL <i class="fa-regular fa-file-excel"></i>
+                    </button>
+                    <button onClick="window.scrollTo(0, document.body.scrollHeight);">
+                        Abajo <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                </div>
+
+                <!--TABLA-->
+                <div class="tabla_administrador py-4 overflow-x-auto">
+                    <div class="inline-block min-w-full overflow-hidden">
+
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        N° Orden</th>
+                                    <th>
+                                        Exámen</th>
+                                    <th>
+                                        Estado</th>
+                                    <th>
+                                        Registro</th>
+                                    <th>
+                                        Ver</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($canjeos as $canjeoItem)
+                                    <tr style="text-align: center;">
+                                        <td>
+                                            {{ $canjeoItem->id }}
+                                        </td>
+                                        <td>
+                                            {{ $canjeoItem->nombre }}
+                                        </td>
+                                        <td>
+                                            @switch($canjeoItem->estado)
+                                                @case(1)
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                                        style="background-color: rgb(245, 171, 11);">
+                                                        Falta Pagar
+                                                    </span>
+                                                @break
+
+                                                @case(2)
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                                        style="background-color: rgb(13, 235, 87);">
+                                                        Pagado
+                                                    </span>
+                                                @break
+
+                                                @case(3)
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                                        style="background-color: rgb(243, 57, 10);">
+                                                        Anulado
+                                                    </span>
+                                                @break
+
+                                                @default
+                                            @endswitch
+                                        </td>
+                                        <td>
+                                            {{ $canjeoItem->created_at }}
+                                        </td>
+                                        <td>
+                                            @if ($canjeoItem->estado == 1)
+                                                <a style="color: green;"
+                                                    href="{{ route('odontologo.canjeo.odontologo.editar', $canjeoItem->id) }}">
+                                                    <span><i class="fa-solid fa-pencil"></i></span>
+                                                </a>
+                                            @else
+                                                <a style="color: #009eff;"
+                                                    href="{{ route('odontologo.canjeo.odontologo.informacion', $canjeoItem->id) }}">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No tiene canjeos.</p>
                     <i class="fa-solid fa-spinner"></i>
                 </div>
             @endif

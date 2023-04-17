@@ -14,7 +14,7 @@
             },
             {
                 "id": 2,
-                "nombreSubMenu1": "Nuevo",
+                "nombreSubMenu1": "Nueva",
                 "nombreSubMenu1Url": "encargado.especialidad.sede.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []
@@ -95,7 +95,7 @@
             },
             {
                 "id": 2,
-                "nombreSubMenu1": "Nuevo",
+                "nombreSubMenu1": "Nueva",
                 "nombreSubMenu1Url": "encargado.clinica.sede.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []
@@ -198,7 +198,7 @@
             },
             {
                 "id": 2,
-                "nombreSubMenu1": "Nueva",
+                "nombreSubMenu1": "Nuevo",
                 "nombreSubMenu1Url": "encargado.canjeo.sede.crear",
                 "iconoSubMenu1": "fa-solid fa-square-plus",
                 "subMenu2": []

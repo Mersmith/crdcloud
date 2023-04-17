@@ -76,7 +76,7 @@
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
                 <p class="estilo_nombre_input">Buscar venta: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarNumeroDeVenta" placeholder="Ingrese el número de venta.">
+                <input type="text" wire:model="buscarNumeroDeVenta" placeholder="Ingrese el número de venta o datos del paciente.">
             </div>
         </div>
 
@@ -112,6 +112,8 @@
                                     <th>
                                         N° Orden</th>
                                     <th>
+                                        Paciente</th>
+                                    <th>
                                         Exámen</th>
                                     <th>
                                         Estado</th>
@@ -130,6 +132,9 @@
                                     <tr>
                                         <td style="text-align: center;">
                                             {{ $ventaItem->id }}
+                                        </td>
+                                        <td>
+                                            {{ $ventaItem->nombre_paciente . ' ' . $ventaItem->apellido_paciente }}
                                         </td>
                                         <td>
                                             {{ $ventaItem->nombre }}
@@ -161,8 +166,10 @@
                                             @endswitch
                                         </td>
                                         <td style="text-align: center;">
-                                            <a href="{{ $ventaItem->link }}" target="_blank"><i
-                                                    class="fa-brands fa-google-drive"></i></a>
+                                            @if ($ventaItem->link)
+                                                <a href="{{ $ventaItem->link }}" target="_blank"><i
+                                                        class="fa-brands fa-google-drive"></i></a>
+                                            @endif
                                         </td>
                                         <td style="text-align: center;">
                                             {{ $ventaItem->descargas_imagen }}

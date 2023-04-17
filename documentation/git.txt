@@ -429,3 +429,11 @@ git commit -m "Eliminar canjeo y favicon"
 git push origin 54_Modificacion
 ->Click en boton Merge pull request
 
+git checkout -b 55_Modificacion
+git branch
+git status
+git add .
+git commit -m "Buscar ventas y canjeos con paciente."
+git push origin 55_Modificacion
+->Click en boton Merge pull request
+

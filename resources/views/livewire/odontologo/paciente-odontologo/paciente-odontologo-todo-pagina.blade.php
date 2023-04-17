@@ -71,7 +71,7 @@
                                     <th>
                                         Registro</th>
                                     <th>
-                                        Radiografía</th>
+                                        Ver</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,8 +89,9 @@
                                         <td>
                                             @if ($paciente->dni)
                                                 DNI: {{ $paciente->dni }}
-                                            @else
+                                            @elseif ($paciente->carnet_extranjeria)
                                                 Carnet: {{ $paciente->carnet_extranjeria }}
+                                            @else
                                             @endif
                                         </td>
                                         <td>
@@ -105,7 +106,7 @@
                                         <td>
                                             <a style="color: #009eff;"
                                                 href="{{ route('odontologo.paciente.odontologo.informacion', $paciente) }}">
-                                                <i class="fa-solid fa-images"></i>
+                                                <i class="fa-solid fa-eye"></i>
                                             </a>
                                         </td>
                                     </tr>

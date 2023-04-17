@@ -386,3 +386,6 @@ WHERE p.id IS NULL
 
 //Eliminar los usuarios desde el id 10
 DELETE FROM users WHERE id >= 10;
+
+//Actualizar ventas del estado vacio a 2
+UPDATE `ventas` SET `estado` = '2' WHERE `estado` = '';
