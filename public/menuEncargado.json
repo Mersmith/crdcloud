@@ -120,24 +120,9 @@
     {
         "id": 6,
         "nombrePrincipal": "Servicios",
-        "nombrePrincipalUrl": "#",
+        "nombrePrincipalUrl": "encargado.servicio.sede.index",
         "iconoPrincipal": "fa-solid fa-briefcase-medical",
-        "subMenu1": [
-            {
-                "id": 1,
-                "nombreSubMenu1": "Lista",
-                "nombreSubMenu1Url": "encargado.servicio.sede.index",
-                "iconoSubMenu1": "fa-solid fa-table-list",
-                "subMenu2": []
-            },
-            {
-                "id": 2,
-                "nombreSubMenu1": "Nuevo",
-                "nombreSubMenu1Url": "encargado.servicio.sede.crear",
-                "iconoSubMenu1": "fa-solid fa-square-plus",
-                "subMenu2": []
-            }
-        ]
+        "subMenu1": []
     },
     {
         "id": 7,

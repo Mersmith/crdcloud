@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire\Encargado\PacienteSede;
 
+use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\Sede;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class PacienteSedeEditarPagina extends Component
 {
-    protected $listeners = ['eliminarPaciente'];
+    protected $listeners = ['eliminarPaciente', 'eliminarUnDetalleOdontologo', 'actualizarOdontologosDetalles', 'eliminarUnDetalleClinica', 'actualizarOdontologosDetalles'];
 
     public $paciente;
     public $sedes;
@@ -26,6 +28,8 @@ class PacienteSedeEditarPagina extends Component
         $genero;
 
     public $es_extranjero;
+
+    public $odontologos_detalles = [], $odontologos, $odontologo_id = "", $buscarOdontologo;
 
     protected $rules = [
         'sedesSeleccionadas' => 'required|array|min:1',
@@ -87,7 +91,11 @@ class PacienteSedeEditarPagina extends Component
         $this->celular = $paciente->celular;
         $this->genero = $paciente->genero;
 
-        $odontologos = $paciente->odontologos->pluck('nombre')->toArray();
+        $sede = Auth::user()->encargado->sede;
+
+        $this->odontologos = $sede->odontologos()->get();
+
+        $this->odontologos_detalles = $paciente->odontologos->toArray();
     }
 
     public function editarPaciente()
@@ -136,6 +144,54 @@ class PacienteSedeEditarPagina extends Component
         $this->paciente->sedes()->sync($this->sedesSeleccionadas);
 
         $this->emit('mensajeActualizado', "Editado.");
+    }
+
+    public function updatedOdontologoId($value)
+    {
+        if ($value) {
+            $odontologo = Odontologo::find($value);
+            $this->odontologo_id = $odontologo->id;
+
+            $this->buscarOdontologo = $odontologo->nombre_clinica
+                ? $odontologo->nombre_clinica . ' - ' . $odontologo->nombre . ' ' . $odontologo->apellido
+                : $odontologo->nombre . ' ' . $odontologo->apellido;
+        }
+    }
+
+    public function agregarOdontologo()
+    {
+        if ($this->odontologo_id) {
+            foreach ($this->odontologos_detalles as $detalle) {
+                if ($detalle['id'] == $this->odontologo_id) {
+                    $this->emit('mensajeError', "Ya existe el odontólogo.");
+                    return;
+                }
+            }
+
+            $this->paciente->odontologos()->attach($this->odontologo_id);
+
+            $this->emit('mensajeCreado', "Agregado.");
+
+            $this->reset('odontologo_id', 'buscarOdontologo');
+
+            //$this->odontologos_detalles = $this->paciente->odontologos->toArray();
+
+            $this->emit('actualizarOdontologosDetalles');
+        } else {
+            $this->emit('mensajeError', "Debe seleccionar un odontólogo.");
+        }
+    }
+
+    public function actualizarOdontologosDetalles()
+    {
+        $this->odontologos_detalles = $this->paciente->odontologos->toArray();
+    }
+
+    public function eliminarUnDetalleOdontologo($odontologo_detalle_id, $index)
+    {
+        array_splice($this->odontologos_detalles, $index, 1);
+        $odontologos_ids = array_column($this->odontologos_detalles, 'id');
+        $this->paciente->odontologos()->sync($odontologos_ids);
     }
 
     public function eliminarPaciente()

@@ -388,14 +388,14 @@
                                                 @case(1)
                                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                                                         style="background-color: rgb(245, 171, 11);">
-                                                        Falta Pagar
+                                                        Proceso
                                                     </span>
                                                 @break
 
                                                 @case(2)
                                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                                                         style="background-color: rgb(13, 235, 87);">
-                                                        Pagado
+                                                        Canjeado
                                                     </span>
                                                 @break
 
