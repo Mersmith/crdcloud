@@ -25,6 +25,7 @@
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
     <div class="contenedor_administrador_contenido">
+        <!--FORMULARIO-->
         <div class="contenedor_panel_producto_admin">
 
             <!--CONTENEDOR SUBTITULO-->
@@ -180,6 +181,136 @@
             </form>
 
         </div>
+
+        <!--ODONTÓLOGOS-->
+        <div class="contenedor_panel_producto_admin">
+
+            <!--CONTENEDOR SUBTITULO-->
+            <div class="contenedor_subtitulo_admin">
+                <h3>Sus odontólogos y/o clínicas</h3>
+            </div>
+
+            <!--FORMULARIO-->
+            <div class="formulario">
+                <!--ODONTÓLOGOS-->
+                <div class="contenedor_1_elementos_100">
+                    <div class="contenedor_elemento_item">
+                        <p class="estilo_nombre_input">Odontólogos y Clínicas: <span
+                                class="campo_obligatorio">(Obligatorio)</span></p>
+                        <div x-data="{ open: false }" class="relative">
+                            <input type="text" wire:model="buscarOdontologo" placeholder="Buscar odontólogo..."
+                                x-on:click.prevent="open = !open" x-on:keydown.escape="open = false">
+                            <div x-cloak x-show="open" class="select_contenedor_buscador"
+                                x-on:click.away="open = false" x-init="document.addEventListener('click', function(event) { if (!event.target.closest('.relative')) { open = false; } })">
+                                <div class="select_buscador_item_no_seleccionado">Seleccione un odontólogo</div>
+                                @foreach ($odontologos as $key => $odontologo)
+                                    @if (strpos(strtolower($odontologo->nombre_clinica . ' - ' . $odontologo->nombre . ' ' . $odontologo->apellido . ' '),
+                                            strtolower($buscarOdontologo)) !== false)
+                                        <div wire:click="$set('odontologo_id', {{ $odontologo->id }}); open = false;"
+                                            x-on:click="open = false"
+                                            class="select_buscador_item @if ($key == count($odontologos) - 1) border-b-0 @endif">
+                                            @if ($odontologo->rol == 'clinica')
+                                                <strong>{{ $odontologo->nombre_clinica . ' - ' }}</strong>
+                                            @endif
+                                            {{ $odontologo->nombre . ' ' . $odontologo->apellido }}
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                        @error('odontologo_id')
+                            <span class="campo_obligatorio">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!--ENVIAR-->
+                <div class="contenedor_1_elementos_100">
+                    <div class="contenedor_1_elementos">
+                        <button wire:target="agregarOdontologo" wire:click="agregarOdontologo">
+                            Agregar odontólogo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--LISTA-->
+            @if (count($odontologos_detalles) > 0)
+                <!--TABLA-->
+                <div class="tabla_administrador py-4 overflow-x-auto">
+                    <div class="inline-block min-w-full overflow-hidden">
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Nº</th>
+                                    <th>
+                                        Odontólogo o Clínica</th>
+                                    <th>
+                                        Email</th>
+                                    <th>
+                                        DNI</th>
+                                    <th>
+                                        Celular</th>
+                                    <th>
+                                        Nacimiento</th>
+                                    <th>
+                                        Género</th>
+                                    <th>
+                                        Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($odontologos_detalles as $index => $odontologo)
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            {{ $loop->iteration }}
+                                        </td>
+                                        <td>
+                                            @if ($odontologo['rol'] == 'clinica')
+                                                <strong>{{ $odontologo['nombre_clinica'] . ' - ' }}</strong>
+                                            @endif
+                                            {{ $odontologo['nombre'] . ' ' . $odontologo['apellido'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $odontologo['email'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $odontologo['dni'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $odontologo['celular'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $odontologo['fecha_nacimiento'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $odontologo['genero'] }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a style="color: #009eff;"
+                                                href="{{ route('encargado.odontologo.sede.informacion', $odontologo['id']) }}">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a style="color: red;"
+                                                wire:click="$emit('eliminarUnDetalleOdontologoModal', '{{ $odontologo['id'] }}|{{ $index }}')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <div class="contenedor_no_existe_elementos">
+                    <p>No tiene odontólogos.</p>
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+            @endif
+
+        </div>
     </div>
 </div>
 
@@ -216,5 +347,29 @@
                 }
             })
         })
+
+        Livewire.on('eliminarUnDetalleOdontologoModal', datos => {
+            const [odontologoId, index] = datos.split('|');
+            Swal.fire({
+                title: '¿Quieres deasignarle este odontólogo?',
+                text: "No podrás recuparlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, desasignar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('encargado.paciente-sede.paciente-sede-editar-pagina',
+                        'eliminarUnDetalleOdontologo', odontologoId, index);
+                    Swal.fire(
+                        '¡Desasignado!',
+                        'Desasignaste correctamente.',
+                        'success'
+                    );
+                }
+            })
+        });
     </script>
 @endpush

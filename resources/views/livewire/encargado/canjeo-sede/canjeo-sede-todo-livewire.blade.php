@@ -1,12 +1,12 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Ventas')
+    @section('tituloPagina', 'Canjeos')
 
     <!--CONTENEDOR CABECERA-->
     <div class="contenedor_administrador_cabecera">
         <!--CONTENEDOR TITULO-->
         <div class="contenedor_titulo_admin">
-            <h2>Ventas</h2>
+            <h2>Canjeos</h2>
         </div>
     </div>
 
@@ -66,8 +66,8 @@
         <!--BUSCADOR-->
         <div class="contenedor_panel_producto_admin formulario">
             <div class="contenedor_elemento_item">
-                <p class="estilo_nombre_input">Buscar venta: <span class="campo_opcional">(Opcional)</span> </p>
-                <input type="text" wire:model="buscarNumeroDeCanjeo" placeholder="Ingrese el número de venta.">
+                <p class="estilo_nombre_input">Buscar canjeo: <span class="campo_opcional">(Opcional)</span> </p>
+                <input type="text" wire:model="buscarNumeroDeCanjeo" placeholder="Ingrese el número de canjeo u datos del odontológo.">
             </div>
         </div>
 
@@ -102,13 +102,13 @@
                                     <th>
                                         N° Orden</th>
                                     <th>
+                                        Odontólogo</th>
+                                    <th>
                                         Exámen</th>
                                     <th>
                                         Estado</th>
                                     <th>
-                                        Link</th>
-                                    <th>
-                                        Descarga</th>
+                                        Paciente</th>
                                     <th>
                                         Registro</th>
                                     <th>
@@ -122,7 +122,10 @@
                                             {{ $ventaItem->id }}
                                         </td>
                                         <td>
-                                            {{ $ventaItem->nombre }}
+                                            {{ $ventaItem->odontologo_nombre . ' ' . $ventaItem->odontologo_apellido }}
+                                        </td>
+                                        <td>
+                                            {{ $ventaItem->nombre_servicio }}
                                         </td>
                                         <td style="text-align: center;">
                                             @switch($ventaItem->estado)
@@ -136,7 +139,7 @@
                                                 @case(2)
                                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                                                         style="background-color: rgb(13, 235, 87);">
-                                                        Pagado
+                                                        Canjeado
                                                     </span>
                                                 @break
 
@@ -150,16 +153,8 @@
                                                 @default
                                             @endswitch
                                         </td>
-                                        <td style="text-align: center;">
-                                            @if ($ventaItem->link)
-                                                <a href="{{ $ventaItem->link }}" target="_blank"><i
-                                                        class="fa-brands fa-google-drive"></i></a>
-                                            @endif
-                                        </td>
-                                        <td style="text-align: center;">
-                                            @if ($ventaItem->link)
-                                                {{ $ventaItem->descargas_imagen }}
-                                            @endif
+                                        <td>
+                                            {{ $ventaItem->nombre . ' ' . $ventaItem->apellido }}
                                         </td>
                                         <td style="text-align: center;">
                                             {{ $ventaItem->created_at }}

@@ -40,7 +40,7 @@
                     <div class="contenedor_panel_producto_admin">
                         <div class="contenedor_icono_total">
                             <i class="fa-solid fa-images"></i>
-                            <p>Total de exámenes</p>
+                            <p>Total de radiografías</p>
                             <span>{{ $cantidad_examenes }}</span>
                         </div>
                     </div>

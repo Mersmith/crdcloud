@@ -30,7 +30,7 @@
                     <!--ID VENTA-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Id venta:</p>
+                            <p class="estilo_nombre_input">Id canjeo:</p>
                             <input type="text" value="{{ $canjeo->id }}" disabled>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                     <!--ESTADOS-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Estado de venta:</p>
+                            <p class="estilo_nombre_input">Estado de canjeo:</p>
                             @switch($estado)
                                 @case(1)
                                     <input type="text" value="Pendiente" disabled>
@@ -262,7 +262,7 @@
                             <div class="contenedor_1_elementos_100">
                                 <div class="contenedor_elemento_item">
                                     <p class="estilo_nombre_input">Observación:</p>
-                                    <textarea rows="3" value="{{ $observacion }}" disabled></textarea>
+                                    <textarea rows="3" value="{{ $canjeo }}" disabled></textarea>
                                 </div>
                             </div>
                         </div>

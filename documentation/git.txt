@@ -437,3 +437,10 @@ git commit -m "Buscar ventas y canjeos con paciente."
 git push origin 55_Modificacion
 ->Click en boton Merge pull request
 
+git checkout -b 56_Modificacion
+git branch
+git status
+git add .
+git commit -m "Asignar y desasignar odontologos o clinicas a pacientes."
+git push origin 56_Modificacion
+->Click en boton Merge pull request

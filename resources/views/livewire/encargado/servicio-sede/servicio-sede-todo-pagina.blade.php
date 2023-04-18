@@ -8,12 +8,6 @@
         <div class="contenedor_titulo_admin">
             <h2>Servicios</h2>
         </div>
-
-        <!--CONTENEDOR BOTONES-->
-        <div class="contenedor_botones_admin">
-            <a href="{{ route('encargado.servicio.sede.crear') }}">
-                Nuevo servicio <i class="fa-solid fa-square-plus"></i></a>
-        </div>
     </div>
 
     <!--CONTENEDOR PÁGINA ADMINISTRADOR-->
@@ -96,10 +90,6 @@
                                             <a style="color: #009eff;"
                                                 href="{{ route('encargado.servicio.sede.informacion', $servicio) }}">
                                                 <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                            <a style="color: green;"
-                                                href="{{ route('encargado.servicio.sede.editar', $servicio) }}">
-                                                <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </td>
                                     </tr>
