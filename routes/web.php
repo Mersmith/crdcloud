@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\RedirigirVentaController;
 use App\Http\Livewire\Sesion\Administrador\AdministradorIngresarLivewire;
 use App\Http\Livewire\Sesion\Odontologo\OdontologoRegistrarLivewire;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/login', '/');
 
 Route::get('/', AdministradorIngresarLivewire::class)->name('inicio');
+
+Route::get('/miradiografia', [RedirigirVentaController::class, 'redirigirVenta'])->name('redirigir.venta');
+
+Route::get('/micanjeo', [RedirigirVentaController::class, 'redirigirCanjeo'])->name('redirigir.canjeo');
 
 //Route::get('registrar', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
 

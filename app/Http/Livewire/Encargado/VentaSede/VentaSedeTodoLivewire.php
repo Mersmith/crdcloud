@@ -18,9 +18,30 @@ class VentaSedeTodoLivewire extends Component
     public $estado;
     protected $queryString = ['estado'];
 
+    public $url;
+    public $abrir_modal = false;
+
     public function mount()
     {
         $this->sede_id = Auth::user()->encargado->sede->id;
+    }
+
+    public function compartir(Venta $venta)
+    {
+        $venta = $venta;
+        $odontologo = $venta->odontologo;
+        $usuario = $odontologo->user;
+
+        $params = [
+            'idodontologo' => $usuario->id,
+            'idventa' => $venta->id,
+        ];
+
+        $this->url = url('miradiografia') . '?' . http_build_query($params);
+
+        if($this->url){
+            $this->abrir_modal = true;
+        }
     }
 
     public function render()
