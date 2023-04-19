@@ -174,6 +174,8 @@
                                             <a class="tabla_editar"
                                                 href="{{ route('encargado.venta.sede.editar', $ventaItem->id) }}">
                                                 <i class="fa-solid fa-pencil"></i></a>
+                                            <i wire:click="compartir({{ $ventaItem->id }})"
+                                                class="fa-solid fa-share-nodes"></i>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -195,5 +197,47 @@
             @endif
         </div>
     </div>
+
+    <!--MODAL-->
+    @if ($url)
+        <!--CONTENEDOR MODAL-->
+        <x-dialog-modal wire:model="abrir_modal">
+            <!--TITULO-->
+            <x-slot name="title">
+                <div class="contenedor_titulo_modal">
+                    <!--ENCABEZADO-->
+                    <div>
+                        <h2 style="font-weight: bold">Compartir link</h2>
+                    </div>
+
+                    <!--CERRAR-->
+                    <div>
+                        <button wire:click="$set('abrir_modal', false)" wire:loading.attr="disabled">
+                            <i style="cursor: pointer; color: #666666;" class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </x-slot>
+            <!--CONTENIDO-->
+            <x-slot name="content">
+                <div class="formulario">
+                    <p style="word-wrap: break-word;">{{ $url }}</p>
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <div class="contenedor_pie_modal" x-data="{ url: '' }" x-init="url = '{{ $url }}'">
+                    <button style="background-color: #181C32;" wire:click="$set('abrir_modal', false)"
+                        wire:loading.attr="disabled" type="submit"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+
+                    <button
+                        x-on:click="
+                    navigator.clipboard.writeText(url);
+                    $dispatch('alert', {type: 'success', message: 'Enlace copiado al portapapeles'})
+                "
+                        style="background-color: #189bb6;" type="submit">Copiar <i class="fa-solid fa-clipboard"></i></button>
+                </div>
+            </x-slot>
+        </x-dialog-modal>
+    @endif
 
 </div>

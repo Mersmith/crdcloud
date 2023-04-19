@@ -444,3 +444,11 @@ git add .
 git commit -m "Asignar y desasignar odontologos o clinicas a pacientes."
 git push origin 56_Modificacion
 ->Click en boton Merge pull request
+
+git checkout -b 57_Modificacion
+git branch
+git status
+git add .
+git commit -m "Genera url de venta, abrir sesión del odontologo y redirigir a venta."
+git push origin 57_Modificacion
+->Click en boton Merge pull request

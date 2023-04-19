@@ -213,3 +213,5 @@ php artisan make:controller Odontologo/DescargarProgramaController
 php artisan make:notification CanjeoRealizadoNotification
 
 php artisan notifications:table
+
+php artisan make:controller Web/RedirigirVentaController
