@@ -16,6 +16,8 @@ php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeInformacionPagi
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedePacienteTodoPagina
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedePacienteCrearPagina
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedePacienteEditarPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeVentaTodoPagina
+php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeCanjeoTodoPagina
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeDireccionCrearPagina
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeDireccionEditarPagina
 php artisan make:livewire Encargado/OdontologoSede/OdontologoSedeEstadisticaDepartamentoCantidadPagina
@@ -31,6 +33,8 @@ php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeInformacionPagina
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedePacienteTodoPagina
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedePacienteCrearPagina
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedePacienteEditarPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeVentaTodoPagina
+php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeCanjeoTodoPagina
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeDireccionCrearPagina
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeDireccionEditarPagina
 php artisan make:livewire Encargado/ClinicaSede/ClinicaSedeEstadisticaDepartamentoCantidadPagina
