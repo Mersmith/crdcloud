@@ -14,6 +14,10 @@
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <a href="{{ route('encargado.odontologo.sede.paciente.todo', $odontologo) }}">
                 Pacientes <i class="fa-solid fa-user-injured"></i></a>
+            <a href="{{ route('encargado.odontologo.sede.venta.todo', $odontologo) }}">
+                Ventas <i class="fa-solid fa-file-invoice-dollar"></i></a>
+            <a href="{{ route('encargado.odontologo.sede.canjeo.todo', $odontologo) }}">
+                Canjeos <i class="fa-solid fa-file-invoice-dollar"></i></a>
         </div>
     </div>
 
@@ -77,17 +81,19 @@
             @if ($paciente)
                 <div>
                     <p><strong>Paciente: </strong>Sí</p>
-                    <a href="{{ route('encargado.paciente.sede.editar', $paciente) }}" target="_blank" class="boton_suelto"><i
-                            class="fa-solid fa-eye"></i> Ver paciente</a>
-                    <a wire:click="$emit('eliminarPacienteModal')" class="boton_suelto"><i class="fa-solid fa-trash-can"></i> ¿Desasignar como paciente?</a>
+                    <a href="{{ route('encargado.paciente.sede.editar', $paciente) }}" target="_blank"
+                        class="boton_suelto"><i class="fa-solid fa-eye"></i> Ver paciente</a>
+                    <a wire:click="$emit('eliminarPacienteModal')" class="boton_suelto"><i
+                            class="fa-solid fa-trash-can"></i> ¿Desasignar como paciente?</a>
                 </div>
             @else
                 <div>
-                    <a wire:click="asignarPaciente" class="boton_suelto"><i class="fa-solid fa-user-injured"></i> ¿Asignarlo también como paciente?</a>
+                    <a wire:click="asignarPaciente" class="boton_suelto"><i class="fa-solid fa-user-injured"></i>
+                        ¿Asignarlo también como paciente?</a>
                 </div>
             @endif
         </div>
-        
+
         <!--DIRECCIÓN-->
         <div class="contenedor_panel_producto_admin">
             <!--CONTENEDOR SUBTITULO-->
@@ -117,7 +123,7 @@
 </div>
 
 @push('script')
-    <script>  
+    <script>
         Livewire.on('eliminarPacienteModal', () => {
             Swal.fire({
                 title: '¿Quieres desasignar?',

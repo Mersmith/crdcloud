@@ -26,6 +26,7 @@ use App\Http\Livewire\Encargado\OdontologoSede\OdontologoSedeTodoPagina;
 use App\Http\Livewire\Encargado\CanjeoSede\CanjeoSedeCrearLivewire;
 use App\Http\Livewire\Encargado\CanjeoSede\CanjeoSedeEditarLivewire;
 use App\Http\Livewire\Encargado\CanjeoSede\CanjeoSedeTodoLivewire;
+use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeCanjeoTodoPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeCrearPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeDireccionCrearPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeDireccionEditarPagina;
@@ -39,6 +40,9 @@ use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedePacienteCrearPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedePacienteEditarPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedePacienteTodoPagina;
 use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeTodoPagina;
+use App\Http\Livewire\Encargado\ClinicaSede\ClinicaSedeVentaTodoPagina;
+use App\Http\Livewire\Encargado\OdontologoSede\OdontologoSedeCanjeoTodoPagina;
+use App\Http\Livewire\Encargado\OdontologoSede\OdontologoSedeVentaTodoPagina;
 use App\Http\Livewire\Encargado\PacienteSede\PacienteSedeClinicaTodoPagina;
 use App\Http\Livewire\Encargado\PacienteSede\PacienteSedeCrearPagina;
 use App\Http\Livewire\Encargado\PacienteSede\PacienteSedeDireccionCrearPagina;
@@ -72,6 +76,8 @@ Route::get('odontologo/{odontologo}/informacion', OdontologoSedeInformacionPagin
 Route::get('odontologo/{odontologo}/pacientes', OdontologoSedePacienteTodoPagina::class)->name('odontologo.sede.paciente.todo');//:)
 Route::get('odontologo/{odontologo}/paciente/crear', OdontologoSedePacienteCrearPagina::class)->name('odontologo.sede.paciente.crear');//:)
 Route::get('odontologo/{odontologo}/paciente/{paciente}/editar', OdontologoSedePacienteEditarPagina::class)->name('odontologo.sede.paciente.editar');//:)
+Route::get('odontologo/{odontologo}/ventas', OdontologoSedeVentaTodoPagina::class)->name('odontologo.sede.venta.todo');//:)
+Route::get('odontologo/{odontologo}/canjeos', OdontologoSedeCanjeoTodoPagina::class)->name('odontologo.sede.canjeo.todo');//:)
 Route::get('odontologo/{odontologo}/direccion/crear', OdontologoSedeDireccionCrearPagina::class)->name('odontologo.sede.direccion.crear');//:)
 Route::get('odontologo/{odontologo}/direccion/editar', OdontologoSedeDireccionEditarPagina::class)->name('odontologo.sede.direccion.editar');//:)
 Route::get('odontologos/departamentos', OdontologoSedeEstadisticaDepartamentoCantidadPagina::class)->name('odontologo.sede.estadistica.departamento.cantidad');//:)
@@ -86,6 +92,8 @@ Route::get('clinica/{clinica}/informacion', ClinicaSedeInformacionPagina::class)
 Route::get('clinica/{clinica}/pacientes', ClinicaSedePacienteTodoPagina::class)->name('clinica.sede.paciente.todo');//:)
 Route::get('clinica/{clinica}/paciente/crear', ClinicaSedePacienteCrearPagina::class)->name('clinica.sede.paciente.crear');//:)
 Route::get('clinica/{clinica}/paciente/{paciente}/editar', ClinicaSedePacienteEditarPagina::class)->name('clinica.sede.paciente.editar');//:)
+Route::get('clinica/{clinica}/ventas', ClinicaSedeVentaTodoPagina::class)->name('clinica.sede.venta.todo');//:)
+Route::get('clinica/{clinica}/canjeos', ClinicaSedeCanjeoTodoPagina::class)->name('clinica.sede.canjeo.todo');//:)
 Route::get('clinica/{clinica}/direccion/crear', ClinicaSedeDireccionCrearPagina::class)->name('clinica.sede.direccion.crear');//:)
 Route::get('clinica/{clinica}/direccion/editar', ClinicaSedeDireccionEditarPagina::class)->name('clinica.sede.direccion.editar');//:)
 Route::get('clinicas/departamentos', ClinicaSedeEstadisticaDepartamentoCantidadPagina::class)->name('clinica.sede.estadistica.departamento.cantidad');//:)

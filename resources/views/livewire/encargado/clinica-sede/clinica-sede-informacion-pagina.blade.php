@@ -14,6 +14,10 @@
                 <i class="fa-solid fa-arrow-left-long"></i> Regresar</a>
             <a href="{{ route('encargado.clinica.sede.paciente.todo', $clinica) }}">
                 Pacientes <i class="fa-solid fa-user-injured"></i></a>
+            <a href="{{ route('encargado.clinica.sede.venta.todo', $clinica) }}">
+                Ventas <i class="fa-solid fa-file-invoice-dollar"></i></a>
+            <a href="{{ route('encargado.clinica.sede.canjeo.todo', $clinica) }}">
+                Canjeos <i class="fa-solid fa-file-invoice-dollar"></i></a>
         </div>
     </div>
 
@@ -120,7 +124,7 @@
 </div>
 
 @push('script')
-    <script>  
+    <script>
         Livewire.on('eliminarPacienteModal', () => {
             Swal.fire({
                 title: '¿Quieres desasignar?',
