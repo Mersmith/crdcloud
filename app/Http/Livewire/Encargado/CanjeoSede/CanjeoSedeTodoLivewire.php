@@ -18,11 +18,32 @@ class CanjeoSedeTodoLivewire extends Component
     public $estado;
     protected $queryString = ['estado'];
 
+    public $url;
+    public $abrir_modal = false;
+
     public function mount()
     {
         $this->sede_id = Auth::user()->encargado->sede->id;
 
         //auth()->user()->unreadNotifications->markAsRead();
+    }
+
+    public function compartir(Canjeo $canjeo)
+    {
+        $canjeo = $canjeo;
+        $odontologo = $canjeo->odontologo;
+        $usuario = $odontologo->user;
+
+        $params = [
+            'i' => $usuario->id,
+            'c' => $canjeo->id,
+        ];
+
+        $this->url = url('micanjeo') . '?' . http_build_query($params);
+
+        if($this->url){
+            $this->abrir_modal = true;
+        }
     }
 
     public function render()

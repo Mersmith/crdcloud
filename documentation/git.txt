@@ -452,3 +452,11 @@ git add .
 git commit -m "Genera url de venta, abrir sesión del odontologo y redirigir a venta."
 git push origin 57_Modificacion
 ->Click en boton Merge pull request
+
+git checkout -b 58_Modificacion
+git branch
+git status
+git add .
+git commit -m "Genera url de canjeo, abrir sesión del odontologo y redirigir a canjeo."
+git push origin 58_Modificacion
+->Click en boton Merge pull request

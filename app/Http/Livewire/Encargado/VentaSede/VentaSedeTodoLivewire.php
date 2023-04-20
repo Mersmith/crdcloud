@@ -33,8 +33,8 @@ class VentaSedeTodoLivewire extends Component
         $usuario = $odontologo->user;
 
         $params = [
-            'idodontologo' => $usuario->id,
-            'idventa' => $venta->id,
+            'i' => $usuario->id,
+            'r' => $venta->id,
         ];
 
         $this->url = url('miradiografia') . '?' . http_build_query($params);
