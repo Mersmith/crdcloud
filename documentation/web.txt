@@ -1,0 +1,5 @@
+->CRUD Sesion
+php artisan make:livewire Sesion/Administrador/AdministradorIngresarLivewire
+php artisan make:livewire Sesion/Administrador/AdministradorRecuperarLivewire
+php artisan make:livewire Sesion/Administrador/AdministradorCambiarLivewire
+php artisan make:livewire Sesion/Odontologo/OdontologoRegistrarLivewire

@@ -1,6 +1,6 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Ingresar')
+    @section('tituloPagina', 'Recuperar contraseña')
 
     <!--GRID CONTENEDOR LOGIN-->
     <div class="contenedor_login">
@@ -29,19 +29,19 @@
                 </div>
 
                 <!--TITULO-->
-                <h1 class="titulo_formulario">¡HOLA! BIENVENIDO DE NUEVO </h1>
+                <h1 class="titulo_formulario">RECUPERAR CONTRASEÑA</h1>
 
                 <!--PÁRRAFO-->
-                <p class="descripcion_formulario">Inicie sesión con los datos que ingresó durante su registro en CRD
+                <p class="descripcion_formulario">Recupere su contraseña con el correo que registro en CRD
                     CLOUD.
                 </p>
 
                 <!--FORMULARIO-->
-                <form wire:submit.prevent="ingresar" class="formulario" style="width: 100%; margin-top: 30px;">
+                <form wire:submit.prevent="recuperar" class="formulario" style="width: 100%; margin-top: 30px;">
                     <!--EMAIL-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Email o Usuario:</p>
+                            <p class="estilo_nombre_input">Corre electrónico:</p>
                             <input type="text" id="email" wire:model="email" autofocus>
                             @error('email')
                                 <span class="campo_obligatorio">{{ $message }}</span>
@@ -49,37 +49,17 @@
                         </div>
                     </div>
 
-                    <!--CONTRASEÑA-->
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Contraseña:</p>
-                            <input type="password" id="password" wire:model="password">
-                            @error('password')
-                                <span class="campo_obligatorio">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="contenedor_1_elementos_100">
-                        <div class="contenedor_elemento_item">
-                            <label for="recordarme" class="estilo_nombre_input">
-                                <input type="checkbox" wire:model="recordarme" name="recordarme" id="recordarme" />
-                                Recordarme
-                            </label>
-                        </div>
-                    </div>
-
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <input type="submit" value="Ingresar">
+                            <input type="submit" value="Recuperar">
                         </div>
                     </div>
 
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item" style="text-align: end;">
                             <label for="recordarme" class="estilo_nombre_input">
-                                <a href="{{ route('recuperar.clave') }}">Recuperar contraseña</a>
+                                <a href="{{ route('inicio') }}">Ingresar a mi cuenta.</a>
                             </label>
                         </div>
                     </div>

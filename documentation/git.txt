@@ -468,3 +468,11 @@ git add .
 git commit -m "Agregue en odontologos y clinicas, sus ventas y canjeos."
 git push origin 59_Modificacion
 ->Click en boton Merge pull request
+
+git checkout -b 60_Recuperar_clave
+git branch
+git status
+git add .
+git commit -m "Recuperar contraseña"
+git push origin 60_Recuperar_clave
+->Click en boton Merge pull request

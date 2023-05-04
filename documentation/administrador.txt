@@ -101,6 +101,3 @@ php artisan make:livewire Administrador/Canjeo/CanjeoTodoLivewire
 php artisan make:livewire Administrador/Canjeo/CanjeoCrearLivewire
 php artisan make:livewire Administrador/Canjeo/CanjeoEditarLivewire
 
-->CRUD Sesion
-php artisan make:livewire Sesion/Administrador/AdministradorIngresarLivewire
-php artisan make:livewire Sesion/Odontologo/OdontologoRegistrarLivewire

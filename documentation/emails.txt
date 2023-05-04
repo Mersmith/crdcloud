@@ -1,0 +1,7 @@
+->Configurar el email del google.
+
+->Agregar las claves en el .env
+
+php artisan make:mail RecuperarClave
+
+php artisan make:mail RecuperarClave --markdown=emails.recuperar-clave
