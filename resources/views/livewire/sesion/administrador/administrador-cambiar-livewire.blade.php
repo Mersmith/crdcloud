@@ -1,6 +1,6 @@
 <div>
     <!--SEO-->
-    @section('tituloPagina', 'Ingresar')
+    @section('tituloPagina', 'Recuperar contraseña')
 
     <!--GRID CONTENEDOR LOGIN-->
     <div class="contenedor_login">
@@ -29,19 +29,24 @@
                 </div>
 
                 <!--TITULO-->
-                <h1 class="titulo_formulario">¡HOLA! BIENVENIDO DE NUEVO </h1>
+                <h1 class="titulo_formulario">CAMBIAR CONTRASEÑA</h1>
 
                 <!--PÁRRAFO-->
-                <p class="descripcion_formulario">Inicie sesión con los datos que ingresó durante su registro en CRD
+                <p class="descripcion_formulario">Cmabie su contraseña con el correo que registro en CRD
                     CLOUD.
                 </p>
 
                 <!--FORMULARIO-->
-                <form wire:submit.prevent="ingresar" class="formulario" style="width: 100%; margin-top: 30px;">
+                <form wire:submit.prevent="cambiarClave" class="formulario" style="width: 100%; margin-top: 30px;">
+
+
+                    <!--TOCKEN-->
+                    <input type="hidden" name="token" wire:model="token">
+
                     <!--EMAIL-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Email o Usuario:</p>
+                            <p class="estilo_nombre_input">Corre electrónico:</p>
                             <input type="text" id="email" wire:model="email" autofocus>
                             @error('email')
                                 <span class="campo_obligatorio">{{ $message }}</span>
@@ -60,26 +65,28 @@
                         </div>
                     </div>
 
+                    <!--CONFIRMAR CONTRASEÑA-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <label for="recordarme" class="estilo_nombre_input">
-                                <input type="checkbox" wire:model="recordarme" name="recordarme" id="recordarme" />
-                                Recordarme
-                            </label>
+                            <p class="estilo_nombre_input">Confirmar contraseña:</p>
+                            <input type="password" id="password_confirmation" wire:model="password_confirmation">
+                            @error('password_confirmation')
+                                <span class="campo_obligatorio">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <input type="submit" value="Ingresar">
+                            <input type="submit" value="Cambiar">
                         </div>
                     </div>
 
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item" style="text-align: end;">
                             <label for="recordarme" class="estilo_nombre_input">
-                                <a href="{{ route('recuperar.clave') }}">Recuperar contraseña</a>
+                                <a href="{{ route('inicio') }}">Ingresar a mi cuenta.</a>
                             </label>
                         </div>
                     </div>
