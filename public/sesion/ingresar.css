@@ -103,6 +103,10 @@
     text-align: center;
 }
 
+.contenedor_login .recuperar_clave {
+    color: #189bb6;
+}
+
 @media screen and (max-width: 900px) {
     .contenedor_login {
         display: grid;

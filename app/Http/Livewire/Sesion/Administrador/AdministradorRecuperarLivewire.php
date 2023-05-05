@@ -41,8 +41,6 @@ class AdministradorRecuperarLivewire extends Component
 
         if ($token) {
 
-            //$resetLink = route('cambiar.clave', ['token' => $token, 'email' => urlencode($this->email)]);
-
             $resetLink = url('cambiar-clave/' . $token) . '?email=' . urlencode($this->email);
 
             Mail::send('emails.recuperar-clave', ['resetLink' => $resetLink], function ($message) {

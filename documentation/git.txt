@@ -476,3 +476,11 @@ git add .
 git commit -m "Recuperar contraseña"
 git push origin 60_Recuperar_clave
 ->Click en boton Merge pull request
+
+git checkout -b 61_Estilos_recuperar
+git branch
+git status
+git add .
+git commit -m "Estilos de recuperar contraseña"
+git push origin 61_Estilos_recuperar
+->Click en boton Merge pull request
