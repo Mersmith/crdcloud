@@ -59,7 +59,7 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item" style="text-align: end;">
                             <label for="recordarme" class="estilo_nombre_input">
-                                <a href="{{ route('inicio') }}">Ingresar a mi cuenta.</a>
+                                <a href="{{ route('inicio') }}" class="recuperar_clave">¿Quieres iniciar sesión?</a>
                             </label>
                         </div>
                     </div>

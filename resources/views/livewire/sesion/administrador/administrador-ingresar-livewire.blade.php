@@ -79,7 +79,7 @@
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item" style="text-align: end;">
                             <label for="recordarme" class="estilo_nombre_input">
-                                <a href="{{ route('recuperar.clave') }}">Recuperar contraseña</a>
+                                <a href="{{ route('recuperar.clave') }}" class="recuperar_clave">¿Olvidaste tu contraseña?</a>
                             </label>
                         </div>
                     </div>
