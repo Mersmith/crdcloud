@@ -484,3 +484,11 @@ git add .
 git commit -m "Estilos de recuperar contraseña"
 git push origin 61_Estilos_recuperar
 ->Click en boton Merge pull request
+
+git checkout -b 62_Google_Storage
+git branch
+git status
+git add .
+git commit -m "Google Storage"
+git push origin 62_Google_Storage
+->Click en boton Merge pull request
