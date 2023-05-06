@@ -4,8 +4,12 @@ namespace App\Http\Livewire\Sesion\Administrador;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Illuminate\Validation\ValidationException;
+use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
+use League\Flysystem\Filesystem;
+use Google\Cloud\Storage\StorageClient;
 
 class AdministradorIngresarLivewire extends Component
 {
@@ -27,6 +31,30 @@ class AdministradorIngresarLivewire extends Component
         'email.required' => 'El :attribute es requerido.',
         'password.required' => 'La :attribute es requerido.',
     ];
+
+    public function mount()
+    {
+        /*$storageClient = new StorageClient([
+            'projectId' => config('filesystems.disks.gcs.project_id'),
+            'keyFilePath' => config('filesystems.disks.gcs.key_file'),
+        ]);
+        
+        $bucket = $storageClient->bucket( config('filesystems.disks.gcs.bucket'));
+
+        $adapter = new GoogleCloudStorageAdapter($bucket);
+        
+        $filesystem = new Filesystem($adapter);
+        
+        $filesystem->write('file.txt', 'Hello, World!');*/
+
+        //Storage::disk('gcs')->write('nombre_archivo.txt', 'Este es el contenido del archivo.');
+        //Storage::disk('gcs')->delete('file.txt');
+        $url = "https://storage.cloud.google.com";
+        dd($url . '/laravelcrd/file.txt');
+
+
+        https://storage.cloud.google.com/laravelcrd/nombre_archivo.txt
+    }
 
     public function ingresar()
     {
