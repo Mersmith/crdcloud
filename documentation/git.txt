@@ -492,3 +492,11 @@ git add .
 git commit -m "Google Storage"
 git push origin 62_Google_Storage
 ->Click en boton Merge pull request
+
+git checkout -b 63_Despliegue_GCP_1
+git branch
+git status
+git add .
+git commit -m "Despliegue GCP 1"
+git push origin 63_Despliegue_GCP_1
+->Click en boton Merge pull request
