@@ -500,3 +500,11 @@ git add .
 git commit -m "Despliegue GCP 1"
 git push origin 63_Despliegue_GCP_1
 ->Click en boton Merge pull request
+
+git checkout -b 63_Despliegue_GCP_2
+git branch
+git status
+git add .
+git commit -m "Despliegue GCP 2 - Agregar la pagina de inicio de CRD"
+git push origin 63_Despliegue_GCP_2
+->Click en boton Merge pull request

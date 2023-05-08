@@ -1,0 +1,64 @@
+/*CONTENEDOR NAVBAR PIE*/
+.contenedor_navbar_pie {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px;
+}
+
+.navbar_pie_menu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar_pie_menu a {
+    font-weight: 600;
+    margin-left: 33px;
+}
+
+.navbar_pie_menu a:hover {
+    color: #189bb6;
+}
+
+.boton_menu_principal {
+    background-color: #189bb6;
+    color: white;
+    padding: 5px 15px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.boton_menu_principal:hover {
+    background-color: #15a9c7;
+    color: white !important;
+}
+
+@media (max-width: 1200px) {
+    .navbar_pie_menu a {
+        margin-left: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    .contenedor_navbar_pie a {
+        margin: 5px 0px;
+    }
+
+    .contenedor_menu_link .contenedor_navbar_pie {
+        display: block;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .contenedor_menu_link .contenedor_navbar_pie .navbar_pie_menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar_pie_tienda {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+}

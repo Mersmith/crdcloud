@@ -1,0 +1,11 @@
+/* CONTENEDOR DERECHOS */
+.contenedor_pie_pagina .contenedor_pie_derechos {
+    padding: 10px 50px;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #189bb6;
+    color: white;
+}

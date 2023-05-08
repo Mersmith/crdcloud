@@ -1,0 +1,46 @@
+/*SLIDER ENCARGADO*/
+.contenedor_slider_encargados {
+    width: 70%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    padding: 40px 20px;
+
+}
+
+.contenedor_nombre_encargado {
+    background-color: #189bb6;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.contenedor_nombre_encargado h4 {
+    font-weight: 600;
+}
+
+.contenedor_slider_encargados .slider_encargado_item {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor_slider_encargados .slider_encargado_item img {
+    width: 60%;
+}
+
+@media (max-width: 1500px) {
+    .contenedor_slider_encargados {
+        width: 80%;
+    }
+}
+
+@media (max-width: 900px) {
+    .contenedor_slider_encargados {
+        width: 100%;
+    }
+}
+

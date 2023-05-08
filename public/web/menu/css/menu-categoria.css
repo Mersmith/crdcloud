@@ -1,0 +1,20 @@
+.contenedor_menu_categorias {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    display: block;
+    width: 100%;
+    background: rgb(243, 13, 13);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+}
+
+@media (max-width: 900px) {
+    .contenedor_menu_categorias {
+        overflow-y: scroll;
+        top: 110px;
+        left: -100%;
+        max-width: 300px;
+        height: 100vh;
+    }
+}
