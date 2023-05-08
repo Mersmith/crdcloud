@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\InicioController;
 use App\Http\Controllers\Web\RedirigirVentaController;
 use App\Http\Livewire\Sesion\Administrador\AdministradorCambiarLivewire;
 use App\Http\Livewire\Sesion\Administrador\AdministradorIngresarLivewire;
@@ -17,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::redirect('/login', '/');
+Route::get('/', InicioController::class)->name('inicio');
 
-Route::get('/', AdministradorIngresarLivewire::class)->name('inicio');
+Route::redirect('/login', '/ingresar');
+
+Route::get('/ingresar', AdministradorIngresarLivewire::class)->name('ingresar');
 
 Route::get('/miradiografia', [RedirigirVentaController::class, 'redirigirVenta'])->name('redirigir.venta');
 

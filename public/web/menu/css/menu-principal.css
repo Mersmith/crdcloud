@@ -1,0 +1,120 @@
+/*CONTENEDOR NAVBAR*/
+.contenedor_navbar {
+    padding: 10px 10px 20px 10px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 950;
+    box-shadow: 10px 10px 15px rgba(73, 78, 92, 0.1);
+}
+
+/*NAVBAR*/
+.navbar {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*REDES*/
+.navbar_pie_redes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar_pie_redes a{
+    margin-left: 10px;
+}
+
+/*MENU*/
+.contenedor_menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*GRID HAMBURGUESA*/
+.contenedor_hamburguesa {
+    grid-area: contenedor_hamburguesa;
+    border-bottom: 1px solid rgba(129, 129, 129, 0.2);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/*BOTON SIDEBAR*/
+.navbar .contenedor_menu_link .sidebar_logo {
+    display: none;
+}
+
+.navbar .contenedor_menu_link .sidebar_logo i {
+    font-size: 30px;
+}
+
+/*LOGO*/
+.contenedor_logo img {
+    width: 180px;
+}
+
+@media (max-width: 1600px) {
+    .navbar {
+        width: 90%;
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .navbar {
+        width: 90%;
+    }
+
+    /*HAMBURGUESA*/
+    .contenedor_hamburguesa {
+        display: flex;
+        font-size: 20px;
+    }
+
+    /*LINKS*/
+    .navbar .contenedor_menu_link {
+        position: fixed;
+        overflow-y: scroll;
+        top: 0;
+        left: -100%;
+        display: block;
+        max-width: 300px;
+        width: 100%;
+        background: white;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.5s ease;
+        z-index: 1000;
+        height: 100vh;
+    }
+
+    .contenedor_menu_link::-webkit-scrollbar {
+        display: none;
+    }
+
+    /*LOGO*/
+    .contenedor_logo img {
+        width: 150px;
+    }
+
+    /*SIDEBAR LOGO*/
+    .navbar .contenedor_menu_link .sidebar_logo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .navbar .contenedor_menu_link .sidebar_logo img:first-child {
+        width: 150px;
+    }
+}
