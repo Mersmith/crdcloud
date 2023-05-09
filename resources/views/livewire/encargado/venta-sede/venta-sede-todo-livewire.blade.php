@@ -111,7 +111,9 @@
                                     <th>
                                         Link</th>
                                     <th>
-                                        Descarga</th>
+                                        Descargas</th>
+                                    <th>
+                                        Vistas</th>
                                     <th>
                                         Registro</th>
                                     <th>
@@ -163,9 +165,12 @@
                                             @endif
                                         </td>
                                         <td style="text-align: center;">
-                                            @if ($ventaItem->link)
-                                                {{ $ventaItem->descargas_imagen }}
-                                            @endif
+                                            Im: {{ $ventaItem->descargas_imagen }} -
+                                            Li: {{ $ventaItem->descargas_link }} -
+                                            In: {{ $ventaItem->descargas_informe }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $ventaItem->vistas_imagen }}
                                         </td>
                                         <td style="text-align: center;">
                                             {{ $ventaItem->created_at }}
@@ -234,7 +239,8 @@
                     navigator.clipboard.writeText(url);
                     $dispatch('alert', {type: 'success', message: 'Enlace copiado al portapapeles'})
                 "
-                        style="background-color: #189bb6;" type="submit">Copiar <i class="fa-solid fa-clipboard"></i></button>
+                        style="background-color: #189bb6;" type="submit">Copiar <i
+                            class="fa-solid fa-clipboard"></i></button>
                 </div>
             </x-slot>
         </x-dialog-modal>

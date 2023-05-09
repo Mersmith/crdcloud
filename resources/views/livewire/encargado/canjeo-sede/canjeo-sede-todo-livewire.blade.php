@@ -111,6 +111,10 @@
                                     <th>
                                         Paciente</th>
                                     <th>
+                                        Descargas</th>
+                                    <th>
+                                        Vistas</th>
+                                    <th>
                                         Registro</th>
                                     <th>
                                         Acción</th>
@@ -156,6 +160,14 @@
                                         </td>
                                         <td>
                                             {{ $ventaItem->nombre . ' ' . $ventaItem->apellido }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            Im: {{ $ventaItem->descargas_imagen }} -
+                                            Li: {{ $ventaItem->descargas_link }} -
+                                            In: {{ $ventaItem->descargas_informe }}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ $ventaItem->vistas_imagen }}
                                         </td>
                                         <td style="text-align: center;">
                                             {{ $ventaItem->created_at }}

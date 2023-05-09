@@ -133,6 +133,12 @@ class VentaOdontologoInformacionLivewire extends Component
         $this->venta->update();
     }
 
+    public function aumentarVistas(){
+        $this->venta->vistas_imagen = $this->venta->vistas_imagen + 1;
+
+        $this->venta->update();
+    }
+
     public function render()
     {
         return view('livewire.odontologo.venta-odontologo.venta-odontologo-informacion-livewire')->layout('layouts.administrador.index');

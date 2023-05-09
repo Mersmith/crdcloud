@@ -39,7 +39,7 @@ class VentaSedeTodoLivewire extends Component
 
         $this->url = url('miradiografia') . '?' . http_build_query($params);
 
-        if($this->url){
+        if ($this->url) {
             $this->abrir_modal = true;
         }
     }
@@ -52,7 +52,7 @@ class VentaSedeTodoLivewire extends Component
             ->leftJoin('venta_detalles', 'ventas.id', '=', 'venta_detalles.venta_id')
             ->leftJoin('servicios', 'venta_detalles.servicio_id', '=', 'servicios.id')
             ->leftJoin('pacientes', 'ventas.paciente_id', '=', 'pacientes.id')
-            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'), 'pacientes.nombre as nombre_paciente', 'pacientes.apellido as apellido_paciente')
+            ->select('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.descargas_link', 'ventas.descargas_informe', 'ventas.vistas_imagen', 'ventas.created_at', DB::raw('GROUP_CONCAT(servicios.nombre SEPARATOR ", ") as nombre'), 'pacientes.nombre as nombre_paciente', 'pacientes.apellido as apellido_paciente')
             ->where('ventas.sede_id', $sedeId);
 
         if ($this->estado) {
@@ -68,7 +68,7 @@ class VentaSedeTodoLivewire extends Component
             });
         }
 
-        $ventas = $ventas->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.created_at', 'pacientes.nombre', 'pacientes.apellido')
+        $ventas = $ventas->groupBy('ventas.id', 'ventas.estado', 'ventas.link', 'ventas.descargas_imagen', 'ventas.descargas_link', 'ventas.descargas_informe', 'ventas.vistas_imagen', 'ventas.created_at', 'pacientes.nombre', 'pacientes.apellido')
             ->orderBy('ventas.created_at', 'desc')
             ->paginate($this->paginate)
             ->withQueryString();
