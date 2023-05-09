@@ -103,6 +103,14 @@
                             <input type="text" value="{{ $venta->descargas_link }}" disabled>
                         </div>
                     </div>
+
+                    <!--VISTAS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad vistas de imagen:</p>
+                            <input type="text" value="{{ $venta->vistas_imagen }}" disabled>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -192,7 +200,7 @@
                                     @foreach ($venta->imagenes as $key => $imagen)
                                         <div>
                                             <a href="{{ Storage::url($imagen->imagen_ruta) }}" data-lightbox="gallery">
-                                                <img src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
+                                                <img src="{{ Storage::url($imagen->imagen_ruta) }}" alt="" wire:click="aumentarVistas()">
                                             </a>
                                         </div>
                                     @endforeach
@@ -265,7 +273,7 @@
                             <div class="contenedor_1_elementos_100">
                                 <div class="contenedor_elemento_item">
                                     <p class="estilo_nombre_input">Observación:</p>
-                                    <textarea rows="3" value="{{ $observacion }}" disabled></textarea>
+                                    <textarea rows="3" disabled>{{ $observacion }}</textarea>
                                 </div>
                             </div>
                         </div>

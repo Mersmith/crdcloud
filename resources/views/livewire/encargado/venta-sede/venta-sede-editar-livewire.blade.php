@@ -157,6 +157,41 @@
 
                 </div>
 
+                <!--DESCARGAS-->
+                <div class="formulario contenedor_panel_producto_admin">
+                    <!--IMAGEN-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad descarga de imagenes:</p>
+                            <input type="text" value="{{ $venta->descargas_imagen }}" disabled>
+                        </div>
+                    </div>
+
+                    <!--INFORME-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad descarga de informes:</p>
+                            <input type="text" value="{{ $venta->descargas_informe }}" disabled>
+                        </div>
+                    </div>
+
+                    <!--LINK-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad descarga de drive:</p>
+                            <input type="text" value="{{ $venta->descargas_link }}" disabled>
+                        </div>
+                    </div>
+
+                    <!--VISTAS-->
+                    <div class="contenedor_1_elementos_100">
+                        <div class="contenedor_elemento_item">
+                            <p class="estilo_nombre_input">Cantidad vistas de imagen:</p>
+                            <input type="text" value="{{ $venta->vistas_imagen }}" disabled>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!--GRID DETALLE-->
@@ -257,8 +292,11 @@
                                 <div class="contenedor_imagenes_subidas_dropzone" id="sortableimagenes">
                                     @foreach ($venta->imagenes->sortBy('posicion') as $key => $imagen)
                                         <div wire:key="imagen-{{ $imagen->id }}" data-id="{{ $imagen->id }}">
-                                            <img class="handle2 cursor-grab"
-                                                src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
+                                            <a href="{{ Storage::url($imagen->imagen_ruta) }}"
+                                                data-lightbox="gallery">
+                                                <img class="handle2 cursor-grab"
+                                                    src="{{ Storage::url($imagen->imagen_ruta) }}" alt="">
+                                            </a>
                                             <span class="imagen_dropzone_eliminar"
                                                 wire:click="eliminarImagen({{ $imagen->id }})"
                                                 wire:loading.attr="disabled"
@@ -284,9 +322,10 @@
                                 class="dropzone" id="my-zip-dropzone"></form>
                         </div>
                     </div>
+
                     <!--INFORME-->
-                    <div class="contenedor_panel_producto_admin">
-                        @if ($venta->informes->count())
+                    @if ($venta->informes->count())
+                        <div class="contenedor_panel_producto_admin">
                             <div class="formulario">
                                 <!--INFORME-->
                                 <div class="contenedor_1_elementos_100">
@@ -312,8 +351,28 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
+
+                    <!--LINK-->
+                    @if ($venta->link)
+                        <div class="contenedor_panel_producto_admin">
+                            <div class="formulario">
+                                <!--LINK-->
+                                <div class="contenedor_1_elementos_100">
+                                    <div class="contenedor_elemento_item">
+                                        <p class="estilo_nombre_input">Link:</p>
+                                    </div>
+                                </div>
+                                <!--CONTENEDOR BOTONES-->
+                                <div class="contenedor_botones_admin">
+                                    <a href="{{ $venta->link }}" target="_blank">
+                                        <i class="fa-brands fa-google-drive"></i> Abrir link en DRIVE
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     <!--OBSERVACIÓN-->
                     <div class="formulario contenedor_panel_producto_admin">
@@ -412,5 +471,15 @@
                 }
             })
         })
+
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'showImageNumberLabel': true,
+            'alwaysShowNavOnTouchDevices': true,
+            'disableScrolling': false,
+            'maxWidth': '80%',
+            'maxHeight': '80%'
+        });
     </script>
 @endpush
