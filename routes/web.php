@@ -18,19 +18,20 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', InicioController::class)->name('inicio');
 
 Route::redirect('/login', '/ingresar');
 
-Route::get('/ingresar', AdministradorIngresarLivewire::class)->name('ingresar');
+Route::get('/ingresar', AdministradorIngresarLivewire::class)->name('ingresar')->middleware('verificar.ingreso');
+
+Route::get('/recuperar-clave', AdministradorRecuperarLivewire::class)->name('recuperar.clave')->middleware('verificar.ingreso');
+
+Route::get('/cambiar-clave/{token}', AdministradorCambiarLivewire::class)->name('cambiar.clave')->middleware('verificar.ingreso');
 
 Route::get('/miradiografia', [RedirigirVentaController::class, 'redirigirVenta'])->name('redirigir.venta');
 
 Route::get('/micanjeo', [RedirigirVentaController::class, 'redirigirCanjeo'])->name('redirigir.canjeo');
-
-Route::get('/recuperar-clave', AdministradorRecuperarLivewire::class)->name('recuperar.clave');
-
-Route::get('/cambiar-clave/{token}', AdministradorCambiarLivewire::class)->name('cambiar.clave');
 
 //Route::get('registrar', OdontologoRegistrarLivewire::class)->name('regitrar.odontologo');
 

@@ -228,7 +228,7 @@
                                     </div>
                                     <!--CONTENEDOR BOTONES-->
                                     <div class="contenedor_botones_admin">
-                                        <a wire:click="descargarInforme()">
+                                        <a wire:click="descargarInforme()" style="cursor: pointer;">
                                             <i class="fa-solid fa-file-zipper"></i> Descargar informe en ZIP
                                         </a>
                                         {{-- <a href="{{ Storage::url($venta->informes->first()->informe_ruta) }}"
@@ -255,7 +255,7 @@
                             </div>
                             <!--CONTENEDOR BOTONES-->
                             <div class="contenedor_botones_admin">
-                                <a wire:click="abrirLink()">
+                                <a wire:click="abrirLink()" style="cursor: pointer;">
                                     <i class="fa-brands fa-google-drive"></i> Abrir link en DRIVE
                                 </a>
                                 {{-- <a href="{{ $link }}" target="_blank">

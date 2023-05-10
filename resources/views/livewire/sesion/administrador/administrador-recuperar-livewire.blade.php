@@ -41,7 +41,7 @@
                     <!--EMAIL-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <p class="estilo_nombre_input">Corre electrónico:</p>
+                            <p class="estilo_nombre_input">Correo electrónico:</p>
                             <input type="text" id="email" wire:model="email" autofocus>
                             @error('email')
                                 <span class="campo_obligatorio">{{ $message }}</span>
@@ -52,14 +52,18 @@
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <input type="submit" value="Recuperar">
+                            <input type="submit" value="Recuperar" wire:loading.attr="disabled"
+                                wire:target="recuperar">
+                            <span wire:loading wire:target="recuperar">
+                                <x-spinner wire:target="recuperar" />
+                            </span>
                         </div>
                     </div>
 
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item" style="text-align: end;">
                             <label for="recordarme" class="estilo_nombre_input">
-                                <a href="{{ route('inicio') }}" class="recuperar_clave">¿Quieres iniciar sesión?</a>
+                                <a href="{{ route('ingresar') }}" class="recuperar_clave">¿Quieres iniciar sesión?</a>
                             </label>
                         </div>
                     </div>

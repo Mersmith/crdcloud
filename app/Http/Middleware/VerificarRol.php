@@ -18,8 +18,8 @@ class VerificarRol
     {
         if (Auth::check() && (Auth::user()->rol == $rol)) {
             return $next($request);
+        } else {
+            return redirect()->back();
         }
-
-        return redirect()->route('error-page');
     }
 }

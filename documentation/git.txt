@@ -516,3 +516,11 @@ git add .
 git commit -m "Despliegue GCP 3 - Contador de vistas imagen"
 git push origin 64_Despliegue_GCP_3
 ->Click en boton Merge pull request
+
+git checkout -b 65_Despliegue_GCP_4
+git branch
+git status
+git add .
+git commit -m "Despliegue GCP 4 - Spiner, verificar rutas con sesion y errores."
+git push origin 65_Despliegue_GCP_4
+->Click en boton Merge pull request
