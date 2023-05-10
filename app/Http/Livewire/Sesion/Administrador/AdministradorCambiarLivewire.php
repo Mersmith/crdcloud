@@ -14,6 +14,23 @@ class AdministradorCambiarLivewire extends Component
     public $password;
     public $password_confirmation;
 
+    protected $validationAttributes = [
+        'email' => 'email',
+        'password' => 'constraseña',
+        'password_confirmation' => 'confirmarción de contraseña',
+    ];
+
+    protected $messages = [
+        'email.required' => 'El :attribute es requerido.',
+        'email.exists' => 'El :attribute no existe.',
+        'email.email' => 'El :attribute no es correcto.',
+        'password.required' => 'La :attribute es requerido.',
+        'password.min' => 'La :attribute requiere minimo 8 dígitos.',
+        'password.confirmed' => 'La :attribute no es igual a la confirmación.',
+        'password_confirmation.required' => 'La :attribute es requerido.',
+        'password_confirmation.same' => 'La :attribute es incorrecta.',
+    ];
+
     public function mount(Request $request, $token)
     {
         $this->token = $token;
@@ -23,8 +40,9 @@ class AdministradorCambiarLivewire extends Component
     public function cambiarClave()
     {
         $this->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required|same:password',
             'token' => 'required',
         ]);
 
@@ -47,7 +65,7 @@ class AdministradorCambiarLivewire extends Component
 
             $this->emit('mensajeCreado', "Recuperaste correctamente.");
 
-            return redirect()->intended('/');
+            return redirect()->intended(route('ingresar'));
         } else {
             $this->emit('mensajeError', "Ha ocurrido un error.");
         }

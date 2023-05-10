@@ -72,14 +72,18 @@
                     <!--ENVIAR-->
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item">
-                            <input type="submit" value="Ingresar">
+                            <input type="submit" value="Ingresar" wire:loading.attr="disabled" wire:target="ingresar">
+                            <span wire:loading wire:target="ingresar">
+                                <x-spinner wire:target="ingresar" />
+                            </span>
                         </div>
                     </div>
 
                     <div class="contenedor_1_elementos_100">
                         <div class="contenedor_elemento_item" style="text-align: end;">
                             <label for="recordarme" class="estilo_nombre_input">
-                                <a href="{{ route('recuperar.clave') }}" class="recuperar_clave">¿Olvidaste tu contraseña?</a>
+                                <a href="{{ route('recuperar.clave') }}" class="recuperar_clave">¿Olvidaste tu
+                                    contraseña?</a>
                             </label>
                         </div>
                     </div>

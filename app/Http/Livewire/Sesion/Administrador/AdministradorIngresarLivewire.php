@@ -38,13 +38,13 @@ class AdministradorIngresarLivewire extends Component
             'projectId' => config('filesystems.disks.gcs.project_id'),
             'keyFilePath' => config('filesystems.disks.gcs.key_file'),
         ]);
-        
+
         $bucket = $storageClient->bucket( config('filesystems.disks.gcs.bucket'));
 
         $adapter = new GoogleCloudStorageAdapter($bucket);
-        
+
         $filesystem = new Filesystem($adapter);
-        
+
         $filesystem->write('file.txt', 'Hello, World!');
 
         //Storage::disk('gcs')->write('nombre_archivo.txt', 'Este es el contenido del archivo.');
@@ -80,7 +80,7 @@ class AdministradorIngresarLivewire extends Component
             } elseif ($usuario->rol == "paciente") {
                 return redirect()->route('encargado.odontologo.index');
             } else {
-                return redirect()->route('inicio');
+                return redirect()->route('ingresar');
             }
         } else {
             $errors = ['email' => 'Email o usuario incorrecto.'];

@@ -215,3 +215,11 @@ php artisan make:notification CanjeoRealizadoNotification
 php artisan notifications:table
 
 php artisan make:controller Web/RedirigirVentaController
+
+php artisan vendor:publish --tag=laravel-errors
+
+//Desactivar y activar modo mantenimiento en el servidor.
+php artisan down
+php artisan up
+
+php artisan make:middleware VerificarIngreso

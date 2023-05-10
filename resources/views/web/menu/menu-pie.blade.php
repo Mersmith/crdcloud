@@ -7,7 +7,7 @@
         <a href="#seccion_sedes">Sedes</a>
         <a href="#seccion_beneficios">Beneficios</a>
         <a href="{{ asset('documentos/orden.pdf') }}" target="_blank" class="boton_menu_principal">Orden</a>
-        <a href="{{ route('ingresar') }}" target="_blank" class="boton_menu_principal">CRD Cloud</a>
+        <a href="{{ route('ingresar') }}" class="boton_menu_principal">CRD Cloud</a>
     </div>
 </div>
 
